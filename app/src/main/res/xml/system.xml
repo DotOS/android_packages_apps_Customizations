@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        android:layout="@layout/header_flashlight"
+        app:selectable="false"
+        app:enabled="false"
+        app:shouldDisableView="false"/>
+    <SwitchPreferenceCompat
+        android:id="@+id/hold_power_to_torch"
+        android:key="hold_power_to_torch"
+        android:summary="Press power button to open flashlight while the screen is off"/>
+
+</PreferenceScreen>

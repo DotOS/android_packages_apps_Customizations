@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:enabled="false"
+        app:layout="@layout/layout_shapes_holder"
+        app:selectable="false"
+        app:shouldDisableView="false" />
+</PreferenceScreen>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/small_card_width"
+        android:layout_height="@dimen/small_card_height"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="@color/colorPrimaryBackground"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:id="@+id/shapeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/shapePreview"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:tint="?android:textColorSecondary" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/shapeLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center_vertical"
+        android:scrollbars="none"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        tools:text="Rounded" />
+
+</LinearLayout>

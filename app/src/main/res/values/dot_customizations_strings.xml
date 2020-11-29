@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="section_statusbar_title">Status Bar</string>
+    <string name="section_qs_title">Quick Settings</string>
+    <string name="section_system_title">System</string>
+    <string name="section_themes_title">Themes</string>
+    <string name="section_wallpaper_title">Wallpapers</string>
+    <string name="section_aod_title">Always-on Display</string>
+    <string name="section_font_title">Font &amp; Display Size</string>
+    <string name="section_icons_title">Icon style</string>
+    <string name="section_fod_title">Fingerprint styles</string>
+    <string name="set_wallpaper">Set Wallpaper</string>
+    <string name="system_gestures">Gestures</string>
+</resources>
