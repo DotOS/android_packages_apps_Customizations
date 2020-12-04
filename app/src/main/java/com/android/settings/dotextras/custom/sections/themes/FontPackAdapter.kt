@@ -1,7 +1,5 @@
 package com.android.settings.dotextras.custom.sections.themes
 
-import android.content.res.Configuration
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.android.settings.dotextras.custom.utils.getNormalizedColor
 import com.android.settings.dotextras.system.OverlayController
 
 class FontPackAdapter(
@@ -36,8 +35,9 @@ class FontPackAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val fontPack: FontPack = items[position]
         holder.label.text = fontPack.label
-        if (holder.fontHeadline.typeface!=null) holder.fontHeadline.typeface = fontPack.headLineFont
-        if (holder.fontBody.typeface!=null) holder.fontBody.typeface = fontPack.bodyFont
+        if (holder.fontHeadline.typeface != null) holder.fontHeadline.typeface =
+            fontPack.headLineFont
+        if (holder.fontBody.typeface != null) holder.fontBody.typeface = fontPack.bodyFont
         holder.fontLayout.setOnClickListener {
             select(position)
             overlayController.FontPacks().setOverlay(fontPack.packageName, fontPack, holder)
@@ -59,33 +59,14 @@ class FontPackAdapter(
             )
             holder.fontLayout.invalidate()
         }
-
-        val nightModeFlags: Int = holder.fontLayout.resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK
-        var normalizedTextColor: Int =
-            if (ResourceHelper.isDark((holder.fontLayout.background!! as ColorDrawable).color)) ResourceHelper.getTextColor(
-                holder.fontLayout.context
-            ) else ResourceHelper.getInverseTextColor(holder.fontLayout.context)
-        when (nightModeFlags) {
-            Configuration.UI_MODE_NIGHT_YES -> normalizedTextColor =
-                if (ResourceHelper.isDark((holder.fontLayout.background!! as ColorDrawable).color)) ResourceHelper.getTextColor(
-                    holder.fontLayout.context
-                ) else ResourceHelper.getInverseTextColor(holder.fontLayout.context)
-            Configuration.UI_MODE_NIGHT_NO -> normalizedTextColor = if (fontPack.selected) {
-                if (ResourceHelper.isDark((holder.fontLayout.background!! as ColorDrawable).color)) ResourceHelper.getInverseTextColor(
-                    holder.fontLayout.context
-                ) else ResourceHelper.getTextColor(holder.fontLayout.context)
-            } else {
-                ResourceHelper.getTextColor(
-                    holder.fontLayout.context
-                )
-            }
-        }
+        val normalizedTextColor: Int = holder.itemView.context.getNormalizedColor(
+            holder.fontLayout.background!!,
+            fontPack.selected
+        )
         holder.divider.setBackgroundColor(normalizedTextColor)
         holder.fontHeadline.setTextColor(normalizedTextColor)
         holder.fontBody.setTextColor(normalizedTextColor)
     }
-
 
     private fun select(pos: Int) {
         for (i in items.indices) {

@@ -28,7 +28,7 @@ class ShapeController(context: Context?, attrs: AttributeSet?) : LinearLayout(co
         )
         val recycler = layoutBase.findViewById<RecyclerView>(R.id.shapesRecycler)
         val adapter = ShapeAdapter(
-            overlayController, overlayController.Shapes().getShapes()
+            overlayController, overlayController.Shapes().getShapes(context!!)
         )
         recycler.adapter = adapter
         recycler.addItemDecoration(

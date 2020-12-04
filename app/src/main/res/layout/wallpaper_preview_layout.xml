@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,10 +22,10 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/back_behaviour"
                 android:scaleType="center"
                 android:tint="?android:attr/textColorPrimary"
-                app:srcCompat="@drawable/chevron_left"
-                android:contentDescription="@string/back_behaviour" />
+                app:srcCompat="@drawable/chevron_left" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,6 +42,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@null"
         android:fitsSystemWindows="true"
         android:scaleType="fitCenter" />
 
@@ -55,6 +53,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="32dp"
         android:clickable="true"
+        android:contentDescription="@null"
         app:backgroundTint="@color/colorPrimaryBackground"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_done" />

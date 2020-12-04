@@ -30,7 +30,7 @@ object ResourceHelper {
         )
         val accentManager =
             FeatureManager(context.contentResolver).AccentManager()
-        return if (accentManager.get() == "-1") typedValue.data else Color.parseColor("#" + accentManager.get())
+        return if (accentManager.get() == "-1" || accentManager.get() == "") typedValue.data else Color.parseColor("#" + accentManager.get())
     }
 
     fun getTextColor(context: Context): Int {
@@ -43,6 +43,10 @@ object ResourceHelper {
 
     fun getSecondaryTextColor(context: Context): Int {
         return context.resolveColorAttr(android.R.attr.textColorSecondary)
+    }
+
+    fun getInverseSecondaryTextColor(context: Context): Int {
+        return context.resolveColorAttr(android.R.attr.textColorSecondaryInverse)
     }
 
     fun getCornerRadius(context: Context): Float {

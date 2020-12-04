@@ -26,6 +26,7 @@
                 android:layout_height="@dimen/default_size_icon"
                 android:background="@drawable/circle_bg"
                 android:backgroundTint="?android:attr/textColorSecondaryInverse"
+                android:contentDescription="@null"
                 android:padding="12dp"
                 app:srcCompat="@drawable/statusbar_icon0"
                 app:tint="?android:attr/textColorPrimary" />
@@ -36,6 +37,7 @@
                 android:layout_marginStart="16dp"
                 android:background="@drawable/circle_bg"
                 android:backgroundTint="?android:attr/textColorSecondaryInverse"
+                android:contentDescription="@null"
                 android:padding="12dp"
                 app:srcCompat="@drawable/statusbar_icon1"
                 app:tint="?android:attr/textColorPrimary" />
@@ -56,6 +58,7 @@
                 android:layout_height="@dimen/default_size_icon"
                 android:background="@drawable/circle_bg"
                 android:backgroundTint="?android:attr/textColorSecondaryInverse"
+                android:contentDescription="@null"
                 android:padding="12dp"
                 app:srcCompat="@drawable/qs_icon0"
                 app:tint="?android:attr/textColorPrimary" />
@@ -66,6 +69,7 @@
                 android:layout_marginStart="16dp"
                 android:background="@drawable/circle_bg"
                 android:backgroundTint="?android:attr/textColorSecondaryInverse"
+                android:contentDescription="@null"
                 android:padding="12dp"
                 app:srcCompat="@drawable/qs_icon1"
                 app:tint="?android:attr/textColorPrimary" />

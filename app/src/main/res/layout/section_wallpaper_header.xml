@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -25,7 +24,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current Wallpaper"
+                android:text="@string/current_wallpaper"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp" />
 
@@ -35,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView6"
                 android:layout_marginTop="4dp"
-                android:text="Image Color(s)"
+                android:text="@string/image_color_s"
                 android:textSize="16sp" />
 
             <include
@@ -61,6 +60,7 @@
                 android:layout_width="@dimen/small_card_width"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
+                android:contentDescription="@null"
                 android:minHeight="@dimen/default_header_height"
                 android:scaleType="centerCrop" />
         </androidx.cardview.widget.CardView>
@@ -75,7 +75,7 @@
         android:paddingTop="14dp"
         android:paddingEnd="18dp"
         android:paddingBottom="14dp"
-        android:text="My Photos"
+        android:text="@string/my_photos"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="22sp" />
 
@@ -84,6 +84,7 @@
         android:layout_height="@dimen/small_card_height"
         android:layout_margin="10dp"
         android:background="@drawable/rounded_bg"
+        android:contentDescription="@null"
         android:tint="?android:attr/textColorPrimary"
         app:srcCompat="@drawable/ic_add" />
 
@@ -95,7 +96,7 @@
         android:paddingTop="14dp"
         android:paddingEnd="18dp"
         android:paddingBottom="14dp"
-        android:text="Built-in Wallpapers"
+        android:text="@string/built_in_wallpapers"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="22sp" />
 
@@ -112,7 +113,7 @@
         android:paddingTop="14dp"
         android:paddingEnd="18dp"
         android:paddingBottom="14dp"
-        android:text="Live Wallpapers"
+        android:text="@string/live_wallpapers"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="22sp" />
 

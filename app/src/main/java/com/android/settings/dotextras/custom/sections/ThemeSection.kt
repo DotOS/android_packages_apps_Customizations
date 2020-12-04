@@ -12,8 +12,8 @@ import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.system.FeatureManager
 import com.android.settings.dotextras.system.OverlayController
-import dev.sasikanth.colorsheet.ColorSheet
 import com.android.settings.dotextras.custom.utils.ColorSheetUtils
+import com.android.settings.dotextras.custom.views.ColorSheet
 
 class ThemeSection : PreferenceFragmentCompat() {
 
@@ -41,10 +41,10 @@ class ThemeSection : PreferenceFragmentCompat() {
                 .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE)))
         accentDef.isEnabled = overlayController.isAvailable()
         accentDef.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            overlayController.Analog().setOverlay((newValue as String))
+            overlayController.Analog(accentDef).setOverlay((newValue as String))
             true
         }
-        overlayController.Analog().updatePreferenceOverlays(accentDef)
+        overlayController.Analog(accentDef).updatePreferenceOverlays()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

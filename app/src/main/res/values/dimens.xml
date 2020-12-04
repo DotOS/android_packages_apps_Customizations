@@ -5,6 +5,7 @@
     <dimen name="large_card_height">256dp</dimen>
     <dimen name="default_size_icon">52dp</dimen>
     <dimen name="default_header_height">174dp</dimen>
+    <dimen name="system_header_height">148dp</dimen>
     <dimen name="small_card_width_with_spacing">140dp</dimen>
     <dimen name="small_card_width">128dp</dimen>
     <dimen name="small_card_height">128dp</dimen>
@@ -14,40 +15,6 @@
     <dimen name="recyclerSpacer">16dp</dimen>
     <dimen name="recyclerSpacerBig">28dp</dimen>
     <dimen name="component_shape_thumb_size">72dp</dimen>
-
-    <dimen name="volume_dialog_panel_transparent_padding_horizontal">4dp</dimen>
-
-    <dimen name="volume_dialog_panel_transparent_padding">20dp</dimen>
-
-    <dimen name="volume_dialog_stream_padding">8dp</dimen>
-
-    <dimen name="volume_dialog_panel_width">64dp</dimen>
-
-    <dimen name="volume_dialog_slider_height">164dp</dimen>
-
-    <dimen name="volume_dialog_ringer_size">64dp</dimen>
-
-    <dimen name="volume_dialog_ringer_icon_padding">20dp</dimen>
-
-    <dimen name="volume_dialog_caption_size">64dp</dimen>
-
-    <dimen name="volume_dialog_tap_target_size">48dp</dimen>
-
-    <dimen name="volume_dialog_spacer">4dp</dimen>
-
-    <dimen name="volume_dialog_slider_margin_top">14dp</dimen>
-
-    <dimen name="volume_dialog_slider_margin_bottom">-2dp</dimen>
-
-    <dimen name="volume_dialog_row_margin_bottom">8dp</dimen>
-
-    <dimen name="volume_dialog_elevation">9dp</dimen>
-
-    <dimen name="volume_tool_tip_right_margin">60dp</dimen>
-
-    <dimen name="volume_tool_tip_bottom_margin">32dp</dimen>
-
-    <dimen name="volume_tool_tip_arrow_corner_radius">2dp</dimen>
 
     <declare-styleable name="BlurView">
         <attr name="blurOverlayColor" format="color"/>

@@ -1,6 +1,36 @@
 <resources>
     <string name="app_name">Customizations</string>
+
     <string name="lockscreen_date_pattern">EEE, MMM d</string>
     <string name="back_behaviour">back_behaviour</string>
-    <string name="pickcolor">Pick a color</string>
+    <string name="picker_title">Pick a color</string>
+    <string name="accent_color">Accent Color</string>
+    <string name="switches">Switches</string>
+    <string name="progress">Progress</string>
+    <string name="buttons">Buttons</string>
+    <string name="chip">Chip</string>
+    <string name="button">Button</string>
+    <string name="picker_summary">Select the one that fits you.</string>
+    <string name="reset">Reset</string>
+    <string name="built_in_accents">Built-in Accents</string>
+    <string name="material_palette">Material Palette</string>
+    <string name="headline_01">Headline 01</string>
+    <string name="body_02">Body 02</string>
+    <string name="fonts">Fonts</string>
+    <string name="icon_pack">Icon Pack</string>
+    <string name="icon_shapes">Icon Shapes</string>
+    <string name="sections">Sections</string>
+    <string name="current_wallpaper">Current Wallpaper</string>
+    <string name="image_color_s">Image Color(s)</string>
+    <string name="my_photos">My Photos</string>
+    <string name="built_in_wallpapers">Built-in Wallpapers</string>
+    <string name="live_wallpapers">Live Wallpapers</string>
+    <string name="device_default">Device default</string>
+    <string name="device_default_font">Device\nDefault Font</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="hold_to_torch">Hold to Torch</string>
+    <string name="hold_to_torch_summary">Hold power button to torch</string>
+    <string name="pocket_mode">Pocket Mode</string>
+
 </resources>

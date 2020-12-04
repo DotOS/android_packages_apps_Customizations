@@ -27,7 +27,7 @@ class IconPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
         )
         val recycler = layoutBase.findViewById<RecyclerView>(R.id.iconRecycler)
         val adapter = IconPackAdapter(
-            overlayController, overlayController.IconPacks().getIconPacks()
+            overlayController, overlayController.IconPacks().getIconPacks(context!!)
         )
         recycler.adapter = adapter
         recycler.addItemDecoration(

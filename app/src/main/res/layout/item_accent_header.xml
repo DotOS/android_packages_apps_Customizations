@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
-        android:text="Accent Color"
+        android:text="@string/accent_color"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -23,7 +23,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="2dp"
         app:cardBackgroundColor="@color/colorPrimaryBackground"
-        app:cardCornerRadius="18dp"
+        app:cardCornerRadius="@dimen/default_dialog_radius"
         app:cardElevation="0dp">
 
         <LinearLayout
@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:text="Switches"
+                    android:text="@string/switches"
                     android:textSize="20sp" />
 
                 <LinearLayout
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="2dp"
-                    android:text="Progress"
+                    android:text="@string/progress"
                     android:textSize="20sp" />
 
                 <LinearLayout
@@ -130,11 +130,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="18dp"
-                    android:text="Buttons"
+                    android:text="@string/buttons"
                     android:textSize="20sp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -147,7 +147,7 @@
                         android:layout_marginEnd="12dp"
                         android:checkable="true"
                         android:checked="true"
-                        android:text="Chip"
+                        android:text="@string/chip"
                         app:checkedIconEnabled="true"
                         app:checkedIconVisible="true"
                         app:chipBackgroundColor="?android:attr/colorAccent"
@@ -159,7 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="12dp"
-                        android:text="Button"
+                        android:text="@string/button"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="?android:textColorPrimary"
                         app:backgroundTint="@color/colorAccent"

@@ -27,7 +27,11 @@ class FeatureManager(private val contentResolver: ContentResolver) {
             val overlayManager = IOverlayManager.Stub
                 .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
             val reloadAndroidAssets = omsClass.getMethod("reloadAndroidAssets", Int::class.java)
-            val reloadAssets = omsClass.getMethod("reloadAssets", String::class.java, Int::class.java)
+            val reloadAssets = omsClass.getMethod(
+                "reloadAssets",
+                String::class.java,
+                Int::class.java
+            )
             SystemProperties.set(ACCENT_COLOR_PROP, hexColor)
             try {
                 reloadAndroidAssets.invoke(overlayManager, UserHandle.USER_CURRENT)
@@ -49,8 +53,14 @@ class FeatureManager(private val contentResolver: ContentResolver) {
      */
 
     inner class Secure {
-        val TORCH_POWER_BUTTON_GESTURE: String = "torch_power_button_gesture"
-        val POCKET_JUDGE: String = "pocket_judge"
+        /**
+         * Whether the torch launch gesture to long press the power button when the
+         * screen is off should be enabled.
+         *
+         * 0: disabled
+         * 1: long tap power for torch
+         */
+        val TORCH_POWER_BUTTON_GESTURE = "torch_power_button_gesture"
 
         fun setInt(feature: String, value: Int) {
             Settings.Secure.putInt(contentResolver, feature, value)
@@ -92,8 +102,91 @@ class FeatureManager(private val contentResolver: ContentResolver) {
      */
 
     inner class System {
+
+        /**
+         * Whether allowing pocket service to register sensors and dispatch informations.
+         * 0 = disabled
+         * 1 = enabled
+         * @author Carlo Savignano
+         */
+        val POCKET_JUDGE = "pocket_judge"
+
+        /**
+         * FOD recognizing animation
+         */
+        val FOD_RECOGNIZING_ANIMATION = "fod_recognizing_animation"
+
+        /**
+         * Enable statusbar double tap gesture on to put device to sleep
+         */
+        val DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture"
+
+        /**
+         * Double tap on lockscreen to sleep
+         */
+        val DOUBLE_TAP_SLEEP_LOCKSCREEN = "double_tap_sleep_lockscreen"
+
+        /**
+         * FOD recognizing animation picker
+         */
+        val FOD_ANIM = "fod_anim"
+
+        /**
+         * FOD icon picker
+         */
+        val FOD_ICON = "fod_icon"
+
+        /**
+         * FOD pressed color
+         */
+        val FOD_COLOR = "fod_color"
+
+        /**
+         * How many rows to show in the qs panel when in portrait
+         */
+        val QS_ROWS_PORTRAIT = "qs_rows_portrait"
+
+        /**
+         * How many rows to show in the qs panel when in landscape
+         */
+        val QS_ROWS_LANDSCAPE = "qs_rows_landscape"
+
+        /**
+         * How many columns to show in the qs panel when in portrait
+         */
+        val QS_COLUMNS_PORTRAIT = "qs_columns_portrait"
+
+        /**
+         * How many columns to show in the qs panel when in landscape
+         */
+        val QS_COLUMNS_LANDSCAPE = "qs_columns_landscape"
+
+        /**
+         * Whether to display qs tile titles in the qs panel
+         */
+        val QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility"
+
+        /**
+         * Three Finger Gesture from Oppo
+         */
+        val THREE_FINGER_GESTURE = "three_finger_gesture"
+
+        /**
+         * Volume panel on left
+         */
+        val VOLUME_PANEL_ON_LEFT = "volume_panel_on_left"
+
+        /**
+         * Screen off fod
+         */
+        val FOD_GESTURE = "fod_gesture"
+
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)
+        }
+
+        fun setIntForUser(feature: String, value: Int) {
+            Settings.System.putIntForUser(contentResolver, feature, value, UserHandle.USER_CURRENT)
         }
 
         fun setLong(feature: String, value: Long) {
@@ -109,6 +202,12 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         }
 
         fun getInt(feature: String): Int = Settings.System.getInt(contentResolver, feature)
+
+        fun getIntForUser(feature: String): Int = Settings.System.getIntForUser(
+            contentResolver,
+            feature,
+            UserHandle.USER_CURRENT
+        )
 
         fun getInt(feature: String, default: Int): Int =
             Settings.System.getInt(contentResolver, feature, default)

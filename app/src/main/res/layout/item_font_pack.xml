@@ -12,7 +12,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="@color/colorPrimaryBackground"
-        app:cardCornerRadius="18dp"
+        app:cardCornerRadius="@dimen/default_dialog_radius"
         app:cardElevation="0dp">
 
         <LinearLayout
@@ -29,7 +29,7 @@
                 android:id="@+id/fontHeadline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Headline 01"
+                android:text="@string/headline_01"
                 android:textSize="18sp" />
 
             <View
@@ -47,7 +47,7 @@
                 android:id="@+id/fontBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Body 02"
+                android:text="@string/body_02"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:lines="2"
         android:scrollbars="none"
         android:textAlignment="center"

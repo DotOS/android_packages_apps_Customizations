@@ -27,7 +27,7 @@ class FontPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
         )
         val recycler = layoutBase.findViewById<RecyclerView>(R.id.shapesRecycler)
         val adapter = FontPackAdapter(
-            overlayController, overlayController.FontPacks().getFontPacks()
+            overlayController, overlayController.FontPacks().getFontPacks(context!!)
         )
         recycler.adapter = adapter
         recycler.addItemDecoration(

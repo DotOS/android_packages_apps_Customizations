@@ -71,7 +71,6 @@ class OverlayController(
     }
 
     inner class Shapes {
-
         @SuppressLint("StaticFieldLeak")
         fun setOverlay(
             packageName: String,
@@ -161,11 +160,11 @@ class OverlayController(
             return shapeDrawable
         }
 
-        fun getShapes(): ArrayList<Shape> {
+        fun getShapes(context: Context): ArrayList<Shape> {
             val fontPacks = ArrayList<Shape>()
 
             val selectedPkg = OVERLAY_TARGET_PACKAGE
-            val selectedLabel = "Device Default"
+            val selectedLabel = context.getString(R.string.device_default)
 
             fontPacks.add(Shape(getShapePath(selectedPkg)!!, selectedPkg, selectedLabel))
 
@@ -273,11 +272,11 @@ class OverlayController(
             return true
         }
 
-        fun getFontPacks(): ArrayList<FontPack> {
+        fun getFontPacks(context: Context): ArrayList<FontPack> {
             val fontPacks = ArrayList<FontPack>()
 
             val selectedPkg = OVERLAY_TARGET_PACKAGE
-            val selectedLabel = "Device\nDefault Font"
+            val selectedLabel = context.getString(R.string.device_default_font)
 
             val headlineFont = Typeface.create(
                 getFontFamily(selectedPkg, Constants.CONFIG_HEADLINE_FONT_FAMILY), Typeface.NORMAL
@@ -450,11 +449,11 @@ class OverlayController(
             }
         }
 
-        fun getIconPacks(): ArrayList<IconPack> {
+        fun getIconPacks(context: Context): ArrayList<IconPack> {
             val iconPacks = ArrayList<IconPack>()
 
             val selectedPkg = OVERLAY_TARGET_PACKAGE
-            val selectedLabel = "Device default"
+            val selectedLabel = context.getString(R.string.device_default)
             iconPacks.add(IconPack(Constants.ICONS_FOR_PREVIEW, selectedPkg, selectedLabel))
 
             for (overlayInfo in getOverlayInfos()) {
@@ -509,9 +508,7 @@ class OverlayController(
 
     }
 
-    inner class Analog {
-
-        private var preference: ListPreference? = null
+    inner class Analog(private var preference: ListPreference) {
 
         @SuppressLint("StaticFieldLeak")
         fun setOverlay(packageName: String): Boolean {
@@ -544,10 +541,10 @@ class OverlayController(
                 }
 
                 override fun onPostExecute(success: Boolean?) {
-                    updatePreferenceOverlays(preference!!)
+                    updatePreferenceOverlays()
                     if (!success!!) {
                         Toast.makeText(
-                            preference!!.context,
+                            preference.context,
                             "Could not enable overlay",
                             Toast.LENGTH_SHORT
                         ).show()
@@ -557,13 +554,12 @@ class OverlayController(
             return true
         }
 
-        fun updatePreferenceOverlays(pref: ListPreference) {
-            preference = pref
+        fun updatePreferenceOverlays() {
             val pkgs: MutableList<String> = ArrayList()
             val labels: MutableList<String> = ArrayList()
 
             var selectedPkg = PACKAGE_DEVICE_DEFAULT
-            var selectedLabel = "Device default"
+            var selectedLabel = preference.context.getString(R.string.device_default)
 
             pkgs.add(selectedPkg)
             labels.add(selectedLabel)
@@ -584,10 +580,10 @@ class OverlayController(
                 }
             }
 
-            pref.entries = labels.toTypedArray()
-            pref.entryValues = pkgs.toTypedArray()
-            pref.value = selectedPkg
-            pref.summary = selectedLabel
+            preference.entries = labels.toTypedArray()
+            preference.entryValues = pkgs.toTypedArray()
+            preference.value = selectedPkg
+            preference.summary = selectedLabel
         }
 
     }
