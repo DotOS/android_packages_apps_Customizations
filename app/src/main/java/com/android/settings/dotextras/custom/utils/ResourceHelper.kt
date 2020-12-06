@@ -1,6 +1,7 @@
 package com.android.settings.dotextras.custom.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.util.TypedValue
 import androidx.annotation.AttrRes
@@ -30,7 +31,9 @@ object ResourceHelper {
         )
         val accentManager =
             FeatureManager(context.contentResolver).AccentManager()
-        return if (accentManager.get() == "-1" || accentManager.get() == "") typedValue.data else Color.parseColor("#" + accentManager.get())
+        return if (accentManager.get() == "-1" || accentManager.get() == "") typedValue.data else Color.parseColor(
+            "#" + accentManager.get()
+        )
     }
 
     fun getTextColor(context: Context): Int {
@@ -56,7 +59,8 @@ object ResourceHelper {
     @Dimension
     fun Context.resolveDimenAttr(@AttrRes dimenAttr: Int): Float {
         val resolvedAttr = resolveThemeAttr(dimenAttr)
-        val dimenRes = if (resolvedAttr.resourceId != 0) resolvedAttr.resourceId else resolvedAttr.data
+        val dimenRes =
+            if (resolvedAttr.resourceId != 0) resolvedAttr.resourceId else resolvedAttr.data
         return resources.getDimension(dimenRes)
     }
 
@@ -72,5 +76,12 @@ object ResourceHelper {
         val typedValue = TypedValue()
         theme.resolveAttribute(attrRes, typedValue, true)
         return typedValue
+    }
+
+    fun hasFodSupport(context: Context): Boolean {
+        return context.resources.getBoolean(
+            Resources.getSystem()
+                .getIdentifier("config_supportsInDisplayFingerprint", "bool", "android")
+        )
     }
 }

@@ -11,6 +11,7 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.system.FeatureManager
@@ -18,6 +19,7 @@ import com.android.settings.dotextras.system.FeatureManager
 open class QSSection : Fragment() {
 
     private val GRID_COLUMNS = 2
+    private var qsList: ArrayList<ContextCards> = ArrayList()
     private var rows_columnsList: ArrayList<ContextCards> = ArrayList()
 
     override fun onCreateView(
@@ -31,7 +33,30 @@ open class QSSection : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val featureManager = FeatureManager(requireActivity().contentResolver)
+        qsList.clear()
         rows_columnsList.clear()
+        qsList.add(
+            ContextCards(
+                iconID = R.drawable.ic_qs_title,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.qs_title),
+                accentColor = R.color.dot_red,
+                feature = featureManager.System().QS_TILE_TITLE_VISIBILITY,
+                featureType = SYSTEM
+            )
+        )
+        val recyclerView: RecyclerView = view.findViewById(R.id.qs1Recycler)
+        val adapter =
+            ContextCardsAdapter(requireActivity().contentResolver, SWITCH, qsList)
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(
+            GridSpacingItemDecoration(
+                GRID_COLUMNS,
+                resources.getDimension(R.dimen.recyclerSpacer).toInt(),
+                true
+            )
+        )
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), GRID_COLUMNS)
         /**
          * Rows & Columns
          */
@@ -83,7 +108,7 @@ open class QSSection : Fragment() {
             summary = "Landscape",
             extraTitle = "Row(s)"
         )
-        val recyclerViewRC: RecyclerView = view.findViewById(R.id.contextswRecycler)
+        val recyclerViewRC: RecyclerView = view.findViewById(R.id.qs2Recycler)
         val adapterRC =
             ContextCardsAdapter(requireActivity().contentResolver, SWIPE, rows_columnsList)
         recyclerViewRC.adapter = adapterRC

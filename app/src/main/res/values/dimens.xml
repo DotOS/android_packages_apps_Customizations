@@ -16,11 +16,23 @@
     <dimen name="recyclerSpacerBig">28dp</dimen>
     <dimen name="component_shape_thumb_size">72dp</dimen>
 
+    <!-- FOD icon picker -->
+    <dimen name="fod_picker_item_margin">10dp</dimen>
+    <dimen name="fod_picker_item_size">100dp</dimen>
+    <dimen name="fod_picker_item_padding">20dp</dimen>
+
     <declare-styleable name="BlurView">
         <attr name="blurOverlayColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="BlurDialog">
         <attr name="cornerRadius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableLayout">
+        <attr name="el_duration" format="integer" />
+        <attr name="el_expanded" format="boolean" />
+        <attr name="el_parallax" format="float" />
+        <attr name="android:orientation"/>
     </declare-styleable>
 </resources>

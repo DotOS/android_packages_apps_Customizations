@@ -14,7 +14,6 @@ class FeatureManager(private val contentResolver: ContentResolver) {
     /**
      * Accent Manager
      */
-
     inner class AccentManager {
 
         private val RESET = "-1"
@@ -51,7 +50,6 @@ class FeatureManager(private val contentResolver: ContentResolver) {
     /**
      * Secure Settings
      */
-
     inner class Secure {
         /**
          * Whether the torch launch gesture to long press the power button when the
@@ -100,7 +98,6 @@ class FeatureManager(private val contentResolver: ContentResolver) {
     /**
      * System Settings
      */
-
     inner class System {
 
         /**
@@ -224,6 +221,7 @@ class FeatureManager(private val contentResolver: ContentResolver) {
 
         fun getString(feature: String): String =
             Settings.System.getString(contentResolver, feature)
+
     }
 
     /**

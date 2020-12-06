@@ -8,7 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardLayout"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:scaleX="1"
         android:scaleY="1"
         app:cardBackgroundColor="@color/colorPrimaryBackground"
@@ -25,6 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignTop="@id/cardClickable"
                 android:layout_alignBottom="@id/cardClickable"
+                android:background="@null"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
                 android:progressDrawable="@drawable/context_slider"
@@ -61,6 +62,7 @@
                         android:layout_marginEnd="8dp"
                         android:alpha="0.9"
                         android:fontFamily="sans-serif-medium"
+                        android:singleLine="true"
                         android:textSize="16sp"
                         tools:text="%s %s" />
                 </LinearLayout>
@@ -76,6 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
+                        android:singleLine="true"
                         android:textColor="@color/colorAccent"
                         android:textSize="16sp"
                         tools:text="Card Subtitle" />
@@ -85,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
-                        android:lines="2"
+                        android:singleLine="true"
                         android:textSize="12sp"
                         tools:text="Summary" />
                 </LinearLayout>

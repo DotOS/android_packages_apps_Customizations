@@ -41,33 +41,33 @@ class OverlayController(
         Comparator.comparingInt { a -> a.priority }
 
     object Categories {
-        val NOTCH_CATEGORY = "com.android.internal.display_cutout_emulation"
-        val FONT_CATEGORY = "android.theme.customization.font"
-        val ICON_SHAPE_CATEGORY = "android.theme.customization.adaptive_icon_shape"
-        val NAVIGATION_BAR_CATEGORY = "com.android.internal.navigation_bar_mode"
-        val ANDROID_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.android"
-        var SETTINGS_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.settings"
-        var SYSUI_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.systemui"
-        var LAUNCHER_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.launcher"
-        val ACCENT_CATEGORY = "android.theme.customization.accent_color"
+        const val NOTCH_CATEGORY = "com.android.internal.display_cutout_emulation"
+        const val FONT_CATEGORY = "android.theme.customization.font"
+        const val ICON_SHAPE_CATEGORY = "android.theme.customization.adaptive_icon_shape"
+        const val NAVIGATION_BAR_CATEGORY = "com.android.internal.navigation_bar_mode"
+        const val ANDROID_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.android"
+        const val SETTINGS_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.settings"
+        const val SYSUI_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.systemui"
+        const val LAUNCHER_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.launcher"
+        const val ACCENT_CATEGORY = "android.theme.customization.accent_color"
     }
 
     object Packages {
-        val NAVBAR_LONG_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.long"
-        val NAVBAR_MEDIUM_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.medium"
+        const val NAVBAR_LONG_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.long"
+        const val NAVBAR_MEDIUM_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.medium"
     }
 
     object Constants {
-        var CONFIG_ICON_MASK = "config_icon_mask"
-        var CONFIG_BODY_FONT_FAMILY = "config_bodyFontFamily"
-        var CONFIG_HEADLINE_FONT_FAMILY = "config_headlineFontFamily"
-        var ICONS_FOR_PREVIEW = arrayListOf(
+        const val CONFIG_ICON_MASK = "config_icon_mask"
+        const val CONFIG_BODY_FONT_FAMILY = "config_bodyFontFamily"
+        const val CONFIG_HEADLINE_FONT_FAMILY = "config_headlineFontFamily"
+        val ICONS_FOR_PREVIEW = arrayListOf(
             "ic_wifi_signal_3",
             "ic_qs_bluetooth",
             "ic_qs_flashlight",
             "ic_battery_80_24dp"
         )
-        var PATH_SIZE = 100f
+        const val PATH_SIZE = 100f
     }
 
     inner class Shapes {

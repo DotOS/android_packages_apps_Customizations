@@ -110,7 +110,7 @@ class WallpaperPreviewAdapter(
         val height = wallpaperManager.desiredMinimumHeight
         val wallpaper = Bitmap.createScaledBitmap(bitmap, width, height, true)
         try {
-            wallpaperManager.setBitmap(wallpaper)
+            wallpaperManager.bitmap = wallpaper
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -127,13 +127,13 @@ class WallpaperPreviewAdapter(
         val height = wallpaperManager.desiredMinimumHeight
         val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
         try {
-            wallpaperManager.setBitmap(wallpaper)
+            wallpaperManager.bitmap = wallpaper
         } catch (e: IOException) {
             e.printStackTrace()
         }
     }
 
-    fun drawableToBitmap(drawable: Drawable): Bitmap? {
+    private fun drawableToBitmap(drawable: Drawable): Bitmap? {
         if (drawable is BitmapDrawable) {
             if (drawable.bitmap != null) {
                 return drawable.bitmap

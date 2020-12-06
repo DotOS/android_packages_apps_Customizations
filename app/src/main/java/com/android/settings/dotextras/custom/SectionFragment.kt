@@ -11,6 +11,7 @@ import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.displays.*
 import com.android.settings.dotextras.custom.sections.*
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 class SectionFragment : Fragment() {
 
@@ -80,18 +81,24 @@ class SectionFragment : Fragment() {
         //Titles
         content_titles.add(getString(R.string.section_statusbar_title))
         content_titles.add(getString(R.string.section_qs_title))
+        if (ResourceHelper.hasFodSupport(requireContext()))
+            content_titles.add(getString(R.string.section_fod_title))
         content_titles.add(getString(R.string.section_themes_title))
         content_titles.add(getString(R.string.section_icons_title))
         content_titles.add(getString(R.string.section_system_title))
         //Sections
         content_sectionfragments.add(StatusbarSection())
         content_sectionfragments.add(QSSection())
+        if (ResourceHelper.hasFodSupport(requireContext()))
+            content_sectionfragments.add(FODSection())
         content_sectionfragments.add(ThemeSection())
         content_sectionfragments.add(IconsSection())
         content_sectionfragments.add(SystemSection())
         //Displays
         content_displayfragments.add(StatusbarDisplay())
         content_displayfragments.add(QSDisplay())
+        if (ResourceHelper.hasFodSupport(requireContext()))
+            content_displayfragments.add(FODDisplay())
         content_displayfragments.add(ThemeDisplay())
         content_displayfragments.add(IconsDisplay())
         content_displayfragments.add(SystemDisplay())

@@ -11,6 +11,7 @@ class ContextCards(
 
     //Common variables
     var summary: String? = null
+    var default: Int = -1
 
     //Switch variables
     var isCardChecked: Boolean = false
@@ -20,7 +21,6 @@ class ContextCards(
     var value: Int = -1
     var max: Int = -1
     var min: Int = -1
-    var default: Int = -1
 
     constructor(
         iconID: Int,
@@ -32,6 +32,32 @@ class ContextCards(
         summary: String
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.summary = summary
+    }
+
+    constructor(
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        enabled: Boolean
+    ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
+        this.isCardChecked = enabled
+    }
+
+    constructor(
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        enabled: Boolean
+    ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
+        this.summary = summary
+        this.isCardChecked = enabled
     }
 
     constructor(

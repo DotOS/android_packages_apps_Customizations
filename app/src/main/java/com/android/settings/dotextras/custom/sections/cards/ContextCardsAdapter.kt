@@ -13,11 +13,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.SeekBar
+import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
@@ -69,21 +66,23 @@ class ContextCardsAdapter(
         val featureManager = FeatureManager(contentResolver)
         when (TYPE) {
             SWITCH -> {
+                val isByDefault =
+                    if (contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
                 when (contextCard.featureType) {
                     SECURE -> contextCard.isCardChecked = featureManager.Secure()
                         .getInt(
                             contextCard.feature,
-                            featureManager.Values().OFF
+                            isByDefault
                         ) == featureManager.Values().ON
                     GLOBAL -> contextCard.isCardChecked = featureManager.Global()
                         .getInt(
                             contextCard.feature,
-                            featureManager.Values().OFF
+                            isByDefault
                         ) == featureManager.Values().ON
                     SYSTEM -> contextCard.isCardChecked = featureManager.System()
                         .getInt(
                             contextCard.feature,
-                            featureManager.Values().OFF
+                            isByDefault
                         ) == featureManager.Values().ON
                 }
                 holder.cardIcon.setImageResource(contextCard.iconID)
@@ -139,21 +138,6 @@ class ContextCardsAdapter(
                     contextCard.isCardChecked = !contextCard.isCardChecked
                     updateSwitchSelection(contextCard, holder)
                 }
-                holder.cardClickable.setOnFocusChangeListener { _, hasFocus ->
-                    if (holder.cardLayout.scaleX != 1f) {
-                        val scaleDownX2 = ObjectAnimator.ofFloat(
-                            holder.cardLayout, "scaleX", 1f
-                        )
-                        val scaleDownY2 = ObjectAnimator.ofFloat(
-                            holder.cardLayout, "scaleY", 1f
-                        )
-                        scaleDownX2.duration = 200
-                        scaleDownY2.duration = 200
-                        val scaleDown2 = AnimatorSet()
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2)
-                        scaleDown2.start()
-                    }
-                }
                 holder.cardClickable.setOnTouchListener { _, event ->
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
@@ -172,6 +156,19 @@ class ContextCardsAdapter(
                             scaleDown.start()
                         }
                         MotionEvent.ACTION_UP -> {
+                            val scaleDownX2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleX", 1f
+                            )
+                            val scaleDownY2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleY", 1f
+                            )
+                            scaleDownX2.duration = 200
+                            scaleDownY2.duration = 200
+                            val scaleDown2 = AnimatorSet()
+                            scaleDown2.play(scaleDownX2).with(scaleDownY2)
+                            scaleDown2.start()
+                        }
+                        MotionEvent.ACTION_CANCEL -> {
                             val scaleDownX2 = ObjectAnimator.ofFloat(
                                 holder.cardLayout, "scaleX", 1f
                             )
@@ -260,21 +257,6 @@ class ContextCardsAdapter(
                         updateSwipeSelection(contextCard, holder, progress)
                     }
                 })
-                holder.cardSeek.setOnFocusChangeListener { _, hasFocus ->
-                    if (holder.cardLayout.scaleX != 1f) {
-                        val scaleDownX2 = ObjectAnimator.ofFloat(
-                            holder.cardLayout, "scaleX", 1f
-                        )
-                        val scaleDownY2 = ObjectAnimator.ofFloat(
-                            holder.cardLayout, "scaleY", 1f
-                        )
-                        scaleDownX2.duration = 200
-                        scaleDownY2.duration = 200
-                        val scaleDown2 = AnimatorSet()
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2)
-                        scaleDown2.start()
-                    }
-                }
                 holder.cardSeek.setOnTouchListener { _, event ->
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
@@ -305,6 +287,19 @@ class ContextCardsAdapter(
                             scaleDown2.play(scaleDownX2).with(scaleDownY2)
                             scaleDown2.start()
                         }
+                        MotionEvent.ACTION_CANCEL -> {
+                            val scaleDownX2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleX", 1f
+                            )
+                            val scaleDownY2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleY", 1f
+                            )
+                            scaleDownX2.duration = 200
+                            scaleDownY2.duration = 200
+                            val scaleDown2 = AnimatorSet()
+                            scaleDown2.play(scaleDownX2).with(scaleDownY2)
+                            scaleDown2.start()
+                        }
                     }
                     false
                 }
@@ -315,6 +310,7 @@ class ContextCardsAdapter(
 
     @SuppressLint("SetTextI18n")
     private fun updateSwipeSelection(contextCard: ContextCards, holder: ViewHolder, progress: Int) {
+        /*
         val accentColor: Int = adjustAlpha(
             ContextCompat.getColor(
                 holder.cardLayout.context,
@@ -330,6 +326,7 @@ class ContextCardsAdapter(
             holder.cardTitle.setTextColor(ResourceHelper.getSecondaryTextColor(holder.itemView.context))
             holder.cardSummary.setTextColor(ResourceHelper.getSecondaryTextColor(holder.itemView.context))
         }
+        */
 
         if (contextCard.extraTitle != null)
             holder.cardTitle.text = progress.toString() + " ${contextCard.extraTitle}"
@@ -354,11 +351,13 @@ class ContextCardsAdapter(
                 )
             )
         }
+        /*
         val normalizedTextColor: Int = holder.itemView.context.getNormalizedSecondaryColor(
             holder.cardLayout.cardBackgroundColor.defaultColor
         )
         holder.cardTitle.setTextColor(normalizedTextColor)
         holder.cardSummary.setTextColor(normalizedTextColor)
+        */
 
         if (holder.cardTitle.text == holder.cardTitle.context.getString(R.string.enabled) || holder.cardTitle.text == holder.cardTitle.context.getString(
                 R.string.disabled

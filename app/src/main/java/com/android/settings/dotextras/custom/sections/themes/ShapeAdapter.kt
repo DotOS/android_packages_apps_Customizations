@@ -64,6 +64,7 @@ class ShapeAdapter(
     private fun select(pos: Int) {
         for (i in items.indices) {
             items[i].selected = pos == i
+            notifyItemChanged(i);
         }
     }
 

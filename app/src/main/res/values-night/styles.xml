@@ -24,7 +24,7 @@
     </style>
 
     <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@drawable/sheet_background</item>
     </style>
 
     <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.BottomSheetDialog">

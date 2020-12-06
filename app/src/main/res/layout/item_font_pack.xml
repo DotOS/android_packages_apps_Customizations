@@ -30,7 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/headline_01"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="normal" />
 
             <View
                 android:id="@+id/fontDivider"
@@ -48,7 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/body_02"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="normal" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

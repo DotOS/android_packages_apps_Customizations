@@ -35,9 +35,10 @@ class FontPackAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val fontPack: FontPack = items[position]
         holder.label.text = fontPack.label
-        if (holder.fontHeadline.typeface != null) holder.fontHeadline.typeface =
-            fontPack.headLineFont
-        if (holder.fontBody.typeface != null) holder.fontBody.typeface = fontPack.bodyFont
+        if (holder.fontHeadline.typeface != null)
+            holder.fontHeadline.typeface = fontPack.headLineFont
+        if (holder.fontBody.typeface != null)
+            holder.fontBody.typeface = fontPack.bodyFont
         holder.fontLayout.setOnClickListener {
             select(position)
             overlayController.FontPacks().setOverlay(fontPack.packageName, fontPack, holder)
@@ -71,6 +72,7 @@ class FontPackAdapter(
     private fun select(pos: Int) {
         for (i in items.indices) {
             items[i].selected = pos == i
+            notifyItemChanged(i);
         }
     }
 

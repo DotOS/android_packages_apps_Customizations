@@ -24,4 +24,6 @@
     <color name="scrim">#22000000</color>
     <color name="smoke_color">#8eaeaeae</color>
 
+    <color name="fod_item_background_stroke_color">#555555</color>
+
 </resources>

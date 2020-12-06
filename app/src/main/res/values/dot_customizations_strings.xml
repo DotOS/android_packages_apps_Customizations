@@ -7,8 +7,46 @@
     <string name="section_wallpaper_title">Wallpapers</string>
     <string name="section_aod_title">Always-on Display</string>
     <string name="section_font_title">Font &amp; Display Size</string>
-    <string name="section_icons_title">Icon style</string>
-    <string name="section_fod_title">Fingerprint styles</string>
+    <string name="section_icons_title">Icon Shapes</string>
+    <string name="section_fod_title">FOD styles</string>
     <string name="set_wallpaper">Set Wallpaper</string>
     <string name="system_gestures">Gestures</string>
+
+    <!-- FOD animations -->
+    <string name="fod_recog_animation">FOD recognizing animation</string>
+    <string name="fod_recog_animation_summary">Shows an animation while reading your finger</string>
+    <string name="fod_recog_animation_effect_title">Recognizing animation effect</string>
+    <string name="fod_recog_animation_miui_normal">MIUI default</string>
+    <string name="fod_recog_animation_miui_aod">AOD</string>
+    <string name="fod_recog_animation_miui_light">Light</string>
+    <string name="fod_recog_animation_miui_pop">Pop</string>
+    <string name="fod_recog_animation_miui_pulse">Pulse</string>
+    <string name="fod_recog_animation_miui_pulse_white">Pulse (White)</string>
+    <string name="fod_recog_animation_miui_rhythm">Rhythm</string>
+    <string name="fod_recog_animation_op_cosmos">Cosmos</string>
+    <string name="fod_recog_animation_op_mclaren">McLaren</string>
+    <string name="fod_recog_animation_op_stripe">Stripe</string>
+    <string name="fod_recog_animation_op_wave">Wave</string>
+    <string name="fod_recog_animation_pureview_dna">DNA</string>
+    <string name="fod_recog_animation_pureview_future">Future</string>
+    <string name="fod_recog_animation_pureview_halo_ring">Halo ring</string>
+    <string name="fod_recog_animation_pureview_molecular">Molecular</string>
+
+    <string-array  name="fod_recognizing_animation_entries" translatable="false">
+        <item>@string/fod_recog_animation_miui_normal</item>
+        <item>@string/fod_recog_animation_miui_aod</item>
+        <item>@string/fod_recog_animation_miui_light</item>
+        <item>@string/fod_recog_animation_miui_pop</item>
+        <item>@string/fod_recog_animation_miui_pulse</item>
+        <item>@string/fod_recog_animation_miui_pulse_white</item>
+        <item>@string/fod_recog_animation_miui_rhythm</item>
+        <item>@string/fod_recog_animation_op_cosmos</item>
+        <item>@string/fod_recog_animation_op_mclaren</item>
+        <item>@string/fod_recog_animation_op_stripe</item>
+        <item>@string/fod_recog_animation_op_wave</item>
+        <item>@string/fod_recog_animation_pureview_dna</item>
+        <item>@string/fod_recog_animation_pureview_future</item>
+        <item>@string/fod_recog_animation_pureview_halo_ring</item>
+        <item>@string/fod_recog_animation_pureview_molecular</item>
+    </string-array>
 </resources>

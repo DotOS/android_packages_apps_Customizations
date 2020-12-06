@@ -28,6 +28,9 @@
     <color name="scrim">#12000000</color>
     <color name="smoke_color">#8eaeaeae</color>
 
+    <!-- FOD icon picker -->
+    <color name="fod_item_background_stroke_color">#d6d6d6</color>
+
     <array name="colors">
         <item>#202020</item>
         <item>#727272</item>

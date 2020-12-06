@@ -32,5 +32,20 @@
     <string name="hold_to_torch">Hold to Torch</string>
     <string name="hold_to_torch_summary">Hold power button to torch</string>
     <string name="pocket_mode">Pocket Mode</string>
+    <string name="statusbar_dt2s">DT2S Status Bar</string>
+    <string name="statusbar_dt2s_summary">Double tap to sleep</string>
+    <string name="lockscreen_dt2s">DT2S Lockscreen</string>
+    <string name="lockscreen_dt2s_summary">Double tap to sleep</string>
+    <string name="qs_title">QS Tiles Title</string>
+    <string name="fod_icon_picker_title">Fingerprint icon</string>
+    <string name="fod_icon_picker_summary">Choose your favorite fingerprint icon</string>
+    <string name="fod_icon_picker_footer">In order to add your own icon, select the top left icon and use the OnePlus 6T FP Customizer app to select the icon you want.</string>
+    <string name="fod_screenoff_summary">Use Biometric Authentication while you screen is off. Always on Display will be disabled.</string>
+    <string name="fod_screenoff_title">Screen-off FOD</string>
+    <string name="fod_animations">Animations</string>
+    <string name="fod_icons">Icons</string>
+    <string name="threewayss">Quick Screenshot</string>
+    <string name="threewayss_summary">Take a screenshot using three fingers slide</string>
+    <string name="fod_color">Recognising Color</string>
 
 </resources>

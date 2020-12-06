@@ -19,8 +19,8 @@ class BlurDialog : BlurView {
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init()
         initAttributes(context, attrs)
+        init()
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
@@ -28,8 +28,8 @@ class BlurDialog : BlurView {
         attrs,
         defStyleAttr
     ) {
-        init()
         initAttributes(context, attrs)
+        init()
     }
 
     private fun init() {
@@ -45,7 +45,7 @@ class BlurDialog : BlurView {
             0, 0
         )
         try {
-            radius = a.getDimension(R.styleable.BlurDialog_cornerRadius, 0f)
+            radius = a.getDimension(R.styleable.BlurDialog_cornerRadius, 12f)
         } finally {
             a.recycle()
         }
@@ -54,22 +54,14 @@ class BlurDialog : BlurView {
         clipToOutline = true
     }
 
-    fun create(decorView: View, radius: Int) {
-        val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
-        val windowBackground = decorView.background
-        setupWith(rootView)
-        setBlurRadius(radius.toFloat())
-        setBlurAutoUpdate(true)
-    }
-
     fun create(decorView: View, radius: Int, cornerRadius: Float) {
         val rootView = decorView.findViewById<View>(android.R.id.content) as ViewGroup
         background = RoundedCornersDrawable(cornerRadius)
-        val windowBackground = decorView.background
         setBlurAutoUpdate(true)
         setupWith(rootView)
             .setBlurAlgorithm(RenderScriptBlur(context))
-            .setBlurAutoUpdate(true)
+            .setFrameClearDrawable(background)
+            ?.setBlurAutoUpdate(true)
         setBlurRadius(radius.toFloat())
     }
 
