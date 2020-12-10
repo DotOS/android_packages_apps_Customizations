@@ -366,7 +366,9 @@ class OverlayController(
             val accentManager =
                 FeatureManager(holder.fontLayout.context.contentResolver).AccentManager()
             val accentColor: Int =
-                if (accentManager.get() == "-1") typedValue.data else Color.parseColor("#" + accentManager.get())
+                if (accentManager.get() == "-1" || accentManager.get() == "") typedValue.data else Color.parseColor(
+                    "#" + accentManager.get()
+                )
             if (fontPack.selected) {
                 holder.fontLayout.setBackgroundColor(accentColor)
                 holder.fontLayout.invalidate()

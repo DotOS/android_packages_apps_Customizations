@@ -14,11 +14,12 @@
     <dimen name="default_dialog_radius">16dp</dimen>
     <dimen name="recyclerSpacer">16dp</dimen>
     <dimen name="recyclerSpacerBig">28dp</dimen>
+    <dimen name="recyclerSpacerSmall">8dp</dimen>
     <dimen name="component_shape_thumb_size">72dp</dimen>
 
     <!-- FOD icon picker -->
     <dimen name="fod_picker_item_margin">10dp</dimen>
-    <dimen name="fod_picker_item_size">100dp</dimen>
+    <dimen name="fod_picker_item_size">106dp</dimen>
     <dimen name="fod_picker_item_padding">20dp</dimen>
 
     <declare-styleable name="BlurView">

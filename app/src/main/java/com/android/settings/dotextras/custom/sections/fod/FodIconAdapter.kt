@@ -39,7 +39,8 @@ class FodIconAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val fodIcon: FodIcon = items[position]
-        val shouldSelect = featureManager.System().getInt(featureManager.System().FOD_ICON, 0) == fodIcon.id
+        val shouldSelect =
+            featureManager.System().getInt(featureManager.System().FOD_ICON, 0) == fodIcon.id
         if (shouldSelect) fodIcon.selected = true
         holder.fodIcon.setImageResource(fodIcon.icon)
         holder.fodLayout.setOnClickListener {

@@ -13,8 +13,11 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
@@ -25,8 +28,6 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.custom.utils.getNormalizedSecondaryColor
 import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.card.MaterialCardView
 import kotlin.math.roundToInt

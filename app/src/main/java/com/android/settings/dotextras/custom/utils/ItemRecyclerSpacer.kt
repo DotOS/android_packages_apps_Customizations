@@ -5,7 +5,11 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.roundToInt
 
-class ItemRecyclerSpacer(private val left: Float, private val pos: Int, private val right: Boolean) : RecyclerView.ItemDecoration() {
+class ItemRecyclerSpacer(
+    private val left: Float,
+    private val pos: Int,
+    private val right: Boolean
+) : RecyclerView.ItemDecoration() {
     private var position: Int = pos
 
     override fun getItemOffsets(

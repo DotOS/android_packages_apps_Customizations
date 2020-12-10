@@ -31,8 +31,7 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.isColorDark
 import com.android.settings.dotextras.custom.utils.resolveColor
 import com.android.settings.dotextras.custom.utils.resolveColorAttr
-import kotlinx.android.synthetic.main.item_color.view.colorSelected
-import kotlinx.android.synthetic.main.item_color.view.colorSelectedCircle
+import kotlinx.android.synthetic.main.item_color.view.*
 
 internal class ColorAdapter(
     private val dialog: ColorSheet?,

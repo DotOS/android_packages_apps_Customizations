@@ -8,6 +8,8 @@ import android.os.ServiceManager
 import android.os.SystemProperties
 import android.os.UserHandle
 import android.provider.Settings
+import android.view.Display
+
 
 class FeatureManager(private val contentResolver: ContentResolver) {
 
@@ -59,6 +61,73 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          * 1: long tap power for torch
          */
         val TORCH_POWER_BUTTON_GESTURE = "torch_power_button_gesture"
+
+        /**
+         * Whether the device should wake when the wake gesture sensor detects motion.
+         * @hide
+         */
+        val WAKE_GESTURE_ENABLED = "wake_gesture_enabled"
+
+        /**
+         * Whether the device should doze if configured.
+         */
+        val DOZE_ENABLED = "doze_enabled"
+
+        /**
+         * Indicates whether doze should be always on.
+         *
+         *
+         * Type: int (0 for false, 1 for true)
+         *
+         */
+        val DOZE_ALWAYS_ON = "doze_always_on"
+
+        /**
+         * Whether the device should pulse on pick up gesture.
+         */
+        val DOZE_PICK_UP_GESTURE = "doze_pulse_on_pick_up"
+
+        /**
+         * Whether the device should pulse on long press gesture.
+         */
+        val DOZE_PULSE_ON_LONG_PRESS = "doze_pulse_on_long_press"
+
+        /**
+         * Whether the device should pulse on double tap gesture.
+         */
+        val DOZE_DOUBLE_TAP_GESTURE = "doze_pulse_on_double_tap"
+
+        /**
+         * Whether the device should respond to the SLPI tap gesture.
+         */
+        val DOZE_TAP_SCREEN_GESTURE = "doze_tap_gesture"
+
+        /**
+         * Gesture that wakes up the display, showing some version of the lock screen.
+         */
+        val DOZE_WAKE_LOCK_SCREEN_GESTURE = "doze_wake_screen_gesture"
+
+        /**
+         * Gesture that wakes up the display, toggling between [Display.STATE_OFF] and
+         * [Display.STATE_DOZE].
+         */
+        val DOZE_WAKE_DISPLAY_GESTURE = "doze_wake_display_gesture"
+
+        fun disableAOD() {
+            setInt(DOZE_ALWAYS_ON, 0)
+        }
+
+        fun enableAOD() {
+            setInt(DOZE_ALWAYS_ON, 1)
+        }
+
+        fun enableAmbient() {
+            setInt(DOZE_ENABLED, 1)
+        }
+
+        fun disableAmbient() {
+            setInt(DOZE_ENABLED, 0)
+        }
 
         fun setInt(feature: String, value: Int) {
             Settings.Secure.putInt(contentResolver, feature, value)

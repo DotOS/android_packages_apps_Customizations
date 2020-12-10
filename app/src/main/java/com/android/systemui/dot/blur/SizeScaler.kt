@@ -1,6 +1,6 @@
 package com.android.systemui.dot.blur
 
-import com.android.systemui.dot.blur.SizeScaler
+import com.android.systemui.dot.blur.SizeScaler.Companion.ROUNDING_VALUE
 
 /**
  * Scales width and height by [scaleFactor],

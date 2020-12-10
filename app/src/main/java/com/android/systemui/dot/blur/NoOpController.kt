@@ -1,7 +1,6 @@
 package com.android.systemui.dot.blur
 
 import android.graphics.Canvas
-import com.android.systemui.dot.blur.BlurViewFacade
 import android.graphics.drawable.Drawable
 
 //Used in edit mode and in case if no BlurController was set

@@ -1,13 +1,13 @@
 package com.android.systemui.dot.blur
 
 import android.content.Context
-import androidx.annotation.RequiresApi
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
-import android.renderscript.Allocation
 import android.graphics.Bitmap
 import android.os.Build
+import android.renderscript.Allocation
 import android.renderscript.Element
+import android.renderscript.RenderScript
+import android.renderscript.ScriptIntrinsicBlur
+import androidx.annotation.RequiresApi
 
 /**
  * Blur using RenderScript, processed on GPU.

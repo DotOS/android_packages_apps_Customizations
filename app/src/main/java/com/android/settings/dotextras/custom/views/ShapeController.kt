@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.themes.IconPackAdapter
 import com.android.settings.dotextras.custom.sections.themes.ShapeAdapter
 import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
 import com.android.settings.dotextras.system.OverlayController
@@ -41,7 +40,7 @@ class ShapeController(context: Context?, attrs: AttributeSet?) : LinearLayout(co
         recycler.addItemDecoration(
             ItemRecyclerSpacer(
                 resources.getDimension(R.dimen.recyclerSpacerBig),
-                adapter.itemCount-1,
+                adapter.itemCount - 1,
                 true
             )
         )

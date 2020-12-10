@@ -2,10 +2,8 @@ package com.android.settings.dotextras
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.NestedScrollView
 import com.android.settings.dotextras.custom.SectionFragment
 import com.google.android.material.appbar.AppBarLayout
 

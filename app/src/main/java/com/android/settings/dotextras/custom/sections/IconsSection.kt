@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.SectionFragment
 
 class IconsSection : PreferenceFragmentCompat() {
 

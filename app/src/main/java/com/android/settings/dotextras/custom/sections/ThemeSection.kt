@@ -10,10 +10,10 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.system.FeatureManager
-import com.android.settings.dotextras.system.OverlayController
 import com.android.settings.dotextras.custom.utils.ColorSheetUtils
 import com.android.settings.dotextras.custom.views.ColorSheet
+import com.android.settings.dotextras.system.FeatureManager
+import com.android.settings.dotextras.system.OverlayController
 
 class ThemeSection : PreferenceFragmentCompat() {
 
@@ -29,21 +29,25 @@ class ThemeSection : PreferenceFragmentCompat() {
             colorSheet.colorPicker(
                 colors = resources.getIntArray(R.array.materialColors),
                 listener = { color ->
-                    featureManager.AccentManager().apply(ColorSheetUtils.colorToHex(color).replace("#", ""))
+                    featureManager.AccentManager()
+                        .apply(ColorSheetUtils.colorToHex(color).replace("#", ""))
                     colorSheet.dismiss()
                 }).show(requireActivity().supportFragmentManager)
             true
         }
         val accentDef: ListPreference = findPreference(ACCENT_CONTROLLER_LEGACY)!!
-        val overlayController = OverlayController(OverlayController.Categories.ACCENT_CATEGORY,
+        val overlayController = OverlayController(
+            OverlayController.Categories.ACCENT_CATEGORY,
             requireActivity().packageManager,
             IOverlayManager.Stub
-                .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE)))
+                .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
+        )
         accentDef.isEnabled = overlayController.isAvailable()
-        accentDef.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
-            overlayController.Analog(accentDef).setOverlay((newValue as String))
-            true
-        }
+        accentDef.onPreferenceChangeListener =
+            Preference.OnPreferenceChangeListener { _, newValue ->
+                overlayController.Analog(accentDef).setOverlay((newValue as String))
+                true
+            }
         overlayController.Analog(accentDef).updatePreferenceOverlays()
     }
 

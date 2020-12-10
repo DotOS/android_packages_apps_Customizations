@@ -3,7 +3,10 @@ package com.android.settings.dotextras.custom.sections.fod
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.graphics.drawable.AnimationDrawable
+import android.content.Context
+import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -11,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
@@ -41,8 +43,9 @@ class FodAnimationAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val fodIcon: FodAnimation = items[position]
-        fodIcon.selected = featureManager.System().getInt(featureManager.System().FOD_ANIM, 0) == fodIcon.id
-        holder.fodIcon.background = ContextCompat.getDrawable(holder.fodIcon.context, fodIcon.animation)
+        fodIcon.selected =
+            featureManager.System().getInt(featureManager.System().FOD_ANIM, 0) == fodIcon.id
+        holder.fodIcon.setImageDrawable(getAnimationPreview(holder.fodIcon.context, fodIcon.animation))
         holder.fodLayout.setOnClickListener {
             featureManager.System().setInt(featureManager.System().FOD_ANIM, fodIcon.id)
             select(position)
@@ -110,6 +113,21 @@ class FodAnimationAdapter(
                 )
             )
             holder.fodLayout.invalidate(true)
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun getAnimationPreview(context: Context, drawableName: String): Drawable? {
+        val packageRes = ResourceHelper.getFodAnimationPackage(context)
+        var resId = 0
+        return try {
+            val pm: PackageManager = context.packageManager
+            val mApkResources: Resources = pm.getResourcesForApplication(packageRes)
+            resId = mApkResources.getIdentifier(drawableName, "drawable", packageRes)
+            mApkResources.getDrawable(resId)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            null
         }
     }
 

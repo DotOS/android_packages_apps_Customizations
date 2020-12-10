@@ -29,7 +29,7 @@ class AODDisplay : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val dateText: TextView = view.findViewById(R.id.dateView)
         val formatter = SimpleDateFormat(getString(R.string.lockscreen_date_pattern))
-        dateText.text=formatter.format(Calendar.getInstance().time)
+        dateText.text = formatter.format(Calendar.getInstance().time)
         val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
             requireContext().registerReceiver(null, ifilter)
         }

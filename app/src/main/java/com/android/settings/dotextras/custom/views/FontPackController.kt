@@ -40,7 +40,7 @@ class FontPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
         recycler.addItemDecoration(
             ItemRecyclerSpacer(
                 resources.getDimension(R.dimen.recyclerSpacerBig),
-                adapter.itemCount-1,
+                adapter.itemCount - 1,
                 true
             )
         )

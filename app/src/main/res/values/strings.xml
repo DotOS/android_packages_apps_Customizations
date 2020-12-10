@@ -47,5 +47,7 @@
     <string name="threewayss">Quick Screenshot</string>
     <string name="threewayss_summary">Take a screenshot using three fingers slide</string>
     <string name="fod_color">Recognising Color</string>
+    <string name="enable_aod">Enable Always on Display?</string>
+    <string name="enable">Enable</string>
 
 </resources>

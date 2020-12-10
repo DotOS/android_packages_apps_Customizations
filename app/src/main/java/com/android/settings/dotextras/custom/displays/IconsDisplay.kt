@@ -40,7 +40,12 @@ class IconsDisplay : Fragment() {
             intent.addCategory(Intent.CATEGORY_LAUNCHER)
             val resolveInfoList: List<ResolveInfo> = packageManager.queryIntentActivities(intent, 0)
             for (resolveInfo in resolveInfoList) {
-                appIcons.add(AppInfo(resolveInfo.activityInfo.name, resolveInfo.activityInfo.loadIcon(packageManager)))
+                appIcons.add(
+                    AppInfo(
+                        resolveInfo.activityInfo.name,
+                        resolveInfo.activityInfo.loadIcon(packageManager)
+                    )
+                )
                 if (appIcons.size == appsNeeded)
                     break
             }

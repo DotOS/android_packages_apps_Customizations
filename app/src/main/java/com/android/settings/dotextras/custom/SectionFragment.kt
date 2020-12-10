@@ -11,6 +11,7 @@ import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.displays.*
 import com.android.settings.dotextras.custom.sections.*
+import com.android.settings.dotextras.custom.utils.AutoFitGridLayoutManager
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 class SectionFragment : Fragment() {
@@ -44,13 +45,17 @@ class SectionFragment : Fragment() {
         addSections()
         dashadapter = DashboardAdapter(items, parentFragmentManager, parent!!)
         recycler.adapter = dashadapter
-        recycler.layoutManager = AutoFitGridLayoutManager(requireContext(),
-            resources.getDimension(R.dimen.default_card_width))
+        recycler.layoutManager = AutoFitGridLayoutManager(
+            requireContext(),
+            resources.getDimension(R.dimen.default_card_width)
+        )
         addHeaders()
         headeradapter = DashboardAdapter(header_items, parentFragmentManager, parent!!)
         headerRecycler.adapter = headeradapter
-        headerRecycler.layoutManager = AutoFitGridLayoutManager(requireContext(),
-            resources.getDimension(R.dimen.default_card_width))
+        headerRecycler.layoutManager = AutoFitGridLayoutManager(
+            requireContext(),
+            resources.getDimension(R.dimen.default_card_width)
+        )
     }
 
 
@@ -68,10 +73,12 @@ class SectionFragment : Fragment() {
         //Displays
         header_displayfragments.add(AODDisplay())
         for (i in header_titles.indices) {
-            val header = DashboardItem(this,
+            val header = DashboardItem(
+                this,
                 header_titles[i],
                 header_sectionfragments[i],
-                header_displayfragments[i])
+                header_displayfragments[i]
+            )
             header.longCard = true
             header_items.add(header)
         }
@@ -103,10 +110,14 @@ class SectionFragment : Fragment() {
         content_displayfragments.add(IconsDisplay())
         content_displayfragments.add(SystemDisplay())
         for (i in content_titles.indices) {
-            items.add(DashboardItem(this,
-                content_titles[i],
-                content_sectionfragments[i],
-                content_displayfragments[i]))
+            items.add(
+                DashboardItem(
+                    this,
+                    content_titles[i],
+                    content_sectionfragments[i],
+                    content_displayfragments[i]
+                )
+            )
         }
     }
 

@@ -62,7 +62,8 @@ fun Context.getNormalizedSecondaryColor(reference: Int): Int {
         Configuration.UI_MODE_NIGHT_YES -> normalizedTextColor =
             if (ResourceHelper.isDark(reference)) ResourceHelper.getSecondaryTextColor(this)
             else ResourceHelper.getInverseSecondaryTextColor(this)
-        Configuration.UI_MODE_NIGHT_NO -> normalizedTextColor = ResourceHelper.getSecondaryTextColor(this)
+        Configuration.UI_MODE_NIGHT_NO -> normalizedTextColor =
+            ResourceHelper.getSecondaryTextColor(this)
     }
     return normalizedTextColor
 }

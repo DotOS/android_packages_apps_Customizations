@@ -1,6 +1,7 @@
 package com.android.settings.dotextras.custom.utils
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Color
 import android.util.TypedValue
@@ -83,5 +84,28 @@ object ResourceHelper {
             Resources.getSystem()
                 .getIdentifier("config_supportsInDisplayFingerprint", "bool", "android")
         )
+    }
+
+    fun getFodAnimationPackage(context: Context): String {
+        return context.resources.getString(
+            Resources.getSystem()
+                .getIdentifier("config_fodAnimationPackage", "string", "android")
+        )
+    }
+
+    fun isPackageInstalled(context: Context, pkg: String, ignoreState: Boolean): Boolean {
+        try {
+            val pi = context.packageManager.getPackageInfo(pkg, 0)
+            if (!pi.applicationInfo.enabled && !ignoreState) {
+                return false
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            return false
+        }
+        return true
+    }
+
+    fun isPackageInstalled(context: Context, pkg: String): Boolean {
+        return isPackageInstalled(context, pkg, true)
     }
 }

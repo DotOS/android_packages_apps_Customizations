@@ -20,7 +20,10 @@
 package com.android.settings.dotextras.custom.views
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.annotation.ColorInt
 import androidx.fragment.app.FragmentManager
 import com.android.settings.dotextras.R
@@ -40,6 +43,7 @@ class ColorSheet : BottomSheetDialogFragment() {
         private const val TAG = "ColorSheet"
         const val NO_COLOR = -1
     }
+
     private var colorAdapter: ColorAdapter? = null
 
     override fun getTheme(): Int {
@@ -99,6 +103,7 @@ class ColorSheet : BottomSheetDialogFragment() {
         super.onDestroyView()
         colorAdapter = null
     }
+
     /**
      * Config color picker
      *
