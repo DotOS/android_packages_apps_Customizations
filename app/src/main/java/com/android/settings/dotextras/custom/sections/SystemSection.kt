@@ -1,25 +1,31 @@
 package com.android.settings.dotextras.custom.sections
 
+import android.app.admin.DevicePolicyManager
+import android.content.Context
+import android.hardware.fingerprint.FingerprintManager
 import android.os.Bundle
+import android.os.UserHandle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OVERLAY
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SECURE
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
-import com.android.settings.dotextras.system.FeatureManager
+import com.android.settings.dotextras.system.OverlayController
+import kotlin.properties.Delegates
 
-open class SystemSection : Fragment() {
+open class SystemSection : GenericSection() {
 
-    private val GRID_COLUMNS = 2
-    private var contextCardList: ArrayList<ContextCards> = ArrayList()
+    private var gesturesCardList: ArrayList<ContextCards> = ArrayList()
+    private var securityCardList: ArrayList<ContextCards> = ArrayList()
+    private var navbarCardList: ArrayList<ContextCards> = ArrayList()
+    private lateinit var mDevicePolicyManager: DevicePolicyManager
+    private lateinit var mFingerprintManager: FingerprintManager
+    private var mEncryptionStatus by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,9 +37,74 @@ open class SystemSection : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val featureManager = FeatureManager(requireActivity().contentResolver)
-        contextCardList.clear()
-        contextCardList.add(
+        gesturesCardList.clear()
+        securityCardList.clear()
+        navbarCardList.clear()
+        addGestures()
+        addSecurity()
+        addNavbar()
+        setupLayout(SWITCH, gesturesCardList, R.id.sectionGestures)
+        setupLayout(SWITCH, securityCardList, R.id.sectionSecurity)
+        setupLayout(SWIPE, navbarCardList, R.id.sectionNavbar)
+    }
+
+    private fun addNavbar() {
+        buildSwipeable(
+            navbarCardList,
+            iconID = R.drawable.ic_swipe,
+            subtitle = getString(R.string.no_navbar),
+            accentColor = R.color.cyan_500,
+            feature = featureManager.Secure().GESTURE_NAVBAR_LENGTH,
+            featureType = SECURE,
+            min = 0,
+            max = 3,
+            default = 1,
+            summary = getString(R.string.no_navbar_summary),
+            extraTitle = getString(R.string.length_size),
+            listener = { value ->
+                run {
+                    when (value) {
+                        0 -> overlayManager.setEnabledExclusiveInCategory(
+                            OverlayController.Packages.HIDDEN_OVERLAY_PKG,
+                            UserHandle.USER_SYSTEM
+                        )
+                        1 -> {
+                            overlayManager.setEnabledExclusiveInCategory(
+                                NAV_BAR_MODE_GESTURAL_OVERLAY,
+                                UserHandle.USER_SYSTEM
+                            )
+                            overlayManager.setEnabled(OverlayController.Packages.HIDDEN_OVERLAY_PKG, false, UserHandle.USER_SYSTEM);
+                            overlayManager.setEnabled(OverlayController.Packages.NAVBAR_LONG_OVERLAY_PKG, false, UserHandle.USER_SYSTEM);
+                            overlayManager.setEnabled(OverlayController.Packages.NAVBAR_MEDIUM_OVERLAY_PKG, false, UserHandle.USER_SYSTEM);
+                        }
+                        2 -> overlayManager.setEnabledExclusiveInCategory(
+                            OverlayController.Packages.NAVBAR_MEDIUM_OVERLAY_PKG,
+                            UserHandle.USER_SYSTEM
+                        )
+                        3 -> overlayManager.setEnabledExclusiveInCategory(
+                            OverlayController.Packages.NAVBAR_LONG_OVERLAY_PKG,
+                            UserHandle.USER_SYSTEM
+                        )
+                    }
+                }
+            },
+            sliderListener = { position, title ->
+                run {
+                    var newTitle = ""
+                    when (position) {
+                        0->newTitle = "Hide"
+                        1->newTitle = "Normal"
+                        2->newTitle = "Medium"
+                        3->newTitle = "Large"
+                    }
+                    title.text = newTitle
+                }
+            }
+        )
+    }
+
+    private fun addGestures() {
+        gesturesCardList.add(
             ContextCards(
                 iconID = R.drawable.ic_torch,
                 title = getString(R.string.disabled),
@@ -44,17 +115,7 @@ open class SystemSection : Fragment() {
                 summary = getString(R.string.hold_to_torch_summary)
             )
         )
-        contextCardList.add(
-            ContextCards(
-                iconID = R.drawable.ic_lock,
-                title = getString(R.string.disabled),
-                subtitle = getString(R.string.pocket_mode),
-                accentColor = R.color.dot_blue,
-                feature = featureManager.System().POCKET_JUDGE,
-                featureType = SYSTEM
-            )
-        )
-        contextCardList.add(
+        gesturesCardList.add(
             ContextCards(
                 iconID = R.drawable.ic_touch,
                 title = getString(R.string.disabled),
@@ -66,7 +127,7 @@ open class SystemSection : Fragment() {
                 enabled = true
             )
         )
-        contextCardList.add(
+        gesturesCardList.add(
             ContextCards(
                 iconID = R.drawable.ic_touch,
                 title = getString(R.string.disabled),
@@ -78,7 +139,7 @@ open class SystemSection : Fragment() {
                 enabled = true
             )
         )
-        contextCardList.add(
+        gesturesCardList.add(
             ContextCards(
                 iconID = R.drawable.ic_three_fingers,
                 title = getString(R.string.disabled),
@@ -90,18 +151,52 @@ open class SystemSection : Fragment() {
                 enabled = false
             )
         )
-        val recyclerView: RecyclerView = view.findViewById(R.id.contextRecycler)
-        val adapter =
-            ContextCardsAdapter(requireActivity().contentResolver, SWITCH, contextCardList)
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(
-            GridSpacingItemDecoration(
-                GRID_COLUMNS,
-                resources.getDimension(R.dimen.recyclerSpacer).toInt(),
-                true
+        gesturesCardList.add(
+            ContextCards(
+                iconID = R.drawable.ic_direction,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.volume_left),
+                accentColor = R.color.purple_500,
+                feature = featureManager.System().VOLUME_PANEL_ON_LEFT,
+                featureType = SYSTEM,
+                summary = getString(R.string.volume_left_summary),
+                enabled = false
             )
         )
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), GRID_COLUMNS)
+    }
 
+    private fun addSecurity() {
+        securityCardList.add(
+            ContextCards(
+                iconID = R.drawable.ic_lock,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.pocket_mode),
+                accentColor = R.color.dot_blue,
+                feature = featureManager.System().POCKET_JUDGE,
+                featureType = SYSTEM
+            )
+        )
+        mFingerprintManager =
+            requireContext().getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
+        mDevicePolicyManager =
+            requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+        mEncryptionStatus = mDevicePolicyManager.storageEncryptionStatus
+        if (mFingerprintManager.isHardwareDetected
+            && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE
+            && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE_PER_USER
+        ) {
+            securityCardList.add(
+                ContextCards(
+                    iconID = R.drawable.fod_icon_default_aosp,
+                    title = getString(R.string.disabled),
+                    subtitle = getString(R.string.biometrics_unlock),
+                    accentColor = R.color.deep_orange_800,
+                    feature = featureManager.System().FP_UNLOCK_KEYSTORE,
+                    featureType = SYSTEM,
+                    summary = getString(R.string.biometrics_unlock_summary),
+                    enabled = false
+                )
+            )
+        }
     }
 }

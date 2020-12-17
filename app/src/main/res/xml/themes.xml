@@ -15,6 +15,12 @@
 
     <Preference
         app:enabled="false"
+        app:layout="@layout/layout_shapes_holder"
+        app:selectable="false"
+        app:shouldDisableView="false" />
+
+    <Preference
+        app:enabled="false"
         app:layout="@layout/layout_accent_holder"
         app:selectable="false"
         app:shouldDisableView="false" />

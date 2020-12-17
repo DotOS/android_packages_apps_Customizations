@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.system.FeatureManager
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 
 class FodIconAdapter(
     private val featureManager: FeatureManager,
-    private val items: ArrayList<FodIcon>
+    private val items: ArrayList<FodResource>
 ) :
     RecyclerView.Adapter<FodIconAdapter.ViewHolder>() {
 
@@ -38,11 +39,13 @@ class FodIconAdapter(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val fodIcon: FodIcon = items[position]
+        val fodIcon: FodResource = items[position]
         val shouldSelect =
             featureManager.System().getInt(featureManager.System().FOD_ICON, 0) == fodIcon.id
         if (shouldSelect) fodIcon.selected = true
-        holder.fodIcon.setImageResource(fodIcon.icon)
+        Glide.with(holder.fodIcon)
+            .load(ResourceHelper.getDrawable(holder.fodIcon.context, "com.android.systemui", fodIcon.resource))
+            .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {
             select(position)
             updateSelection(fodIcon, holder, position)
@@ -97,7 +100,7 @@ class FodIconAdapter(
         updateSelection(fodIcon, holder, position)
     }
 
-    private fun updateSelection(fodIcon: FodIcon, holder: ViewHolder, position: Int) {
+    private fun updateSelection(fodIcon: FodResource, holder: ViewHolder, position: Int) {
         val accentColor: Int = ResourceHelper.getAccent(holder.fodLayout.context)
         if (fodIcon.selected) {
             holder.fodLayout.setBackgroundColor(accentColor)

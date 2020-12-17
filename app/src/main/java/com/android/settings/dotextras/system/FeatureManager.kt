@@ -113,6 +113,13 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          */
         val DOZE_WAKE_DISPLAY_GESTURE = "doze_wake_display_gesture"
 
+        /**
+         * Position of gesture bar length slider.
+         * 0f = hide
+         * 1f = full
+         */
+        val GESTURE_NAVBAR_LENGTH = "gesture_navbar_length"
+
         fun disableAOD() {
             setInt(DOZE_ALWAYS_ON, 0)
         }
@@ -246,6 +253,42 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          * Screen off fod
          */
         val FOD_GESTURE = "fod_gesture"
+
+        /**
+         * FOD night light
+         */
+        val FOD_NIGHT_LIGHT = "fod_night_light"
+
+        /**
+         * Unlock keystore with fingerprint after reboot
+         */
+        val FP_UNLOCK_KEYSTORE = "fp_unlock_keystore"
+
+        /**
+         * Setting to determine whether or not to show the battery percentage in the qs status bar header.
+         * 0 - Show remaining time
+         * 1 - Show percentage
+         */
+        val QS_SHOW_BATTERY_PERCENT = "qs_header_show_battery_percent"
+
+        /**
+         * Battery style
+         * 0 - Portrait
+         * 1 - Circle
+         * 2 - Dotted Circle
+         * 3 - Filled Circle
+         * 4 - Text
+         * 5 - Hidden
+         */
+        val STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style"
+
+        /**
+         * Statusbar Battery %
+         * 0: Hide the battery percentage
+         * 1: Display the battery percentage inside the icon
+         * 2: Display the battery percentage next to Icon
+         */
+        val STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent"
 
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)

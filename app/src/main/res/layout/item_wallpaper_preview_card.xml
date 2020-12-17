@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:cardBackgroundColor="@color/colorPrimaryBackground"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp">
+
+        <FrameLayout
+            android:layout_width="192dp"
+            android:layout_height="324dp">
+
+            <ImageView
+                android:id="@+id/wallpaperPreviewImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+
+            <RelativeLayout
+                android:id="@+id/homescreenOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/fakebar"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/circle_bg"
+                        app:tint="@color/colorPrimary" />
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/circle_bg"
+                        app:tint="@color/colorPrimary" />
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/circle_bg"
+                        app:tint="@color/colorPrimary" />
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/circle_bg"
+                        app:tint="@color/colorPrimary" />
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/circle_bg"
+                        app:tint="@color/colorPrimary" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/fakebar"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="@dimen/default_dialog_radius">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="12dp"
+                            app:srcCompat="@drawable/ic_google_logo"
+                            app:tint="?android:attr/textColorPrimary" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lockscreenOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimaryScrim"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:srcCompat="@drawable/ic_lock" />
+
+                <TextClock
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:format12Hour="hh:mm"
+                    android:format24Hour="hh:mm"
+                    android:textSize="24sp"
+                    tools:text="8:20" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

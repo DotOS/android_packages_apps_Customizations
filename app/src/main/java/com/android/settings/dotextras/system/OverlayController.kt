@@ -27,7 +27,6 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.themes.*
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 
-
 class OverlayController(
     val mCategory: String,
     var packageManager: PackageManager,
@@ -55,6 +54,7 @@ class OverlayController(
     object Packages {
         const val NAVBAR_LONG_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.long"
         const val NAVBAR_MEDIUM_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.medium"
+        const val HIDDEN_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.hidden"
     }
 
     object Constants {
@@ -600,7 +600,7 @@ class OverlayController(
                 ) as ArrayList<OverlayInfo>
             for (overlayInfo in overlayInfos) {
                 //Log.d(TAG, "Overlay Categories : ${overlayInfo.category}")
-                if (mCategory == overlayInfo.category) {
+                if (mCategory!! == overlayInfo.category) {
                     filteredInfos.add(overlayInfo)
                 }
             }

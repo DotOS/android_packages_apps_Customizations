@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BlurView">
+        <attr name="blurOverlayColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="BlurDialog">
+        <attr name="cornerRadius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableLayout">
+        <attr name="el_duration" format="integer" />
+        <attr name="el_expanded" format="boolean" />
+        <attr name="el_parallax" format="float" />
+        <attr name="android:orientation"/>
+    </declare-styleable>
+
+    <declare-styleable name="ContextSectionLayout">
+        <attr name="sectionTitle" format="reference" />
+    </declare-styleable>
+</resources>

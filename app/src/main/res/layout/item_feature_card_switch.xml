@@ -43,7 +43,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:alpha="0.9"
+                    android:ellipsize="marquee"
+                    android:fadingEdge="horizontal"
                     android:fontFamily="sans-serif-medium"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
                     android:textSize="16sp"
                     tools:text="Card title" />
             </LinearLayout>
@@ -58,7 +63,11 @@
                     android:id="@+id/cardSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:fadingEdge="horizontal"
                     android:fontFamily="sans-serif-medium"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
@@ -69,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alpha="0.9"
-                    android:minLines="2"
+                    android:lines="2"
                     android:textSize="12sp"
                     tools:text="Summary" />
             </LinearLayout>

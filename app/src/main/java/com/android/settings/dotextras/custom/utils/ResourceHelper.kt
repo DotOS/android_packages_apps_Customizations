@@ -1,9 +1,11 @@
 package com.android.settings.dotextras.custom.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -11,6 +13,7 @@ import androidx.annotation.Dimension
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import com.android.settings.dotextras.system.FeatureManager
+
 
 object ResourceHelper {
 
@@ -37,6 +40,14 @@ object ResourceHelper {
         )
     }
 
+    @ColorInt
+    fun getColorAttrDefaultColor(context: Context, attr: Int): Int {
+        val ta = context.obtainStyledAttributes(intArrayOf(attr))
+        @ColorInt val colorAccent = ta.getColor(0, 0)
+        ta.recycle()
+        return colorAccent
+    }
+
     fun getTextColor(context: Context): Int {
         return context.resolveColorAttr(android.R.attr.textColorPrimary)
     }
@@ -57,6 +68,23 @@ object ResourceHelper {
         return context.resolveDimenAttr(android.R.attr.dialogCornerRadius)
     }
 
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun getDrawable(context: Context, packageName: String, drawableName: String): Drawable? = try {
+        val pm: PackageManager = context.packageManager
+        val mApkResources: Resources = pm.getResourcesForApplication(packageName)
+        mApkResources.getDrawable(
+            mApkResources.getIdentifier(
+                drawableName,
+                "drawable",
+                packageName
+            )
+        )
+    } catch (e: PackageManager.NameNotFoundException) {
+        e.printStackTrace()
+        null
+    }
+
     @Dimension
     fun Context.resolveDimenAttr(@AttrRes dimenAttr: Int): Float {
         val resolvedAttr = resolveThemeAttr(dimenAttr)
@@ -73,10 +101,17 @@ object ResourceHelper {
         return ContextCompat.getColor(this, colorRes)
     }
 
-    private fun Context.resolveThemeAttr(@AttrRes attrRes: Int): TypedValue {
+    fun Context.resolveThemeAttr(@AttrRes attrRes: Int): TypedValue {
         val typedValue = TypedValue()
         theme.resolveAttribute(attrRes, typedValue, true)
         return typedValue
+    }
+
+    fun shouldDisableNightLight(context: Context): Boolean {
+        return context.resources.getBoolean(
+            Resources.getSystem()
+                .getIdentifier("disable_fod_night_light", "bool", "android")
+        )
     }
 
     fun hasFodSupport(context: Context): Boolean {

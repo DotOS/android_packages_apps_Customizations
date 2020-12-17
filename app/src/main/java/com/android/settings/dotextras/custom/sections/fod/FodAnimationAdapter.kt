@@ -18,11 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.system.FeatureManager
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 
 class FodAnimationAdapter(
     private val featureManager: FeatureManager,
-    private val items: ArrayList<FodAnimation>
+    private val items: ArrayList<FodResource>
 ) :
     RecyclerView.Adapter<FodAnimationAdapter.ViewHolder>() {
 
@@ -42,14 +43,16 @@ class FodAnimationAdapter(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val fodIcon: FodAnimation = items[position]
+        val fodIcon: FodResource = items[position]
         fodIcon.selected =
             featureManager.System().getInt(featureManager.System().FOD_ANIM, 0) == fodIcon.id
-        holder.fodIcon.setImageDrawable(getAnimationPreview(holder.fodIcon.context, fodIcon.animation))
+        Glide.with(holder.fodIcon)
+            .load(getAnimationPreview(holder.fodIcon.context, fodIcon.resource))
+            .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {
             featureManager.System().setInt(featureManager.System().FOD_ANIM, fodIcon.id)
             select(position)
-            updateSelection(fodIcon, holder, position)
+            updateSelection(fodIcon, holder)
         }
         holder.fodLayout.setOnTouchListener { _, event ->
             when (event.action) {
@@ -97,10 +100,10 @@ class FodAnimationAdapter(
             }
             false
         }
-        updateSelection(fodIcon, holder, position)
+        updateSelection(fodIcon, holder)
     }
 
-    private fun updateSelection(fodIcon: FodAnimation, holder: ViewHolder, position: Int) {
+    private fun updateSelection(fodIcon: FodResource, holder: ViewHolder) {
         val accentColor: Int = ResourceHelper.getAccent(holder.fodLayout.context)
         if (fodIcon.selected) {
             holder.fodLayout.setBackgroundColor(accentColor)
@@ -118,17 +121,7 @@ class FodAnimationAdapter(
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun getAnimationPreview(context: Context, drawableName: String): Drawable? {
-        val packageRes = ResourceHelper.getFodAnimationPackage(context)
-        var resId = 0
-        return try {
-            val pm: PackageManager = context.packageManager
-            val mApkResources: Resources = pm.getResourcesForApplication(packageRes)
-            resId = mApkResources.getIdentifier(drawableName, "drawable", packageRes)
-            mApkResources.getDrawable(resId)
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            null
-        }
+        return ResourceHelper.getDrawable(context, ResourceHelper.getFodAnimationPackage(context), drawableName)
     }
 
     private fun select(pos: Int) {

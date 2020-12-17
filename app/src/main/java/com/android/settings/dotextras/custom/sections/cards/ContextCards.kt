@@ -1,5 +1,11 @@
 package com.android.settings.dotextras.custom.sections.cards
 
+import android.widget.TextView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+
+typealias ContextCardsListener = ((value: Int) -> Unit)?
+typealias OnSlideChangedListener = ((position: Int, title: TextView) -> Unit)?
+
 class ContextCards(
     var iconID: Int,
     var title: String,
@@ -12,6 +18,7 @@ class ContextCards(
     //Common variables
     var summary: String? = null
     var default: Int = -1
+    var listener: ContextCardsListener = null
 
     //Switch variables
     var isCardChecked: Boolean = false
@@ -21,6 +28,22 @@ class ContextCards(
     var value: Int = -1
     var max: Int = -1
     var min: Int = -1
+    var force2Lines: Boolean = false
+    var slideListener: OnSlideChangedListener = null
+
+    //Pager variables
+    var pagerAdapter: FragmentStateAdapter? = null
+
+    constructor(
+        iconID: Int,
+        title: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        pagerAdapter: FragmentStateAdapter
+    ) : this(iconID, title, "", accentColor, feature, featureType) {
+        this.pagerAdapter = pagerAdapter
+    }
 
     constructor(
         iconID: Int,
@@ -112,6 +135,74 @@ class ContextCards(
         this.default = default
         this.summary = summary
         this.extraTitle = extraTitle
+    }
+
+    constructor(
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        min: Int,
+        max: Int,
+        default: Int,
+        summary: String,
+        extraTitle: String,
+        slideListener: OnSlideChangedListener
+    ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
+        this.min = min
+        this.max = max
+        this.default = default
+        this.summary = summary
+        this.extraTitle = extraTitle
+        this.slideListener = slideListener
+    }
+
+    constructor(
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        min: Int,
+        max: Int,
+        default: Int,
+        summary: String,
+        extraTitle: String,
+        listener: ContextCardsListener
+    ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
+        this.min = min
+        this.max = max
+        this.default = default
+        this.summary = summary
+        this.extraTitle = extraTitle
+        this.listener = listener
+    }
+
+    constructor(
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        min: Int,
+        max: Int,
+        default: Int,
+        summary: String,
+        extraTitle: String,
+        listener: ContextCardsListener,
+        slideListener: OnSlideChangedListener
+    ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
+        this.min = min
+        this.max = max
+        this.default = default
+        this.summary = summary
+        this.extraTitle = extraTitle
+        this.listener = listener
+        this.slideListener = slideListener
     }
 
 }

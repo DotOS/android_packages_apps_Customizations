@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.ImageView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.system.FeatureManager
+import com.android.settings.dotextras.custom.sections.batterystyles.CircleBatteryDrawable
+import com.android.settings.dotextras.custom.sections.batterystyles.FullCircleBatteryDrawable
+import com.android.settings.dotextras.custom.sections.batterystyles.ThemedBatteryDrawable
 
-open class QSSection : Fragment() {
+open class QSSection : GenericSection() {
 
-    private val GRID_COLUMNS = 2
     private var qsList: ArrayList<ContextCards> = ArrayList()
     private var rows_columnsList: ArrayList<ContextCards> = ArrayList()
 
@@ -33,8 +31,14 @@ open class QSSection : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val featureManager = FeatureManager(requireActivity().contentResolver)
+        /**
+         * Clean
+         */
         qsList.clear()
         rows_columnsList.clear()
+        /**
+         * Options
+         */
         qsList.add(
             ContextCards(
                 iconID = R.drawable.ic_qs_title,
@@ -42,25 +46,16 @@ open class QSSection : Fragment() {
                 subtitle = getString(R.string.qs_title),
                 accentColor = R.color.dot_red,
                 feature = featureManager.System().QS_TILE_TITLE_VISIBILITY,
-                featureType = SYSTEM
+                featureType = SYSTEM,
+                enabled = true
             )
         )
-        val recyclerView: RecyclerView = view.findViewById(R.id.qs1Recycler)
-        val adapter =
-            ContextCardsAdapter(requireActivity().contentResolver, SWITCH, qsList)
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(
-            GridSpacingItemDecoration(
-                GRID_COLUMNS,
-                resources.getDimension(R.dimen.recyclerSpacer).toInt(),
-                true
-            )
-        )
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), GRID_COLUMNS)
+        setupLayout(SWITCH, qsList, R.id.sectionQS)
         /**
          * Rows & Columns
          */
         buildSwipeable(
+            rows_columnsList,
             iconID = R.drawable.ic_add,
             subtitle = "QS Columns",
             accentColor = R.color.dot_red,
@@ -73,6 +68,7 @@ open class QSSection : Fragment() {
             extraTitle = "Column(s)"
         )
         buildSwipeable(
+            rows_columnsList,
             iconID = R.drawable.ic_add,
             subtitle = "QS Columns",
             accentColor = R.color.dot_pink,
@@ -85,6 +81,7 @@ open class QSSection : Fragment() {
             extraTitle = "Column(s)"
         )
         buildSwipeable(
+            rows_columnsList,
             iconID = R.drawable.ic_add,
             subtitle = "QS Rows",
             accentColor = R.color.dot_violet,
@@ -97,6 +94,7 @@ open class QSSection : Fragment() {
             extraTitle = "Row(s)"
         )
         buildSwipeable(
+            rows_columnsList,
             iconID = R.drawable.ic_add,
             subtitle = "QS Rows",
             accentColor = R.color.dot_green,
@@ -108,73 +106,6 @@ open class QSSection : Fragment() {
             summary = "Landscape",
             extraTitle = "Row(s)"
         )
-        val recyclerViewRC: RecyclerView = view.findViewById(R.id.qs2Recycler)
-        val adapterRC =
-            ContextCardsAdapter(requireActivity().contentResolver, SWIPE, rows_columnsList)
-        recyclerViewRC.adapter = adapterRC
-        recyclerViewRC.addItemDecoration(
-            GridSpacingItemDecoration(
-                GRID_COLUMNS,
-                resources.getDimension(R.dimen.recyclerSpacer).toInt(),
-                true
-            )
-        )
-        recyclerViewRC.layoutManager = GridLayoutManager(requireContext(), GRID_COLUMNS)
-    }
-
-    fun buildSwipeable(
-        iconID: Int,
-        subtitle: String,
-        accentColor: Int,
-        feature: String,
-        featureType: Int,
-        min: Int,
-        max: Int,
-        default: Int,
-        summary: String,
-        extraTitle: String
-    ) {
-        rows_columnsList.add(
-            ContextCards(
-                iconID = iconID,
-                title = "",
-                subtitle = subtitle,
-                accentColor = accentColor,
-                feature = feature,
-                featureType = featureType,
-                min = min,
-                max = max,
-                default = default,
-                summary = summary,
-                extraTitle = extraTitle
-            )
-        )
-    }
-
-    fun buildSwipeable(
-        iconID: Int,
-        subtitle: String,
-        accentColor: Int,
-        feature: String,
-        featureType: Int,
-        min: Int,
-        max: Int,
-        default: Int,
-        summary: String
-    ) {
-        rows_columnsList.add(
-            ContextCards(
-                iconID = iconID,
-                title = "",
-                subtitle = subtitle,
-                accentColor = accentColor,
-                feature = feature,
-                featureType = featureType,
-                min = min,
-                max = max,
-                default = default,
-                summary = summary
-            )
-        )
+        setupLayout(SWIPE, rows_columnsList, R.id.sectionRows)
     }
 }

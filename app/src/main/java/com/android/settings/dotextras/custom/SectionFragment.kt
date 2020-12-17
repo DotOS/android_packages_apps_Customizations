@@ -91,7 +91,7 @@ class SectionFragment : Fragment() {
         if (ResourceHelper.hasFodSupport(requireContext()))
             content_titles.add(getString(R.string.section_fod_title))
         content_titles.add(getString(R.string.section_themes_title))
-        content_titles.add(getString(R.string.section_icons_title))
+        //content_titles.add(getString(R.string.section_icons_title))
         content_titles.add(getString(R.string.section_system_title))
         //Sections
         content_sectionfragments.add(StatusbarSection())
@@ -99,7 +99,7 @@ class SectionFragment : Fragment() {
         if (ResourceHelper.hasFodSupport(requireContext()))
             content_sectionfragments.add(FODSection())
         content_sectionfragments.add(ThemeSection())
-        content_sectionfragments.add(IconsSection())
+        //content_sectionfragments.add(IconsSection())
         content_sectionfragments.add(SystemSection())
         //Displays
         content_displayfragments.add(StatusbarDisplay())
@@ -107,7 +107,7 @@ class SectionFragment : Fragment() {
         if (ResourceHelper.hasFodSupport(requireContext()))
             content_displayfragments.add(FODDisplay())
         content_displayfragments.add(ThemeDisplay())
-        content_displayfragments.add(IconsDisplay())
+        //content_displayfragments.add(IconsDisplay())
         content_displayfragments.add(SystemDisplay())
         for (i in content_titles.indices) {
             items.add(
