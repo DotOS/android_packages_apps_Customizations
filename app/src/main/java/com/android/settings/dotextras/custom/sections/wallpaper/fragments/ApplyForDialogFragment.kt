@@ -2,9 +2,7 @@ package com.android.settings.dotextras.custom.sections.wallpaper.fragments
 
 import android.app.WallpaperManager
 import android.content.DialogInterface
-import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
@@ -12,7 +10,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.DisplayMetrics
 import android.view.*
 import android.view.ViewGroup
@@ -28,27 +25,17 @@ import com.google.android.material.button.MaterialButton
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.io.IOException
-import java.io.InputStream
-import java.net.URL
 
-
-class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : DialogFragment() {
+class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
 
     var dismissListener: onDismiss = null
 
-    private lateinit var wallOverlay: ImageView
-    private lateinit var homeOverlay: RelativeLayout
-    private lateinit var lockOverlay: LinearLayout
     private lateinit var wallpaperManager: WallpaperManager
 
-    private lateinit var applyButton: MaterialButton
     private lateinit var forHome: LinearLayout
     private lateinit var forLockscreen: LinearLayout
     private lateinit var forBoth: LinearLayout
     private lateinit var expandable: ExpandableLayout
-    private lateinit var title: TextView
-
-    private lateinit var targetWall: Drawable
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
@@ -61,77 +48,36 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         savedInstanceState: Bundle?
     ): View? {
         requireDialog().requestWindowFeature(Window.FEATURE_NO_TITLE)
-        targetWall = if (wallpaper.type == wallpaper.WEB) drawableFromUrl(wallpaper.url!!) else wallpaper.drawable!!
-        return inflater.inflate(R.layout.item_wallpaper_apply, container, false)
+        return inflater.inflate(R.layout.item_wallpaper_for, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        wallOverlay = view.findViewById(R.id.wallpaperPreviewImage)
-        homeOverlay = view.findViewById(R.id.homescreenOverlay)
-        lockOverlay = view.findViewById(R.id.lockscreenOverlay)
-        applyButton = view.findViewById(R.id.wp_apply_button)
         forHome = view.findViewById(R.id.wp_apply_home)
         forLockscreen = view.findViewById(R.id.wp_apply_lockscreen)
         forBoth = view.findViewById(R.id.wp_apply_both)
         expandable = view.findViewById(R.id.wp_choice)
-        title = view.findViewById(R.id.wp_title)
         wallpaperManager = WallpaperManager.getInstance(requireContext())
-        when (position) {
-            0 -> homeOverlay.visibility = View.VISIBLE
-            1 -> lockOverlay.visibility = View.VISIBLE
-        }
-
-        if (wallpaper.type == wallpaper.WEB) {
-            title.text = wallpaper.category
-            Glide.with(requireContext())
-                .load(Uri.parse(wallpaper.url))
-                .thumbnail(0.1f)
-                .into(wallOverlay)
-        } else {
-            if (wallpaper.title!=null) title.text = wallpaper.title
-            Glide.with(requireContext())
-                .load(wallpaper.drawable)
-                .thumbnail(0.1f)
-                .into(wallOverlay)
-        }
-        applyButton.setOnClickListener { expandable.toggle(animate = true) }
         forHome.setOnClickListener {
             setWallpaper(
-                targetWall,
+                wallpaper.drawable!!,
                 WallpaperManager.FLAG_SYSTEM
             )
         }
         forLockscreen.setOnClickListener {
             setWallpaper(
-                targetWall,
+                wallpaper.drawable!!,
                 WallpaperManager.FLAG_LOCK
             )
         }
-        forBoth.setOnClickListener { setWallpaper(targetWall) }
-    }
-
-    private fun drawableFromUrl(urlString: String): Drawable {
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-        return try {
-            BitmapDrawable(
-                Resources.getSystem(), BitmapFactory.decodeStream(
-                    URL(
-                        urlString
-                    ).content as InputStream
-                )
-            )
-        } catch (e: IOException) {
-            wallpaper.drawable!!
-        }
+        forBoth.setOnClickListener { setWallpaper(wallpaper.drawable!!) }
     }
 
     override fun onStart() {
         super.onStart()
         requireDialog().window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         requireDialog().setCanceledOnTouchOutside(true)
-        requireDialog().window.setGravity(Gravity.TOP)
+        requireDialog().window.setGravity(Gravity.BOTTOM)
         requireDialog().window.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
@@ -179,9 +125,8 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
     }
 
     private fun afterApply(flag: Int?) {
-        Toast.makeText(requireContext(), "Wallpaper applied", Toast.LENGTH_SHORT).show()
         wallpaper.listener?.invoke(
-            targetWall, if (flag != null) {
+            wallpaper.drawable!!, if (flag != null) {
                 if (flag == WallpaperManager.FLAG_LOCK) Type.LOCKSCREEN else Type.HOME
             } else Type.BOTH
         )

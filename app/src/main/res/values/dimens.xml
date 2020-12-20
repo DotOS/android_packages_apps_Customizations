@@ -10,7 +10,7 @@
     <dimen name="small_card_width">128dp</dimen>
     <dimen name="small_card_height">128dp</dimen>
     <dimen name="wallpaper_card_width">128dp</dimen>
-    <dimen name="wallpaper_card_height">192dp</dimen>
+    <dimen name="wallpaper_card_height">248dp</dimen>
     <dimen name="default_dialog_radius">16dp</dimen>
     <dimen name="recyclerSpacer">16dp</dimen>
     <dimen name="recyclerSpacerBig">28dp</dimen>
@@ -44,6 +44,4 @@
          fraction of a pixel.-->
     <fraction name="battery_subpixel_smoothing_left">0%</fraction>
     <fraction name="battery_subpixel_smoothing_right">0%</fraction>
-
-
 </resources>

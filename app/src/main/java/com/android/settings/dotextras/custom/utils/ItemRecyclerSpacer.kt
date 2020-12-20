@@ -7,10 +7,9 @@ import kotlin.math.roundToInt
 
 class ItemRecyclerSpacer(
     private val left: Float,
-    private val pos: Int,
+    private val pos: Int?,
     private val right: Boolean
 ) : RecyclerView.ItemDecoration() {
-    private var position: Int = pos
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -19,8 +18,12 @@ class ItemRecyclerSpacer(
         state: RecyclerView.State
     ) {
         val position = parent.getChildAdapterPosition(view)
-        if (position == this.position) {
-
+        if (this.pos != null) {
+            if (position == this.pos) {
+                if (right) outRect.right = left.roundToInt()
+                else outRect.left = left.roundToInt()
+            }
+        } else {
             if (right) outRect.right = left.roundToInt()
             else outRect.left = left.roundToInt()
         }

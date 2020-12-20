@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="top"
     android:orientation="vertical"
     android:paddingTop="10dp">
@@ -11,6 +12,44 @@
         layout="@layout/item_wallpaper_preview_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/detailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/wallLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="?android:attr/textColorSecondary"
+            app:srcCompat="@drawable/chevron_left" />
+
+        <ImageButton
+            android:id="@+id/wallRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:rotation="180"
+            android:tint="?android:attr/textColorSecondary"
+            app:srcCompat="@drawable/chevron_left" />
+
+        <TextView
+            android:id="@+id/wp_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            tools:text="@string/dotos_exclusives" />
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -49,7 +88,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Apply Wallpaper"
+                            android:text="@string/apply_wallpaper"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="20sp" />
 
@@ -57,7 +96,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:alpha="0.7"
-                            android:text="Are you sure you want to apply this wallpaper?"
+                            android:text="@string/apply_wallpaper_summary"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -68,10 +107,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/apply"
+                        android:text="@string/apply_for"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:textColor="?android:textColorPrimary"
-                        app:cornerRadius="24dp" />
+                        app:cornerRadius="24dp"
+                        app:iconTint="?android:textColorPrimary" />
 
                 </LinearLayout>
 
@@ -81,7 +121,7 @@
                 android:id="@+id/wp_choice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:el_expanded="true">
+                app:el_expanded="false">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"

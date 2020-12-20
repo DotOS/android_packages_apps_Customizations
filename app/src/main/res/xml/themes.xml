@@ -3,6 +3,22 @@
 
     <Preference
         app:enabled="false"
+        app:layout="@layout/layout_accent_holder"
+        app:selectable="false"
+        app:shouldDisableView="false" />
+
+    <Preference
+        app:key="accent_choice"
+        app:summary="Select accent color from Material Palette"
+        app:title="Material Accent Picker" />
+
+    <ListPreference
+        app:key="accent_default"
+        app:summary="Select Accent Color from Device's Overlays"
+        app:title="Legacy Accent Picker" />
+
+    <Preference
+        app:enabled="false"
         app:layout="@layout/layout_fontpack_holder"
         app:selectable="false"
         app:shouldDisableView="false" />
@@ -18,21 +34,5 @@
         app:layout="@layout/layout_shapes_holder"
         app:selectable="false"
         app:shouldDisableView="false" />
-
-    <Preference
-        app:enabled="false"
-        app:layout="@layout/layout_accent_holder"
-        app:selectable="false"
-        app:shouldDisableView="false" />
-
-    <Preference
-        app:key="accent_choice"
-        app:summary="Select accent color from Material Palette"
-        app:title="Material Accent Picker" />
-
-    <ListPreference
-        app:key="accent_default"
-        app:summary="Select Accent Color from Device's Overlays"
-        app:title="Legacy Accent Picker" />
 
 </PreferenceScreen>

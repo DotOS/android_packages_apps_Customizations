@@ -1,47 +1,60 @@
 package com.android.settings.dotextras.custom.sections
 
-import android.annotation.SuppressLint
 import android.app.WallpaperManager
-import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
-import android.content.res.ColorStateList
-import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Bundle
 import android.service.wallpaper.WallpaperService
-import android.util.DisplayMetrics
-import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.wallpaper.*
+import com.android.settings.dotextras.custom.sections.wallpaper.LiveWallpaperAdapter
+import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
+import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperPreviewAdapter
+import com.android.settings.dotextras.custom.sections.wallpaper.filters.WallpaperFilter
+import com.android.settings.dotextras.custom.sections.wallpaper.filters.WallpaperFilterAdapter
 import com.android.settings.dotextras.custom.sections.wallpaper.fragments.CurrentWallpaperAdapter
-import com.beust.klaxon.Json
-import com.beust.klaxon.JsonObject
-import com.beust.klaxon.json
+import com.android.settings.dotextras.custom.sections.wallpaper.onDismiss
+import com.android.settings.dotextras.custom.sections.wallpaper.provider.StandalonePreviewActivity
+import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
+import com.android.settings.dotextras.custom.utils.internetAvailable
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import org.json.JSONObject
-import java.io.IOException
 import java.net.URL
-import java.util.*
-import kotlin.collections.ArrayList
 
+class WallpaperSection() : GenericSection() {
 
-class WallpaperSection : GenericSection() {
+    constructor(standalone: Boolean) : this() {
+        this.standalone = standalone
+    }
+
+    private var standalone = false
 
     private var wallpaperManager: WallpaperManager? = null
     private var mClipboardManager: ClipboardManager? = null
     private var mBuiltInWallpapers = ArrayList<WallpaperBase>()
+    var exlist = ArrayList<WallpaperBase>()
+    var permlist = ArrayList<WallpaperBase>()
+    private lateinit var sectionTitle: TextView
     private lateinit var currentPager: ViewPager2
+    private val onDismissListener: onDismiss = {
+        run {
+            sectionTitle.visibility = View.VISIBLE
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +67,11 @@ class WallpaperSection : GenericSection() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as BaseActivity).toggleAppBar(true)
+        if (!standalone)
+            (requireActivity() as BaseActivity).toggleAppBar(true)
+        else
+            (requireActivity() as StandalonePreviewActivity).toggleAppBar(true)
+        sectionTitle = view.findViewById(R.id.section_wp_title)
         currentPager = view.findViewById(R.id.wallPager)
         currentPager.adapter = CurrentWallpaperAdapter(requireActivity())
         val pagerLeft: ImageButton = view.findViewById(R.id.wallLeft)
@@ -69,7 +86,56 @@ class WallpaperSection : GenericSection() {
             requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
 
         parseBuiltInWallpapers()
+        if (requireContext().internetAvailable()) {
+            view.findViewById<LinearLayout>(R.id.dotextitle).visibility = View.VISIBLE
+            buildCategories()
+        } else {
+            view.findViewById<LinearLayout>(R.id.dotextitle).visibility = View.GONE
+        }
+    }
+
+    val filterList: ArrayList<WallpaperFilter> = ArrayList()
+    private fun buildCategories() {
+        val categoriesRecycler: RecyclerView =
+            requireView().findViewById(R.id.dotCategoriesRecycler)
         parseExclusives()
+        doAsync {
+            val jsonObject = JSONObject(URL(getString(R.string.papaers_url)).readText())
+            val jsonArray = jsonObject.optJSONArray("Categories")
+            for (i in 0 until jsonArray.length()) {
+                val category = jsonArray.getJSONObject(i).getString("name")
+                val filter = WallpaperFilter(category)
+                filter.selected = category == jsonArray.getJSONObject(0).getString("name")
+                filter.listener = {
+                    run {
+                        reloadExclusives(filter.category)
+                    }
+                }
+                filterList.add(filter)
+            }
+            uiThread {
+                categoriesRecycler.adapter = WallpaperFilterAdapter(filterList)
+                categoriesRecycler.addItemDecoration(
+                    ItemRecyclerSpacer(
+                        requireContext().resources.getDimension(
+                            R.dimen.recyclerSpacerSmall
+                        ), 0, false
+                    )
+                )
+                categoriesRecycler.addItemDecoration(
+                    ItemRecyclerSpacer(
+                        requireContext().resources.getDimension(
+                            R.dimen.recyclerSpacerSmall
+                        ), null, false
+                    )
+                )
+                categoriesRecycler.layoutManager = LinearLayoutManager(
+                    context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            }
+        }
     }
 
     private fun parseLiveWallpapers() {
@@ -89,66 +155,112 @@ class WallpaperSection : GenericSection() {
     }
 
     private fun parseExclusives() {
-        val exclusiveRecycler: RecyclerView = requireView().findViewById(R.id.builtInRecycler)
-        val exlist: ArrayList<WallpaperBase> = ArrayList()
-        val jsonObject = JSONObject(URL(getString(R.string.papaers_url)).readText())
-        val jsonArray = jsonObject.optJSONArray("Wallpapers")
-        for (i in 0 until jsonArray.length()) {
-            val jsonObject = jsonArray.getJSONObject(i)
-            val url = jsonObject.optString("url")
-            val name = jsonObject.optString("name")
-            val wallpaper = WallpaperBase(url)
-            wallpaper.title = name
-            wallpaper.type = wallpaper.WEB
-            exlist.add(wallpaper)
-        }
+        val exclusiveRecycler: RecyclerView = requireView().findViewById(R.id.dotRecycler)
+        permlist.clear()
         val adapter = WallpaperPreviewAdapter(
-            mBuiltInWallpapers,
+            exlist,
             wallpaperManager!!,
             this,
-            currentPager
+            currentPager,
+            onDismissListener
         )
-        exclusiveRecycler.adapter = adapter
+        doAsync {
+            val jsonObject = JSONObject(URL(getString(R.string.papaers_url)).readText())
+            val jsonArray = jsonObject.optJSONArray("Wallpapers")
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                val url = jsonObject.optString("url")
+                val category = jsonObject.getString("category")
+                val wallpaper = WallpaperBase(url)
+                wallpaper.category = category
+                wallpaper.type = wallpaper.WEB
+                wallpaper.listener = { _, _ ->
+                    run {
+                        currentPager.adapter = CurrentWallpaperAdapter(requireActivity())
+                    }
+                }
+                wallpaper.onPressed = {
+                    run {
+                        sectionTitle.visibility = View.GONE
+                        if (standalone)
+                            (requireActivity() as StandalonePreviewActivity).scrollTo(0, 0)
+                        else
+                            (requireActivity() as BaseActivity).scrollTo(0, 0)
+                    }
+                }
+                permlist.add(wallpaper)
+            }
+            if (permlist.size == jsonArray.length() && permlist.isNotEmpty()) {
+                uiThread {
+                    exlist = permlist
+                    val tempList = ArrayList<WallpaperBase>()
+                    tempList.addAll(exlist)
+                    tempList.removeIf { it.category != filterList[0].category }
+                    adapter.updateList(tempList)
+                    adapter.notifyDataSetChanged()
+                    exclusiveRecycler.adapter = adapter
+                    exclusiveRecycler.layoutManager = LinearLayoutManager(
+                        context,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
+                }
+            }
+        }
+    }
+
+    private fun reloadExclusives(filter: String?) {
+        val exclusiveRecycler: RecyclerView = requireView().findViewById(R.id.dotRecycler)
+        exlist.addAll(permlist)
+        val tempList = ArrayList<WallpaperBase>()
+        tempList.addAll(exlist)
+        if (filter != null) {
+            tempList.removeIf { it.category != filter }
+        }
+        (exclusiveRecycler.adapter as WallpaperPreviewAdapter).updateList(tempList)
+        (exclusiveRecycler.adapter as WallpaperPreviewAdapter).notifyDataSetChanged()
+        exclusiveRecycler.adapter = (exclusiveRecycler.adapter as WallpaperPreviewAdapter)
         exclusiveRecycler.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.HORIZONTAL,
             false
         )
-
-    }
-
-    private fun setWallpaper(bitmap: Bitmap) {
-        val metrics = DisplayMetrics()
-        val display: Display = requireActivity().windowManager.defaultDisplay
-        display.getMetrics(metrics)
-        val screenWidth = metrics.widthPixels
-        val screenHeight = metrics.heightPixels
-        wallpaperManager!!.suggestDesiredDimensions(screenWidth, screenHeight)
-        val width = wallpaperManager!!.desiredMinimumWidth
-        val height = wallpaperManager!!.desiredMinimumHeight
-        val wallpaper = Bitmap.createScaledBitmap(bitmap, width, height, true)
-        try {
-            wallpaperManager!!.bitmap = wallpaper
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
     }
 
     private fun parseBuiltInWallpapers() {
         val builtInRecycler: RecyclerView = requireView().findViewById(R.id.builtInRecycler)
         val wallpaperPreview = WallpaperBase(wallpaperManager!!.builtInDrawable)
         wallpaperPreview.type = wallpaperPreview.SYSTEM
-        wallpaperPreview.listener = { drawable, type ->
+        wallpaperPreview.listener = { _, _ ->
             run {
                 currentPager.adapter = CurrentWallpaperAdapter(requireActivity())
             }
         }
+        wallpaperPreview.onPressed = {
+            run {
+                sectionTitle.visibility = View.GONE
+                if (standalone)
+                    (requireActivity() as StandalonePreviewActivity).scrollTo(0, 0)
+                else
+                    (requireActivity() as BaseActivity).scrollTo(0, 0)
+            }
+        }
         mBuiltInWallpapers.add(wallpaperPreview)
-        val wallpaperGallery = WallpaperBase(requireContext().getDrawable(R.drawable.ic_add))
+        val wallpaperGallery =
+            WallpaperBase(ContextCompat.getDrawable(requireContext(), R.drawable.ic_add))
         wallpaperGallery.type = wallpaperGallery.GALLERY
-        wallpaperGallery.listener = { drawable, type ->
+        wallpaperGallery.listener = { _, _ ->
             run {
                 currentPager.adapter = CurrentWallpaperAdapter(requireActivity())
+            }
+        }
+        wallpaperGallery.onPressed = {
+            run {
+                sectionTitle.visibility = View.GONE
+                if (standalone)
+                    (requireActivity() as StandalonePreviewActivity).scrollTo(0, 0)
+                else
+                    (requireActivity() as BaseActivity).scrollTo(0, 0)
             }
         }
         mBuiltInWallpapers.add(wallpaperGallery)
@@ -156,7 +268,8 @@ class WallpaperSection : GenericSection() {
             mBuiltInWallpapers,
             wallpaperManager!!,
             this,
-            currentPager
+            currentPager,
+            onDismissListener
         )
         builtInRecycler.adapter = adapter
         builtInRecycler.layoutManager = LinearLayoutManager(
@@ -164,34 +277,5 @@ class WallpaperSection : GenericSection() {
             LinearLayoutManager.HORIZONTAL,
             false
         )
-    }
-
-    private fun setColor(view: View, color: Color) {
-        view.backgroundTintList = ColorStateList.valueOf(
-            Color.rgb(
-                color.red(),
-                color.green(),
-                color.blue()
-            )
-        )
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setTextColor(view: TextView, color: Color) {
-        view.text = "#${
-            Integer.toHexString(Color.rgb(color.red(), color.green(), color.blue())).substring(2)
-                .toUpperCase(Locale.getDefault())
-        }"
-    }
-
-    private fun addClipboardLogic(view: TextView) {
-        view.setOnLongClickListener {
-            mClipboardManager!!.primaryClip = ClipData.newPlainText("text", view.text.toString())
-            Toast.makeText(
-                requireActivity().applicationContext, "Color copied",
-                Toast.LENGTH_SHORT
-            ).show()
-            true
-        }
     }
 }

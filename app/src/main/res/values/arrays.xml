@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array  name="fod_recognizing_animation_entries" translatable="false">
-        <item>@string/fod_recog_animation_miui_normal</item>
-        <item>@string/fod_recog_animation_miui_aod</item>
-        <item>@string/fod_recog_animation_miui_light</item>
-        <item>@string/fod_recog_animation_miui_pop</item>
-        <item>@string/fod_recog_animation_miui_pulse</item>
-        <item>@string/fod_recog_animation_miui_pulse_white</item>
-        <item>@string/fod_recog_animation_miui_rhythm</item>
-        <item>@string/fod_recog_animation_op_cosmos</item>
-        <item>@string/fod_recog_animation_op_mclaren</item>
-        <item>@string/fod_recog_animation_op_stripe</item>
-        <item>@string/fod_recog_animation_op_wave</item>
-        <item>@string/fod_recog_animation_pureview_dna</item>
-        <item>@string/fod_recog_animation_pureview_future</item>
-        <item>@string/fod_recog_animation_pureview_halo_ring</item>
-        <item>@string/fod_recog_animation_pureview_molecular</item>
-    </string-array>
     <!-- BatteryMeterView parameters -->
     <array name="batterymeter_color_levels">
         <item>15</item>

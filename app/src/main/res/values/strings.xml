@@ -1,17 +1,27 @@
 <resources>
     <string name="app_name">Customizations</string>
-
-    <string name="lockscreen_date_pattern">EEE, MMM d</string>
+    <!-- Common Strings -->
+    <string name="apply">Apply</string>
+    <string name="apply_for">Apply for</string>
     <string name="back_behaviour">back_behaviour</string>
-    <string name="picker_title">Pick a color</string>
-    <string name="accent_color">Accent Color</string>
-    <string name="switches">Switches</string>
-    <string name="progress">Progress</string>
+    <string name="button">Button</string>
     <string name="buttons">Buttons</string>
     <string name="chip">Chip</string>
-    <string name="button">Button</string>
-    <string name="picker_summary">Select the one that fits you.</string>
+    <string name="disabled">Disabled</string>
+    <string name="enable">Enable</string>
+    <string name="enabled">Enabled</string>
+    <string name="lockscreen_date_pattern">EEE, MMM d</string>
+    <string name="options">Options</string>
+    <string name="picker_title">Pick a color</string>
+    <string name="progress">Progress</string>
     <string name="reset">Reset</string>
+    <string name="sections">Sections</string>
+    <string name="switches">Switches</string>
+    <string name="manifest_wallpaper">Wallpaper</string>
+
+    <!-- Themes Section -->
+    <string name="accent_color">Accent Color</string>
+    <string name="picker_summary">Select the one that fits you.</string>
     <string name="built_in_accents">Built-in Accents</string>
     <string name="material_palette">Material Palette</string>
     <string name="headline_01">Headline 01</string>
@@ -19,16 +29,21 @@
     <string name="fonts">Fonts</string>
     <string name="icon_pack">Icon Pack</string>
     <string name="icon_shapes">Icon Shapes</string>
-    <string name="sections">Sections</string>
+    <string name="device_default">Device default</string>
+    <string name="device_default_font">Device\nDefault Font</string>
+
+    <!-- Wallpapers Section -->
     <string name="current_wallpaper">Current Wallpaper</string>
     <string name="image_color_s">Image Color(s)</string>
     <string name="my_photos">My Photos</string>
     <string name="built_in_wallpapers">Built-in Wallpapers</string>
     <string name="live_wallpapers">Live Wallpapers</string>
-    <string name="device_default">Device default</string>
-    <string name="device_default_font">Device\nDefault Font</string>
-    <string name="enabled">Enabled</string>
-    <string name="disabled">Disabled</string>
+    <string name="dotos_exclusives">DotOS Exclusives</string>
+    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    <string name="apply_wallpaper">Apply Wallpaper</string>
+    <string name="apply_wallpaper_summary">Are you sure you want to use this wallpaper?</string>
+
+    <!-- System Section -->
     <string name="hold_to_torch">Hold to Torch</string>
     <string name="hold_to_torch_summary">Hold power button to torch</string>
     <string name="pocket_mode">Pocket Mode</string>
@@ -36,24 +51,12 @@
     <string name="statusbar_dt2s_summary">Double tap to sleep</string>
     <string name="lockscreen_dt2s">DT2S Lockscreen</string>
     <string name="lockscreen_dt2s_summary">Double tap to sleep</string>
-    <string name="qs_title">QS Tiles Title</string>
-    <string name="fod_icon_picker_title">Fingerprint icon</string>
-    <string name="fod_icon_picker_summary">Choose your favorite fingerprint icon</string>
-    <string name="fod_icon_picker_footer">In order to add your own icon, select the top left icon and use the OnePlus 6T FP Customizer app to select the icon you want.</string>
-    <string name="fod_screenoff_summary">Use Biometric Authentication while you screen is off. Always on Display will be disabled.</string>
-    <string name="fod_screenoff_title">Screen-off FOD</string>
-    <string name="fod_animations">Animations</string>
-    <string name="fod_icons">Icons</string>
     <string name="threewayss">Quick Screenshot</string>
     <string name="threewayss_summary">Take a screenshot using three fingers</string>
-    <string name="fod_color">Recognising Color</string>
-    <string name="enable_aod">Enable Always on Display?</string>
-    <string name="enable">Enable</string>
     <string name="biometrics_unlock">FP on reboot</string>
     <string name="biometrics_unlock_summary">Use biometrics to unlock after a reboot</string>
     <string name="volume_left">Volume Panel</string>
     <string name="volume_left_summary">Make it left-handed friendly</string>
-    <string name="options">Options</string>
     <string name="fod_nightlight">FOD Nightlight</string>
     <string name="fod_nightlight_summary">Auto-disable nightlight when using fod</string>
     <string name="no_navbar">Navbar Pill</string>
@@ -61,14 +64,39 @@
     <string name="security">Security</string>
     <string name="navbar">Navigation System</string>
     <string name="length_size">Length</string>
+
+    <!-- QS Section -->
+    <string name="qs_title">QS Tiles Title</string>
     <string name="rows_amp_columns"><![CDATA[Rows & Columns]]></string>
-    <string name="apply">Apply</string>
+
+    <!-- FOD Section -->
+    <string name="fod_icon_picker_title">Fingerprint icon</string>
+    <string name="fod_icon_picker_summary">Choose your favorite fingerprint icon</string>
+    <string name="fod_icon_picker_footer">In order to add your own icon, select the top left icon and use the OnePlus 6T FP Customizer app to select the icon you want.</string>
+    <string name="fod_screenoff_summary">Use Biometric Authentication while you screen is off. Always on Display will be disabled.</string>
+    <string name="fod_screenoff_title">Screen-off FOD</string>
+    <string name="fod_animations">Animations</string>
+    <string name="fod_icons">Icons</string>
+    <string name="fod_color">Recognising Color</string>
+    <string name="enable_aod">Enable Always on Display?</string>
+
+    <!-- Statusbar Section -->
     <string name="battery_styles">Battery Styles</string>
     <string name="percentage_style">Percentage Styles</string>
-
-
-    <!-- Glyph to be overlaid atop the battery when the level is extremely low. Do not translate. -->
     <string name="battery_meter_very_low_overlay_symbol">!</string>
-    <string name="dotos_exclusives">DotOS Exclusives</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    <string name="apply_both">Home Screen and Lock Screen</string>
+    <string name="wall_applied">Wallpaper Applied!</string>
+
+    <string name="crop_image_activity_title"></string>
+    <string name="crop_image_menu_rotate_left">Rotate counter clockwise</string>
+    <string name="crop_image_menu_rotate_right">Rotate</string>
+    <string name="crop_image_menu_crop">Crop</string>
+    <string name="crop_image_menu_flip">Flip</string>
+    <string name="crop_image_menu_flip_horizontally">Flip horizontally</string>
+    <string name="crop_image_menu_flip_vertically">Flip vertically</string>
+
+    <string name="pick_image_intent_chooser_title">Select source</string>
+
+    <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
+
 </resources>

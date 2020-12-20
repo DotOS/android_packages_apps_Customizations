@@ -8,21 +8,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
+import com.bumptech.glide.Glide
 
+class HomeWallpaperFragment() : Fragment() {
 
-class HomeWallpaperFragment : Fragment() {
+    private lateinit var wallpaper: ImageView
+    private var wallpaperBase: WallpaperBase? = null
+
+    constructor(wallpaperBase: WallpaperBase) : this() {
+        this.wallpaperBase = wallpaperBase
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.item_wallpaper_preview_card, container, false)
+        val normal = inflater.inflate(R.layout.item_wallpaper_preview_card, container, false)
+        val big = inflater.inflate(R.layout.item_wallpaper_preview_card_big, container, false)
+        return if (wallpaperBase == null) normal else big
     }
 
     @SuppressLint("MissingPermission")
@@ -30,10 +38,17 @@ class HomeWallpaperFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val overlay: RelativeLayout = view.findViewById(R.id.homescreenOverlay)
         overlay.visibility = View.VISIBLE
-        val wallpaper: ImageView = view.findViewById(R.id.wallpaperPreviewImage)
-        val wallpaperManager = WallpaperManager.getInstance(requireContext())
-        val pfd = wallpaperManager.getWallpaperFile(WallpaperManager.FLAG_SYSTEM)
-        BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor)
-        wallpaper.setImageDrawable(wallpaperManager.drawable)
+        wallpaper = view.findViewById(R.id.wallpaperPreviewImage)
+        if (wallpaperBase == null) {
+            val wallpaperManager = WallpaperManager.getInstance(requireContext())
+            val pfd = wallpaperManager.getWallpaperFile(WallpaperManager.FLAG_SYSTEM)
+            Glide.with(view)
+                .load(BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor))
+                .into(wallpaper)
+        } else {
+            Glide.with(view)
+                .load(wallpaperBase!!.drawable)
+                .into(wallpaper)
+        }
     }
 }

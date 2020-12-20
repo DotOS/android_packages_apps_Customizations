@@ -13,12 +13,12 @@
         app:cardBackgroundColor="@color/colorPrimaryBackground"
         app:cardCornerRadius="18dp"
         app:cardElevation="0dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="?android:textColorSecondary">
+        app:strokeColor="?android:textColorSecondary"
+        app:strokeWidth="1dp">
 
         <FrameLayout
-            android:layout_width="192dp"
-            android:layout_height="364dp">
+            android:layout_width="242dp"
+            android:layout_height="480dp">
 
             <ImageView
                 android:id="@+id/wallpaperPreviewImage"
@@ -40,41 +40,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/fakebar"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/circle_bg"
                         app:tint="@color/colorPrimary" />
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/circle_bg"
                         app:tint="@color/colorPrimary" />
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/circle_bg"
                         app:tint="@color/colorPrimary" />
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/circle_bg"
                         app:tint="@color/colorPrimary" />
 
                     <ImageView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/circle_bg"
                         app:tint="@color/colorPrimary" />
@@ -85,10 +85,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     app:cardBackgroundColor="@color/colorPrimary"
                     app:cardCornerRadius="@dimen/default_dialog_radius">
 
@@ -120,18 +120,18 @@
                 tools:visibility="gone">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="36dp"
                     app:srcCompat="@drawable/ic_lock" />
 
                 <TextClock
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:format12Hour="hh:mm"
                     android:format24Hour="hh:mm"
-                    android:textSize="24sp"
+                    android:textSize="48dp"
                     tools:text="8:20" />
             </LinearLayout>
 

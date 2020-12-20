@@ -42,6 +42,12 @@ class DashboardAdapter(
         ).commit()
         holder.fragmentlayout.setOnClickListener {
             fragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.slide_out
+                )
                 .replace(R.id.frameContent, dashboardItem.target_fragment, dashboardItem.card_title)
                 .addToBackStack(dashboardItem.card_title)
                 .commit()

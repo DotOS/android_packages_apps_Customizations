@@ -25,7 +25,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/wallPager"
             android:layout_width="match_parent"
-            android:layout_height="324dp"
+            android:layout_height="364dp"
             tools:visibility="gone" />
 
         <RelativeLayout
@@ -54,7 +54,7 @@
                 app:srcCompat="@drawable/chevron_left" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/section_wp_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -63,49 +63,9 @@
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView6"
-                android:layout_marginTop="4dp"
-                android:text="@string/image_color_s"
-                android:textSize="16sp"
-                android:visibility="gone" />
-
-            <include
-                layout="@layout/item_wallpaper_colors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView7"
-                android:layout_marginTop="6dp"
-                android:visibility="gone" />
         </RelativeLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="18dp"
-        android:paddingTop="14dp"
-        android:paddingEnd="18dp"
-        android:paddingBottom="14dp"
-        android:text="@string/my_photos"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="22sp"
-        android:visibility="gone" />
-
-    <ImageButton
-        android:layout_width="@dimen/small_card_width"
-        android:layout_height="@dimen/small_card_height"
-        android:layout_margin="10dp"
-        android:background="@drawable/rounded_bg"
-        android:contentDescription="@null"
-        android:tint="?android:attr/textColorPrimary"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_add" />
 
     <View
         android:id="@+id/divider"
@@ -129,17 +89,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/dotextitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="18dp"
-        android:paddingTop="14dp"
-        android:paddingEnd="18dp"
-        android:paddingBottom="14dp"
-        android:text="@string/dotos_exclusives"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="22sp"
-        app:drawableEndCompat="@drawable/drag_handle" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="18dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="14dp"
+            android:text="@string/dotos_exclusives"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="22sp"
+            app:drawableEndCompat="@drawable/drag_handle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dotCategoriesRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dotRecycler"

@@ -33,12 +33,15 @@ import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import java.io.IOException
 
+typealias onDismiss = (() -> Unit)?
+typealias onShow = (() -> Unit)?
 
 class WallpaperPreviewAdapter(
-    private val items: ArrayList<WallpaperBase>,
+    private var items: ArrayList<WallpaperBase>,
     private val wallpaperManager: WallpaperManager,
     private val fragment: Fragment,
-    private val pager: ViewPager2
+    private val pager: ViewPager2,
+    private val dismissListener: onDismiss
 ) : RecyclerView.Adapter<WallpaperPreviewAdapter.ViewHolder>() {
 
     private val SELECT_PICTURE = 1
@@ -49,7 +52,13 @@ class WallpaperPreviewAdapter(
 
     private lateinit var synteticActivity: Activity
 
+    private lateinit var wallpaperBase: WallpaperBase
+
     private var listener: onWallpaperChanged = null
+
+    fun updateList(list: ArrayList<WallpaperBase>) {
+        items=list
+    }
 
     private val getContent = fragment.registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
@@ -62,10 +71,14 @@ class WallpaperPreviewAdapter(
             val wallpaperGallery = WallpaperBase(bitmapDrawable!!.toDrawable(synteticActivity.resources))
             wallpaperGallery.type = wallpaperGallery.GALLERY
             wallpaperGallery.listener = listener
-            ApplyDialogFragment(wallpaperGallery, pager.currentItem).show(
+            wallpaperGallery.onPressed = wallpaperBase.onPressed
+            val dialog = ApplyDialogFragment(wallpaperGallery, pager.currentItem)
+            dialog.dismissListener = dismissListener
+            dialog.show(
                 fragment.parentFragmentManager,
                 "${wallpaperGallery.type}"
             )
+            wallpaperGallery.onPressed?.invoke()
         }
     }
 
@@ -110,6 +123,7 @@ class WallpaperPreviewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val wallpaper: WallpaperBase = items[position]
+        wallpaperBase = wallpaper
         contentResolver = holder.wallpaperPreview.context.contentResolver
         synteticActivity = holder.wallpaperPreview.context as Activity
         this.listener = wallpaper.listener
@@ -127,7 +141,10 @@ class WallpaperPreviewAdapter(
             wallpaper.SYSTEM -> {
                 holder.wallpaperPreview.setImageDrawable(wallpaper.drawable)
                 holder.wallpaperPreview.setOnClickListener {
-                    ApplyDialogFragment(wallpaper, pager.currentItem).show(
+                    wallpaper.onPressed?.invoke()
+                    val dialog = ApplyDialogFragment(wallpaper, pager.currentItem)
+                    dialog.dismissListener = dismissListener
+                    dialog.show(
                         fragment.parentFragmentManager,
                         "${wallpaper.type}"
                     )
@@ -135,10 +152,14 @@ class WallpaperPreviewAdapter(
             }
             wallpaper.WEB -> {
                 Glide.with(holder.wallpaperPreview)
-                    .load(wallpaper.url)
+                    .load(Uri.parse(wallpaper.url))
+                    .thumbnail(0.1f)
                     .into(holder.wallpaperPreview)
                 holder.wallpaperPreview.setOnClickListener {
-                    ApplyDialogFragment(wallpaper, pager.currentItem).show(
+                    wallpaper.onPressed?.invoke()
+                    val dialog = ApplyDialogFragment(wallpaper, pager.currentItem)
+                    dialog.dismissListener = dismissListener
+                    dialog.show(
                         fragment.parentFragmentManager,
                         "${wallpaper.type}"
                     )

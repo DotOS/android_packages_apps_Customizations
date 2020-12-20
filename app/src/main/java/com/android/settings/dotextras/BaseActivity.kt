@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.widget.NestedScrollView
 import com.android.settings.dotextras.custom.SectionFragment
 import com.google.android.material.appbar.AppBarLayout
 
@@ -41,6 +42,10 @@ class BaseActivity : AppCompatActivity() {
     private fun resetUI() {
         toggleAppBar(false)
         setTitle(null)
+    }
+
+    fun scrollTo(x: Int, y: Int) {
+        findViewById<NestedScrollView>(R.id.nestedContainer).scrollTo(x, y)
     }
 
     fun toggleAppBar(hide: Boolean) {
