@@ -46,12 +46,17 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     private var darkCompatible: AppCompatImageView
     private var darkApply: MaterialButton
 
+    private var smartPicker: LinearLayout
+    private var resetAccents: LinearLayout
+
     private val featureManager: FeatureManager
 
     private var listener: onTwoTonePressed = null
+    private var lightColor: Int? = null
+    private var darkColor: Int? = null
 
     init {
-        LayoutInflater.from(mContext).inflate(R.layout.item_shade_control, this, true)
+        LayoutInflater.from(context).inflate(R.layout.item_shade_control, this, true)
 
         whiteLayout = findViewById(R.id.accentLight)
         whitePreview = findViewById(R.id.accentPreviewLight)
@@ -65,17 +70,43 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         darkCompatible = findViewById(R.id.accentDarkCompatibleImage)
         darkApply = findViewById(R.id.applyDark)
 
+        smartPicker = findViewById(R.id.smartPicker)
+        resetAccents = findViewById(R.id.resetCustomAccents)
+
         featureManager = FeatureManager(context!!.contentResolver)
+
+        if (ResourceHelper.lightsOut(context))
+            requestFocus(Shade.DARK)
+        else
+            requestFocus(Shade.LIGHT)
 
         whiteLayout.setOnClickListener {
             if (!isInFocus(Shade.LIGHT))
                 requestFocus(Shade.LIGHT)
-            listener?.invoke(Shade.LIGHT)
+        }
+        whiteLayout.setOnLongClickListener {
+            if (isInFocus(Shade.LIGHT))
+                listener?.invoke(Shade.LIGHT)
+            isInFocus(Shade.LIGHT)
         }
         darkLayout.setOnClickListener {
             if (!isInFocus(Shade.DARK))
                 requestFocus(Shade.DARK)
-            listener?.invoke(Shade.DARK)
+        }
+        darkLayout.setOnLongClickListener {
+            if (isInFocus(Shade.DARK))
+                listener?.invoke(Shade.DARK)
+            isInFocus(Shade.DARK)
+        }
+
+        smartPicker.setOnClickListener {
+            if (isInFocus(Shade.LIGHT) && lightColor!=null)
+                bindDarkColor(ResourceHelper.getDarkCousinColor(lightColor!!))
+            if (isInFocus(Shade.DARK) && darkColor!=null)
+                bindWhiteColor(ResourceHelper.getLightCousinColor(darkColor!!))
+        }
+        resetAccents.setOnClickListener {
+            featureManager.AccentManager().reset()
         }
     }
 
@@ -110,14 +141,15 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     }
 
     fun bindWhiteColor(color: Int) {
+        lightColor = color
         whitePreview.imageTintList = ColorStateList.valueOf(color)
         whitePreview.invalidate()
         whiteHex.text = ColorSheetUtils.colorToHex(color)
         whiteHex.invalidate()
-        val isDark = ResourceHelper.isDark(color)
-        whiteCompatible.imageTintList = if (!isDark) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
+        val suitableColor = ResourceHelper.getToleratedShade(color, Shade.LIGHT) == Shade.LIGHT
+        whiteCompatible.imageTintList = if (!suitableColor) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
                                         else ColorStateList.valueOf(resources.getColor(R.color.green_500, null))
-        whiteCompatible.setImageResource(if (!isDark) R.drawable.ic_error_round
+        whiteCompatible.setImageResource(if (!suitableColor) R.drawable.ic_error_round
                                         else R.drawable.ic_check_circle)
         whiteCompatible.invalidate()
         whiteApply.setOnClickListener {
@@ -127,12 +159,13 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     }
 
     fun bindDarkColor(color: Int) {
+        darkColor = color
         darkPreview.imageTintList = ColorStateList.valueOf(color)
         darkHex.text = ColorSheetUtils.colorToHex(color)
-        val isDark = ResourceHelper.isDark(color)
-        darkCompatible.imageTintList = if (isDark) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
+        val suitableColor = ResourceHelper.getToleratedShade(color, Shade.DARK) == Shade.DARK
+        darkCompatible.imageTintList = if (!suitableColor) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
         else ColorStateList.valueOf(resources.getColor(R.color.green_500, null))
-        darkCompatible.setImageResource(if (isDark) R.drawable.ic_error_round
+        darkCompatible.setImageResource(if (!suitableColor) R.drawable.ic_error_round
         else R.drawable.ic_check_circle)
         darkApply.setOnClickListener {
             featureManager.AccentManager()

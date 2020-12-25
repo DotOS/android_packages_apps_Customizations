@@ -28,7 +28,11 @@ import androidx.annotation.Dimension
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.android.settings.dotextras.custom.views.TwoToneAccentView.Shade
+import com.android.settings.dotextras.custom.views.TwoToneAccentView.Shade.DARK
+import com.android.settings.dotextras.custom.views.TwoToneAccentView.Shade.LIGHT
 import com.android.settings.dotextras.system.FeatureManager
+import kotlin.math.roundToInt
 
 object ResourceHelper {
 
@@ -36,6 +40,72 @@ object ResourceHelper {
         val darkness: Double =
             1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255
         return darkness >= 0.5
+    }
+
+    /**
+     * 0.0-0.5 = light
+     * 0.5 = neutral
+     * 0.5-1.0 = dark
+     */
+    fun getDarkness(color: Int): Double =
+        1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255
+
+    fun getLightCousinColor(darkColor: Int): Int {
+        val darkness = getDarkness(darkColor)
+        val light = darkness + (1-darkness) / 1.5
+        return getColorByDarkness(darkColor, light)
+    }
+
+    fun getDarkCousinColor(lightColor: Int): Int {
+        val lightness = getDarkness(lightColor)
+        val dark = lightness + (1-lightness) * 1.5
+        return getColorByDarkness(lightColor, dark)
+    }
+
+    private fun getColorByDarkness(initialColor: Int, darkness: Double): Int {
+        val r = (Color.red(initialColor) * darkness).roundToInt()
+        val g = (Color.green(initialColor) * darkness).roundToInt()
+        val b = (Color.blue(initialColor) * darkness).roundToInt()
+        return Color.argb(Color.alpha(initialColor),
+            r.coerceAtMost(255),
+            g.coerceAtMost(255),
+            b.coerceAtMost(255))
+    }
+
+    fun lightsOut(context: Context): Boolean {
+        val nightModeFlags: Int = context.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    /**
+     * LIGHT = suitable for light theme
+     * DARK = suitable for dark theme
+     */
+    fun getToleratedShade(color: Int, shade: Shade): Shade {
+        val tolerance = 0.3
+        val colorDarkness = getDarkness(color)
+        var toleratedDarkness = colorDarkness
+        if (shade == LIGHT)
+            toleratedDarkness-=tolerance
+        if (shade == DARK)
+            toleratedDarkness+=tolerance
+        return if (toleratedDarkness in 0.0..0.5) LIGHT else DARK
+    }
+
+    /**
+     * LIGHT = suitable for light theme
+     * DARK = suitable for dark theme
+     *
+     * tolerance (Double), user-changeable
+     * Preferred to be 0.3 - gives best results
+     */
+    fun getToleratedShade(color: Int, tolerance: Double, shade: Shade): Shade {
+        val colorDarkness = getDarkness(color)
+        var toleratedDarkness = colorDarkness
+        if (shade == LIGHT) toleratedDarkness-=tolerance
+        if (shade == DARK) toleratedDarkness+=tolerance
+        return if (toleratedDarkness in 0.0..0.5) LIGHT else DARK
     }
 
     fun getAccent(context: Context): Int {

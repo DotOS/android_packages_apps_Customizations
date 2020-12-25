@@ -6,6 +6,7 @@
     <color name="colorPrimaryBackground">#E6E6E6</color>
     <color name="colorPrimaryTranslucent">#B3FFFFFF</color>
     <color name="colorPrimaryScrim">#59FFFFFF</color>
+    <color name="colorError">#66F44336</color>
 
     <color name="ic_launcher_background">@color/colorPrimary</color>
 
