@@ -15,20 +15,16 @@
  */
 package com.android.settings.dotextras.custom.sections
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.SectionInterface
 import com.android.settings.dotextras.custom.sections.clock.*
 import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
 
@@ -56,9 +52,6 @@ class AODLockscreenSection : GenericSection() {
         mClockManager = object : BaseClockManager(
             ContentProviderClockProvider(requireActivity())) {
             override fun handleApply(option: Clockface?, callback: onHandleCallback) {
-                val result = Intent()
-                result.putExtra(EXTRA_CLOCK_FACE_NAME, option!!.id)
-                requireActivity().setResult(RESULT_OK, result)
                 callback?.invoke(true)
             }
 
@@ -73,19 +66,29 @@ class AODLockscreenSection : GenericSection() {
             shouldShow = true
             mClockManager.fetchOptions({ options ->
                 run {
-                    if (options!=null) {
+                    if (options != null) {
+                        val cm = ClockManager(requireContext().contentResolver,
+                            contentProviderClockProvider)
                         val optionsCompat = ArrayList<ClockfaceCompat>()
                         for (option in options) {
                             optionsCompat.add(ClockfaceCompat(option))
                         }
                         recyclerView.adapter =
-                            ClockfacePreviewRecyclerAdapter(ClockManager(requireContext().contentResolver, contentProviderClockProvider), optionsCompat)
-                        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            ClockfacePreviewRecyclerAdapter(cm, optionsCompat)
+                        recyclerView.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         recyclerView.addItemDecoration(
-                            ItemRecyclerSpacer(resources.getDimension(R.dimen.recyclerSpacerBigger), null, false)
+                            ItemRecyclerSpacer(resources.getDimension(R.dimen.recyclerSpacerBigger),
+                                null,
+                                false)
                         )
                         val snap = PagerSnapHelper()
                         snap.attachToRecyclerView(recyclerView)
+                        for (i in 0 until optionsCompat.size) {
+                            if (optionsCompat[i].clockface.isActive(cm))
+                                recyclerView.scrollToPosition(i)
+                        }
+
                     }
                 }
             }, false)
