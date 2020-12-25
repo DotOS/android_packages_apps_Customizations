@@ -8,66 +8,32 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="512dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="24dp"
-        android:visibility="gone">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/clockface_button_accent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/ic_frame_simple_button" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:adjustViewBounds="true"
-            app:srcCompat="@drawable/ic_frame_simple" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/defaultClockPreview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@id/clockface_button_accent"
-            android:layout_alignTop="@id/clockface_button_accent"
-            android:layout_alignEnd="@id/clockface_button_accent"
-            android:layout_alignBottom="@id/clockface_button_accent"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:adjustViewBounds="true" />
-    </RelativeLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:text="@string/clockface"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-        <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+        android:layout_marginBottom="@dimen/recyclerSpacerBig"
+        app:cardBackgroundColor="@color/cardBackground"
+        app:cardCornerRadius="@dimen/default_dialog_radius"
+        app:cardElevation="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/clockfaceOptionsRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/recyclerSpacerBig"
-            app:cardBackgroundColor="@color/cardBackground"
-            app:cardCornerRadius="@dimen/default_dialog_radius"
-            app:cardElevation="0dp">
+            android:layout_height="wrap_content" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/clockfaceOptionsRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp" />
+    </com.google.android.material.card.MaterialCardView>
 
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
 </LinearLayout>
