@@ -15,7 +15,6 @@
  */
 package com.android.settings.dotextras.custom
 
-import android.app.WallpaperManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
