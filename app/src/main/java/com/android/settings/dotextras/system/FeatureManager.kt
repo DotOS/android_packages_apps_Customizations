@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2020 The dotOS Project & The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.android.settings.dotextras.system
 
 import android.content.ContentResolver
@@ -15,36 +30,6 @@ class FeatureManager(private val contentResolver: ContentResolver) {
     inner class AccentManager() {
 
         private val RESET = "-1"
-
-        /** OLD Implementation
-        private val SETTINGS_PACKAGE = "com.android.settings"
-        private val SYSTEMUI_PACKAGE = "com.android.systemui"
-        private val ACCENT_COLOR_PROP = "persist.sys.theme.accentcolor"
-
-        fun apply(hexColor: String) {
-            val omsClass = Class.forName("android.content.om.IOverlayManager")
-            val overlayManager = IOverlayManager.Stub
-                .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
-            val reloadAndroidAssets = omsClass.getMethod("reloadAndroidAssets", Int::class.java)
-            val reloadAssets = omsClass.getMethod(
-                "reloadAssets",
-                String::class.java,
-                Int::class.java
-            )
-            SystemProperties.set(ACCENT_COLOR_PROP, hexColor)
-            try {
-                reloadAndroidAssets.invoke(overlayManager, UserHandle.USER_CURRENT)
-                reloadAssets.invoke(overlayManager, SETTINGS_PACKAGE, UserHandle.USER_CURRENT)
-                reloadAssets.invoke(overlayManager, SYSTEMUI_PACKAGE, UserHandle.USER_CURRENT)
-            } catch (ignored: RemoteException) {
-            }
-        }
-
-        fun get(): String = SystemProperties.get(ACCENT_COLOR_PROP)
-
-        fun reset() {
-            apply(RESET)
-        }*/
 
         fun applyLight(lightColor: String) {
             Secure().setString(Secure().ACCENT_LIGHT_SETTING, lightColor)

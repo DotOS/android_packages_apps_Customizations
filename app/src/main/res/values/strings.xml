@@ -7,6 +7,7 @@
     <string name="button">Button</string>
     <string name="buttons">Buttons</string>
     <string name="chip">Chip</string>
+    <string name="clockface">Clockface</string>
     <string name="disabled">Disabled</string>
     <string name="enable">Enable</string>
     <string name="enabled">Enabled</string>
@@ -31,6 +32,11 @@
     <string name="icon_shapes">Icon Shapes</string>
     <string name="device_default">Device default</string>
     <string name="device_default_font">Device\nDefault Font</string>
+    <string name="light_shade">Light Theme</string>
+    <string name="dark_shade">Dark Theme</string>
+    <string name="twotone_accent_summary">Apply a shade of Accent for Light and Dark Theme. You can also choose two different accents for each style.\n
+        \nExample : White Theme with Cyan Accent and Dark Theme with Yellow Accent.\n
+        \nIn order to use on-device accent packages, reset custom accent using the top-right button from color picker.</string>
 
     <!-- Wallpapers Section -->
     <string name="current_wallpaper">Current Wallpaper</string>
@@ -90,11 +96,5 @@
     <string name="pick_image_intent_chooser_title">Select source</string>
 
     <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
-    <string name="light_shade">Light Theme</string>
-    <string name="dark_shade">Dark Theme</string>
-    <string name="twotone_accent_summary">Apply a shade of Accent for Light and Dark Theme. You can also choose two different accents for each style.\n
-        \nExample : White Theme with Cyan Accent and Dark Theme with Yellow Accent.\n
-        \nIn order to use on-device accent packages, reset custom accent using the top-right button from color picker.</string>
-    <string name="clockface">Clockface</string>
 
 </resources>

@@ -1,3 +1,4 @@
+
 package com.android.settings.dotextras.custom.sections.batterystyles
 
 import androidx.fragment.app.Fragment
