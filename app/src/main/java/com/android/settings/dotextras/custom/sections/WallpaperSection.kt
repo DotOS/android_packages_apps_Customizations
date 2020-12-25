@@ -2,6 +2,7 @@ package com.android.settings.dotextras.custom.sections
 
 import android.app.WallpaperManager
 import android.content.ClipboardManager
+import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -93,6 +94,10 @@ class WallpaperSection() : GenericSection() {
             view.findViewById<LinearLayout>(R.id.dotextitle).visibility = View.GONE
         }
     }
+
+    override fun isAvailable(context: Context): Boolean =
+        WallpaperManager.getInstance(context).isSetWallpaperAllowed && WallpaperManager.getInstance(
+            context).isWallpaperSupported
 
     val filterList: ArrayList<WallpaperFilter> = ArrayList()
     private fun buildCategories() {

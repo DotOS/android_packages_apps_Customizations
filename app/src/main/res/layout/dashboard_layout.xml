@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:animateLayoutChanges="true"
         app:elevation="0dp">
 
         <LinearLayout
@@ -18,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:animateLayoutChanges="true"
             android:orientation="vertical"
             app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed|snap">
 

@@ -1,16 +1,12 @@
 package com.android.settings.dotextras
 
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.NestedScrollView
 import com.android.settings.dotextras.custom.SectionFragment
 import com.google.android.material.appbar.AppBarLayout
-
 
 class BaseActivity : AppCompatActivity() {
     private var appTitle: TextView? = null
@@ -32,7 +28,6 @@ class BaseActivity : AppCompatActivity() {
         resetUI()
     }
 
-
     fun setTitle(title: String?) = if (title == null) {
         appTitle!!.text = getString(R.string.app_name)
     } else {
@@ -40,7 +35,8 @@ class BaseActivity : AppCompatActivity() {
     }
 
     private fun resetUI() {
-        toggleAppBar(false)
+        if (appBarLayout!!.layoutParams.height == 0)
+            toggleAppBar(false)
         setTitle(null)
     }
 

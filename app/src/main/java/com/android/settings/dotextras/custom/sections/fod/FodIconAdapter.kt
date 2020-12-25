@@ -44,7 +44,9 @@ class FodIconAdapter(
             featureManager.System().getInt(featureManager.System().FOD_ICON, 0) == fodIcon.id
         if (shouldSelect) fodIcon.selected = true
         Glide.with(holder.fodIcon)
-            .load(ResourceHelper.getDrawable(holder.fodIcon.context, "com.android.systemui", fodIcon.resource))
+            .load(ResourceHelper.getDrawable(holder.fodIcon.context, holder.fodIcon.context.getString(R.string.systemui_package), fodIcon.resource))
+            .thumbnail(0.1f)
+            .placeholder(android.R.color.transparent)
             .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {
             select(position)

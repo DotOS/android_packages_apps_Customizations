@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageButton
+        android:id="@+id/accentColorCircle"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/accent_rounded_bg"
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_circle"
+        tools:ignore="ContentDescription" />
+
+</FrameLayout>

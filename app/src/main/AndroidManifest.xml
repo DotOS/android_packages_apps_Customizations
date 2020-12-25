@@ -18,17 +18,26 @@
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.MODIFY_THEME_OVERLAY" />
+    <uses-permission android:name="android.permission.CHANGE_OVERLAY_PACKAGES" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_COMPONENT" />
+
+    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS" />
 
     <application
+        android:extractNativeLibs="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:protectionLevel="signature"
+        android:requiredForAllUsers="true"
+        android:restoreAnyVersion="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".BaseActivity"
             android:configChanges="orientation"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,8 +48,9 @@
 
         <activity
             android:name=".custom.sections.wallpaper.provider.StandalonePreviewActivity"
-            android:resizeableActivity="false"
             android:configChanges="orientation"
+            android:hardwareAccelerated="true"
+            android:resizeableActivity="false"
             android:screenOrientation="portrait">
             <intent-filter android:label="@string/manifest_wallpaper">
                 <action android:name="android.intent.action.ATTACH_DATA" />
@@ -51,14 +61,16 @@
                 <action android:name="android.intent.action.SET_WALLPAPER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data android:name="android.wallpaper.preview"
+
+            <meta-data
+                android:name="android.wallpaper.preview"
                 android:resource="@xml/wallpaper_picker_preview" />
         </activity>
         <activity
-            android:name=".custom.sections.wallpaper.cropper.CropImageActivity"
+            android:name=".custom.sections.wallpaper.cropper.WallpaperCropperActivity"
             android:configChanges="orientation"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
-        <activity android:name=".custom.sections.wallpaper.cropper.WallpaperCropperActivity" />
     </application>
 
 </manifest>

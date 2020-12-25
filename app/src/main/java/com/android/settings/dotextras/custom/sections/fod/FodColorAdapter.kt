@@ -49,9 +49,11 @@ class FodColorAdapter(
             featureManager.System().getInt(featureManager.System().FOD_COLOR, 0) == fodIcon.id
         Glide.with(holder.fodIcon)
             .load(ResourceHelper.getDrawable(holder.fodIcon.context,
-                packageName = "com.android.systemui",
+                packageName = holder.fodIcon.context.getString(R.string.systemui_package),
                 drawableName = fodIcon.resource
             ))
+            .thumbnail(0.1f)
+            .placeholder(android.R.color.transparent)
             .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {
             featureManager.System().setInt(featureManager.System().FOD_COLOR, fodIcon.id)

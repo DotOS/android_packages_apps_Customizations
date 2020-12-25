@@ -16,8 +16,8 @@ import com.android.settings.dotextras.system.OverlayController
 class IconPackController(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
     init {
-        val layoutBase = LayoutInflater.from(mContext).inflate(
-            R.layout.item_iconpack_control, this, false
+        LayoutInflater.from(mContext).inflate(
+            R.layout.item_iconpack_control, this, true
         )
         val overlayController = OverlayController(
             OverlayController.Categories.ANDROID_ICON_PACK_CATEGORY,
@@ -25,7 +25,7 @@ class IconPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
             IOverlayManager.Stub
                 .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
         )
-        val recycler = layoutBase.findViewById<RecyclerView>(R.id.iconRecycler)
+        val recycler = findViewById<RecyclerView>(R.id.iconRecycler)
         val adapter = IconPackAdapter(
             overlayController, overlayController.IconPacks().getIconPacks(context!!)
         )
@@ -45,6 +45,6 @@ class IconPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
             )
         )
         recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        addView(layoutBase)
+        visibility = if (overlayController.isAvailable()) VISIBLE else GONE
     }
 }

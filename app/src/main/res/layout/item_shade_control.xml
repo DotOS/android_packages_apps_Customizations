@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+
+    <Space
+        android:layout_width="24dp"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/accentLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_fg"
+        android:clickable="true"
+        android:gravity="start"
+        android:padding="16dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/accentPreviewLight"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="focused"
+            app:srcCompat="@drawable/circle_bg" />
+
+        <LinearLayout
+            android:id="@+id/accentContentLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accentPreviewLight"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@string/light_shade"
+                android:textAlignment="center"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/accentHexLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_bg"
+                    android:backgroundTint="@color/colorPrimaryBackground"
+                    android:fontFamily="sans-serif-medium"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    tools:text="#3C85ED" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/accentLightCompatibleImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    app:srcCompat="@drawable/ic_check_circle"
+                    app:tint="@color/green_500" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/applyLight"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accentContentLight"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="4dp"
+            android:text="@string/apply"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="?android:textColorPrimary"
+            app:backgroundTint="@color/colorPrimaryBackground"
+            app:cornerRadius="24dp" />
+
+    </RelativeLayout>
+
+    <Space
+        android:layout_width="12dp"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/accentDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/accentPreviewDark"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/circle_bg" />
+
+        <LinearLayout
+            android:id="@+id/accentContentDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accentPreviewDark"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@string/dark_shade"
+                android:textAlignment="center"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/accentHexDark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_bg"
+                    android:fontFamily="sans-serif-medium"
+                    android:paddingStart="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="4dp"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    tools:text="#3C85ED" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/accentDarkCompatibleImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    app:srcCompat="@drawable/ic_check_circle"
+                    app:tint="@color/green_500" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/applyDark"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accentContentDark"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="4dp"
+            android:text="@string/apply"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="?android:textColorPrimary"
+            app:backgroundTint="@color/colorPrimaryBackground"
+            app:cornerRadius="24dp" />
+
+    </RelativeLayout>
+
+    <Space
+        android:layout_width="24dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

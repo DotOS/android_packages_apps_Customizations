@@ -44,9 +44,14 @@ class LockscreenWallpaperFragment() : Fragment() {
             val wallpaperManager = WallpaperManager.getInstance(requireContext())
             var pfd = wallpaperManager.getWallpaperFile(WallpaperManager.FLAG_LOCK)
             if (pfd == null) pfd = wallpaperManager.getWallpaperFile(WallpaperManager.FLAG_SYSTEM)
-            Glide.with(view)
-                .load(BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor))
-                .into(wallpaper)
+            if (pfd != null)
+                Glide.with(view)
+                    .load(BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor))
+                    .into(wallpaper)
+            else
+                Glide.with(view)
+                    .load(wallpaperManager.drawable)
+                    .into(wallpaper)
         } else {
             Glide.with(view)
                 .load(wallpaperBase!!.drawable)

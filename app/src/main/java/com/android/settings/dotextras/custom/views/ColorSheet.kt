@@ -36,6 +36,7 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.item_colorpicker.*
 
 typealias ColorPickerListener = ((color: Int) -> Unit)?
+typealias onResetListener = (() -> Unit)?
 
 class ColorSheet : BottomSheetDialogFragment() {
 
@@ -45,6 +46,7 @@ class ColorSheet : BottomSheetDialogFragment() {
     }
 
     private var colorAdapter: ColorAdapter? = null
+    private var onResetListener: onResetListener = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
@@ -89,7 +91,7 @@ class ColorSheet : BottomSheetDialogFragment() {
         })
 
         view.findViewById<MaterialButton>(R.id.resetAccent).setOnClickListener {
-            FeatureManager(requireActivity().contentResolver).AccentManager().reset()
+            onResetListener?.invoke()
             dismiss()
         }
 
@@ -117,9 +119,12 @@ class ColorSheet : BottomSheetDialogFragment() {
         colors: IntArray,
         @ColorInt selectedColor: Int? = null,
         noColorOption: Boolean = false,
+        onResetListener: onResetListener,
         listener: ColorPickerListener
     ): ColorSheet {
-        colorAdapter = ColorAdapter(this, colors, selectedColor, noColorOption, listener)
+        this.onResetListener = onResetListener
+        colorAdapter =
+            ColorAdapter(this, colors, selectedColor, noColorOption, listener)
         return this
     }
 

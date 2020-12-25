@@ -3,6 +3,8 @@ package com.android.settings.dotextras.custom.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -12,6 +14,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.android.settings.dotextras.system.FeatureManager
 
 
@@ -29,15 +32,60 @@ object ResourceHelper {
             context,
             android.R.style.Theme_DeviceDefault_DayNight
         )
+        val nightModeFlags: Int = context.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
         contextThemeWrapper.theme.resolveAttribute(
             android.R.attr.colorAccent,
             typedValue, true
         )
         val accentManager =
             FeatureManager(context.contentResolver).AccentManager()
-        return if (accentManager.get() == "-1" || accentManager.get() == "") typedValue.data else Color.parseColor(
-            "#" + accentManager.get()
+        return when (nightModeFlags) {
+            Configuration.UI_MODE_NIGHT_YES -> if (accentManager.getDark() == "-1") typedValue.data else Color.parseColor(
+                "#" + accentManager.getDark()
+            )
+            Configuration.UI_MODE_NIGHT_NO -> if (accentManager.getLight() == "-1") typedValue.data else Color.parseColor(
+                "#" + accentManager.getLight()
+            )
+            else -> typedValue.data
+        }
+    }
+
+    fun getAccent(context: Context, config: Int): Int {
+        val typedValue = TypedValue()
+        var contextThemeWrapper = ContextThemeWrapper(
+            context,
+            android.R.style.Theme_DeviceDefault_DayNight
         )
+        when (config) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                contextThemeWrapper = ContextThemeWrapper(
+                    context,
+                    android.R.style.Theme_DeviceDefault
+                )
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                contextThemeWrapper = ContextThemeWrapper(
+                    context,
+                    android.R.style.Theme_DeviceDefault_Light
+                )
+            }
+        }
+        contextThemeWrapper.theme.resolveAttribute(
+            android.R.attr.colorAccent,
+            typedValue, true
+        )
+        val accentManager =
+            FeatureManager(context.contentResolver).AccentManager()
+        return when (config) {
+            Configuration.UI_MODE_NIGHT_YES -> if (accentManager.getDark() == "-1") typedValue.data else Color.parseColor(
+                "#" + accentManager.getDark()
+            )
+            Configuration.UI_MODE_NIGHT_NO -> if (accentManager.getLight() == "-1") typedValue.data else Color.parseColor(
+                "#" + accentManager.getLight()
+            )
+            else -> typedValue.data
+        }
     }
 
     @ColorInt
@@ -68,18 +116,14 @@ object ResourceHelper {
         return context.resolveDimenAttr(android.R.attr.dialogCornerRadius)
     }
 
-
-    @SuppressLint("UseCompatLoadingForDrawables")
     fun getDrawable(context: Context, packageName: String, drawableName: String): Drawable? = try {
         val pm: PackageManager = context.packageManager
         val mApkResources: Resources = pm.getResourcesForApplication(packageName)
-        mApkResources.getDrawable(
-            mApkResources.getIdentifier(
-                drawableName,
-                "drawable",
-                packageName
-            )
-        )
+        ResourcesCompat.getDrawable(mApkResources, mApkResources.getIdentifier(
+            drawableName,
+            "drawable",
+            packageName
+        ), null)
     } catch (e: PackageManager.NameNotFoundException) {
         e.printStackTrace()
         null

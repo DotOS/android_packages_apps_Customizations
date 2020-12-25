@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+    <RelativeLayout
+        android:id="@+id/clockfaceCard"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:minHeight="480dp"
+        android:scaleX="1"
+        android:scaleY="1">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/clockface_button_accent"
+            android:layout_width="wrap_content"
+            android:layout_height="470dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_frame_simple_button" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="470dp"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_frame_simple" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="445dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12.5dp"
+            android:layout_marginEnd="12dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:id="@+id/clockfaceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/defaultClockPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/black"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/clockfaceChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/clockface_button_accent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:checkable="true"
+            android:clickable="false"
+            app:chipBackgroundColor="@color/chip_state"
+            tools:text="Analog" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

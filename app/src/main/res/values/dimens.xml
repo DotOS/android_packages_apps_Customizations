@@ -14,6 +14,7 @@
     <dimen name="default_dialog_radius">16dp</dimen>
     <dimen name="recyclerSpacer">16dp</dimen>
     <dimen name="recyclerSpacerBig">28dp</dimen>
+    <dimen name="recyclerSpacerBigger">18dp</dimen>
     <dimen name="recyclerSpacerSmall">8dp</dimen>
     <dimen name="component_shape_thumb_size">72dp</dimen>
 

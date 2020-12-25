@@ -83,47 +83,6 @@
                 app:spanCount="5"
                 tools:listitem="@layout/item_color" />
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:text="@string/built_in_accents"
-                        android:textSize="20sp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/legacySheetList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
-                        android:padding="12dp"
-                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                        app:spanCount="5"
-                        tools:listitem="@layout/item_color" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:text="@string/material_palette"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-
         </LinearLayout>
 
     </LinearLayout>

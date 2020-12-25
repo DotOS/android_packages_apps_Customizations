@@ -16,8 +16,8 @@ import com.android.settings.dotextras.system.OverlayController
 class FontPackController(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
     init {
-        val layoutBase = LayoutInflater.from(mContext).inflate(
-            R.layout.item_fontpack_control, this, false
+        LayoutInflater.from(mContext).inflate(
+            R.layout.item_fontpack_control, this, true
         )
         val overlayController = OverlayController(
             OverlayController.Categories.FONT_CATEGORY,
@@ -25,7 +25,7 @@ class FontPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
             IOverlayManager.Stub
                 .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
         )
-        val recycler = layoutBase.findViewById<RecyclerView>(R.id.shapesRecycler)
+        val recycler = findViewById<RecyclerView>(R.id.shapesRecycler)
         val adapter = FontPackAdapter(
             overlayController, overlayController.FontPacks().getFontPacks(context!!)
         )
@@ -45,6 +45,6 @@ class FontPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
             )
         )
         recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        addView(layoutBase)
+        visibility = if (overlayController.isAvailable()) VISIBLE else GONE
     }
 }

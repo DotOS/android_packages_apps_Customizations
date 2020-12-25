@@ -21,7 +21,8 @@
             android:layout_weight="1"
             android:contentDescription="@null"
             android:padding="24dp"
-            app:srcCompat="@drawable/ic_fod" />
+            android:tint="?android:attr/textColorSecondary"
+            app:srcCompat="@drawable/fod_icon_default_aosp" />
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.android.settings.dotextras.custom.sections
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,7 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
 import com.android.settings.dotextras.system.FeatureManager
-import com.android.settings.dotextras.custom.sections.batterystyles.CircleBatteryDrawable
-import com.android.settings.dotextras.custom.sections.batterystyles.FullCircleBatteryDrawable
-import com.android.settings.dotextras.custom.sections.batterystyles.ThemedBatteryDrawable
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 open class QSSection : GenericSection() {
 
@@ -36,6 +35,14 @@ open class QSSection : GenericSection() {
          */
         qsList.clear()
         rows_columnsList.clear()
+        /**
+         * Header
+         */
+        val accentColor: Int = ResourceHelper.getAccent(requireContext())
+        val button = view.findViewById<ImageView>(R.id.accButton)
+        val image = view.findViewById<ImageView>(R.id.accHeader)
+        button.imageTintList = ColorStateList.valueOf(accentColor)
+        image.imageTintList = ColorStateList.valueOf(accentColor)
         /**
          * Options
          */

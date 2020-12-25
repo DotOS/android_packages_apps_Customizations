@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.CompatResources
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
@@ -48,6 +50,8 @@ class FodAnimationAdapter(
             featureManager.System().getInt(featureManager.System().FOD_ANIM, 0) == fodIcon.id
         Glide.with(holder.fodIcon)
             .load(getAnimationPreview(holder.fodIcon.context, fodIcon.resource))
+            .thumbnail(0.1f)
+            .placeholder(android.R.color.transparent)
             .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {
             featureManager.System().setInt(featureManager.System().FOD_ANIM, fodIcon.id)
@@ -119,7 +123,6 @@ class FodAnimationAdapter(
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun getAnimationPreview(context: Context, drawableName: String): Drawable? {
         return ResourceHelper.getDrawable(context, ResourceHelper.getFodAnimationPackage(context), drawableName)
     }

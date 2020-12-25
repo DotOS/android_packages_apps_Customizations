@@ -8,6 +8,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.SectionInterface
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsListener
@@ -17,7 +18,7 @@ import com.android.settings.dotextras.custom.views.ContextSectionLayout
 import com.android.settings.dotextras.system.FeatureManager
 import kotlin.properties.Delegates
 
-open class GenericSection : Fragment() {
+open class GenericSection : Fragment(), SectionInterface {
 
     val GRID_COLUMNS = 2
     val GRID_FOD_COLUMNS = 3
@@ -33,6 +34,8 @@ open class GenericSection : Fragment() {
         overlayManager = IOverlayManager.Stub
             .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
     }
+
+    override fun isAvailable(context: Context): Boolean = true
 
     fun setupLayout(type: Int, list: ArrayList<ContextCards>, layoutID: Int) {
         val contextLayout = requireView().findViewById<ContextSectionLayout>(layoutID)

@@ -12,7 +12,6 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.displays.*
 import com.android.settings.dotextras.custom.sections.*
 import com.android.settings.dotextras.custom.utils.AutoFitGridLayoutManager
-import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 class SectionFragment : Fragment() {
 
@@ -58,20 +57,9 @@ class SectionFragment : Fragment() {
         )
     }
 
-
     private fun addHeaders() {
-        val wallpaperManager = WallpaperManager.getInstance(requireContext())
-        if (wallpaperManager.isSetWallpaperAllowed && wallpaperManager.isWallpaperSupported) {
-            header_titles.add(getString(R.string.section_wallpaper_title))
-            header_sectionfragments.add(WallpaperSection())
-            header_displayfragments.add(WallpaperDisplay())
-        }
-        //Titles
-        header_titles.add(getString(R.string.section_aod_title))
-        //Sections
-        header_sectionfragments.add(AODSection())
-        //Displays
-        header_displayfragments.add(AODDisplay())
+        buildHeader(R.string.section_wallpaper_title, WallpaperDisplay(), WallpaperSection())
+        buildHeader(R.string.section_aod_title, AODDisplay(), AODLockscreenSection())
         for (i in header_titles.indices) {
             val header = DashboardItem(
                 this,
@@ -84,31 +72,21 @@ class SectionFragment : Fragment() {
         }
     }
 
+    private fun buildHeader(resID: Int, display: Fragment, section: GenericSection) {
+        if (section.isAvailable(requireContext())) {
+            header_titles.add(getString(resID))
+            header_displayfragments.add(display)
+            header_sectionfragments.add(section)
+        }
+    }
+
     private fun addSections() {
-        //Titles
-        content_titles.add(getString(R.string.section_statusbar_title))
-        content_titles.add(getString(R.string.section_qs_title))
-        if (ResourceHelper.hasFodSupport(requireContext()))
-            content_titles.add(getString(R.string.section_fod_title))
-        content_titles.add(getString(R.string.section_themes_title))
-        //content_titles.add(getString(R.string.section_icons_title))
-        content_titles.add(getString(R.string.section_system_title))
-        //Sections
-        content_sectionfragments.add(StatusbarSection())
-        content_sectionfragments.add(QSSection())
-        if (ResourceHelper.hasFodSupport(requireContext()))
-            content_sectionfragments.add(FODSection())
-        content_sectionfragments.add(ThemeSection())
-        //content_sectionfragments.add(IconsSection())
-        content_sectionfragments.add(SystemSection())
-        //Displays
-        content_displayfragments.add(StatusbarDisplay())
-        content_displayfragments.add(QSDisplay())
-        if (ResourceHelper.hasFodSupport(requireContext()))
-            content_displayfragments.add(FODDisplay())
-        content_displayfragments.add(ThemeDisplay())
-        //content_displayfragments.add(IconsDisplay())
-        content_displayfragments.add(SystemDisplay())
+        buildSection(R.string.section_statusbar_title, StatusbarDisplay(), StatusbarSection())
+        buildSection(R.string.section_qs_title, QSDisplay(), QSSection())
+        buildSection(R.string.section_fod_title, FODDisplay(), FODSection())
+        buildSection(R.string.section_themes_title, ThemeDisplay(), ThemeSection())
+        buildSection(R.string.section_system_title, SystemDisplay(), SystemSection())
+        //build(R.string.section_icons_title, IconsDisplay(), IconsSection())
         for (i in content_titles.indices) {
             items.add(
                 DashboardItem(
@@ -118,6 +96,14 @@ class SectionFragment : Fragment() {
                     content_displayfragments[i]
                 )
             )
+        }
+    }
+
+    private fun buildSection(resID: Int, display: Fragment, section: GenericSection) {
+        if (section.isAvailable(requireContext())) {
+            content_titles.add(getString(resID))
+            content_displayfragments.add(display)
+            content_sectionfragments.add(section)
         }
     }
 

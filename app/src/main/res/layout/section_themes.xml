@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.android.settings.dotextras.custom.views.AccentHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.android.settings.dotextras.custom.views.AccentHeader>
+
+    <com.android.settings.dotextras.custom.views.AccentColorController
+        android:id="@+id/accentController"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.android.settings.dotextras.custom.views.AccentColorController>
+
+    <com.android.settings.dotextras.custom.views.TwoToneAccentView
+        android:id="@+id/twoTone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:cardBackgroundColor="@color/colorPrimaryBackground"
+        app:cardCornerRadius="@dimen/default_dialog_radius"
+        app:cardElevation="0dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/twotone_accent_summary" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.android.settings.dotextras.custom.views.FontPackController
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.android.settings.dotextras.custom.views.FontPackController>
+
+    <com.android.settings.dotextras.custom.views.IconPackController
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.android.settings.dotextras.custom.views.IconPackController>
+
+    <com.android.settings.dotextras.custom.views.ShapeController
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.android.settings.dotextras.custom.views.ShapeController>
+</LinearLayout>

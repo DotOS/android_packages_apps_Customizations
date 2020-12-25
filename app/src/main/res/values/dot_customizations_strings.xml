@@ -6,7 +6,7 @@
     <string name="section_system_title">System</string>
     <string name="section_themes_title">Themes</string>
     <string name="section_wallpaper_title">Wallpapers</string>
-    <string name="section_aod_title">Always-on Display</string>
+    <string name="section_aod_title">AOD &amp; Lockscreen</string>
     <string name="section_font_title">Font &amp; Display Size</string>
     <string name="section_icons_title">Icon Shapes</string>
     <string name="section_fod_title">FOD styles</string>
@@ -24,4 +24,11 @@
     <string name="status_bar_battery_percentage_default">Hidden</string>
     <string name="status_bar_battery_percentage_text_inside">Inside the icon</string>
     <string name="status_bar_battery_percentage_text_next">Next to the icon</string>
+
+    <string name="themes_stub_package" translatable="false">com.dot.stub</string>
+    <string name="clocks_stub_package" translatable="false">com.dot.stub</string>
+    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
+    <string name="clocks_provider_authority" translatable="false">com.android.keyguard.clock</string>
+    <string name="launcher_overlayable_package" translatable="false">com.android.launcher3</string>
+    <string name="systemui_package">com.android.systemui</string>
 </resources>

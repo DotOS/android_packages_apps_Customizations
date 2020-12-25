@@ -1,59 +1,70 @@
 package com.android.settings.dotextras.custom.sections
 
-import android.content.Context
-import android.content.om.IOverlayManager
+import android.content.res.Configuration
 import android.os.Bundle
-import android.os.ServiceManager
+import android.view.LayoutInflater
 import android.view.View
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
+import android.view.ViewGroup
 import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.utils.ColorSheetUtils
+import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.android.settings.dotextras.custom.views.AccentColorController
 import com.android.settings.dotextras.custom.views.ColorSheet
-import com.android.settings.dotextras.system.FeatureManager
-import com.android.settings.dotextras.system.OverlayController
+import com.android.settings.dotextras.custom.views.TwoToneAccentView
 
-class ThemeSection : PreferenceFragmentCompat() {
+class ThemeSection : GenericSection() {
 
-    private val ACCENT_CONTROLLER_LEGACY = "accent_default"
-    private val ACCENT_CONTROLLER_RGB = "accent_choice"
+    private lateinit var twoToneAccentView: TwoToneAccentView
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.themes, rootKey)
-        val featureManager = FeatureManager(requireActivity().contentResolver)
-        val accentPref: Preference = findPreference(ACCENT_CONTROLLER_RGB)!!
-        accentPref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            val colorSheet = ColorSheet()
-            colorSheet.colorPicker(
-                colors = resources.getIntArray(R.array.materialColors),
-                listener = { color ->
-                    featureManager.AccentManager()
-                        .apply(ColorSheetUtils.colorToHex(color).replace("#", ""))
-                    colorSheet.dismiss()
-                }).show(requireActivity().supportFragmentManager)
-            true
-        }
-        val accentDef: ListPreference = findPreference(ACCENT_CONTROLLER_LEGACY)!!
-        val overlayController = OverlayController(
-            OverlayController.Categories.ACCENT_CATEGORY,
-            requireActivity().packageManager,
-            IOverlayManager.Stub
-                .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
-        )
-        accentDef.isEnabled = overlayController.isAvailable()
-        accentDef.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _, newValue ->
-                overlayController.Analog(accentDef).setOverlay((newValue as String))
-                true
-            }
-        overlayController.Analog(accentDef).updatePreferenceOverlays()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.section_themes, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as BaseActivity).setTitle(getString(R.string.section_themes_title))
+        twoToneAccentView = view.findViewById(R.id.twoTone)
+        twoToneAccentView.bindWhiteColor(
+            ResourceHelper.getAccent(
+                requireContext(),
+                Configuration.UI_MODE_NIGHT_NO
+            )
+        )
+        twoToneAccentView.bindDarkColor(
+            ResourceHelper.getAccent(
+                requireContext(),
+                Configuration.UI_MODE_NIGHT_YES
+            )
+        )
+        val accentController: AccentColorController = view.findViewById(R.id.accentController)
+        accentController.updateVisibility(
+            resources.configuration.uiMode and
+                    Configuration.UI_MODE_NIGHT_MASK
+        )
+        twoToneAccentView.setOnTwoTonePressed {
+            val colorSheet = ColorSheet()
+            colorSheet.colorPicker(resources.getIntArray(R.array.materialColors),
+                onResetListener = {
+                    if (it == TwoToneAccentView.Shade.LIGHT)
+                        featureManager.AccentManager().resetLight()
+                    if (it == TwoToneAccentView.Shade.DARK)
+                        featureManager.AccentManager().resetDark()
+                },
+                listener = { color ->
+                    if (it == TwoToneAccentView.Shade.LIGHT)
+                        twoToneAccentView.bindWhiteColor(color)
+                    if (it == TwoToneAccentView.Shade.DARK)
+                        twoToneAccentView.bindDarkColor(color)
+                    accentController.updateVisibility(
+                        resources.configuration.uiMode and
+                                Configuration.UI_MODE_NIGHT_MASK
+                    )
+                }).show(requireActivity().supportFragmentManager)
+        }
     }
 
 }

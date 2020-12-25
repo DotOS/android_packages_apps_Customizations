@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.om.IOverlayManager
 import android.content.om.OverlayInfo
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Path
@@ -58,6 +59,8 @@ class OverlayController(
     }
 
     object Constants {
+        const val ACCENT_COLOR_LIGHT_NAME = "accent_device_default_light"
+        const val ACCENT_COLOR_DARK_NAME = "accent_device_default_dark"
         const val CONFIG_ICON_MASK = "config_icon_mask"
         const val CONFIG_BODY_FONT_FAMILY = "config_bodyFontFamily"
         const val CONFIG_HEADLINE_FONT_FAMILY = "config_headlineFontFamily"
@@ -68,6 +71,136 @@ class OverlayController(
             "ic_battery_80_24dp"
         )
         const val PATH_SIZE = 100f
+    }
+
+    inner class AccentColors {
+        @SuppressLint("StaticFieldLeak")
+        fun setOverlay(
+            packageName: String,
+            accent: Accent,
+            holder: AccentAdapter.ViewHolder
+        ): Boolean {
+            val currentPackageName = getOverlayInfos().stream()
+                .filter { info: OverlayInfo -> info.isEnabled }
+                .map { info: OverlayInfo -> info.packageName }
+                .findFirst()
+                .orElse(null)
+            if (OVERLAY_TARGET_PACKAGE == packageName && TextUtils.isEmpty(currentPackageName)
+                || TextUtils.equals(packageName, currentPackageName)
+            ) return true
+            object : AsyncTask<Void, Void, Boolean?>() {
+                override fun doInBackground(vararg params: Void): Boolean? {
+                    return try {
+                        if (OVERLAY_TARGET_PACKAGE == packageName) {
+                            overlayManager.setEnabled(currentPackageName, false, USER_SYSTEM)
+                        } else {
+                            overlayManager.setEnabledExclusiveInCategory(packageName, USER_SYSTEM)
+                        }
+                    } catch (e: SecurityException) {
+                        Log.w(TAG, "Error enabling overlay.", e)
+                        false
+                    } catch (e: IllegalStateException) {
+                        Log.w(TAG, "Error enabling overlay.", e)
+                        false
+                    } catch (e: RemoteException) {
+                        Log.w(TAG, "Error enabling overlay.", e)
+                        false
+                    }
+                }
+
+                override fun onPostExecute(success: Boolean?) {
+                    if (success!!) updateSelection(accent, holder)
+                    else {
+                        Toast.makeText(
+                            holder.preview.context,
+                            "Could not enable accent ${accent.packageName}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }.execute()
+            return true
+        }
+
+        private fun updateSelection(accent: Accent, holder: AccentAdapter.ViewHolder) {
+            if (accent.selected) {
+                holder.preview.backgroundTintList =
+                    ColorStateList.valueOf(ResourceHelper.getAccent(holder.preview.context))
+            } else {
+                holder.preview.backgroundTintList =
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            holder.preview.context,
+                            android.R.color.transparent
+                        )
+                    )
+            }
+            holder.preview.invalidate()
+        }
+
+        fun getDarkAccentColor(packageName: String?): Int {
+            val resources: Resources =
+                if (OVERLAY_TARGET_PACKAGE == packageName) Resources.getSystem() else packageManager.getResourcesForApplication(
+                    packageName
+                )
+            return resources.getColor(
+                resources.getIdentifier(
+                    Constants.ACCENT_COLOR_DARK_NAME,
+                    "color",
+                    packageName
+                ), null
+            )
+        }
+
+        fun getLightAccentColor(packageName: String?): Int {
+            val resources: Resources =
+                if (OVERLAY_TARGET_PACKAGE == packageName) Resources.getSystem() else packageManager.getResourcesForApplication(
+                    packageName
+                )
+            return resources.getColor(
+                resources.getIdentifier(
+                    Constants.ACCENT_COLOR_LIGHT_NAME,
+                    "color",
+                    packageName
+                ), null
+            )
+        }
+
+        fun getAccentColors(context: Context): ArrayList<Accent> {
+            val accentPacks = ArrayList<Accent>()
+            val selectedPkg = OVERLAY_TARGET_PACKAGE
+            accentPacks.add(
+                Accent(
+                    getLightAccentColor(selectedPkg),
+                    getDarkAccentColor(selectedPkg),
+                    selectedPkg
+                )
+            )
+            for (overlayInfo in getOverlayInfos()) {
+                accentPacks.add(
+                    Accent(
+                        getLightAccentColor(overlayInfo.packageName),
+                        getDarkAccentColor(overlayInfo.packageName),
+                        overlayInfo.packageName
+                    )
+                )
+                if (overlayInfo.isEnabled) {
+                    accentPacks[accentPacks.size - 1].selected = true
+                }
+            }
+            /**
+             * Manually check for selected accents
+             * if there's no accent selected
+             * then the default one should be selected
+             */
+            var checker = 0
+            for (i in accentPacks.indices) {
+                if (accentPacks[i].selected) checker = 1
+            }
+            if (checker == 0) accentPacks[0].selected = true
+            return accentPacks
+        }
+
     }
 
     inner class Shapes {
@@ -288,22 +421,34 @@ class OverlayController(
 
             for (overlayInfo in getOverlayInfos()) {
                 try {
-                    var headlineFont: Typeface? = null
+                    var headlineFont: Typeface?
                     val headLineFamily = getFontFamily(
                         overlayInfo.packageName,
                         Constants.CONFIG_HEADLINE_FONT_FAMILY
                     )
-                    if (headLineFamily != "null") {
-                        headlineFont = Typeface.create(headlineFont, Typeface.NORMAL)
+                    headlineFont = if (headLineFamily != "null") {
+                        Typeface.create(headLineFamily, Typeface.NORMAL)
+                    } else {
+                        Typeface.create(
+                            getFontFamily(
+                                selectedPkg,
+                                Constants.CONFIG_HEADLINE_FONT_FAMILY
+                            ), Typeface.NORMAL
+                        )
                     }
                     var bodyFont: Typeface? = null
                     val bodyFamily =
                         getFontFamily(overlayInfo.packageName, Constants.CONFIG_BODY_FONT_FAMILY)
-                    if (bodyFamily != "null") {
-                        bodyFont = Typeface.create(bodyFont, Typeface.NORMAL)
+                    bodyFont = if (bodyFamily != "null") {
+                        Typeface.create(bodyFont, Typeface.NORMAL)
+                    } else {
+                        Typeface.create(
+                            getFontFamily(selectedPkg, Constants.CONFIG_BODY_FONT_FAMILY),
+                            Typeface.NORMAL
+                        )
                     }
                     val label = packageManager.getApplicationInfo(overlayInfo.packageName, 0)
-                        .loadLabel(packageManager).toString().replace(" /", "\n")
+                        .loadLabel(packageManager).toString().replace(" / ", "\n")
                     fontPacks.add(
                         FontPack(
                             headlineFont,
@@ -363,12 +508,7 @@ class OverlayController(
                 android.R.attr.colorAccent,
                 typedValue, true
             )
-            val accentManager =
-                FeatureManager(holder.fontLayout.context.contentResolver).AccentManager()
-            val accentColor: Int =
-                if (accentManager.get() == "-1" || accentManager.get() == "") typedValue.data else Color.parseColor(
-                    "#" + accentManager.get()
-                )
+            val accentColor: Int = ResourceHelper.getAccent(holder.fontLayout.context)
             if (fontPack.selected) {
                 holder.fontLayout.setBackgroundColor(accentColor)
                 holder.fontLayout.invalidate()

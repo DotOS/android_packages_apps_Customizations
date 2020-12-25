@@ -1,10 +1,10 @@
 package com.android.settings.dotextras.custom.sections
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
@@ -17,10 +17,8 @@ import com.android.settings.dotextras.custom.sections.fod.FodResource
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.ExpandableLayout
-import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
-import kotlin.properties.Delegates
 
 open class FODSection : GenericSection() {
 
@@ -92,10 +90,12 @@ open class FODSection : GenericSection() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.section_fod, container, false)
     }
+
+    override fun isAvailable(context: Context): Boolean = ResourceHelper.hasFodSupport(context)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -122,6 +122,7 @@ open class FODSection : GenericSection() {
             )
         )
         val recyclerfodoptView: RecyclerView = view.findViewById(R.id.fodoptRecycler)
+        recyclerfodoptView.setHasFixedSize(true)
         val adapterfodopt =
             ContextCardsAdapter(
                 requireActivity().contentResolver,
@@ -153,6 +154,7 @@ open class FODSection : GenericSection() {
                 fodAnims.add(FodResource(ANIM_STYLES[i], i))
             }
             val recyclerViewAnim: RecyclerView = requireView().findViewById(R.id.fodAnimRecycler)
+            recyclerViewAnim.setHasFixedSize(true)
             val adapterAnim =
                 FodAnimationAdapter(featureManager, fodAnims)
             recyclerViewAnim.adapter = adapterAnim
@@ -189,6 +191,7 @@ open class FODSection : GenericSection() {
         val adapterfodColor =
             FodColorAdapter(featureManager, fodColors)
         recyclerfodColorView.adapter = adapterfodColor
+        recyclerfodColorView.setHasFixedSize(true)
         recyclerfodColorView.addItemDecoration(
             GridSpacingItemDecoration(
                 GRID_FOD_COLUMNS,
@@ -206,6 +209,7 @@ open class FODSection : GenericSection() {
         val recyclerView: RecyclerView = view.findViewById(R.id.fodIconRecycler)
         val adapter =
             FodIconAdapter(featureManager, fodIcons)
+        recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(
             GridSpacingItemDecoration(

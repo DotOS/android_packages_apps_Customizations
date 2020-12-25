@@ -1,5 +1,6 @@
 package com.android.settings.dotextras.custom.sections.themes
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,9 +37,9 @@ class FontPackAdapter(
         val fontPack: FontPack = items[position]
         holder.label.text = fontPack.label
         if (holder.fontHeadline.typeface != null)
-            holder.fontHeadline.typeface = fontPack.headLineFont
+            holder.fontHeadline.setTypeface(fontPack.headLineFont, Typeface.NORMAL)
         if (holder.fontBody.typeface != null)
-            holder.fontBody.typeface = fontPack.bodyFont
+            holder.fontBody.setTypeface(fontPack.bodyFont, Typeface.NORMAL)
         holder.fontLayout.setOnClickListener {
             select(position)
             overlayController.FontPacks().setOverlay(fontPack.packageName, fontPack, holder)

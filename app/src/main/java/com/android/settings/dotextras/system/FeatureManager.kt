@@ -1,11 +1,7 @@
 package com.android.settings.dotextras.system
 
 import android.content.ContentResolver
-import android.content.Context
-import android.content.om.IOverlayManager
-import android.os.RemoteException
-import android.os.ServiceManager
-import android.os.SystemProperties
+import android.content.res.Configuration
 import android.os.UserHandle
 import android.provider.Settings
 import android.view.Display
@@ -16,9 +12,11 @@ class FeatureManager(private val contentResolver: ContentResolver) {
     /**
      * Accent Manager
      */
-    inner class AccentManager {
+    inner class AccentManager() {
 
         private val RESET = "-1"
+
+        /** OLD Implementation
         private val SETTINGS_PACKAGE = "com.android.settings"
         private val SYSTEMUI_PACKAGE = "com.android.systemui"
         private val ACCENT_COLOR_PROP = "persist.sys.theme.accentcolor"
@@ -46,6 +44,46 @@ class FeatureManager(private val contentResolver: ContentResolver) {
 
         fun reset() {
             apply(RESET)
+        }*/
+
+        fun applyLight(lightColor: String) {
+            Secure().setString(Secure().ACCENT_LIGHT_SETTING, lightColor)
+        }
+
+        fun applyDark(darkColor: String) {
+            Secure().setString(Secure().ACCENT_DARK_SETTING, darkColor)
+        }
+
+        fun apply(lightColor: String, darkColor: String) {
+            applyLight(lightColor)
+            applyDark(darkColor)
+        }
+
+        fun getDark(): String {
+            return Secure().getString(Secure().ACCENT_DARK_SETTING) ?: RESET
+        }
+
+        fun getLight(): String {
+            return Secure().getString(Secure().ACCENT_LIGHT_SETTING) ?: RESET
+        }
+
+        fun reset() {
+            applyDark(RESET)
+            applyLight(RESET)
+        }
+
+        fun resetLight() {
+            applyLight(RESET)
+        }
+
+        fun resetDark() {
+            applyDark(RESET)
+        }
+
+        fun isUsingRGBAccent(configuration: Int): Boolean = when(configuration) {
+            Configuration.UI_MODE_NIGHT_NO -> getLight() != "-1"
+            Configuration.UI_MODE_NIGHT_YES -> getDark() != "-1"
+            else -> false
         }
     }
 
@@ -120,6 +158,12 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          */
         val GESTURE_NAVBAR_LENGTH = "gesture_navbar_length"
 
+        val ACCENT_DARK_SETTING = "accent_dark"
+
+        val ACCENT_LIGHT_SETTING = "accent_light"
+
+        val CLOCK_FACE_SETTING = "lock_screen_custom_clock_face"
+
         fun disableAOD() {
             setInt(DOZE_ALWAYS_ON, 0)
         }
@@ -148,6 +192,10 @@ class FeatureManager(private val contentResolver: ContentResolver) {
             Settings.Secure.putFloat(contentResolver, feature, value)
         }
 
+        fun setStringBool(feature: String, value: String) : Boolean {
+            return Settings.Secure.putString(contentResolver, feature, value)
+        }
+
         fun setString(feature: String, value: String) {
             Settings.Secure.putString(contentResolver, feature, value)
         }
@@ -167,7 +215,7 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         fun getFloat(feature: String, default: Float): Float =
             Settings.Secure.getFloat(contentResolver, feature, default)
 
-        fun getString(feature: String): String =
+        fun getString(feature: String): String? =
             Settings.Secure.getString(contentResolver, feature)
     }
 
@@ -289,6 +337,48 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          * 2: Display the battery percentage next to Icon
          */
         val STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent"
+
+        /**
+         * Whether to allow battery light
+         * @hide
+         */
+        val BATTERY_LIGHT_ENABLED = "battery_light_enabled"
+
+        /**
+         * Whether to show battery light when DND mode is active
+         * @hide
+         */
+        val BATTERY_LIGHT_ALLOW_ON_DND = "battery_light_allow_on_dnd"
+
+        /**
+         * Whether to show blinking light when battery is low
+         * @hide
+         */
+        val BATTERY_LIGHT_LOW_BLINKING = "battery_light_low_blinking"
+
+        /**
+         * Low battery charging color
+         * @hide
+         */
+        val BATTERY_LIGHT_LOW_COLOR = "battery_light_low_color"
+
+        /**
+         * Medium battery charging color
+         * @hide
+         */
+        val BATTERY_LIGHT_MEDIUM_COLOR = "battery_light_medium_color"
+
+        /**
+         * Full battery charging color
+         * @hide
+         */
+        val BATTERY_LIGHT_FULL_COLOR = "battery_light_full_color"
+
+        /**
+         * Really full 100 battery charging color
+         * @hide
+         */
+        val BATTERY_LIGHT_REALLYFULL_COLOR = "battery_light_reallyfull_color"
 
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)

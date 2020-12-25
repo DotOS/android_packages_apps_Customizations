@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.settings.dotextras.custom.sections.clock
+package com.android.settings.dotextras.custom.sections.clock.utils
 
 import android.app.Activity
 import android.content.Context
@@ -57,7 +57,7 @@ abstract class Asset {
      */
     abstract fun decodeBitmapRegion(
         rect: Rect?, targetWidth: Int, targetHeight: Int,
-        receiver: BitmapReceiver?
+        receiver: BitmapReceiver?,
     )
 
     /**
@@ -72,7 +72,7 @@ abstract class Asset {
      */
     abstract fun decodeRawDimensions(
         activity: Activity?,
-        receiver: DimensionsReceiver?
+        receiver: DimensionsReceiver?,
     )
 
     /**
@@ -92,7 +92,7 @@ abstract class Asset {
      */
     fun loadLowResDrawable(
         activity: Activity?, imageView: ImageView?, placeholderColor: Int,
-        transformation: BitmapTransformation?
+        transformation: BitmapTransformation?,
     ) {
         // No op
     }
@@ -111,9 +111,9 @@ abstract class Asset {
      * @param placeholderColor Color of placeholder set to ImageView while waiting for image to
      * load.
      */
-    fun loadDrawable(
+    open fun loadDrawable(
         context: Context, imageView: ImageView,
-        placeholderColor: Int
+        placeholderColor: Int,
     ) {
         // Transition from a placeholder ColorDrawable to the decoded bitmap when the ImageView in
         // question is empty.
@@ -163,12 +163,12 @@ abstract class Asset {
      * @param placeholderColor         Color of the placeholder if the provided ImageView is empty
      * before the
      */
-    fun loadDrawableWithTransition(
+    open fun loadDrawableWithTransition(
         context: Context,
         imageView: ImageView,
         transitionDurationMillis: Int,
         drawableLoadedListener: DrawableLoadedListener?,
-        placeholderColor: Int
+        placeholderColor: Int,
     ) {
         val imageViewDimensions = getViewDimensions(imageView)
 
@@ -251,7 +251,7 @@ abstract class Asset {
      */
     class CenterCropBitmapTask(
         private val mBitmap: Bitmap, view: View,
-        private val mBitmapReceiver: BitmapReceiver
+        private val mBitmapReceiver: BitmapReceiver,
     ) : AsyncTask<Void?, Void?, Bitmap>() {
         private val mImageViewWidth: Int
         private val mImageViewHeight: Int
@@ -294,7 +294,7 @@ abstract class Asset {
          * filled completely with pixels of the provided placeholder color.
          */
         protected fun getPlaceholderDrawable(
-            context: Context, imageView: ImageView, placeholderColor: Int
+            context: Context, imageView: ImageView, placeholderColor: Int,
         ): Drawable {
             val imageViewDimensions = getViewDimensions(imageView)
             val placeholderBitmap = Bitmap.createBitmap(

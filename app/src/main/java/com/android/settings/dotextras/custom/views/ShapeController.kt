@@ -16,8 +16,8 @@ import com.android.settings.dotextras.system.OverlayController
 class ShapeController(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
     init {
-        val layoutBase = LayoutInflater.from(mContext).inflate(
-            R.layout.item_shapes_control, this, false
+        LayoutInflater.from(mContext).inflate(
+            R.layout.item_shapes_control, this, true
         )
         val overlayController = OverlayController(
             OverlayController.Categories.ICON_SHAPE_CATEGORY,
@@ -25,7 +25,7 @@ class ShapeController(context: Context?, attrs: AttributeSet?) : LinearLayout(co
             IOverlayManager.Stub
                 .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
         )
-        val recycler = layoutBase.findViewById<RecyclerView>(R.id.shapesRecycler)
+        val recycler = findViewById<RecyclerView>(R.id.shapesRecycler)
         val adapter = ShapeAdapter(
             overlayController, overlayController.Shapes().getShapes(context!!)
         )
@@ -45,6 +45,6 @@ class ShapeController(context: Context?, attrs: AttributeSet?) : LinearLayout(co
             )
         )
         recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        addView(layoutBase)
+        visibility = if (overlayController.isAvailable()) VISIBLE else GONE
     }
 }
