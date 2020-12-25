@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 
 class ClockfacePreviewRecyclerAdapter(
     private val clockManager: ClockManager,
@@ -57,6 +58,7 @@ class ClockfacePreviewRecyclerAdapter(
         holder.clockfaceChip.text = clockfaceCompat.clockface.getTitle()
         holder.clockfaceLayout.setOnClickListener {
             clockManager.apply(clockfaceCompat.clockface) {}
+            Snackbar.make(holder.itemView, "Clockface '${clockfaceCompat.clockface.getTitle()}' applied.", Snackbar.LENGTH_SHORT).show()
             select(position)
             updateSelection(clockfaceCompat, holder)
         }
