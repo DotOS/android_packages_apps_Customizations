@@ -15,7 +15,6 @@
  */
 package com.android.settings.dotextras.custom.sections
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,7 +30,6 @@ import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
 class AODLockscreenSection : GenericSection() {
 
     private val EXTRA_CLOCK_FACE_NAME = "clock_face_name"
-    private var shouldShow = true
     private lateinit var mClockManager: BaseClockManager
 
     override fun onCreateView(
@@ -41,8 +39,6 @@ class AODLockscreenSection : GenericSection() {
     ): View? {
         return inflater.inflate(R.layout.section_aod_lock, container, false)
     }
-
-    override fun isAvailable(context: Context): Boolean = shouldShow
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,10 +56,8 @@ class AODLockscreenSection : GenericSection() {
             }
         }
         if (!mClockManager.isAvailable) {
-            shouldShow = false
             Log.e("ClockManager", "Not available")
         } else {
-            shouldShow = true
             mClockManager.fetchOptions({ options ->
                 run {
                     if (options != null) {
