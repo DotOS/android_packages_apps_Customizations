@@ -98,4 +98,27 @@
     <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
     <string name="smart_accent_picker">Smart Accent Picker</string>
 
+    <string name="qs_percentage_style">QS Percentage Style</string>
+    <string name="quick_settings">Quick Settings</string>
+    <string name="style">Style</string>
+    <string name="hide">Hide</string>
+    <string name="inside">Inside</string>
+    <string name="outside">Outside</string>
+    <string name="estimate">Estimate</string>
+    <string name="percentage">Percentage</string>
+    <string name="status_bar">Status Bar</string>
+    <string name="battery_light">Battery Light Options</string>
+    <string name="battery_light_colors">Battery Light Colors</string>
+    <string name="led_color">Led Color</string>
+    <string name="light_charged">When battery is charged</string>
+    <string name="light_full">When battery is full</string>
+    <string name="light_low">When battery is low</string>
+    <string name="light_medium">When battery is medium charged</string>
+    <string name="battery_light_title">Battery Light</string>
+    <string name="battery_light_dnd">Battery Light on DND</string>
+    <string name="show_batterylight">Show the light</string>
+    <string name="show_batterylight_dnd">Enable it in Do-Not-Disturb mode</string>
+    <string name="blinking">Blinking</string>
+    <string name="blinking_on_low">Light Blinking on low battery</string>
+
 </resources>

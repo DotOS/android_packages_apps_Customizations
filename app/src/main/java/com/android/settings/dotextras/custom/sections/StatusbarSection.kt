@@ -19,22 +19,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.preference.PreferenceFragmentCompat
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.batterystyles.BatteryStylesAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.PAGER
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.RGB
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.sections.cards.OnSlideChangedListener
-import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 class StatusbarSection : GenericSection() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.section_statusbar, container, false)
     }
@@ -43,6 +42,8 @@ class StatusbarSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         val list = ArrayList<ContextCards>()
         val perclist = ArrayList<ContextCards>()
+        val batteryLightOptList = ArrayList<ContextCards>()
+        val batteryLightList = ArrayList<ContextCards>()
         list.add(ContextCards(
             iconID = R.drawable.round_battery_full_white_36dp,
             title = getString(R.string.battery_styles),
@@ -51,26 +52,26 @@ class StatusbarSection : GenericSection() {
             featureType = SYSTEM,
             pagerAdapter = BatteryStylesAdapter(requireActivity())
         ))
-        setupLayout(PAGER, list, R.id.sectionBS, 1,true)
+        setupLayout(PAGER, list, R.id.sectionBS, 1, true)
         buildSwipeable(
             list = perclist,
             iconID = R.drawable.round_battery_unknown_white_36dp,
-            subtitle = "Percentage Style",
+            subtitle = getString(R.string.percentage_style),
             accentColor = R.color.teal_500,
             feature = featureManager.System().STATUS_BAR_SHOW_BATTERY_PERCENT,
             featureType = SYSTEM,
             min = 0,
             max = 2,
             default = 0,
-            summary = "Status Bar",
-            "Style"
+            summary = getString(R.string.status_bar),
+            extraTitle = getString(R.string.style)
         ) { position, title ->
             run {
                 var newTitle = ""
                 when (position) {
-                    0->newTitle = "Hide"
-                    1->newTitle = "Inside"
-                    2->newTitle = "Outside"
+                    0 -> newTitle = getString(R.string.hide)
+                    1 -> newTitle = getString(R.string.inside)
+                    2 -> newTitle = getString(R.string.outside)
                 }
                 title.text = newTitle
             }
@@ -78,25 +79,90 @@ class StatusbarSection : GenericSection() {
         buildSwipeable(
             list = perclist,
             iconID = R.drawable.round_battery_unknown_white_36dp,
-            subtitle = "QS Percentage Style",
+            subtitle = getString(R.string.qs_percentage_style),
             accentColor = R.color.red_500,
             feature = featureManager.System().QS_SHOW_BATTERY_PERCENT,
             featureType = SYSTEM,
             min = 0,
             max = 1,
             default = 0,
-            summary = "Quick Settings",
-            "Style"
+            summary = getString(R.string.quick_settings),
+            extraTitle = getString(R.string.style)
         ) { position, title ->
             run {
                 var newTitle = ""
                 when (position) {
-                    0->newTitle = "Estimate"
-                    1->newTitle = "Percentage"
+                    0 -> newTitle = getString(R.string.estimate)
+                    1 -> newTitle = getString(R.string.percentage)
                 }
                 title.text = newTitle
             }
         }
         setupLayout(SWIPE, perclist, R.id.sectionPercentage)
+        batteryLightOptList.add(ContextCards(
+            iconID = R.drawable.round_battery_full_white_36dp,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.battery_light_title),
+            accentColor = R.color.purple_500,
+            feature = featureManager.System().BATTERY_LIGHT_ENABLED,
+            featureType = SYSTEM,
+            summary = getString(R.string.show_batterylight)
+        ))
+        batteryLightOptList.add(ContextCards(
+            iconID = R.drawable.ic_dnd,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.battery_light_dnd),
+            accentColor = R.color.orange_500,
+            feature = featureManager.System().BATTERY_LIGHT_ALLOW_ON_DND,
+            featureType = SYSTEM,
+            summary = getString(R.string.show_batterylight_dnd)
+        ))
+        batteryLightOptList.add(ContextCards(
+            iconID = R.drawable.ic_light,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.blinking),
+            accentColor = R.color.pink_500,
+            feature = featureManager.System().BATTERY_LIGHT_LOW_BLINKING,
+            featureType = SYSTEM,
+            summary = getString(R.string.blinking_on_low)
+        ))
+        setupLayout(SWITCH, batteryLightOptList, R.id.sectionBatteryLightOptions)
+        buildRGB(
+            list = batteryLightList,
+            iconID = R.drawable.ic_light,
+            subtitle = getString(R.string.led_color),
+            feature = featureManager.System().BATTERY_LIGHT_REALLYFULL_COLOR,
+            featureType = SYSTEM,
+            summary = getString(R.string.light_charged),
+            defaultColor = resources.getColor(R.color.purple_500, null)
+        ) {}
+        buildRGB(
+            list = batteryLightList,
+            iconID = R.drawable.ic_light,
+            subtitle = getString(R.string.led_color),
+            feature = featureManager.System().BATTERY_LIGHT_FULL_COLOR,
+            featureType = SYSTEM,
+            summary = getString(R.string.light_full),
+            defaultColor = resources.getColor(R.color.green_500, null)
+        ) {}
+        buildRGB(
+            list = batteryLightList,
+            iconID = R.drawable.ic_light,
+            subtitle = getString(R.string.led_color),
+            feature = featureManager.System().BATTERY_LIGHT_LOW_COLOR,
+            featureType = SYSTEM,
+            summary = getString(R.string.light_low),
+            defaultColor = resources.getColor(R.color.orange_500, null)
+        ) {}
+        buildRGB(
+            list = batteryLightList,
+            iconID = R.drawable.ic_light,
+            subtitle = getString(R.string.led_color),
+            feature = featureManager.System().BATTERY_LIGHT_MEDIUM_COLOR,
+            featureType = SYSTEM,
+            summary = getString(R.string.light_medium),
+            defaultColor = resources.getColor(R.color.blue_500, null)
+        ) {}
+        setupLayout(RGB, batteryLightList, R.id.sectionBatteryLight)
     }
 }
