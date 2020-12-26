@@ -39,12 +39,7 @@ class ContextSectionLayout(
         val expandableLayout: ExpandableLayout = layout.findViewById(R.id.contextExpandable)
         if (attrs != null) {
             val a = getContext().obtainStyledAttributes(attrs, R.styleable.ContextSectionLayout)
-            setTitle(
-                a.getResourceId(
-                    R.styleable.ContextSectionLayout_sectionTitle,
-                    R.string.app_name
-                )
-            )
+            setTitle(a.getString(R.styleable.ContextSectionLayout_sectionTitle))
             a.recycle()
         }
         if (expandable) {
@@ -55,6 +50,10 @@ class ContextSectionLayout(
 
     fun hideTitle(hide: Boolean) {
         title.visibility = if (hide) View.GONE else View.VISIBLE
+    }
+
+    fun setTitle(string: String) {
+        title.text = string
     }
 
     fun setTitle(resId: Int) {

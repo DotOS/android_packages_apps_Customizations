@@ -8,32 +8,47 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/clockfaceSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:paddingStart="28dp"
-        android:paddingEnd="28dp"
-        android:text="@string/clockface"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/recyclerSpacerBig"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="@dimen/recyclerSpacerBig"
-        android:layout_marginBottom="@dimen/recyclerSpacerBig"
-        app:cardBackgroundColor="@color/cardBackground"
-        app:cardCornerRadius="@dimen/default_dialog_radius"
-        app:cardElevation="0dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/clockfaceOptionsRecycler"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="28dp"
+            android:paddingEnd="28dp"
+            android:text="@string/clockface"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/recyclerSpacerBig"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/recyclerSpacerBig"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@color/cardBackground"
+            app:cardCornerRadius="@dimen/default_dialog_radius"
+            app:cardElevation="0dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/clockfaceOptionsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:sectionTitle="Options">
+
+    </com.android.settings.dotextras.custom.views.ContextSectionLayout>
 
 </LinearLayout>

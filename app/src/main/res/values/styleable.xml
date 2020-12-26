@@ -16,7 +16,7 @@
     </declare-styleable>
 
     <declare-styleable name="ContextSectionLayout">
-        <attr name="sectionTitle" format="reference" />
+        <attr name="sectionTitle" format="string|reference" />
     </declare-styleable>
 
     <declare-styleable name="CropImageView">

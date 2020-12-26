@@ -20,6 +20,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -56,6 +57,7 @@ class AODLockscreenSection : GenericSection() {
             }
         }
         if (!mClockManager.isAvailable) {
+            view.findViewById<LinearLayout>(R.id.clockfaceSection).visibility = View.GONE
             Log.e("ClockManager", "Not available")
         } else {
             mClockManager.fetchOptions({ options ->
