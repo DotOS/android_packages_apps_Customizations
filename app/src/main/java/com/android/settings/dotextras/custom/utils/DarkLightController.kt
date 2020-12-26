@@ -67,6 +67,23 @@ fun Context.getNormalizedColor(reference: Drawable): Int {
 }
 
 @ColorInt
+fun Context.getNormalizedColor(reference: Int): Int {
+    val nightModeFlags: Int = resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK
+    var normalizedTextColor: Int =
+        if (ResourceHelper.isDark(reference)) ResourceHelper.getTextColor(this)
+        else ResourceHelper.getInverseTextColor(this)
+    when (nightModeFlags) {
+        Configuration.UI_MODE_NIGHT_YES -> normalizedTextColor =
+            if (ResourceHelper.isDark(reference)) ResourceHelper.getTextColor(this)
+            else ResourceHelper.getInverseTextColor(this)
+        Configuration.UI_MODE_NIGHT_NO -> normalizedTextColor =
+            ResourceHelper.getTextColor(this)
+    }
+    return normalizedTextColor
+}
+
+@ColorInt
 fun Context.getNormalizedSecondaryColor(reference: Int): Int {
     val nightModeFlags: Int = resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK

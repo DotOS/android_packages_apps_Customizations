@@ -21,6 +21,7 @@ import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
 import android.provider.Settings
@@ -31,18 +32,25 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.annotation.ColorInt
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.GLOBAL
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.PAGER
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.RGB
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SECURE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
+import com.android.settings.dotextras.custom.utils.ColorSheetUtils
+import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.android.settings.dotextras.custom.utils.getNormalizedColor
+import com.android.settings.dotextras.custom.utils.getNormalizedSecondaryColor
+import com.android.settings.dotextras.custom.views.ColorSheet
+import com.android.settings.dotextras.custom.views.TwoToneAccentView
 import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -52,7 +60,7 @@ import kotlin.math.roundToInt
 class ContextCardsAdapter(
     private val contentResolver: ContentResolver,
     val TYPE: Int,
-    private val items: ArrayList<ContextCards>
+    private val items: ArrayList<ContextCards>,
 ) :
     RecyclerView.Adapter<ContextCardsAdapter.ViewHolder>() {
 
@@ -75,6 +83,11 @@ class ContextCardsAdapter(
             )
             PAGER -> view = LayoutInflater.from(parent.context).inflate(
                 R.layout.item_feature_card_swipe,
+                parent,
+                false
+            )
+            RGB -> view = LayoutInflater.from(parent.context).inflate(
+                R.layout.item_feature_card_rgb,
                 parent,
                 false
             )
@@ -261,7 +274,7 @@ class ContextCardsAdapter(
                     override fun onProgressChanged(
                         seekBar: SeekBar,
                         progress: Int,
-                        fromUser: Boolean
+                        fromUser: Boolean,
                     ) {
                         contextCard.listener?.invoke(progress)
                         updateSwipeSelection(contextCard, holder, progress)
@@ -436,7 +449,139 @@ class ContextCardsAdapter(
                     false
                 }
             }
+            RGB -> {
+                when (contextCard.featureType) {
+                    SECURE -> contextCard.colorInt = featureManager.Secure()
+                        .getInt(
+                            contextCard.feature,
+                            contextCard.defaultColor
+                        )
+                    GLOBAL -> contextCard.colorInt = featureManager.Global()
+                        .getInt(
+                            contextCard.feature,
+                            contextCard.defaultColor
+                        )
+                    SYSTEM -> contextCard.colorInt = featureManager.System()
+                        .getInt(
+                            contextCard.feature,
+                            contextCard.defaultColor
+                        )
+                }
+                holder.cardIcon.setImageResource(contextCard.iconID)
+                holder.cardTitle.text = contextCard.title
+                holder.cardTitle.isSelected = true
+                holder.cardSubtitle.text = contextCard.subtitle
+                holder.cardSubtitle.isSelected = true
+                if (contextCard.summary == null)
+                    holder.cardSummary.visibility = View.INVISIBLE
+                else
+                    holder.cardSummary.text = contextCard.summary
+                holder.cardClickable.setOnClickListener {
+                    val colorSheet = ColorSheet()
+                    colorSheet.colorPicker(holder.cardClickable.resources.getIntArray(R.array.materialColors),
+                        onResetListener = {
+                            contextCard.colorInt = contextCard.defaultColor
+                            contextCard.colorListener?.invoke(contextCard.defaultColor)
+                            when (contextCard.featureType) {
+                                SECURE -> featureManager.Secure().setInt(contextCard.feature, contextCard.defaultColor)
+                                GLOBAL -> featureManager.Global().setInt(contextCard.feature, contextCard.defaultColor)
+                                SYSTEM -> {
+                                    if (Settings.System.canWrite(holder.itemView.context)) {
+                                        featureManager.System().setInt(contextCard.feature, contextCard.defaultColor)
+                                    } else {
+                                        val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                                        intent.data =
+                                            Uri.parse("package:" + holder.itemView.context.packageName)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        startActivity(holder.itemView.context, intent, null)
+                                    }
+                                }
+                            }
+                            updateRGBSection(contextCard, holder)
+                        },
+                        listener = { color ->
+                            contextCard.colorInt = color
+                            contextCard.colorListener?.invoke(color)
+                            when (contextCard.featureType) {
+                                SECURE -> featureManager.Secure().setInt(contextCard.feature, color)
+                                GLOBAL -> featureManager.Global().setInt(contextCard.feature, color)
+                                SYSTEM -> {
+                                    if (Settings.System.canWrite(holder.itemView.context)) {
+                                        featureManager.System().setInt(contextCard.feature, color)
+                                    } else {
+                                        val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                                        intent.data =
+                                            Uri.parse("package:" + holder.itemView.context.packageName)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        startActivity(holder.itemView.context, intent, null)
+                                    }
+                                }
+                            }
+                            updateRGBSection(contextCard, holder)
+                        }).show(contextCard.fragmentManager!!)
+                }
+                holder.cardClickable.setOnTouchListener { _, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            val scaleDownX = ObjectAnimator.ofFloat(
+                                holder.cardLayout,
+                                "scaleX", 0.9f
+                            )
+                            val scaleDownY = ObjectAnimator.ofFloat(
+                                holder.cardLayout,
+                                "scaleY", 0.9f
+                            )
+                            scaleDownX.duration = 200
+                            scaleDownY.duration = 200
+                            val scaleDown = AnimatorSet()
+                            scaleDown.play(scaleDownX).with(scaleDownY)
+                            scaleDown.start()
+                        }
+                        MotionEvent.ACTION_UP -> {
+                            val scaleDownX2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleX", 1f
+                            )
+                            val scaleDownY2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleY", 1f
+                            )
+                            scaleDownX2.duration = 200
+                            scaleDownY2.duration = 200
+                            val scaleDown2 = AnimatorSet()
+                            scaleDown2.play(scaleDownX2).with(scaleDownY2)
+                            scaleDown2.start()
+                        }
+                        MotionEvent.ACTION_CANCEL -> {
+                            val scaleDownX2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleX", 1f
+                            )
+                            val scaleDownY2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleY", 1f
+                            )
+                            scaleDownX2.duration = 200
+                            scaleDownY2.duration = 200
+                            val scaleDown2 = AnimatorSet()
+                            scaleDown2.play(scaleDownX2).with(scaleDownY2)
+                            scaleDown2.start()
+                        }
+                    }
+                    false
+                }
+                updateRGBSection(contextCard, holder)
+            }
         }
+    }
+
+    private fun updateRGBSection(contextCard: ContextCards, holder: ViewHolder) {
+        holder.cardTitle.text = ColorSheetUtils.colorToHex(contextCard.colorInt)
+        val accentColor: Int = adjustAlpha(
+            contextCard.colorInt, 0.4f
+        )
+        holder.cardIcon.imageTintList = ColorStateList.valueOf(contextCard.colorInt)
+        holder.cardSubtitle.setTextColor(contextCard.colorInt)
+        holder.cardLayout.setCardBackgroundColor(accentColor)
+        holder.cardArrow!!.imageTintList = ColorStateList.valueOf(contextCard.colorInt)
+        val normalizedColor = holder.itemView.context.getNormalizedSecondaryColor(contextCard.colorInt)
+        holder.cardTitle.setTextColor(contextCard.colorInt)
     }
 
     @SuppressLint("SetTextI18n")
@@ -501,12 +646,15 @@ class ContextCardsAdapter(
         val cardRight: ImageButton? = if (TYPE == PAGER) view.findViewById(R.id.cardRight) else null
         val cardApply: MaterialButton? =
             if (TYPE == PAGER) view.findViewById(R.id.cardApply) else null
+        val cardArrow: AppCompatImageView? =
+            if (TYPE == RGB) view.findViewById(R.id.cardArrow) else null
     }
 
     object Type {
         const val SWITCH = 0
         const val SWIPE = 1
         const val PAGER = 2
+        const val RGB = 3
 
         const val SECURE = 0
         const val SYSTEM = 1

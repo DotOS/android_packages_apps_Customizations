@@ -24,10 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.SectionInterface
-import com.android.settings.dotextras.custom.sections.cards.ContextCards
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsListener
-import com.android.settings.dotextras.custom.sections.cards.OnSlideChangedListener
+import com.android.settings.dotextras.custom.sections.cards.*
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.views.ContextSectionLayout
 import com.android.settings.dotextras.system.FeatureManager
@@ -288,6 +285,94 @@ open class GenericSection : Fragment(), SectionInterface {
                 max = max,
                 default = default,
                 summary = summary
+            )
+        )
+    }
+
+    fun buildRGB(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        subtitle: String,
+        feature: String,
+        featureType: Int,
+        colorChangedListener: OnColorChangedListener
+    ) {
+        list.add(
+            ContextCards(
+                iconID = iconID,
+                subtitle = subtitle,
+                feature = feature,
+                featureType = featureType,
+                fragmentManager = requireActivity().supportFragmentManager,
+                colorChangedListener = colorChangedListener
+            )
+        )
+    }
+
+    fun buildRGB(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        subtitle: String,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        colorChangedListener: OnColorChangedListener
+    ) {
+        list.add(
+            ContextCards(
+                iconID = iconID,
+                subtitle = subtitle,
+                feature = feature,
+                featureType = featureType,
+                summary = summary,
+                fragmentManager = requireActivity().supportFragmentManager,
+                colorChangedListener = colorChangedListener
+            )
+        )
+    }
+
+    fun buildRGB(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        subtitle: String,
+        feature: String,
+        featureType: Int,
+        defaultColor: Int,
+        colorChangedListener: OnColorChangedListener
+    ) {
+        list.add(
+            ContextCards(
+                iconID = iconID,
+                subtitle = subtitle,
+                feature = feature,
+                featureType = featureType,
+                defaultColor = defaultColor,
+                fragmentManager = requireActivity().supportFragmentManager,
+                colorChangedListener = colorChangedListener
+            )
+        )
+    }
+
+    fun buildRGB(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        subtitle: String,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        defaultColor: Int,
+        colorChangedListener: OnColorChangedListener
+    ) {
+        list.add(
+            ContextCards(
+                iconID = iconID,
+                subtitle = subtitle,
+                feature = feature,
+                featureType = featureType,
+                summary = summary,
+                defaultColor = defaultColor,
+                fragmentManager = requireActivity().supportFragmentManager,
+                colorChangedListener = colorChangedListener
             )
         )
     }

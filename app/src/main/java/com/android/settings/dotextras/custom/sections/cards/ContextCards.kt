@@ -15,10 +15,15 @@
  */
 package com.android.settings.dotextras.custom.sections.cards
 
+import android.annotation.ColorInt
+import android.graphics.Color
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.android.settings.dotextras.custom.utils.ColorSheetUtils
 
 typealias ContextCardsListener = ((value: Int) -> Unit)?
+typealias OnColorChangedListener = ((colorInt: Int) -> Unit)?
 typealias OnSlideChangedListener = ((position: Int, title: TextView) -> Unit)?
 
 class ContextCards(
@@ -48,6 +53,14 @@ class ContextCards(
 
     //Pager variables
     var pagerAdapter: FragmentStateAdapter? = null
+
+    //RGB variables
+    @ColorInt
+    var defaultColor: Int = 0xFFFFFF
+    @ColorInt
+    var colorInt: Int = defaultColor
+    var colorListener: OnColorChangedListener = null
+    var fragmentManager: FragmentManager? = null
 
     constructor(
         iconID: Int,
@@ -218,6 +231,66 @@ class ContextCards(
         this.extraTitle = extraTitle
         this.listener = listener
         this.slideListener = slideListener
+    }
+
+    constructor(
+        iconID: Int,
+        subtitle: String,
+        feature: String,
+        featureType: Int,
+        fragmentManager: FragmentManager,
+        colorChangedListener: OnColorChangedListener
+    ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
+        this.fragmentManager = fragmentManager
+        this.title = ColorSheetUtils.colorToHex(colorInt)
+        this.colorListener = colorChangedListener
+    }
+
+    constructor(
+        iconID: Int,
+        subtitle: String,
+        feature: String,
+        featureType: Int,
+        defaultColor: Int,
+        fragmentManager: FragmentManager,
+        colorChangedListener: OnColorChangedListener
+    ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
+        this.fragmentManager = fragmentManager
+        this.defaultColor = defaultColor
+        this.title = ColorSheetUtils.colorToHex(colorInt)
+        this.colorListener = colorChangedListener
+    }
+
+    constructor(
+        iconID: Int,
+        subtitle: String,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        fragmentManager: FragmentManager,
+        colorChangedListener: OnColorChangedListener
+    ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
+        this.fragmentManager = fragmentManager
+        this.summary = summary
+        this.title = ColorSheetUtils.colorToHex(colorInt)
+        this.colorListener = colorChangedListener
+    }
+
+    constructor(
+        iconID: Int,
+        subtitle: String,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        defaultColor: Int,
+        fragmentManager: FragmentManager,
+        colorChangedListener: OnColorChangedListener
+    ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
+        this.fragmentManager = fragmentManager
+        this.defaultColor = defaultColor
+        this.summary = summary
+        this.title = ColorSheetUtils.colorToHex(colorInt)
+        this.colorListener = colorChangedListener
     }
 
 }
