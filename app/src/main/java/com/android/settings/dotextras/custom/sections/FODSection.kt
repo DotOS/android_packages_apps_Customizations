@@ -124,26 +124,18 @@ open class FODSection : GenericSection() {
         /**
          * Options
          */
-        fodoptList.add(
-            ContextCards(
-                iconID = R.drawable.ic_night_mode,
-                title = getString(R.string.disabled),
-                subtitle = getString(R.string.fod_nightlight),
-                accentColor = R.color.light_green_500,
-                feature = featureManager.System().FOD_NIGHT_LIGHT,
-                featureType = ContextCardsAdapter.Type.SYSTEM,
-                summary = getString(R.string.fod_nightlight_summary),
-                enabled = ResourceHelper.shouldDisableNightLight(requireContext())
-            )
-        )
+        buildSwitch(fodoptList,
+            iconID = R.drawable.ic_night_mode,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.fod_nightlight),
+            accentColor = R.color.light_green_500,
+            feature = featureManager.System().FOD_NIGHT_LIGHT,
+            featureType = ContextCardsAdapter.Type.SYSTEM,
+            summary = getString(R.string.fod_nightlight_summary),
+            enabled = ResourceHelper.shouldDisableNightLight(requireContext()))
         val recyclerfodoptView: RecyclerView = view.findViewById(R.id.fodoptRecycler)
         recyclerfodoptView.setHasFixedSize(true)
-        val adapterfodopt =
-            ContextCardsAdapter(
-                requireActivity().contentResolver,
-                ContextCardsAdapter.Type.SWITCH,
-                fodoptList
-            )
+        val adapterfodopt = ContextCardsAdapter(requireActivity().contentResolver, fodoptList)
         recyclerfodoptView.adapter = adapterfodopt
         recyclerfodoptView.addItemDecoration(
             GridSpacingItemDecoration(

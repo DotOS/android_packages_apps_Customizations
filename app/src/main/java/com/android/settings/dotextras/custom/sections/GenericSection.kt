@@ -22,9 +22,14 @@ import android.os.ServiceManager
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.SectionInterface
 import com.android.settings.dotextras.custom.sections.cards.*
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.PAGER
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.RGB
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.views.ContextSectionLayout
 import com.android.settings.dotextras.system.FeatureManager
@@ -49,15 +54,9 @@ open class GenericSection : Fragment(), SectionInterface {
 
     override fun isAvailable(context: Context): Boolean = true
 
-    fun setupLayout(type: Int, list: ArrayList<ContextCards>, layoutID: Int) {
+    fun setupLayout(list: ArrayList<ContextCards>, layoutID: Int) {
         val contextLayout = requireView().findViewById<ContextSectionLayout>(layoutID)
-        contextLayout.setupAdapter(
-            ContextCardsAdapter(
-                requireActivity().contentResolver,
-                type,
-                list
-            )
-        )
+        contextLayout.setupAdapter(ContextCardsAdapter(requireActivity().contentResolver, list))
         contextLayout.addDecoration(
             GridSpacingItemDecoration(
                 GRID_COLUMNS,
@@ -68,15 +67,9 @@ open class GenericSection : Fragment(), SectionInterface {
         contextLayout.setLayoutManger(GridLayoutManager(requireContext(), GRID_COLUMNS))
     }
 
-    fun setupLayout(type: Int, list: ArrayList<ContextCards>, layoutID: Int, columns: Int) {
+    fun setupLayout(list: ArrayList<ContextCards>, layoutID: Int, columns: Int) {
         val contextLayout = requireView().findViewById<ContextSectionLayout>(layoutID)
-        contextLayout.setupAdapter(
-            ContextCardsAdapter(
-                requireActivity().contentResolver,
-                type,
-                list
-            )
-        )
+        contextLayout.setupAdapter(ContextCardsAdapter(requireActivity().contentResolver, list))
         contextLayout.addDecoration(
             GridSpacingItemDecoration(
                 columns,
@@ -87,16 +80,10 @@ open class GenericSection : Fragment(), SectionInterface {
         contextLayout.setLayoutManger(GridLayoutManager(requireContext(), columns))
     }
 
-    fun setupLayout(type: Int, list: ArrayList<ContextCards>, layoutID: Int, hideTitle: Boolean) {
+    fun setupLayout(list: ArrayList<ContextCards>, layoutID: Int, hideTitle: Boolean) {
         val contextLayout = requireView().findViewById<ContextSectionLayout>(layoutID)
         contextLayout.hideTitle(hideTitle)
-        contextLayout.setupAdapter(
-            ContextCardsAdapter(
-                requireActivity().contentResolver,
-                type,
-                list
-            )
-        )
+        contextLayout.setupAdapter(ContextCardsAdapter(requireActivity().contentResolver, list))
         contextLayout.addDecoration(
             GridSpacingItemDecoration(
                 GRID_COLUMNS,
@@ -108,21 +95,14 @@ open class GenericSection : Fragment(), SectionInterface {
     }
 
     fun setupLayout(
-        type: Int,
         list: ArrayList<ContextCards>,
         layoutID: Int,
         columns: Int,
-        hideTitle: Boolean
+        hideTitle: Boolean,
     ) {
         val contextLayout = requireView().findViewById<ContextSectionLayout>(layoutID)
         contextLayout.hideTitle(hideTitle)
-        contextLayout.setupAdapter(
-            ContextCardsAdapter(
-                requireActivity().contentResolver,
-                type,
-                list
-            )
-        )
+        contextLayout.setupAdapter(ContextCardsAdapter(requireActivity().contentResolver, list))
         contextLayout.addDecoration(
             GridSpacingItemDecoration(
                 columns,
@@ -133,34 +113,225 @@ open class GenericSection : Fragment(), SectionInterface {
         contextLayout.setLayoutManger(GridLayoutManager(requireContext(), columns))
     }
 
-    fun buildSwipeable(
+    fun buildPager(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        title: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        pagerAdapter: FragmentStateAdapter
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            pagerAdapter = pagerAdapter
+        )
+        contextCards.viewType = PAGER
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        pagerAdapter: FragmentStateAdapter
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            pagerAdapter = pagerAdapter
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
         list: ArrayList<ContextCards>,
         iconID: Int,
         subtitle: String,
         accentColor: Int,
         feature: String,
         featureType: Int,
-        min: Int,
-        max: Int,
-        default: Int,
-        summary: String,
-        extraTitle: String
+        summary: String
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                title = "",
-                subtitle = subtitle,
-                accentColor = accentColor,
-                feature = feature,
-                featureType = featureType,
-                min = min,
-                max = max,
-                default = default,
-                summary = summary,
-                extraTitle = extraTitle
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            summary = summary
         )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        summary: String
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            summary = summary
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        enabled: Boolean
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            enabled = enabled
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        enabled: Boolean
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            enabled = enabled
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        enabled: Boolean
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            summary = summary,
+            enabled = enabled
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        enabled: Boolean
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            summary = summary,
+            enabled = enabled
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
     }
 
     fun buildSwipeable(
@@ -175,24 +346,22 @@ open class GenericSection : Fragment(), SectionInterface {
         default: Int,
         summary: String,
         extraTitle: String,
-        slideListener: OnSlideChangedListener
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                title = "",
-                subtitle = subtitle,
-                accentColor = accentColor,
-                feature = feature,
-                featureType = featureType,
-                min = min,
-                max = max,
-                default = default,
-                summary = summary,
-                extraTitle = extraTitle,
-                slideListener = slideListener
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            min = min,
+            max = max,
+            default = default,
+            summary = summary,
+            extraTitle = extraTitle
         )
+        contextCards.viewType = SWIPE
+        list.add(contextCards)
     }
 
     fun buildSwipeable(
@@ -207,24 +376,24 @@ open class GenericSection : Fragment(), SectionInterface {
         default: Int,
         summary: String,
         extraTitle: String,
-        listener: ContextCardsListener
+        slideListener: OnSlideChangedListener,
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                title = "",
-                subtitle = subtitle,
-                accentColor = accentColor,
-                feature = feature,
-                featureType = featureType,
-                min = min,
-                max = max,
-                default = default,
-                summary = summary,
-                extraTitle = extraTitle,
-                listener = listener
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            min = min,
+            max = max,
+            default = default,
+            summary = summary,
+            extraTitle = extraTitle,
+            slideListener = slideListener
         )
+        contextCards.viewType = SWIPE
+        list.add(contextCards)
     }
 
     fun buildSwipeable(
@@ -240,25 +409,23 @@ open class GenericSection : Fragment(), SectionInterface {
         summary: String,
         extraTitle: String,
         listener: ContextCardsListener,
-        sliderListener: OnSlideChangedListener
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                title = "",
-                subtitle = subtitle,
-                accentColor = accentColor,
-                feature = feature,
-                featureType = featureType,
-                min = min,
-                max = max,
-                default = default,
-                summary = summary,
-                extraTitle = extraTitle,
-                listener = listener,
-                slideListener = sliderListener
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            min = min,
+            max = max,
+            default = default,
+            summary = summary,
+            extraTitle = extraTitle,
+            listener = listener
         )
+        contextCards.viewType = SWIPE
+        list.add(contextCards)
     }
 
     fun buildSwipeable(
@@ -271,22 +438,56 @@ open class GenericSection : Fragment(), SectionInterface {
         min: Int,
         max: Int,
         default: Int,
-        summary: String
+        summary: String,
+        extraTitle: String,
+        listener: ContextCardsListener,
+        sliderListener: OnSlideChangedListener,
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                title = "",
-                subtitle = subtitle,
-                accentColor = accentColor,
-                feature = feature,
-                featureType = featureType,
-                min = min,
-                max = max,
-                default = default,
-                summary = summary
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            min = min,
+            max = max,
+            default = default,
+            summary = summary,
+            extraTitle = extraTitle,
+            listener = listener,
+            slideListener = sliderListener
         )
+        contextCards.viewType = SWIPE
+        list.add(contextCards)
+    }
+
+    fun buildSwipeable(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        min: Int,
+        max: Int,
+        default: Int,
+        summary: String,
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = "",
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            min = min,
+            max = max,
+            default = default,
+            summary = summary
+        )
+        contextCards.viewType = SWIPE
+        list.add(contextCards)
     }
 
     fun buildRGB(
@@ -295,18 +496,18 @@ open class GenericSection : Fragment(), SectionInterface {
         subtitle: String,
         feature: String,
         featureType: Int,
-        colorChangedListener: OnColorChangedListener
+        colorChangedListener: OnColorChangedListener,
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                subtitle = subtitle,
-                feature = feature,
-                featureType = featureType,
-                fragmentManager = requireActivity().supportFragmentManager,
-                colorChangedListener = colorChangedListener
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            subtitle = subtitle,
+            feature = feature,
+            featureType = featureType,
+            fragmentManager = requireActivity().supportFragmentManager,
+            colorChangedListener = colorChangedListener
         )
+        contextCards.viewType = RGB
+        list.add(contextCards)
     }
 
     fun buildRGB(
@@ -316,19 +517,19 @@ open class GenericSection : Fragment(), SectionInterface {
         feature: String,
         featureType: Int,
         summary: String,
-        colorChangedListener: OnColorChangedListener
+        colorChangedListener: OnColorChangedListener,
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                subtitle = subtitle,
-                feature = feature,
-                featureType = featureType,
-                summary = summary,
-                fragmentManager = requireActivity().supportFragmentManager,
-                colorChangedListener = colorChangedListener
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            subtitle = subtitle,
+            feature = feature,
+            featureType = featureType,
+            summary = summary,
+            fragmentManager = requireActivity().supportFragmentManager,
+            colorChangedListener = colorChangedListener
         )
+        contextCards.viewType = RGB
+        list.add(contextCards)
     }
 
     fun buildRGB(
@@ -338,19 +539,19 @@ open class GenericSection : Fragment(), SectionInterface {
         feature: String,
         featureType: Int,
         defaultColor: Int,
-        colorChangedListener: OnColorChangedListener
+        colorChangedListener: OnColorChangedListener,
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                subtitle = subtitle,
-                feature = feature,
-                featureType = featureType,
-                defaultColor = defaultColor,
-                fragmentManager = requireActivity().supportFragmentManager,
-                colorChangedListener = colorChangedListener
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            subtitle = subtitle,
+            feature = feature,
+            featureType = featureType,
+            defaultColor = defaultColor,
+            fragmentManager = requireActivity().supportFragmentManager,
+            colorChangedListener = colorChangedListener
         )
+        contextCards.viewType = RGB
+        list.add(contextCards)
     }
 
     fun buildRGB(
@@ -361,19 +562,19 @@ open class GenericSection : Fragment(), SectionInterface {
         featureType: Int,
         summary: String,
         defaultColor: Int,
-        colorChangedListener: OnColorChangedListener
+        colorChangedListener: OnColorChangedListener,
     ) {
-        list.add(
-            ContextCards(
-                iconID = iconID,
-                subtitle = subtitle,
-                feature = feature,
-                featureType = featureType,
-                summary = summary,
-                defaultColor = defaultColor,
-                fragmentManager = requireActivity().supportFragmentManager,
-                colorChangedListener = colorChangedListener
-            )
+        val contextCards = ContextCards(
+            iconID = iconID,
+            subtitle = subtitle,
+            feature = feature,
+            featureType = featureType,
+            summary = summary,
+            defaultColor = defaultColor,
+            fragmentManager = requireActivity().supportFragmentManager,
+            colorChangedListener = colorChangedListener
         )
+        contextCards.viewType = RGB
+        list.add(contextCards)
     }
 }

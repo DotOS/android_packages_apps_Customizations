@@ -22,10 +22,6 @@ import android.view.ViewGroup
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.batterystyles.BatteryStylesAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.PAGER
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.RGB
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
 
 class StatusbarSection : GenericSection() {
@@ -44,15 +40,14 @@ class StatusbarSection : GenericSection() {
         val perclist = ArrayList<ContextCards>()
         val batteryLightOptList = ArrayList<ContextCards>()
         val batteryLightList = ArrayList<ContextCards>()
-        list.add(ContextCards(
+        buildPager(list,
             iconID = R.drawable.round_battery_full_white_36dp,
             title = getString(R.string.battery_styles),
             accentColor = R.color.colorAccent,
             feature = featureManager.System().STATUS_BAR_BATTERY_STYLE,
             featureType = SYSTEM,
-            pagerAdapter = BatteryStylesAdapter(requireActivity())
-        ))
-        setupLayout(PAGER, list, R.id.sectionBS, 1, true)
+            pagerAdapter = BatteryStylesAdapter(requireActivity()))
+        setupLayout(list, R.id.sectionBS, 1, true)
         buildSwipeable(
             list = perclist,
             iconID = R.drawable.round_battery_unknown_white_36dp,
@@ -98,35 +93,31 @@ class StatusbarSection : GenericSection() {
                 title.text = newTitle
             }
         }
-        setupLayout(SWIPE, perclist, R.id.sectionPercentage)
-        batteryLightOptList.add(ContextCards(
+        setupLayout(perclist, R.id.sectionPercentage)
+        buildSwitch(batteryLightList,
             iconID = R.drawable.round_battery_full_white_36dp,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.battery_light_title),
             accentColor = R.color.purple_500,
             feature = featureManager.System().BATTERY_LIGHT_ENABLED,
             featureType = SYSTEM,
-            summary = getString(R.string.show_batterylight)
-        ))
-        batteryLightOptList.add(ContextCards(
+            summary = getString(R.string.show_batterylight))
+        buildSwitch(batteryLightList,
             iconID = R.drawable.ic_dnd,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.battery_light_dnd),
             accentColor = R.color.orange_500,
             feature = featureManager.System().BATTERY_LIGHT_ALLOW_ON_DND,
             featureType = SYSTEM,
-            summary = getString(R.string.show_batterylight_dnd)
-        ))
-        batteryLightOptList.add(ContextCards(
+            summary = getString(R.string.show_batterylight_dnd))
+        buildSwitch(batteryLightList,
             iconID = R.drawable.ic_light,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.blinking),
             accentColor = R.color.pink_500,
             feature = featureManager.System().BATTERY_LIGHT_LOW_BLINKING,
             featureType = SYSTEM,
-            summary = getString(R.string.blinking_on_low)
-        ))
-        setupLayout(SWITCH, batteryLightOptList, R.id.sectionBatteryLightOptions)
+            summary = getString(R.string.blinking_on_low))
         buildRGB(
             list = batteryLightList,
             iconID = R.drawable.ic_light,
@@ -163,6 +154,6 @@ class StatusbarSection : GenericSection() {
             summary = getString(R.string.light_medium),
             defaultColor = resources.getColor(R.color.blue_500, null)
         ) {}
-        setupLayout(RGB, batteryLightList, R.id.sectionBatteryLight)
+        setupLayout(batteryLightList, R.id.sectionBatteryLight)
     }
 }

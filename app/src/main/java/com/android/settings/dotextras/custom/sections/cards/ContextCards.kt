@@ -16,16 +16,15 @@
 package com.android.settings.dotextras.custom.sections.cards
 
 import android.annotation.ColorInt
-import android.graphics.Color
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type
 import com.android.settings.dotextras.custom.utils.ColorSheetUtils
 
 typealias ContextCardsListener = ((value: Int) -> Unit)?
 typealias OnColorChangedListener = ((colorInt: Int) -> Unit)?
 typealias OnSlideChangedListener = ((position: Int, title: TextView) -> Unit)?
-
 class ContextCards(
     var iconID: Int,
     var title: String,
@@ -39,6 +38,7 @@ class ContextCards(
     var summary: String? = null
     var default: Int = -1
     var listener: ContextCardsListener = null
+    var viewType: Int = Type.SWITCH
 
     //Switch variables
     var isCardChecked: Boolean = false

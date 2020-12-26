@@ -15,20 +15,12 @@
         android:id="@+id/sectionPercentage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:sectionTitle="@string/percentage_style" >
-
-    </com.android.settings.dotextras.custom.views.ContextSectionLayout>
-
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
-        android:id="@+id/sectionBatteryLightOptions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:sectionTitle="@string/battery_light" />
+        app:sectionTitle="@string/percentage_style" />
 
     <com.android.settings.dotextras.custom.views.ContextSectionLayout
         android:id="@+id/sectionBatteryLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:sectionTitle="@string/battery_light_colors" />
+        app:sectionTitle="@string/battery_light_title" />
 
 </LinearLayout>

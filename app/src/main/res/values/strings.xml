@@ -107,8 +107,6 @@
     <string name="estimate">Estimate</string>
     <string name="percentage">Percentage</string>
     <string name="status_bar">Status Bar</string>
-    <string name="battery_light">Battery Light Options</string>
-    <string name="battery_light_colors">Battery Light Colors</string>
     <string name="led_color">Led Color</string>
     <string name="light_charged">When battery is charged</string>
     <string name="light_full">When battery is full</string>

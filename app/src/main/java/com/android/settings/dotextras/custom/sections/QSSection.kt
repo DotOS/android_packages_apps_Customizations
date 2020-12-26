@@ -23,11 +23,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.system.FeatureManager
 import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.android.settings.dotextras.system.FeatureManager
 
 open class QSSection : GenericSection() {
 
@@ -37,7 +35,7 @@ open class QSSection : GenericSection() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.section_qs, container, false)
     }
@@ -61,18 +59,15 @@ open class QSSection : GenericSection() {
         /**
          * Options
          */
-        qsList.add(
-            ContextCards(
-                iconID = R.drawable.ic_qs_title,
-                title = getString(R.string.disabled),
-                subtitle = getString(R.string.qs_title),
-                accentColor = R.color.dot_red,
-                feature = featureManager.System().QS_TILE_TITLE_VISIBILITY,
-                featureType = SYSTEM,
-                enabled = true
-            )
-        )
-        setupLayout(SWITCH, qsList, R.id.sectionQS)
+        buildSwitch(qsList,
+            iconID = R.drawable.ic_qs_title,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.qs_title),
+            accentColor = R.color.dot_red,
+            feature = featureManager.System().QS_TILE_TITLE_VISIBILITY,
+            featureType = SYSTEM,
+            enabled = true)
+        setupLayout(qsList, R.id.sectionQS)
         /**
          * Rows & Columns
          */
@@ -128,6 +123,6 @@ open class QSSection : GenericSection() {
             summary = "Landscape",
             extraTitle = "Row(s)"
         )
-        setupLayout(SWIPE, rows_columnsList, R.id.sectionRows)
+        setupLayout(rows_columnsList, R.id.sectionRows)
     }
 }

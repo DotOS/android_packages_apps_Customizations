@@ -21,7 +21,6 @@ import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
 import android.provider.Settings
@@ -32,7 +31,6 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.annotation.ColorInt
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -46,60 +44,62 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
 import com.android.settings.dotextras.custom.utils.ColorSheetUtils
-import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.custom.utils.getNormalizedColor
-import com.android.settings.dotextras.custom.utils.getNormalizedSecondaryColor
 import com.android.settings.dotextras.custom.views.ColorSheet
-import com.android.settings.dotextras.custom.views.TwoToneAccentView
 import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import kotlin.math.roundToInt
 
-
 class ContextCardsAdapter(
     private val contentResolver: ContentResolver,
-    val TYPE: Int,
     private val items: ArrayList<ContextCards>,
 ) :
-    RecyclerView.Adapter<ContextCardsAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var view: View? = null
-        when (TYPE) {
-            SWITCH -> view = LayoutInflater.from(parent.context).inflate(
-                R.layout.item_feature_card_switch,
-                parent,
-                false
-            )
-            SWIPE -> view = LayoutInflater.from(parent.context).inflate(
-                R.layout.item_feature_card_slider,
-                parent,
-                false
-            )
-            PAGER -> view = LayoutInflater.from(parent.context).inflate(
-                R.layout.item_feature_card_swipe,
-                parent,
-                false
-            )
-            RGB -> view = LayoutInflater.from(parent.context).inflate(
-                R.layout.item_feature_card_rgb,
-                parent,
-                false
-            )
+    override fun getItemViewType(position: Int): Int {
+        return items[position].viewType
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view: View
+        when (viewType) {
+            SWITCH -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_feature_card_switch, parent, false)
+                return ViewHolder(view)
+            }
+            SWIPE -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_feature_card_slider, parent, false)
+                return ViewHolderSwipe(view)
+            }
+            PAGER -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_feature_card_swipe, parent, false)
+                return ViewHolderPager(view)
+            }
+            RGB -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_feature_card_rgb, parent, false)
+                return ViewHolder(view)
+            }
+            else -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_feature_card_switch, parent, false)
+                return ViewHolder(view)
+            }
         }
-        return ViewHolder(view!!)
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val contextCard: ContextCards = items[position]
         val featureManager = FeatureManager(contentResolver)
-        when (TYPE) {
+        when (getItemViewType(position)) {
             SWITCH -> {
                 val isByDefault =
                     if (contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
@@ -120,7 +120,7 @@ class ContextCardsAdapter(
                             isByDefault
                         ) == featureManager.Values().ON
                 }
-                holder.cardIcon.setImageResource(contextCard.iconID)
+                (holder as ViewHolder).cardIcon.setImageResource(contextCard.iconID)
                 holder.cardIcon.imageTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(
                         holder.cardIcon.context,
@@ -225,7 +225,7 @@ class ContextCardsAdapter(
                 updateSwitchSelection(contextCard, holder)
             }
             SWIPE -> {
-                holder.cardSeek!!.max = contextCard.max
+                (holder as ViewHolderSwipe).cardSeek.max = contextCard.max
                 holder.cardSeek.min = contextCard.min
                 holder.cardSeek.progressTintList = ColorStateList.valueOf(
                     holder.cardSeek.context.getColor(
@@ -268,7 +268,8 @@ class ContextCardsAdapter(
                     holder.cardSummary.visibility = View.INVISIBLE
                 else
                     holder.cardSummary.text = contextCard.summary
-                holder.cardSeek.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+                holder.cardSeek.setOnSeekBarChangeListener(object :
+                    OnSeekBarChangeListener {
                     override fun onStopTrackingTouch(seekBar: SeekBar) {}
                     override fun onStartTrackingTouch(seekBar: SeekBar) {}
                     override fun onProgressChanged(
@@ -277,22 +278,24 @@ class ContextCardsAdapter(
                         fromUser: Boolean,
                     ) {
                         contextCard.listener?.invoke(progress)
-                        updateSwipeSelection(contextCard, holder, progress)
+                        updateSwipeSelection(contextCard, (holder as ViewHolderSwipe), progress)
                         when (contextCard.featureType) {
                             SECURE -> featureManager.Secure()
                                 .setInt(contextCard.feature, progress)
                             GLOBAL -> featureManager.Global()
                                 .setInt(contextCard.feature, progress)
                             SYSTEM -> {
-                                if (Settings.System.canWrite(holder.itemView.context)) {
+                                if (Settings.System.canWrite((holder as ViewHolderSwipe).itemView.context)) {
                                     featureManager.System()
                                         .setInt(contextCard.feature, progress)
                                 } else {
                                     val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
                                     intent.data =
-                                        Uri.parse("package:" + holder.itemView.context.packageName)
+                                        Uri.parse("package:" + (holder as ViewHolderSwipe).itemView.context.packageName)
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    startActivity(holder.itemView.context, intent, null)
+                                    startActivity((holder as ViewHolderSwipe).itemView.context,
+                                        intent,
+                                        null)
                                 }
                             }
                         }
@@ -347,22 +350,25 @@ class ContextCardsAdapter(
                 updateSwipeSelection(contextCard, holder, contextCard.value)
             }
             PAGER -> {
-                holder.cardPager!!.adapter = contextCard.pagerAdapter
+                (holder as ViewHolderPager).cardPager.adapter = contextCard.pagerAdapter
                 when (contextCard.featureType) {
-                    SECURE -> holder.cardPager.currentItem = featureManager.Secure()
-                        .getInt(contextCard.feature, contextCard.default)
-                    GLOBAL -> holder.cardPager.currentItem = featureManager.Global()
-                        .getInt(contextCard.feature, contextCard.default)
-                    SYSTEM -> holder.cardPager.currentItem = featureManager.System()
-                        .getInt(contextCard.feature, contextCard.default)
+                    SECURE -> holder.cardPager.currentItem =
+                        featureManager.Secure()
+                            .getInt(contextCard.feature, contextCard.default)
+                    GLOBAL -> holder.cardPager.currentItem =
+                        featureManager.Global()
+                            .getInt(contextCard.feature, contextCard.default)
+                    SYSTEM -> holder.cardPager.currentItem =
+                        featureManager.System()
+                            .getInt(contextCard.feature, contextCard.default)
                 }
-                holder.cardLeft!!.setOnClickListener {
+                holder.cardLeft.setOnClickListener {
                     holder.cardPager.setCurrentItem(
                         holder.cardPager.currentItem - 1,
                         true
                     )
                 }
-                holder.cardRight!!.setOnClickListener {
+                holder.cardRight.setOnClickListener {
                     holder.cardPager.setCurrentItem(
                         holder.cardPager.currentItem + 1,
                         true
@@ -383,7 +389,7 @@ class ContextCardsAdapter(
                         contextCard.accentColor
                     )
                 )
-                holder.cardApply?.setOnClickListener {
+                holder.cardApply.setOnClickListener {
                     val pos = holder.cardPager.currentItem
                     when (contextCard.featureType) {
                         SECURE -> featureManager.Secure().setInt(contextCard.feature, pos)
@@ -396,7 +402,9 @@ class ContextCardsAdapter(
                                 intent.data =
                                     Uri.parse("package:" + holder.itemView.context.packageName)
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                startActivity(holder.itemView.context, intent, null)
+                                startActivity(holder.itemView.context,
+                                    intent,
+                                    null)
                             }
                         }
                     }
@@ -467,7 +475,7 @@ class ContextCardsAdapter(
                             contextCard.defaultColor
                         )
                 }
-                holder.cardIcon.setImageResource(contextCard.iconID)
+                (holder as ViewHolder).cardIcon.setImageResource(contextCard.iconID)
                 holder.cardTitle.text = contextCard.title
                 holder.cardTitle.isSelected = true
                 holder.cardSubtitle.text = contextCard.subtitle
@@ -483,11 +491,14 @@ class ContextCardsAdapter(
                             contextCard.colorInt = contextCard.defaultColor
                             contextCard.colorListener?.invoke(contextCard.defaultColor)
                             when (contextCard.featureType) {
-                                SECURE -> featureManager.Secure().setInt(contextCard.feature, contextCard.defaultColor)
-                                GLOBAL -> featureManager.Global().setInt(contextCard.feature, contextCard.defaultColor)
+                                SECURE -> featureManager.Secure()
+                                    .setInt(contextCard.feature, contextCard.defaultColor)
+                                GLOBAL -> featureManager.Global()
+                                    .setInt(contextCard.feature, contextCard.defaultColor)
                                 SYSTEM -> {
                                     if (Settings.System.canWrite(holder.itemView.context)) {
-                                        featureManager.System().setInt(contextCard.feature, contextCard.defaultColor)
+                                        featureManager.System()
+                                            .setInt(contextCard.feature, contextCard.defaultColor)
                                     } else {
                                         val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
                                         intent.data =
@@ -579,13 +590,15 @@ class ContextCardsAdapter(
         holder.cardIcon.imageTintList = ColorStateList.valueOf(contextCard.colorInt)
         holder.cardSubtitle.setTextColor(contextCard.colorInt)
         holder.cardLayout.setCardBackgroundColor(accentColor)
-        holder.cardArrow!!.imageTintList = ColorStateList.valueOf(contextCard.colorInt)
-        val normalizedColor = holder.itemView.context.getNormalizedSecondaryColor(contextCard.colorInt)
         holder.cardTitle.setTextColor(contextCard.colorInt)
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateSwipeSelection(contextCard: ContextCards, holder: ViewHolder, progress: Int) {
+    private fun updateSwipeSelection(
+        contextCard: ContextCards,
+        holder: ViewHolderSwipe,
+        progress: Int,
+    ) {
         if (contextCard.slideListener == null) {
             if (contextCard.extraTitle != null)
                 holder.cardTitle.text = progress.toString() + " ${contextCard.extraTitle}"
@@ -640,14 +653,29 @@ class ContextCardsAdapter(
         val cardSubtitle: TextView = view.findViewById(R.id.cardSubtitle)
         val cardSummary: TextView = view.findViewById(R.id.cardSummary)
         val cardIcon: ImageView = view.findViewById(R.id.cardIcon)
-        val cardSeek: SeekBar? = if (TYPE == SWIPE) view.findViewById(R.id.cardSeek) else null
-        val cardPager: ViewPager2? = if (TYPE == PAGER) view.findViewById(R.id.cardPager) else null
-        val cardLeft: ImageButton? = if (TYPE == PAGER) view.findViewById(R.id.cardLeft) else null
-        val cardRight: ImageButton? = if (TYPE == PAGER) view.findViewById(R.id.cardRight) else null
-        val cardApply: MaterialButton? =
-            if (TYPE == PAGER) view.findViewById(R.id.cardApply) else null
-        val cardArrow: AppCompatImageView? =
-            if (TYPE == RGB) view.findViewById(R.id.cardArrow) else null
+    }
+
+    inner class ViewHolderSwipe(view: View) : RecyclerView.ViewHolder(view) {
+        val cardLayout: MaterialCardView = view.findViewById(R.id.cardLayout)
+        val cardClickable: LinearLayout = view.findViewById(R.id.cardClickable)
+        val cardTitle: TextView = view.findViewById(R.id.cardTitle)
+        val cardSubtitle: TextView = view.findViewById(R.id.cardSubtitle)
+        val cardSummary: TextView = view.findViewById(R.id.cardSummary)
+        val cardIcon: ImageView = view.findViewById(R.id.cardIcon)
+        val cardSeek: SeekBar = view.findViewById(R.id.cardSeek)
+    }
+
+    inner class ViewHolderPager(view: View) : RecyclerView.ViewHolder(view) {
+        val cardLayout: MaterialCardView = view.findViewById(R.id.cardLayout)
+        val cardClickable: LinearLayout = view.findViewById(R.id.cardClickable)
+        val cardTitle: TextView = view.findViewById(R.id.cardTitle)
+        val cardSubtitle: TextView = view.findViewById(R.id.cardSubtitle)
+        val cardSummary: TextView = view.findViewById(R.id.cardSummary)
+        val cardIcon: ImageView = view.findViewById(R.id.cardIcon)
+        val cardPager: ViewPager2 = view.findViewById(R.id.cardPager)
+        val cardLeft: ImageButton = view.findViewById(R.id.cardLeft)
+        val cardRight: ImageButton = view.findViewById(R.id.cardRight)
+        val cardApply: MaterialButton = view.findViewById(R.id.cardApply)
     }
 
     object Type {
