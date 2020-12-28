@@ -278,22 +278,22 @@ class ContextCardsAdapter(
                         fromUser: Boolean,
                     ) {
                         contextCard.listener?.invoke(progress)
-                        updateSwipeSelection(contextCard, (holder as ViewHolderSwipe), progress)
+                        updateSwipeSelection(contextCard, holder, progress)
                         when (contextCard.featureType) {
                             SECURE -> featureManager.Secure()
                                 .setInt(contextCard.feature, progress)
                             GLOBAL -> featureManager.Global()
                                 .setInt(contextCard.feature, progress)
                             SYSTEM -> {
-                                if (Settings.System.canWrite((holder as ViewHolderSwipe).itemView.context)) {
+                                if (Settings.System.canWrite(holder.itemView.context)) {
                                     featureManager.System()
                                         .setInt(contextCard.feature, progress)
                                 } else {
                                     val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
                                     intent.data =
-                                        Uri.parse("package:" + (holder as ViewHolderSwipe).itemView.context.packageName)
+                                        Uri.parse("package:" + holder.itemView.context.packageName)
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    startActivity((holder as ViewHolderSwipe).itemView.context,
+                                    startActivity(holder.itemView.context,
                                         intent,
                                         null)
                                 }
@@ -657,7 +657,6 @@ class ContextCardsAdapter(
 
     inner class ViewHolderSwipe(view: View) : RecyclerView.ViewHolder(view) {
         val cardLayout: MaterialCardView = view.findViewById(R.id.cardLayout)
-        val cardClickable: LinearLayout = view.findViewById(R.id.cardClickable)
         val cardTitle: TextView = view.findViewById(R.id.cardTitle)
         val cardSubtitle: TextView = view.findViewById(R.id.cardSubtitle)
         val cardSummary: TextView = view.findViewById(R.id.cardSummary)
@@ -669,8 +668,6 @@ class ContextCardsAdapter(
         val cardLayout: MaterialCardView = view.findViewById(R.id.cardLayout)
         val cardClickable: LinearLayout = view.findViewById(R.id.cardClickable)
         val cardTitle: TextView = view.findViewById(R.id.cardTitle)
-        val cardSubtitle: TextView = view.findViewById(R.id.cardSubtitle)
-        val cardSummary: TextView = view.findViewById(R.id.cardSummary)
         val cardIcon: ImageView = view.findViewById(R.id.cardIcon)
         val cardPager: ViewPager2 = view.findViewById(R.id.cardPager)
         val cardLeft: ImageButton = view.findViewById(R.id.cardLeft)
