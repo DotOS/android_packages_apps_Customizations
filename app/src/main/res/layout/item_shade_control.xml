@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <Space
-            android:layout_width="24dp"
+            android:layout_width="@dimen/recyclerSpacerBig"
             android:layout_height="wrap_content" />
 
         <RelativeLayout
@@ -199,7 +199,7 @@
         </RelativeLayout>
 
         <Space
-            android:layout_width="24dp"
+            android:layout_width="@dimen/recyclerSpacerBig"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -207,9 +207,9 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
         app:cardBackgroundColor="@color/cardBackground"
         app:cardCornerRadius="@dimen/default_dialog_radius"
         app:cardElevation="0dp">
@@ -245,9 +245,9 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
         app:cardBackgroundColor="@color/colorError"
         app:cardCornerRadius="@dimen/default_dialog_radius"
         app:cardElevation="0dp">
