@@ -74,6 +74,7 @@ class OverlayController(
     }
 
     object Constants {
+        const val ANDROID_PACKAGE = "android"
         const val ACCENT_COLOR_LIGHT_NAME = "accent_device_default_light"
         const val ACCENT_COLOR_DARK_NAME = "accent_device_default_dark"
         const val CONFIG_ICON_MASK = "config_icon_mask"

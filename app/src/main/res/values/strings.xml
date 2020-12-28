@@ -128,5 +128,6 @@
     <string name="edge_lightning_mode_accent">Accent Color</string>
     <string name="edge_lightning_mode_custom">Custom Color</string>
     <string name="edge_lightning_mode_auto">Notification Color</string>
+    <string name="default_theme_title">Default</string>
 
 </resources>

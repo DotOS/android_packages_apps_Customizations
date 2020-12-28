@@ -100,6 +100,7 @@ class SectionFragment : Fragment() {
         buildSection(R.string.section_fod_title, FODDisplay(), FODSection())
         buildSection(R.string.section_themes_title, ThemeDisplay(), ThemeSection())
         buildSection(R.string.section_system_title, SystemDisplay(), SystemSection())
+        buildSection(R.string.grid_section, GridDisplay(), GridSection())
         //build(R.string.section_icons_title, IconsDisplay(), IconsSection())
         for (i in content_titles.indices) {
             items.add(

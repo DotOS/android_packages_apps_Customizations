@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sections -->
     <string name="section_statusbar_title">Status Bar</string>
     <string name="section_qs_title">Quick Settings</string>
@@ -7,9 +7,10 @@
     <string name="section_themes_title">Themes</string>
     <string name="section_wallpaper_title">Wallpapers</string>
     <string name="section_aod_title">AOD &amp; Lockscreen</string>
-    <string name="section_font_title">Font &amp; Display Size</string>
     <string name="section_icons_title">Icon Shapes</string>
     <string name="section_fod_title">FOD styles</string>
+    <string name="grid_section">Launcher Grid</string>
+
     <string name="set_wallpaper">Set Wallpaper</string>
     <string name="system_gestures">Gestures</string>
 
@@ -25,10 +26,21 @@
     <string name="status_bar_battery_percentage_text_inside">Inside the icon</string>
     <string name="status_bar_battery_percentage_text_next">Next to the icon</string>
 
+    <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
+    <string name="grid_title_pattern"><xliff:g name="num_cols" example="1">%1$d</xliff:g>x<xliff:g name="num_rows" example="1">%2$d</xliff:g></string>
+
     <string name="themes_stub_package" translatable="false">com.dot.stub</string>
     <string name="clocks_stub_package" translatable="false">com.dot.stub</string>
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
     <string name="clocks_provider_authority" translatable="false">com.android.keyguard.clock</string>
+
     <string name="launcher_overlayable_package" translatable="false">com.android.launcher3</string>
+    <string name="pixel_launcher_overlayable_package" translatable="false">com.google.android.apps.nexuslauncher</string>
+
     <string name="systemui_package">com.android.systemui</string>
+
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to provide available grids and
+    allow for changing them -->
+    <string name="grid_control_metadata_name" translatable="false">com.android.launcher3.grid.control</string>
 </resources>
