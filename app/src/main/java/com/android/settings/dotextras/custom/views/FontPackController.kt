@@ -22,6 +22,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.themes.FontPackAdapter
@@ -41,9 +42,8 @@ class FontPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
                 .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
         )
         val recycler = findViewById<RecyclerView>(R.id.shapesRecycler)
-        val adapter = FontPackAdapter(
-            overlayController, overlayController.FontPacks().getFontPacks(context!!)
-        )
+        val fonts = overlayController.FontPacks().getFontPacks(context!!)
+        val adapter = FontPackAdapter(overlayController, fonts)
         recycler.adapter = adapter
         recycler.addItemDecoration(
             ItemRecyclerSpacer(
@@ -59,7 +59,16 @@ class FontPackController(context: Context?, attrs: AttributeSet?) : LinearLayout
                 true
             )
         )
-        recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val lm = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recycler.layoutManager = lm
+        val smoothScroller: RecyclerView.SmoothScroller = object : LinearSmoothScroller(context) {
+            override fun getVerticalSnapPreference(): Int = SNAP_TO_END
+        }
+        for (i in 0 until fonts.size) {
+            if (fonts[i].selected)
+                smoothScroller.targetPosition = i
+        }
+        lm.startSmoothScroll(smoothScroller)
         visibility = if (overlayController.isAvailable()) VISIBLE else GONE
     }
 }

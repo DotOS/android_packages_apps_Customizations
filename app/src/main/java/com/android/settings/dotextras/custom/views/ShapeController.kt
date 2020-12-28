@@ -22,6 +22,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.themes.ShapeAdapter
@@ -41,9 +42,8 @@ class ShapeController(context: Context?, attrs: AttributeSet?) : LinearLayout(co
                 .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
         )
         val recycler = findViewById<RecyclerView>(R.id.shapesRecycler)
-        val adapter = ShapeAdapter(
-            overlayController, overlayController.Shapes().getShapes(context!!)
-        )
+        val shapes = overlayController.Shapes().getShapes(context!!)
+        val adapter = ShapeAdapter(overlayController, shapes)
         recycler.adapter = adapter
         recycler.addItemDecoration(
             ItemRecyclerSpacer(
@@ -59,7 +59,16 @@ class ShapeController(context: Context?, attrs: AttributeSet?) : LinearLayout(co
                 true
             )
         )
-        recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val lm = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recycler.layoutManager = lm
+        val smoothScroller: RecyclerView.SmoothScroller = object : LinearSmoothScroller(context) {
+            override fun getVerticalSnapPreference(): Int = SNAP_TO_END
+        }
+        for (i in 0 until shapes.size) {
+            if (shapes[i].selected)
+                smoothScroller.targetPosition = i
+        }
+        lm.startSmoothScroll(smoothScroller)
         visibility = if (overlayController.isAvailable()) VISIBLE else GONE
     }
 }
