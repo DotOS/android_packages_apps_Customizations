@@ -45,9 +45,10 @@
     </LinearLayout>
 
     <com.android.settings.dotextras.custom.views.ContextSectionLayout
+        android:id="@+id/aodlockContextSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:sectionTitle="Options">
+        app:sectionTitle="@string/options">
 
     </com.android.settings.dotextras.custom.views.ContextSectionLayout>
 

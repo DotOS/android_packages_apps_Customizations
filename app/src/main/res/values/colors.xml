@@ -18,4 +18,6 @@
     <!-- FOD icon picker -->
     <color name="fod_item_background_stroke_color">#D6D6D6</color>
 
+    <color name="defaultEdgeLightningColor">#3980FF</color>
+
 </resources>

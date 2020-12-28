@@ -325,45 +325,56 @@ class FeatureManager(private val contentResolver: ContentResolver) {
 
         /**
          * Whether to allow battery light
-         * @hide
          */
         val BATTERY_LIGHT_ENABLED = "battery_light_enabled"
 
         /**
          * Whether to show battery light when DND mode is active
-         * @hide
          */
         val BATTERY_LIGHT_ALLOW_ON_DND = "battery_light_allow_on_dnd"
 
         /**
          * Whether to show blinking light when battery is low
-         * @hide
          */
         val BATTERY_LIGHT_LOW_BLINKING = "battery_light_low_blinking"
 
         /**
          * Low battery charging color
-         * @hide
          */
         val BATTERY_LIGHT_LOW_COLOR = "battery_light_low_color"
 
         /**
          * Medium battery charging color
-         * @hide
          */
         val BATTERY_LIGHT_MEDIUM_COLOR = "battery_light_medium_color"
 
         /**
          * Full battery charging color
-         * @hide
          */
         val BATTERY_LIGHT_FULL_COLOR = "battery_light_full_color"
 
         /**
          * Really full 100 battery charging color
-         * @hide
          */
         val BATTERY_LIGHT_REALLYFULL_COLOR = "battery_light_reallyfull_color"
+
+        /**
+         * Whether to enable PULSE Edge lights
+         */
+        val AMBIENT_NOTIFICATION_LIGHT = "ambient_notification_light"
+
+        /**
+         * Hex Int Color for Custom Color mode
+         */
+        val AMBIENT_NOTIFICATION_LIGHT_COLOR = "ambient_notification_light_color"
+
+        /**
+         * 0 - Default Color
+         * 1 - Accent Color
+         * 2 - Custom Color (defined by AMBIENT_NOTIFICATION_LIGHT_COLOR)
+         * 3 - Notification Color
+         */
+        val AMBIENT_NOTIFICATION_LIGHT_MODE = "ambient_notification_light_mode"
 
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)

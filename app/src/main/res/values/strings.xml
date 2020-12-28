@@ -118,5 +118,15 @@
     <string name="show_batterylight_dnd">Enable it in Do-Not-Disturb mode</string>
     <string name="blinking">Blinking</string>
     <string name="blinking_on_low">Light Blinking on low battery</string>
+    <string name="aod_title">Always on Display</string>
+    <string name="aod_summary">Always show the Ambient Display</string>
+    <string name="edge_lightning_title">Edge Lightning</string>
+    <string name="edge_lightning_summary">Show a light pulse on AOD when you get a notification</string>
+    <string name="edge_lightning_summary_colormode">Color Mode</string>
+    <string name="edge_lightning_summary_color">Custom Color</string>
+    <string name="edge_lightning_mode_default">Default Color (Blue)</string>
+    <string name="edge_lightning_mode_accent">Accent Color</string>
+    <string name="edge_lightning_mode_custom">Custom Color</string>
+    <string name="edge_lightning_mode_auto">Notification Color</string>
 
 </resources>
