@@ -38,7 +38,6 @@ class StatusbarSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         val list = ArrayList<ContextCards>()
         val perclist = ArrayList<ContextCards>()
-        val batteryLightOptList = ArrayList<ContextCards>()
         val batteryLightList = ArrayList<ContextCards>()
         buildPager(list,
             iconID = R.drawable.round_battery_full_white_36dp,
