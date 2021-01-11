@@ -26,14 +26,13 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.annotation.ColorInt
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.system.FeatureManager
 import com.android.systemui.dot.blur.BlurDialog
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
-import kotlinx.android.synthetic.main.item_colorpicker.*
 
 typealias ColorPickerListener = ((color: Int) -> Unit)?
 typealias onResetListener = (() -> Unit)?
@@ -47,6 +46,7 @@ class ColorSheet : BottomSheetDialogFragment() {
 
     private var colorAdapter: ColorAdapter? = null
     private var onResetListener: onResetListener = null
+    private var colorSheetList: RecyclerView? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
@@ -64,6 +64,7 @@ class ColorSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val blurDialog: BlurDialog = view.findViewById(R.id.sheetBlur)
+        colorSheetList = view.findViewById(R.id.colorSheetList)
         blurDialog.create(
             requireActivity().window.decorView, 10, resources.getDimension(
                 R.dimen.default_dialog_radius
@@ -96,7 +97,7 @@ class ColorSheet : BottomSheetDialogFragment() {
         }
 
         if (colorAdapter != null) {
-            colorSheetList.adapter = colorAdapter
+            colorSheetList!!.adapter = colorAdapter
         }
     }
 

@@ -21,6 +21,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.util.TypedValue
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -28,6 +29,7 @@ import androidx.annotation.Dimension
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.views.TwoToneAccentView.Shade
 import com.android.settings.dotextras.custom.views.TwoToneAccentView.Shade.DARK
 import com.android.settings.dotextras.custom.views.TwoToneAccentView.Shade.LIGHT
@@ -211,6 +213,15 @@ object ResourceHelper {
         null
     }
 
+    fun getResourceId(context: Context, packageName: String, drawableName: String): Int? = try {
+        val pm: PackageManager = context.packageManager
+        val mApkResources: Resources = pm.getResourcesForApplication(packageName)
+        mApkResources.getIdentifier(drawableName, "drawable", packageName)
+    } catch (e: PackageManager.NameNotFoundException) {
+        e.printStackTrace()
+        null
+    }
+
     @Dimension
     fun Context.resolveDimenAttr(@AttrRes dimenAttr: Int): Float {
         val resolvedAttr = resolveThemeAttr(dimenAttr)
@@ -252,6 +263,28 @@ object ResourceHelper {
             Resources.getSystem()
                 .getIdentifier("config_fodAnimationPackage", "string", "android")
         )
+    }
+
+    fun getDotWallsSupport(context: Context): Boolean {
+        return isPackageInstalled(context, context.getString(R.string.dot_wallpapers_packagename))
+    }
+
+    fun getDotWalls(context: Context): ArrayList<Drawable> {
+        val list = ArrayList<Drawable>()
+        val walls = context.resources.getStringArray(R.array.dot_walls)
+        for (wall in walls) {
+            list.add(getDrawable(context, context.getString(R.string.dot_wallpapers_packagename), wall)!!)
+        }
+        return list
+    }
+
+    fun getDotWallsUri(context: Context): ArrayList<Uri> {
+        val list = ArrayList<Uri>()
+        val walls = context.resources.getStringArray(R.array.dot_walls)
+        for (wall in walls) {
+            list.add(Uri.parse("android.resource://${context.getString(R.string.dot_wallpapers_packagename)}/drawable/$wall"))
+        }
+        return list
     }
 
     fun isPackageInstalled(context: Context, pkg: String, ignoreState: Boolean): Boolean {

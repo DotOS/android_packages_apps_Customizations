@@ -34,6 +34,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:enabled="true"
+            android:name=".custom.utils.MaidService"
+            android:exported="false"
+            android:stopWithTask="false" />
+
         <activity
             android:name=".BaseActivity"
             android:configChanges="orientation"

@@ -116,28 +116,6 @@ class WallpaperCropperActivity : AppCompatActivity(), CropImageView.OnCropImageC
         setResultCancel()
     }
 
-    @SuppressLint("NewApi")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
-            if (resultCode == RESULT_CANCELED) {
-                setResultCancel()
-            }
-            if (resultCode == RESULT_OK) {
-                imageUri = CropImage.getPickImageResultUri(this, data)!!
-
-                if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)) {
-                    requestPermissions(
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE
-                    )
-                } else {
-                    cropImageView.setImageUriAsync(imageUri)
-                }
-            }
-        }
-    }
-
     override fun onCropImageComplete(view: CropImageView?, result: CropImageView.CropResult) {
         setResult(result.uri, result.error, result.sampleSize)
     }

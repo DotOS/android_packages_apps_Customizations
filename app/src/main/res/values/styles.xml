@@ -9,6 +9,7 @@
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:dialogTheme">@style/DialogTheme</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
@@ -16,6 +17,18 @@
         <item name="buttonBarNeutralButtonStyle">@style/DialogButtonStyle</item>
         <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- define your dialog theme -->
+    <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
@@ -38,6 +51,7 @@
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="applyColor">@color/grey_300</item>
     </style>
 
     <style name="WallpaperApplyDialog" parent="Theme.AppCompat.DayNight.Dialog">

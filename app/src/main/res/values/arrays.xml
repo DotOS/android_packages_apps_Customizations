@@ -53,19 +53,8 @@
      and a second time clipped to the fill level to indicate charge -->
     <bool name="config_batterymeterDualTone">false</bool>
 
-    <item name="storage_info_used_id" type="id"/>
-    <item name="rom_card_id" type="id"/>
-    <item name="rom_logo_id" type="id"/>
-    <dimen name="storage_card_min_width">148dp</dimen>
-    <dimen name="storage_card_min_height">@dimen/storage_card_min_width</dimen>
-    <!-- About phone cards -->
-    <string name="storage_card_title">Storage</string>
-    <string name="storage_card_info">Occupied</string>
-    <string name="about_device_rom_title">DotOS %s</string>
-    <declare-styleable name="DeviceCardView">
-        <attr name="extra_title" format="string"/>
-    </declare-styleable>
-    <declare-styleable name="Themes">
-        <attr name="waveViewStyle" format="reference"/>
-    </declare-styleable>
+    <string-array name="dot_walls">
+        <item>dot_wall_0</item>
+        <item>dot_wall_1</item>
+    </string-array>
 </resources>

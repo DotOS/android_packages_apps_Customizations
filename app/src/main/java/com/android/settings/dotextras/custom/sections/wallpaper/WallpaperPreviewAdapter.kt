@@ -87,6 +87,7 @@ class WallpaperPreviewAdapter(
             wallpaperGallery.type = wallpaperGallery.GALLERY
             wallpaperGallery.listener = listener
             wallpaperGallery.onPressed = wallpaperBase.onPressed
+            wallpaperGallery.uri = uri
             val dialog = ApplyDialogFragment(wallpaperGallery, pager.currentItem)
             dialog.dismissListener = dismissListener
             dialog.show(

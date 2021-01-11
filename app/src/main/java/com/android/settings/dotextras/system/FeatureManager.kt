@@ -376,6 +376,11 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          */
         val AMBIENT_NOTIFICATION_LIGHT_MODE = "ambient_notification_light_mode"
 
+        /**
+         * QS Tiles New Tint
+         */
+        val QS_PANEL_BG_USE_NEW_TINT = "qs_panel_bg_use_new_tint"
+
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)
         }

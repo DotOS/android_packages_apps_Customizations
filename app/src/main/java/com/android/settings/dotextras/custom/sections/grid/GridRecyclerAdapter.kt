@@ -14,8 +14,11 @@ package com.android.settings.dotextras.custom.sections.grid
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -25,6 +28,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
 
 class GridRecyclerAdapter(
@@ -66,6 +70,52 @@ class GridRecyclerAdapter(
             select(position)
             updateSelection(gridOptionCompat, holder)
         }
+        holder.gridLayout.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    val scaleDownX = ObjectAnimator.ofFloat(
+                        holder.gridCard,
+                        "scaleX", 0.9f
+                    )
+                    val scaleDownY = ObjectAnimator.ofFloat(
+                        holder.gridCard,
+                        "scaleY", 0.9f
+                    )
+                    scaleDownX.duration = 200
+                    scaleDownY.duration = 200
+                    val scaleDown = AnimatorSet()
+                    scaleDown.play(scaleDownX).with(scaleDownY)
+                    scaleDown.start()
+                }
+                MotionEvent.ACTION_UP -> {
+                    val scaleDownX2 = ObjectAnimator.ofFloat(
+                        holder.gridCard, "scaleX", 1f
+                    )
+                    val scaleDownY2 = ObjectAnimator.ofFloat(
+                        holder.gridCard, "scaleY", 1f
+                    )
+                    scaleDownX2.duration = 200
+                    scaleDownY2.duration = 200
+                    val scaleDown2 = AnimatorSet()
+                    scaleDown2.play(scaleDownX2).with(scaleDownY2)
+                    scaleDown2.start()
+                }
+                MotionEvent.ACTION_CANCEL -> {
+                    val scaleDownX2 = ObjectAnimator.ofFloat(
+                        holder.gridCard, "scaleX", 1f
+                    )
+                    val scaleDownY2 = ObjectAnimator.ofFloat(
+                        holder.gridCard, "scaleY", 1f
+                    )
+                    scaleDownX2.duration = 200
+                    scaleDownY2.duration = 200
+                    val scaleDown2 = AnimatorSet()
+                    scaleDown2.play(scaleDownX2).with(scaleDownY2)
+                    scaleDown2.start()
+                }
+            }
+            false
+        }
         updateSelection(gridOptionCompat, holder)
     }
 
@@ -92,5 +142,6 @@ class GridRecyclerAdapter(
         val gridThumbnail: AppCompatImageView = view.findViewById(R.id.gridThumbnail)
         val gridTitle: TextView = view.findViewById(R.id.gridTitle)
         val gridLayout: LinearLayout = view.findViewById(R.id.gridLayout)
+        val gridCard: MaterialCardView = view.findViewById(R.id.gridCard)
     }
 }

@@ -48,7 +48,6 @@ class ContextCards(
     var value: Int = -1
     var max: Int = -1
     var min: Int = -1
-    var force2Lines: Boolean = false
     var slideListener: OnSlideChangedListener = null
 
     //Pager variables
@@ -109,6 +108,20 @@ class ContextCards(
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.summary = summary
         this.isCardChecked = enabled
+    }
+
+    constructor(
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        listener: ContextCardsListener
+    ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
+        this.summary = summary
+        this.listener = listener
     }
 
     constructor(

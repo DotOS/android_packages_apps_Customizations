@@ -24,6 +24,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SECURE
@@ -46,6 +47,7 @@ class AODLockscreenSection : GenericSection() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as BaseActivity).setTitle(getString(R.string.section_aod_title))
         val recyclerView = view.findViewById<RecyclerView>(R.id.clockfaceOptionsRecycler)
         recyclerView.isNestedScrollingEnabled = true
         val contentProviderClockProvider = ContentProviderClockProvider(requireActivity())

@@ -23,6 +23,7 @@ import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -31,7 +32,6 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.isColorDark
 import com.android.settings.dotextras.custom.utils.resolveColor
 import com.android.settings.dotextras.custom.utils.resolveColorAttr
-import kotlinx.android.synthetic.main.item_color.view.*
 
 internal class ColorAdapter(
     private val dialog: ColorSheet?,
@@ -62,6 +62,9 @@ internal class ColorAdapter(
     inner class ColorItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
+        val colorSelected: ImageView = itemView.findViewById(R.id.colorSelected)
+        val colorSelectedCircle: ImageView = itemView.findViewById(R.id.colorSelectedCircle)
+
         private val circle by lazy {
             ContextCompat.getDrawable(itemView.context, R.drawable.ic_circle)
         }
@@ -91,28 +94,28 @@ internal class ColorAdapter(
         }
 
         private fun bindColorView(@ColorInt color: Int) {
-            itemView.colorSelected.isVisible = selectedColor != null && selectedColor == color
-            itemView.colorSelected.setImageResource(R.drawable.ic_check)
+            colorSelected.isVisible = selectedColor != null && selectedColor == color
+            colorSelected.setImageResource(R.drawable.ic_check)
             if (color.isColorDark()) {
-                itemView.colorSelected.imageTintList =
+                colorSelected.imageTintList =
                     ColorStateList.valueOf(resolveColor(itemView.context, android.R.color.white))
             } else {
-                itemView.colorSelected.imageTintList =
+                colorSelected.imageTintList =
                     ColorStateList.valueOf(resolveColor(itemView.context, android.R.color.black))
             }
-            itemView.colorSelectedCircle.imageTintList = ColorStateList.valueOf(color)
+            colorSelectedCircle.imageTintList = ColorStateList.valueOf(color)
         }
 
         private fun bindNoColorView() {
             if (selectedColor != null && selectedColor == ColorSheet.NO_COLOR) {
-                itemView.colorSelected.isVisible = true
-                itemView.colorSelected.setImageDrawable(check)
+                colorSelected.isVisible = true
+                colorSelected.setImageDrawable(check)
             } else {
-                itemView.colorSelected.isVisible = true
-                itemView.colorSelected.setImageDrawable(noColor)
+                colorSelected.isVisible = true
+                colorSelected.setImageDrawable(noColor)
             }
-            itemView.colorSelectedCircle.background = circle
-            itemView.colorSelectedCircle.imageTintList = ColorStateList.valueOf(
+            colorSelectedCircle.background = circle
+            colorSelectedCircle.imageTintList = ColorStateList.valueOf(
                 resolveColorAttr(itemView.context, attrRes = R.attr.colorPrimary)
             )
         }

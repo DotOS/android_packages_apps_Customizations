@@ -15,20 +15,24 @@
  */
 package com.android.settings.dotextras
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.android.settings.dotextras.custom.SectionFragment
+import com.android.settings.dotextras.custom.utils.MaidService
 import com.google.android.material.appbar.AppBarLayout
 
 class BaseActivity : AppCompatActivity() {
     private var appTitle: TextView? = null
     private var appBarLayout: LinearLayout? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dashboard_layout)
+        startService(Intent(this, MaidService::class.java))
         appTitle = findViewById(R.id.appTitle)
         appBarLayout = findViewById(R.id.appblayout)
         if (savedInstanceState == null) {

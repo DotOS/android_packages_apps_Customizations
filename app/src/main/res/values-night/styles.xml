@@ -38,6 +38,7 @@
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowLightNavigationBar">false</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="applyColor">@color/grey_800</item>
     </style>
 
     <style name="WallpaperApplyDialog" parent="Theme.AppCompat.DayNight.Dialog">

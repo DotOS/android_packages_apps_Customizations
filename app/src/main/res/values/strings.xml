@@ -72,14 +72,15 @@
     <string name="length_size">Length</string>
 
     <!-- QS Section -->
-    <string name="qs_title">QS Tiles Title</string>
+    <string name="qs_title">Tiles Title</string>
     <string name="rows_amp_columns"><![CDATA[Rows & Columns]]></string>
+    <string name="qs_tiles_accent_v2">Tiles Accent V2</string>
 
     <!-- FOD Section -->
     <string name="fod_icon_picker_title">Fingerprint icon</string>
     <string name="fod_icon_picker_summary">Choose your favorite fingerprint icon</string>
     <string name="fod_icon_picker_footer">In order to add your own icon, select the top left icon and use the OnePlus 6T FP Customizer app to select the icon you want.</string>
-    <string name="fod_screenoff_summary">Use Biometric Authentication while you screen is off. Always on Display will be disabled.</string>
+    <string name="fod_screenoff_summary">Use Biometric Authentication while you screen is closed. </string>
     <string name="fod_screenoff_title">Screen-off FOD</string>
     <string name="fod_animations">Animations</string>
     <string name="fod_icons">Icons</string>
@@ -129,5 +130,8 @@
     <string name="edge_lightning_mode_custom">Custom Color</string>
     <string name="edge_lightning_mode_auto">Notification Color</string>
     <string name="default_theme_title">Default</string>
+    <string name="icons">Icons</string>
+    <string name="qs_tiles_accent_v2_summary">Better use of accent color in tiles</string>
+    <string name="dot_wallpapers_packagename">com.dot.extra.wallpapers</string>
 
 </resources>

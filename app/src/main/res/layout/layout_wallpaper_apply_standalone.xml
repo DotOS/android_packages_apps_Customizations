@@ -69,13 +69,13 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipCrop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
                         android:text="Crop &amp; Rotate" />
 
                     <com.google.android.material.chip.Chip
@@ -83,14 +83,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="Metadata" />
+                        android:text="Metadata"
+                        android:visibility="gone" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="Info" />
+                        android:text="Info"
+                        android:visibility="gone" />
                 </LinearLayout>
             </HorizontalScrollView>
 

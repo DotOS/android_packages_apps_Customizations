@@ -33,11 +33,13 @@
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/sheet_background_rounded"
-        android:backgroundTint="@color/cardBackground"
+        android:layout_marginBottom="128dp"
+        app:cardBackgroundColor="@color/cardBackground"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
@@ -49,7 +51,7 @@
 
         </com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView>
 
-    </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/cropSheet"

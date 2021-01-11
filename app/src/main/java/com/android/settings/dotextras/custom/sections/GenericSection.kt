@@ -313,6 +313,31 @@ open class GenericSection : Fragment(), SectionInterface {
     fun buildSwitch(
         list: ArrayList<ContextCards>,
         iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        summary: String,
+        listener: ContextCardsListener
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            summary = summary,
+            listener = listener
+        )
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
         subtitle: String,
         accentColor: Int,
         feature: String,

@@ -17,6 +17,7 @@ package com.android.settings.dotextras.custom.sections.wallpaper.fragments
 
 import android.app.WallpaperManager
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -27,23 +28,31 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.os.StrictMode
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.wallpaper.Type
 import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
+import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
+import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
 import com.android.settings.dotextras.custom.sections.wallpaper.onDismiss
+import com.android.settings.dotextras.custom.utils.ObjectToolsAnimator
 import com.android.settings.dotextras.custom.views.ExpandableLayout
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.Chip
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.doAsyncResult
 import org.jetbrains.anko.uiThread
-import java.io.IOException
-import java.io.InputStream
+import java.io.*
+import java.net.HttpURLConnection
 import java.net.URL
 
 
@@ -65,6 +74,10 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
 
     private lateinit var targetWall: Drawable
 
+    override fun getTheme(): Int {
+        return R.style.BottomSheetDialogTheme
+    }
+
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         dismissListener?.invoke()
@@ -73,7 +86,7 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         requireDialog().requestWindowFeature(Window.FEATURE_NO_TITLE)
         targetWall = if (wallpaper.type == wallpaper.WEB) drawableFromUrl(wallpaper.url!!) else wallpaper.drawable!!
@@ -91,10 +104,58 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         forBoth = view.findViewById(R.id.wp_apply_both)
         expandable = view.findViewById(R.id.wp_choice)
         title = view.findViewById(R.id.wp_title)
+        val pagerLeft: ImageButton = view.findViewById(R.id.wallLeft)
+        val pagerRight: ImageButton = view.findViewById(R.id.wallRight)
+        pagerLeft.setOnClickListener {
+            if (homeOverlay.visibility == View.INVISIBLE) {
+                ObjectToolsAnimator.hide(lockOverlay, 500)
+                ObjectToolsAnimator.show(homeOverlay, 500)
+            }
+        }
+        pagerRight.setOnClickListener {
+            if (lockOverlay.visibility == View.INVISIBLE) {
+                ObjectToolsAnimator.show(lockOverlay, 500)
+                ObjectToolsAnimator.hide(homeOverlay, 500)
+            }
+        }
         wallpaperManager = WallpaperManager.getInstance(requireContext())
+        val chipRotate: Chip = view.findViewById(R.id.chipCrop)
+        val uriB = if (wallpaper.type == wallpaper.WEB) {
+            val bitmap = BitmapFactory.decodeStream(URL(wallpaper.url!!).openConnection().getInputStream())
+            val imageFileName = "temp.jpg"
+            val storageDir = File(requireContext().cacheDir.toString())
+            val imageFile = File(storageDir, imageFileName)
+            try {
+                val fOut = FileOutputStream(imageFile)
+                doAsync {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
+                    fOut.close()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            Uri.fromFile(imageFile)
+        } else wallpaper.uri
+        chipRotate.setOnClickListener {
+            CropImage.activity(uriB)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAllowFlipping(true)
+                .setAllowCounterRotation(true)
+                .setAllowRotation(true)
+                .setAspectRatio(9, 18)
+                .setOutputUri(Uri.EMPTY)
+                .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
+                .start(requireContext(), this)
+        }
         when (position) {
-            0 -> homeOverlay.visibility = View.VISIBLE
-            1 -> lockOverlay.visibility = View.VISIBLE
+            0 -> {
+                homeOverlay.visibility = View.VISIBLE
+                lockOverlay.visibility = View.INVISIBLE
+            }
+            1 -> {
+                homeOverlay.visibility = View.INVISIBLE
+                lockOverlay.visibility = View.VISIBLE
+            }
         }
 
         if (wallpaper.type == wallpaper.WEB) {
@@ -126,16 +187,55 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         forBoth.setOnClickListener { setWallpaper(targetWall) }
     }
 
+    fun getBitmapFromURL(src: String?): Bitmap? {
+        return try {
+            val url = URL(src)
+            val connection: HttpURLConnection = url
+                .openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+            val input: InputStream = connection.inputStream
+            BitmapFactory.decodeStream(input)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
+            val result = CropImage.getActivityResult(data)
+            val resultUri: Uri? = result!!.uri
+            val drawable = Drawable.createFromStream(
+                requireContext().contentResolver.openInputStream(resultUri),
+                resultUri.toString()
+            )
+            wallpaper.drawable = drawable
+            wallpaper.uri = resultUri
+            targetWall = drawable
+            if (wallpaper.type == wallpaper.WEB) {
+                title.text = wallpaper.category
+                Glide.with(requireContext())
+                    .load(Uri.parse(wallpaper.url))
+                    .thumbnail(0.1f)
+                    .into(wallOverlay)
+            } else {
+                if (wallpaper.title != null) title.text = wallpaper.title
+                Glide.with(requireContext())
+                    .load(wallpaper.drawable)
+                    .thumbnail(0.1f)
+                    .into(wallOverlay)
+            }
+        }
+    }
+
     private fun drawableFromUrl(urlString: String): Drawable {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         return try {
-            BitmapDrawable(
-                Resources.getSystem(), BitmapFactory.decodeStream(
-                    URL(
-                        urlString
-                    ).content as InputStream
-                )
+            BitmapDrawable(Resources.getSystem(),
+                BitmapFactory.decodeStream(URL(urlString).content as InputStream)
             )
         } catch (e: IOException) {
             wallpaper.drawable!!
@@ -162,7 +262,7 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
         val width = wallpaperManager.desiredMinimumWidth
         val height = wallpaperManager.desiredMinimumHeight
-        val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
+        val wallpaper = scaleCropToFit(drawableToBitmap(drawable)!!, width, height)
         doAsync {
             try {
                 wallpaperManager.setBitmap(wallpaper, null, true, flag)
@@ -182,7 +282,7 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
         val width = wallpaperManager.desiredMinimumWidth
         val height = wallpaperManager.desiredMinimumHeight
-        val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
+        val wallpaper = scaleCropToFit(drawableToBitmap(drawable)!!, width, height)
         doAsync {
             try {
                 wallpaperManager.bitmap = wallpaper
@@ -191,6 +291,31 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun scaleCropToFit(original: Bitmap, targetWidth: Int, targetHeight: Int): Bitmap? {
+        val width = original.width
+        val height = original.height
+        val widthScale = targetWidth.toFloat() / width.toFloat()
+        val heightScale = targetHeight.toFloat() / height.toFloat()
+        val scaledWidth: Float
+        val scaledHeight: Float
+        var startY = 0
+        var startX = 0
+        if (widthScale > heightScale) {
+            scaledWidth = targetWidth.toFloat()
+            scaledHeight = height * widthScale
+            startY = ((scaledHeight - targetHeight) / 2).toInt()
+        } else {
+            scaledHeight = targetHeight.toFloat()
+            scaledWidth = width * heightScale
+            startX = ((scaledWidth - targetWidth) / 2).toInt()
+        }
+        val scaledBitmap = Bitmap.createScaledBitmap(
+            original,
+            scaledWidth.toInt(), scaledHeight.toInt(), true
+        )
+        return Bitmap.createBitmap(scaledBitmap, startX, startY, targetWidth, targetHeight)
     }
 
     private fun afterApply(flag: Int?) {

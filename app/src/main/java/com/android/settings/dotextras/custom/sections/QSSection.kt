@@ -67,6 +67,15 @@ open class QSSection : GenericSection() {
             feature = featureManager.System().QS_TILE_TITLE_VISIBILITY,
             featureType = SYSTEM,
             enabled = true)
+        buildSwitch(qsList,
+            iconID = R.drawable.ic_settings_aosp,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.qs_tiles_accent_v2),
+            accentColor = R.color.blue_800,
+            feature = featureManager.System().QS_PANEL_BG_USE_NEW_TINT,
+            featureType = SYSTEM,
+            summary = getString(R.string.qs_tiles_accent_v2_summary),
+            enabled = true)
         setupLayout(qsList, R.id.sectionQS)
         /**
          * Rows & Columns

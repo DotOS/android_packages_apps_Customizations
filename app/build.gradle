@@ -1,9 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 30
+
+    lintOptions {
+        disable 'PrivateResource'
+    }
 
     defaultConfig {
         applicationId "com.android.settings.dotextras"
@@ -55,7 +60,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'stats_libs')
     compileOnly fileTree(dir: 'system_libs/', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
@@ -71,7 +76,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'org.jetbrains.anko:anko-common:0.9'
-    implementation "androidx.exifinterface:exifinterface:1.3.2"
+    implementation 'androidx.exifinterface:exifinterface:1.3.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

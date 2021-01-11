@@ -65,4 +65,11 @@
         <attr name="cropFlipHorizontally" format="boolean"/>
         <attr name="cropFlipVertically" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="DeviceCardView">
+        <attr name="extra_title" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="Themes">
+        <attr name="waveViewStyle" format="reference"/>
+    </declare-styleable>
 </resources>

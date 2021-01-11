@@ -2,7 +2,7 @@
 <resources>
     <dimen name="default_card_width">164dp</dimen>
     <dimen name="default_card_height">164dp</dimen>
-    <dimen name="large_card_height">256dp</dimen>
+    <dimen name="large_card_height">286dp</dimen>
     <dimen name="default_size_icon">52dp</dimen>
     <dimen name="default_header_height">174dp</dimen>
     <dimen name="system_header_height">148dp</dimen>

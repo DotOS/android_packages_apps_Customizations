@@ -34,7 +34,9 @@ import androidx.core.widget.NestedScrollView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.WallpaperSection
 import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
+import com.android.settings.dotextras.custom.utils.MaidService
 import com.google.android.material.appbar.AppBarLayout
+import java.io.File
 
 class StandalonePreviewActivity : AppCompatActivity() {
 
@@ -59,6 +61,17 @@ class StandalonePreviewActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    override fun onDestroy() {
+        val dir = applicationContext.cacheDir
+        val children: Array<String>? = dir.list()
+        if (children != null) {
+            for (child in children) {
+                if (child.endsWith(".jpeg") || child.endsWith(".jpg")) File(dir, child).delete()
+            }
+        }
+        super.onDestroy()
     }
 
     fun scrollTo(x: Int, y: Int) {

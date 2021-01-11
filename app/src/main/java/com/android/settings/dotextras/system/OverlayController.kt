@@ -22,7 +22,6 @@ import android.content.om.OverlayInfo
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.Path
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
