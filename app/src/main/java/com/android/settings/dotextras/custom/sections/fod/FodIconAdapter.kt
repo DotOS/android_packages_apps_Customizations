@@ -36,9 +36,8 @@ import org.jetbrains.anko.uiThread
 
 class FodIconAdapter(
     private val featureManager: FeatureManager,
-    private val items: ArrayList<FodResource>
-) :
-    RecyclerView.Adapter<FodIconAdapter.ViewHolder>() {
+    private val items: ArrayList<FodResource>,
+) : RecyclerView.Adapter<FodIconAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = items.size
 
@@ -55,23 +54,21 @@ class FodIconAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val fodIcon: FodResource = items[position]
-        val shouldSelect =
+        fodIcon.selected =
             featureManager.System().getInt(featureManager.System().FOD_ICON, 0) == fodIcon.id
-        if (shouldSelect) fodIcon.selected = true
         doAsync {
             uiThread {
                 Glide.with(holder.fodIcon)
-                    .load(ResourceHelper.getDrawable(holder.fodIcon.context, holder.fodIcon.context.getString(R.string.systemui_package), fodIcon.resource))
-                    .override(250,250)
-                    .thumbnail(0.1f)
+                    .load(ResourceHelper.getDrawable(holder.fodIcon.context,
+                        holder.fodIcon.context.getString(R.string.systemui_package),
+                        fodIcon.resource))
                     .placeholder(android.R.color.transparent)
                     .into(holder.fodIcon)
             }
         }
-
         holder.fodLayout.setOnClickListener {
             select(position)
-            updateSelection(fodIcon, holder, position)
+            updateSelection(fodIcon, holder)
             featureManager.System().setInt(featureManager.System().FOD_ICON, fodIcon.id)
         }
         holder.fodLayout.setOnTouchListener { _, event ->
@@ -120,14 +117,17 @@ class FodIconAdapter(
             }
             false
         }
-        updateSelection(fodIcon, holder, position)
+        updateSelection(fodIcon, holder)
     }
 
-    private fun updateSelection(fodIcon: FodResource, holder: ViewHolder, position: Int) {
+    private fun updateSelection(fodIcon: FodResource, holder: ViewHolder) {
         val accentColor: Int = ResourceHelper.getAccent(holder.fodLayout.context)
         if (fodIcon.selected) {
             holder.fodLayout.setBackgroundColor(accentColor)
             holder.fodLayout.invalidate(true)
+            fodIcon.listener?.invoke(ResourceHelper.getDrawable(holder.fodIcon.context,
+                holder.fodIcon.context.getString(R.string.systemui_package),
+                fodIcon.resource))
         } else {
             holder.fodLayout.setBackgroundColor(
                 ContextCompat.getColor(

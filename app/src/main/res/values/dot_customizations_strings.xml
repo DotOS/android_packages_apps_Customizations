@@ -8,7 +8,9 @@
     <string name="section_wallpaper_title">Wallpapers</string>
     <string name="section_aod_title">AOD &amp; Lockscreen</string>
     <string name="section_icons_title">Icon Shapes</string>
-    <string name="section_fod_title">FOD styles</string>
+    <string name="section_fod_icon">FOD Icons</string>
+    <string name="section_fod_anim">FOD Animations</string>
+    <string name="section_fod_color_opt">FOD Options</string>
     <string name="grid_section">Launcher Grid</string>
 
     <string name="set_wallpaper">Set Wallpaper</string>

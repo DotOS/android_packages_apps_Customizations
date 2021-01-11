@@ -13,18 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.settings.dotextras.custom.sections.fod
+package com.android.settings.dotextras.custom.displays
 
-import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.Drawable
-import java.io.Serializable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.android.settings.dotextras.R
 
-typealias onFodResourceApplied = ((drawable: Drawable?) -> Unit)?
-typealias onFodAnimApplied = ((anim: AnimationDrawable?) -> Unit)?
+class FODOptDisplay : Fragment() {
 
-class FodResource(val resource: String, val id: Int) : Serializable {
-    var selected = false
-    var listener: onFodResourceApplied = null
-    var listenerAnim: onFodAnimApplied = null
-    var animation: String? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.display_fod_opt, container, false)
+    }
+
 }

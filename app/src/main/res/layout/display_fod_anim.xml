@@ -20,9 +20,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@null"
-            android:padding="24dp"
-            android:tint="?android:attr/textColorSecondary"
-            app:srcCompat="@drawable/fod_icon_default_aosp" />
+            android:padding="10dp"
+            app:srcCompat="@drawable/fod_op_mclaren_anim_29" />
 
     </LinearLayout>
 

@@ -22,14 +22,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.settings.dotextras.R
 
-class FODDisplay : Fragment() {
+class FODAnimDisplay : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.display_fod, container, false)
+        return inflater.inflate(R.layout.display_fod_anim, container, false)
     }
 
 }

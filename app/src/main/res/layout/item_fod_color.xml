@@ -14,7 +14,7 @@
         app:cardCornerRadius="@dimen/default_dialog_radius"
         app:cardElevation="0dp"
         app:strokeColor="@color/fod_item_background_stroke_color"
-        app:strokeWidth="2dp">
+        app:strokeWidth="1dp">
 
         <FrameLayout
             android:id="@+id/fodLayout"

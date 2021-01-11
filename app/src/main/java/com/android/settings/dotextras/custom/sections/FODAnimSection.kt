@@ -23,28 +23,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.cards.ContextCards
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
 import com.android.settings.dotextras.custom.sections.fod.FodAnimationAdapter
-import com.android.settings.dotextras.custom.sections.fod.FodColorAdapter
-import com.android.settings.dotextras.custom.sections.fod.FodIconAdapter
 import com.android.settings.dotextras.custom.sections.fod.FodResource
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.ExpandableLayout
-import com.google.android.material.snackbar.Snackbar
+import com.android.settings.dotextras.custom.views.FodPreview
 import com.google.android.material.switchmaterial.SwitchMaterial
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
-open class FODSection : GenericSection() {
+open class FODAnimSection : GenericSection() {
 
-    private var fodIcons: ArrayList<FodResource> = ArrayList()
     private var fodAnims: ArrayList<FodResource> = ArrayList()
-    private var fodColors: ArrayList<FodResource> = ArrayList()
-    private var fodoptList: ArrayList<ContextCards> = ArrayList()
     private val ICON_STYLES = arrayListOf(
         "fod_icon_default",
         "fod_icon_default_0",
-        "fod_icon_default_1",
         "fod_icon_default_2",
         "fod_icon_default_3",
         "fod_icon_default_4",
@@ -95,59 +89,20 @@ open class FODSection : GenericSection() {
         "asus_fod_anim_2_23",
         "asus_fod_anim_3_16"
     )
-    private val PRESSED_COLOR = arrayListOf(
-        "fod_icon_pressed",
-        "fod_icon_pressed_cyan",
-        "fod_icon_pressed_green",
-        "fod_icon_pressed_yellow"
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.section_fod, container, false)
+        return inflater.inflate(R.layout.section_fod_anim, container, false)
     }
 
     override fun isAvailable(context: Context): Boolean = ResourceHelper.hasFodSupport(context)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /**
-         * Clear step
-         */
-        fodoptList.clear()
         fodAnims.clear()
-        fodColors.clear()
-        fodIcons.clear()
-        /**
-         * Options
-         */
-        buildSwitch(fodoptList,
-            iconID = R.drawable.ic_night_mode,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.fod_nightlight),
-            accentColor = R.color.light_green_500,
-            feature = featureManager.System().FOD_NIGHT_LIGHT,
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.fod_nightlight_summary),
-            enabled = ResourceHelper.shouldDisableNightLight(requireContext()))
-        val recyclerfodoptView: RecyclerView = view.findViewById(R.id.fodoptRecycler)
-        recyclerfodoptView.setHasFixedSize(true)
-        val adapterfodopt = ContextCardsAdapter(requireActivity().contentResolver, fodoptList)
-        recyclerfodoptView.adapter = adapterfodopt
-        recyclerfodoptView.addItemDecoration(
-            GridSpacingItemDecoration(
-                GRID_OPT_COLUMNS,
-                resources.getDimension(R.dimen.recyclerSpacer).toInt(),
-                true
-            )
-        )
-        recyclerfodoptView.layoutManager = GridLayoutManager(requireContext(), GRID_OPT_COLUMNS)
-        /**
-         * Animations
-         */
         val fodAnimSwitch: SwitchMaterial = view.findViewById(R.id.fodAnimSwitch)
         val fodAnimLayout: ExpandableLayout = view.findViewById(R.id.fodAnimLayout)
         val fodAnimSupport = ResourceHelper.isPackageInstalled(
@@ -156,9 +111,24 @@ open class FODSection : GenericSection() {
         )
         fodAnimSwitch.isEnabled = fodAnimSupport
         fodAnimLayout.visibility = if (fodAnimSupport) View.VISIBLE else View.GONE
+        val fodPreview: FodPreview = view.findViewById(R.id.fodAnimPreview)
+        for (j in ICON_STYLES.indices) {
+            if (j == featureManager.System().getInt(featureManager.System().FOD_ICON, 0)) {
+                fodPreview.setPreview(ResourceHelper.getDrawable(requireContext(),
+                    getString(R.string.systemui_package), ICON_STYLES[j]))
+            }
+        }
         if (fodAnimSupport) {
             for (i in ANIM_STYLES.indices) {
-                fodAnims.add(FodResource(ANIM_STYLES[i], i))
+                val fodAnim = FodResource(ANIM_STYLES[i], i)
+                fodAnim.listenerAnim = { drawable ->
+                    doAsync {
+                        uiThread {
+                            fodPreview.setPreviewAnimation(drawable!!, true)
+                        }
+                    }
+                }
+                fodAnims.add(fodAnim)
             }
             val recyclerViewAnim: RecyclerView = requireView().findViewById(R.id.fodAnimRecycler)
             recyclerViewAnim.setHasFixedSize(true)
@@ -188,63 +158,6 @@ open class FODSection : GenericSection() {
             }
             recyclerViewAnim.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
         }
-        /**
-         * Colors
-         */
-        for (i in PRESSED_COLOR.indices) {
-            fodColors.add(FodResource(PRESSED_COLOR[i], i))
-        }
-        val recyclerfodColorView: RecyclerView = view.findViewById(R.id.fodColorRecycler)
-        val adapterfodColor =
-            FodColorAdapter(featureManager, fodColors)
-        recyclerfodColorView.adapter = adapterfodColor
-        recyclerfodColorView.setHasFixedSize(true)
-        recyclerfodColorView.addItemDecoration(
-            GridSpacingItemDecoration(
-                GRID_FOD_COLUMNS,
-                SPACER,
-                true
-            )
-        )
-        recyclerfodColorView.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
-        /**
-         * Icons
-         */
-        for (i in ICON_STYLES.indices) {
-            fodIcons.add(FodResource(ICON_STYLES[i], i))
-        }
-        val recyclerView: RecyclerView = view.findViewById(R.id.fodIconRecycler)
-        val adapter =
-            FodIconAdapter(featureManager, fodIcons)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(
-            GridSpacingItemDecoration(
-                GRID_FOD_COLUMNS,
-                SPACER,
-                true
-            )
-        )
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
-        /**
-         * Screen-off
-         */
-        val fodScreenOff: SwitchMaterial = view.findViewById(R.id.fodScreenOff)
-        fodScreenOff.isChecked =
-            featureManager.System().getInt(featureManager.System().FOD_GESTURE, 0) == 1
-        fodScreenOff.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                featureManager.System().setInt(featureManager.System().FOD_GESTURE, 1)
-                featureManager.Secure().disableAOD()
-            } else {
-                featureManager.System().setInt(featureManager.System().FOD_GESTURE, 0)
-                Snackbar.make(view, getString(R.string.enable_aod), Snackbar.LENGTH_LONG)
-                    .setAction(R.string.enable) {
-                        featureManager.Secure().enableAOD()
-                    }.show()
-            }
-        }
-
     }
 
 }

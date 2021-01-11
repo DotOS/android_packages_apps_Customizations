@@ -19,9 +19,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
-import android.content.res.CompatResources
-import android.content.res.Resources
+import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -30,7 +28,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
@@ -42,9 +39,35 @@ import org.jetbrains.anko.uiThread
 
 class FodAnimationAdapter(
     private val featureManager: FeatureManager,
-    private val items: ArrayList<FodResource>
+    private val items: ArrayList<FodResource>,
 ) :
     RecyclerView.Adapter<FodAnimationAdapter.ViewHolder>() {
+
+    private val ANIMATION_STYLES_NAMES = arrayOf(
+        "fod_miui_normal_recognizing_anim",
+        "fod_miui_aod_recognizing_anim",
+        "fod_miui_aurora_recognizing_anim",
+        "fod_miui_aurora_cas_recognizing_anim",
+        "fod_miui_light_recognizing_anim",
+        "fod_miui_pop_recognizing_anim",
+        "fod_miui_pulse_recognizing_anim",
+        "fod_miui_pulse_recognizing_white_anim",
+        "fod_miui_rhythm_recognizing_anim",
+        "fod_miui_star_cas_recognizing_anim",
+        "fod_op_cosmos_recognizing_anim",
+        "fod_op_energy_recognizing_anim",
+        "fod_op_mclaren_recognizing_anim",
+        "fod_op_ripple_recognizing_anim",
+        "fod_op_scanning_recognizing_anim",
+        "fod_op_stripe_recognizing_anim",
+        "fod_op_wave_recognizing_anim",
+        "fod_pureview_dna_recognizing_anim",
+        "fod_pureview_future_recognizing_anim",
+        "fod_pureview_halo_ring_recognizing_anim",
+        "fod_pureview_molecular_recognizing_anim",
+        "fod_rog_fusion_recognizing_anim",
+        "fod_rog_pulsar_recognizing_anim",
+        "fod_rog_supernova_recognizing_anim")
 
     override fun getItemCount(): Int = items.size
 
@@ -66,7 +89,7 @@ class FodAnimationAdapter(
         doAsync {
             uiThread { Glide.with(holder.fodIcon)
                 .load(getAnimationPreview(holder.fodIcon.context, fodIcon.resource))
-                .override(250,250)
+                .override(250, 250)
                 .thumbnail(0.1f)
                 .placeholder(android.R.color.transparent)
                 .into(holder.fodIcon)
@@ -75,7 +98,7 @@ class FodAnimationAdapter(
         holder.fodLayout.setOnClickListener {
             featureManager.System().setInt(featureManager.System().FOD_ANIM, fodIcon.id)
             select(position)
-            updateSelection(fodIcon, holder)
+            updateSelection(fodIcon, holder, position)
         }
         holder.fodLayout.setOnTouchListener { _, event ->
             when (event.action) {
@@ -123,14 +146,15 @@ class FodAnimationAdapter(
             }
             false
         }
-        updateSelection(fodIcon, holder)
+        updateSelection(fodIcon, holder, position)
     }
 
-    private fun updateSelection(fodIcon: FodResource, holder: ViewHolder) {
+    private fun updateSelection(fodIcon: FodResource, holder: ViewHolder, position: Int) {
         val accentColor: Int = ResourceHelper.getAccent(holder.fodLayout.context)
         if (fodIcon.selected) {
             holder.fodLayout.setBackgroundColor(accentColor)
             holder.fodLayout.invalidate(true)
+            fodIcon.listenerAnim?.invoke(getAnimationPreview(holder.itemView.context, ANIMATION_STYLES_NAMES[position]) as AnimationDrawable?)
         } else {
             holder.fodLayout.setBackgroundColor(
                 ContextCompat.getColor(
@@ -143,7 +167,9 @@ class FodAnimationAdapter(
     }
 
     private fun getAnimationPreview(context: Context, drawableName: String): Drawable? {
-        return ResourceHelper.getDrawable(context, ResourceHelper.getFodAnimationPackage(context), drawableName)
+        return ResourceHelper.getDrawable(context,
+            ResourceHelper.getFodAnimationPackage(context),
+            drawableName)
     }
 
     private fun select(pos: Int) {

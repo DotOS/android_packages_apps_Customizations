@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/recyclerSpacerBig">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/framePreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:foreground="@drawable/footer_gradient"
+        app:srcCompat="@drawable/ic_frame_bottom" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fodAnimPreviewSrc"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignBottom="@+id/fodPreviewSrc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-68dp"
+        android:padding="8dp"
+        android:scaleType="fitCenter" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fodPreviewSrc"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignBottom="@id/framePreview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="92dp"
+        android:background="@drawable/ic_circle"
+        android:backgroundTint="#80494949"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        tools:srcCompat="@drawable/fod_icon_default_aosp" />
+
+</RelativeLayout>

@@ -62,6 +62,7 @@ class SectionFragment : Fragment() {
             requireContext(),
             resources.getDimension(R.dimen.default_card_width)
         )
+
         addHeaders()
         headeradapter = DashboardAdapter(header_items, parentFragmentManager, parent!!)
         headerRecycler.adapter = headeradapter
@@ -97,11 +98,13 @@ class SectionFragment : Fragment() {
     private fun addSections() {
         buildSection(R.string.section_statusbar_title, StatusbarDisplay(), StatusbarSection())
         buildSection(R.string.section_qs_title, QSDisplay(), QSSection())
-        buildSection(R.string.section_fod_title, FODDisplay(), FODSection())
+        buildSection(R.string.section_fod_icon, FODIconDisplay(), FODIconSection())
+        buildSection(R.string.section_fod_anim, FODAnimDisplay(), FODAnimSection())
+        buildSection(R.string.section_fod_color_opt, FODOptDisplay(), FODOptSection())
         buildSection(R.string.section_themes_title, ThemeDisplay(), ThemeSection())
         buildSection(R.string.section_system_title, SystemDisplay(), SystemSection())
         buildSection(R.string.grid_section, GridDisplay(), GridSection())
-        //build(R.string.section_icons_title, IconsDisplay(), IconsSection())
+        //buildSection(R.string.section_icons_title, IconsDisplay(), IconsSection())
         for (i in content_titles.indices) {
             items.add(
                 DashboardItem(

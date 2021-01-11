@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.android.settings.dotextras.custom.views.FodPreview
+        android:id="@+id/fodAnimPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/fodAnimSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:text="@string/fod_animations"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.android.settings.dotextras.custom.views.ExpandableLayout
+        android:id="@+id/fodAnimLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_expanded="false">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fodAnimRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/recyclerSpacerSmall"
+            android:layout_marginEnd="@dimen/recyclerSpacerSmall"/>
+
+    </com.android.settings.dotextras.custom.views.ExpandableLayout>
+
+</LinearLayout>
