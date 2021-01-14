@@ -26,7 +26,7 @@ class BitmapLoadingWorkerTask(
     /**
      * The Android URI of the image to load
      */
-    val uri: Uri
+    val uri: Uri,
 ) : AsyncTask<Void?, Void?, BitmapLoadingWorkerTask.Result?>() {
     // region: Fields and Consts
     /**
@@ -64,10 +64,10 @@ class BitmapLoadingWorkerTask(
                 val decodeResult = BitmapUtils.decodeSampledBitmap(mContext, uri, mWidth, mHeight)
                 if (!isCancelled) {
                     val rotateResult = BitmapUtils.rotateBitmapByExif(
-                        decodeResult!!.bitmap, mContext, uri
+                        decodeResult.bitmap, mContext, uri
                     )
                     return Result(
-                        uri, rotateResult!!.bitmap, decodeResult.sampleSize, rotateResult.degrees
+                        uri, rotateResult.bitmap, decodeResult.sampleSize, rotateResult.degrees
                     )
                 }
             }

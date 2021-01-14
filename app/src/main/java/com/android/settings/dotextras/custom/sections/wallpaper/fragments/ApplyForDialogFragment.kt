@@ -23,7 +23,6 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
@@ -35,10 +34,8 @@ import com.android.settings.dotextras.custom.sections.wallpaper.Type
 import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
 import com.android.settings.dotextras.custom.sections.wallpaper.onDismiss
 import com.android.settings.dotextras.custom.views.ExpandableLayout
-import com.bumptech.glide.Glide
-import com.google.android.material.button.MaterialButton
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import nl.komponents.kovenant.task
+import nl.komponents.kovenant.ui.successUi
 import java.io.IOException
 
 class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
@@ -60,7 +57,7 @@ class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         requireDialog().requestWindowFeature(Window.FEATURE_NO_TITLE)
         return inflater.inflate(R.layout.item_wallpaper_for, container, false)
@@ -109,12 +106,15 @@ class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
         val width = wallpaperManager.desiredMinimumWidth
         val height = wallpaperManager.desiredMinimumHeight
         val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
-        doAsync {
+        task {
             try {
                 wallpaperManager.setBitmap(wallpaper, null, true, flag)
-                uiThread { afterApply(flag) }
             } catch (e: IOException) {
                 e.printStackTrace()
+            }
+        } successUi {
+            requireActivity().runOnUiThread {
+                afterApply(flag)
             }
         }
     }
@@ -129,12 +129,15 @@ class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
         val width = wallpaperManager.desiredMinimumWidth
         val height = wallpaperManager.desiredMinimumHeight
         val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
-        doAsync {
+        task {
             try {
                 wallpaperManager.bitmap = wallpaper
-                uiThread { afterApply(null) }
             } catch (e: IOException) {
                 e.printStackTrace()
+            }
+        } successUi {
+            requireActivity().runOnUiThread {
+                afterApply(null)
             }
         }
     }

@@ -16,20 +16,14 @@
 package com.android.settings.dotextras.custom.displays
 
 import android.content.res.ColorStateList
-import android.content.res.Resources
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.custom.views.GridTileDrawable
-import com.android.settings.dotextras.system.OverlayController
 
 class GridDisplay : Fragment() {
 

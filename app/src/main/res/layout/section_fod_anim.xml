@@ -10,6 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fodAnimStart"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="-16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="google-sans-medium"
+        android:text="Start Animation"
+        android:textAllCaps="false"
+        android:textColor="?android:attr/textColorSecondary"
+        app:strokeColor="?android:attr/colorAccent" />
+
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/fodAnimSwitch"
         android:layout_width="match_parent"

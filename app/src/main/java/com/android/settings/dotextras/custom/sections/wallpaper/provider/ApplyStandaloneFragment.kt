@@ -45,8 +45,6 @@ import com.android.settings.dotextras.custom.utils.getFileName
 import com.android.settings.dotextras.custom.utils.removeExtension
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.io.IOException
 
 
@@ -61,7 +59,7 @@ class ApplyStandaloneFragment(val wallpaper: WallpaperBase) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.layout_wallpaper_apply_standalone, container, false)
     }
@@ -127,54 +125,6 @@ class ApplyStandaloneFragment(val wallpaper: WallpaperBase) : Fragment() {
             currentPager.adapter = CurrentWallpaperAdapter(requireActivity(), wallpaper)
             currentPager.adapter!!.notifyDataSetChanged()
         }
-    }
-
-    private fun setWallpaper(drawable: Drawable, flag: Int) {
-        val metrics = DisplayMetrics()
-        val display: Display = requireActivity().windowManager.defaultDisplay
-        display.getMetrics(metrics)
-        val screenWidth = metrics.widthPixels
-        val screenHeight = metrics.heightPixels
-        wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
-        val width = wallpaperManager.desiredMinimumWidth
-        val height = wallpaperManager.desiredMinimumHeight
-        val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
-        doAsync {
-            try {
-                wallpaperManager.setBitmap(wallpaper, null, true, flag)
-                uiThread { afterApply(flag) }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private fun setWallpaper(drawable: Drawable) {
-        val metrics = DisplayMetrics()
-        val display: Display = requireActivity().windowManager.defaultDisplay
-        display.getMetrics(metrics)
-        val screenWidth = metrics.widthPixels
-        val screenHeight = metrics.heightPixels
-        wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
-        val width = wallpaperManager.desiredMinimumWidth
-        val height = wallpaperManager.desiredMinimumHeight
-        val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
-        doAsync {
-            try {
-                wallpaperManager.bitmap = wallpaper
-                uiThread { afterApply(null) }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private fun afterApply(flag: Int?) {
-        wallpaper.listener?.invoke(
-            wallpaper.drawable!!, if (flag != null) {
-                if (flag == WallpaperManager.FLAG_LOCK) Type.LOCKSCREEN else Type.HOME
-            } else Type.BOTH
-        )
     }
 
     private fun drawableToBitmap(drawable: Drawable): Bitmap? {

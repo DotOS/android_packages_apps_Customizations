@@ -30,7 +30,7 @@ import com.android.settings.dotextras.custom.utils.SurfaceViewUtils.getSurfacePa
 /** A surface holder callback that renders user's workspace on the passed in surface view.  */
 open class WorkspaceSurfaceHolderCallback(
     private val mWorkspaceSurface: SurfaceView,
-    context: Context
+    context: Context,
 ) : SurfaceHolder.Callback {
     private val mPreviewUtils: PreviewUtils = PreviewUtils(context,
         context.getString(R.string.grid_control_metadata_name))

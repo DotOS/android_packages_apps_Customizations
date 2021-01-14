@@ -36,17 +36,22 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
     private val scaledPerimeter = Path()
     private val errorPerimeterPath = Path()
     private val scaledErrorPerimeter = Path()
+
     // Fill will cover the whole bounding rect of the fillMask, and be masked by the path
     private val fillMask = Path()
     private val scaledFill = Path()
+
     // Based off of the mask, the fill will interpolate across this space
     private val fillRect = RectF()
+
     // Top of this rect changes based on level, 100% == fillRect
     private val levelRect = RectF()
     private val levelPath = Path()
+
     // Updates the transform of the paths when our bounds change
     private val scaleMatrix = Matrix()
     private val padding = Rect()
+
     // The net result of fill + perimeter paths
     private val unifiedPath = Path()
 
@@ -69,6 +74,7 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
 
     private var fillColor: Int = Color.MAGENTA
     private var backgroundColor: Int = Color.MAGENTA
+
     // updated whenever level changes
     private var levelColor: Int = Color.MAGENTA
 
@@ -187,10 +193,10 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
         levelRect.set(fillRect)
         val fillFraction = batteryLevel / 100f
         val fillTop =
-                if (batteryLevel >= 95)
-                    fillRect.top
-                else
-                    fillRect.top + (fillRect.height() * (1 - fillFraction))
+            if (batteryLevel >= 95)
+                fillRect.top
+            else
+                fillRect.top + (fillRect.height() * (1 - fillFraction))
 
         levelRect.top = Math.floor(fillTop.toDouble()).toFloat()
         levelPath.addRect(levelRect, Path.Direction.CCW)
@@ -341,14 +347,14 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
     /**
      * Set the fill level
      */
-    public open fun setBatteryLevel(l: Int) {
+    open fun setBatteryLevel(l: Int) {
         invertFillIcon = if (l >= 67) true else if (l <= 33) false else invertFillIcon
         batteryLevel = l
         levelColor = batteryColorForLevel(batteryLevel)
         invalidateSelf()
     }
 
-    public fun getBatteryLevel(): Int {
+    fun getBatteryLevel(): Int {
         return batteryLevel
     }
 
@@ -404,7 +410,7 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
         // It is expected that this view only ever scale by the same factor in each dimension, so
         // just pick one to scale the strokeWidths
         val scaledStrokeWidth =
-                Math.max(b.right / WIDTH * PROTECTION_STROKE_WIDTH, PROTECTION_MIN_STROKE_WIDTH)
+            Math.max(b.right / WIDTH * PROTECTION_STROKE_WIDTH, PROTECTION_MIN_STROKE_WIDTH)
 
         fillColorStrokePaint.strokeWidth = scaledStrokeWidth
         fillColorStrokeProtection.strokeWidth = scaledStrokeWidth
@@ -450,9 +456,11 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
         private const val WIDTH = 12f
         private const val HEIGHT = 20f
         private const val CRITICAL_LEVEL = 15
+
         // On a 12x20 grid, how wide to make the fill protection stroke.
         // Scales when our size changes
         private const val PROTECTION_STROKE_WIDTH = 3f
+
         // Arbitrarily chosen for visibility at small sizes
         private const val PROTECTION_MIN_STROKE_WIDTH = 6f
     }

@@ -100,7 +100,7 @@ internal object BitmapUtils {
         context: Context,
         uri: Uri,
         reqWidth: Int,
-        reqHeight: Int
+        reqHeight: Int,
     ): BitmapSampled {
         return try {
             val resolver = context.contentResolver
@@ -146,7 +146,7 @@ internal object BitmapUtils {
         aspectRatioX: Int,
         aspectRatioY: Int,
         flipHorizontally: Boolean,
-        flipVertically: Boolean
+        flipVertically: Boolean,
     ): BitmapSampled {
         var scale = 1
         while (true) {
@@ -190,7 +190,7 @@ internal object BitmapUtils {
         aspectRatioY: Int,
         scale: Float,
         flipHorizontally: Boolean,
-        flipVertically: Boolean
+        flipVertically: Boolean,
     ): Bitmap? {
 
         // get the rectangle in original image that contains the required cropped area (larger for non
@@ -259,7 +259,7 @@ internal object BitmapUtils {
         reqWidth: Int,
         reqHeight: Int,
         flipHorizontally: Boolean,
-        flipVertically: Boolean
+        flipVertically: Boolean,
     ): BitmapSampled {
         var sampleMulti = 1
         while (true) {
@@ -363,7 +363,7 @@ internal object BitmapUtils {
         imageHeight: Int,
         fixAspectRatio: Boolean,
         aspectRatioX: Int,
-        aspectRatioY: Int
+        aspectRatioY: Int,
     ): Rect {
         val left = Math.round(Math.max(0f, getRectLeft(points)))
         val top = Math.round(Math.max(0f, getRectTop(points)))
@@ -432,7 +432,7 @@ internal object BitmapUtils {
         bitmap: Bitmap?,
         uri: Uri?,
         compressFormat: Bitmap.CompressFormat?,
-        compressQuality: Int
+        compressQuality: Int,
     ) {
         var outputStream: OutputStream? = null
         try {
@@ -447,7 +447,7 @@ internal object BitmapUtils {
      * Resize the given bitmap to the given width/height by the given option.<br></br>
      */
     fun resizeBitmap(
-        bitmap: Bitmap?, reqWidth: Int, reqHeight: Int, options: RequestSizeOptions?
+        bitmap: Bitmap?, reqWidth: Int, reqHeight: Int, options: RequestSizeOptions?,
     ): Bitmap? {
         try {
             if (reqWidth > 0 && reqHeight > 0 && (options == RequestSizeOptions.RESIZE_FIT || options == RequestSizeOptions.RESIZE_INSIDE || options == RequestSizeOptions.RESIZE_EXACT)) {
@@ -499,7 +499,7 @@ internal object BitmapUtils {
         reqHeight: Int,
         flipHorizontally: Boolean,
         flipVertically: Boolean,
-        sampleMulti: Int
+        sampleMulti: Int,
     ): BitmapSampled {
 
         // get the rectangle in original image that contains the required cropped area (larger for non
@@ -590,7 +590,7 @@ internal object BitmapUtils {
         width: Int,
         height: Int,
         flipHorizontally: Boolean,
-        flipVertically: Boolean
+        flipVertically: Boolean,
     ): BitmapSampled {
         var result: Bitmap? = null
         val sampleSize: Int
@@ -667,7 +667,7 @@ internal object BitmapUtils {
      */
     @Throws(FileNotFoundException::class)
     private fun decodeImage(
-        resolver: ContentResolver, uri: Uri, options: BitmapFactory.Options
+        resolver: ContentResolver, uri: Uri, options: BitmapFactory.Options,
     ): Bitmap {
         do {
             var stream: InputStream? = null
@@ -690,7 +690,7 @@ internal object BitmapUtils {
      * @param sampleMulti used to increase the sampling of the image to handle memory issues.
      */
     private fun decodeSampledBitmapRegion(
-        context: Context, uri: Uri, rect: Rect, reqWidth: Int, reqHeight: Int, sampleMulti: Int
+        context: Context, uri: Uri, rect: Rect, reqWidth: Int, reqHeight: Int, sampleMulti: Int,
     ): BitmapSampled {
         var stream: InputStream? = null
         var decoder: BitmapRegionDecoder? = null
@@ -736,7 +736,7 @@ internal object BitmapUtils {
         degreesRotated: Int,
         fixAspectRatio: Boolean,
         aspectRatioX: Int,
-        aspectRatioY: Int
+        aspectRatioY: Int,
     ): Bitmap? {
         var bitmap = bitmap
         if (degreesRotated % 90 != 0) {
@@ -780,7 +780,7 @@ internal object BitmapUtils {
      * larger than the requested height and width.
      */
     private fun calculateInSampleSizeByReqestedSize(
-        width: Int, height: Int, reqWidth: Int, reqHeight: Int
+        width: Int, height: Int, reqWidth: Int, reqHeight: Int,
     ): Int {
         var inSampleSize = 1
         if (height > reqHeight || width > reqWidth) {
@@ -815,7 +815,7 @@ internal object BitmapUtils {
      * New bitmap is created and the old one is recycled.
      */
     private fun rotateAndFlipBitmapInt(
-        bitmap: Bitmap, degrees: Int, flipHorizontally: Boolean, flipVertically: Boolean
+        bitmap: Bitmap, degrees: Int, flipHorizontally: Boolean, flipVertically: Boolean,
     ): Bitmap {
         return if (degrees > 0 || flipHorizontally || flipVertically) {
             val matrix = Matrix()
@@ -941,7 +941,7 @@ internal object BitmapUtils {
         /**
          * The sample size used to lower the size of the bitmap (1,2,4,8,...)
          */
-        val sampleSize: Int
+        val sampleSize: Int,
     )
     // endregion
     // region: Inner class: RotateBitmapResult
@@ -956,6 +956,6 @@ internal object BitmapUtils {
         /**
          * The degrees the image was rotated
          */
-        val degrees: Int
+        val degrees: Int,
     ) // endregion
 }

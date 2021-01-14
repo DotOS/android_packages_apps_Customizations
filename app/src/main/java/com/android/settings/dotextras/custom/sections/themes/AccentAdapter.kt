@@ -29,7 +29,7 @@ import com.android.settings.dotextras.system.OverlayController
 
 class AccentAdapter(
     private val overlayController: OverlayController,
-    private val items: ArrayList<Accent>
+    private val items: ArrayList<Accent>,
 ) :
     RecyclerView.Adapter<AccentAdapter.ViewHolder>() {
 
@@ -87,7 +87,7 @@ class AccentAdapter(
     private fun select(pos: Int) {
         for (i in items.indices) {
             items[i].selected = pos == i
-            notifyItemChanged(i);
+            notifyItemChanged(i)
         }
     }
 

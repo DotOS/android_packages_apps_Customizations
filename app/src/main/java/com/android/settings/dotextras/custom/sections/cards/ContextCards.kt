@@ -25,13 +25,14 @@ import com.android.settings.dotextras.custom.utils.ColorSheetUtils
 typealias ContextCardsListener = ((value: Int) -> Unit)?
 typealias OnColorChangedListener = ((colorInt: Int) -> Unit)?
 typealias OnSlideChangedListener = ((position: Int, title: TextView) -> Unit)?
+
 class ContextCards(
     var iconID: Int,
     var title: String,
     var subtitle: String,
     var accentColor: Int,
     val feature: String,
-    val featureType: Int
+    val featureType: Int,
 ) {
 
     //Common variables
@@ -56,6 +57,7 @@ class ContextCards(
     //RGB variables
     @ColorInt
     var defaultColor: Int = 0xFFFFFF
+
     @ColorInt
     var colorInt: Int = defaultColor
     var colorListener: OnColorChangedListener = null
@@ -67,7 +69,7 @@ class ContextCards(
         accentColor: Int,
         feature: String,
         featureType: Int,
-        pagerAdapter: FragmentStateAdapter
+        pagerAdapter: FragmentStateAdapter,
     ) : this(iconID, title, "", accentColor, feature, featureType) {
         this.pagerAdapter = pagerAdapter
     }
@@ -79,7 +81,7 @@ class ContextCards(
         accentColor: Int,
         feature: String,
         featureType: Int,
-        summary: String
+        summary: String,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.summary = summary
     }
@@ -91,7 +93,7 @@ class ContextCards(
         accentColor: Int,
         feature: String,
         featureType: Int,
-        enabled: Boolean
+        enabled: Boolean,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.isCardChecked = enabled
     }
@@ -104,7 +106,7 @@ class ContextCards(
         feature: String,
         featureType: Int,
         summary: String,
-        enabled: Boolean
+        enabled: Boolean,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.summary = summary
         this.isCardChecked = enabled
@@ -118,7 +120,7 @@ class ContextCards(
         feature: String,
         featureType: Int,
         summary: String,
-        listener: ContextCardsListener
+        listener: ContextCardsListener,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.summary = summary
         this.listener = listener
@@ -133,7 +135,7 @@ class ContextCards(
         featureType: Int,
         min: Int,
         max: Int,
-        default: Int
+        default: Int,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.min = min
         this.max = max
@@ -150,7 +152,7 @@ class ContextCards(
         min: Int,
         max: Int,
         default: Int,
-        summary: String
+        summary: String,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.min = min
         this.max = max
@@ -169,7 +171,7 @@ class ContextCards(
         max: Int,
         default: Int,
         summary: String,
-        extraTitle: String
+        extraTitle: String,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.min = min
         this.max = max
@@ -190,7 +192,7 @@ class ContextCards(
         default: Int,
         summary: String,
         extraTitle: String,
-        slideListener: OnSlideChangedListener
+        slideListener: OnSlideChangedListener,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.min = min
         this.max = max
@@ -212,7 +214,7 @@ class ContextCards(
         default: Int,
         summary: String,
         extraTitle: String,
-        listener: ContextCardsListener
+        listener: ContextCardsListener,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.min = min
         this.max = max
@@ -235,7 +237,7 @@ class ContextCards(
         summary: String,
         extraTitle: String,
         listener: ContextCardsListener,
-        slideListener: OnSlideChangedListener
+        slideListener: OnSlideChangedListener,
     ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
         this.min = min
         this.max = max
@@ -252,7 +254,7 @@ class ContextCards(
         feature: String,
         featureType: Int,
         fragmentManager: FragmentManager,
-        colorChangedListener: OnColorChangedListener
+        colorChangedListener: OnColorChangedListener,
     ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
         this.fragmentManager = fragmentManager
         this.title = ColorSheetUtils.colorToHex(colorInt)
@@ -266,7 +268,7 @@ class ContextCards(
         featureType: Int,
         defaultColor: Int,
         fragmentManager: FragmentManager,
-        colorChangedListener: OnColorChangedListener
+        colorChangedListener: OnColorChangedListener,
     ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
         this.fragmentManager = fragmentManager
         this.defaultColor = defaultColor
@@ -281,7 +283,7 @@ class ContextCards(
         featureType: Int,
         summary: String,
         fragmentManager: FragmentManager,
-        colorChangedListener: OnColorChangedListener
+        colorChangedListener: OnColorChangedListener,
     ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
         this.fragmentManager = fragmentManager
         this.summary = summary
@@ -297,7 +299,7 @@ class ContextCards(
         summary: String,
         defaultColor: Int,
         fragmentManager: FragmentManager,
-        colorChangedListener: OnColorChangedListener
+        colorChangedListener: OnColorChangedListener,
     ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
         this.fragmentManager = fragmentManager
         this.defaultColor = defaultColor

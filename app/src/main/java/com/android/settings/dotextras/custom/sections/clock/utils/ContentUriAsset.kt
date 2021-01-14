@@ -64,8 +64,7 @@ class ContentUriAsset @JvmOverloads constructor(
         context: Context,
         uri: Uri,
         uncached: Boolean =  /* uncached */false,
-    ) : this(context, uri, RequestOptions.centerCropTransform(), uncached) {
-    }
+    ) : this(context, uri, RequestOptions.centerCropTransform(), uncached)
 
     override fun decodeBitmapRegion(
         rect: Rect?, targetWidth: Int, targetHeight: Int,
@@ -228,7 +227,7 @@ class ContentUriAsset @JvmOverloads constructor(
         private val mCropRect: Rect?,
         private val mReceiver: BitmapReceiver?,
     ) : AsyncTask<Void?, Void?, Bitmap?>() {
-        protected override fun doInBackground(vararg unused: Void?): Bitmap? {
+        override fun doInBackground(vararg unused: Void?): Bitmap? {
             return if (mFromBitmap == null) {
                 null
             } else Bitmap.createBitmap(

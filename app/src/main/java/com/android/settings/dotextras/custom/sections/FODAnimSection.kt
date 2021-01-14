@@ -29,9 +29,8 @@ import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.ExpandableLayout
 import com.android.settings.dotextras.custom.views.FodPreview
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 open class FODAnimSection : GenericSection() {
 
@@ -119,13 +118,15 @@ open class FODAnimSection : GenericSection() {
             }
         }
         if (fodAnimSupport) {
+            val fodAnimStart: MaterialButton = view.findViewById(R.id.fodAnimStart)
             for (i in ANIM_STYLES.indices) {
                 val fodAnim = FodResource(ANIM_STYLES[i], i)
                 fodAnim.listenerAnim = { drawable ->
-                    doAsync {
-                        uiThread {
-                            fodPreview.setPreviewAnimation(drawable!!, true)
-                        }
+                    fodPreview.setPreviewAnimation(drawable!!, false)
+                    fodAnimStart.setOnClickListener {
+                        fodAnimStart.text =
+                            if (!fodPreview.isAnimating()) "Stop Animation" else "Start Animation"
+                        fodPreview.setAnimationState(running = !fodPreview.isAnimating())
                     }
                 }
                 fodAnims.add(fodAnim)

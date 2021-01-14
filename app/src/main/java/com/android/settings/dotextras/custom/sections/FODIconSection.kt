@@ -28,8 +28,6 @@ import com.android.settings.dotextras.custom.sections.fod.FodResource
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.FodPreview
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 open class FODIconSection : GenericSection() {
 
@@ -78,11 +76,7 @@ open class FODIconSection : GenericSection() {
         val fodPreview: FodPreview = view.findViewById(R.id.fodIconPreview)
         for (i in ICON_STYLES.indices) {
             val fodIcon = FodResource(ICON_STYLES[i], i)
-            fodIcon.listener = { drawable ->
-                doAsync {
-                    uiThread { fodPreview.setPreview(drawable) }
-                }
-            }
+            fodIcon.listener = { drawable -> fodPreview.setPreview(drawable) }
             fodIcons.add(fodIcon)
         }
         val recyclerView: RecyclerView = view.findViewById(R.id.fodIconRecycler)

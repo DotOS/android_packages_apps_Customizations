@@ -16,8 +16,8 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.AsyncTask
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
-import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.BitmapUtils.BitmapSampled
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView.RequestSizeOptions
+import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.BitmapUtils.BitmapSampled
 import java.lang.ref.WeakReference
 
 /**
@@ -139,7 +139,7 @@ class BitmapCroppingWorkerTask :
         options: RequestSizeOptions?,
         saveUri: Uri?,
         saveCompressFormat: Bitmap.CompressFormat?,
-        saveCompressQuality: Int
+        saveCompressQuality: Int,
     ) {
         mCropImageViewReference = WeakReference(cropImageView)
         mContext = cropImageView.context
@@ -179,7 +179,7 @@ class BitmapCroppingWorkerTask :
         options: RequestSizeOptions?,
         saveUri: Uri?,
         saveCompressFormat: Bitmap.CompressFormat?,
-        saveCompressQuality: Int
+        saveCompressQuality: Int,
     ) {
         mCropImageViewReference = WeakReference(cropImageView)
         mContext = cropImageView.context

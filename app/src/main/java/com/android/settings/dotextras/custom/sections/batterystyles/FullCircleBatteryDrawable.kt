@@ -153,13 +153,13 @@ open class FullCircleBatteryDrawable(private val context: Context, frameColor: I
     /**
      * Set the fill level
      */
-    public open fun setBatteryLevel(l: Int) {
+    open fun setBatteryLevel(l: Int) {
         batteryLevel = l
         chargeColor = batteryColorForLevel(batteryLevel)
         invalidateSelf()
     }
 
-    public fun getBatteryLevel(): Int {
+    fun getBatteryLevel(): Int {
         return batteryLevel
     }
 

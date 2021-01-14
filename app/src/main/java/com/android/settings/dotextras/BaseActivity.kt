@@ -15,6 +15,7 @@
  */
 package com.android.settings.dotextras
 
+import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -35,6 +36,8 @@ class BaseActivity : AppCompatActivity() {
         startService(Intent(this, MaidService::class.java))
         appTitle = findViewById(R.id.appTitle)
         appBarLayout = findViewById(R.id.appblayout)
+        appBarLayout!!.layoutTransition
+            .enableTransitionType(LayoutTransition.CHANGING)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frameContent, SectionFragment(), "section_fragment")

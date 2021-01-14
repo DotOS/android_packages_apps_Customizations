@@ -100,9 +100,9 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         }
 
         smartPicker.setOnClickListener {
-            if (isInFocus(Shade.LIGHT) && lightColor!=null)
+            if (isInFocus(Shade.LIGHT) && lightColor != null)
                 bindDarkColor(ResourceHelper.getDarkCousinColor(lightColor!!))
-            if (isInFocus(Shade.DARK) && darkColor!=null)
+            if (isInFocus(Shade.DARK) && darkColor != null)
                 bindWhiteColor(ResourceHelper.getLightCousinColor(darkColor!!))
         }
         resetAccents.setOnClickListener {
@@ -121,7 +121,8 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
                 darkPreview.contentDescription = ""
                 whiteLayout.background = ContextCompat.getDrawable(context, R.drawable.rounded_fg)
                 darkLayout.background = null
-                whiteHex.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryBackground, null))
+                whiteHex.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryBackground, null))
                 darkHex.backgroundTintList = null
             }
             Shade.DARK -> {
@@ -130,7 +131,8 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
                 whiteLayout.background = null
                 darkLayout.background = ContextCompat.getDrawable(context, R.drawable.rounded_fg)
                 whiteHex.backgroundTintList = null
-                darkHex.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryBackground, null))
+                darkHex.backgroundTintList =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorPrimaryBackground, null))
             }
         }
     }
@@ -147,10 +149,11 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         whiteHex.text = ColorSheetUtils.colorToHex(color)
         whiteHex.invalidate()
         val suitableColor = ResourceHelper.getToleratedShade(color, Shade.LIGHT) == Shade.LIGHT
-        whiteCompatible.imageTintList = if (!suitableColor) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
-                                        else ColorStateList.valueOf(resources.getColor(R.color.green_500, null))
+        whiteCompatible.imageTintList =
+            if (!suitableColor) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
+            else ColorStateList.valueOf(resources.getColor(R.color.green_500, null))
         whiteCompatible.setImageResource(if (!suitableColor) R.drawable.ic_error_round
-                                        else R.drawable.ic_check_circle)
+        else R.drawable.ic_check_circle)
         whiteCompatible.invalidate()
         whiteApply.setOnClickListener {
             featureManager.AccentManager()
@@ -163,8 +166,9 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         darkPreview.imageTintList = ColorStateList.valueOf(color)
         darkHex.text = ColorSheetUtils.colorToHex(color)
         val suitableColor = ResourceHelper.getToleratedShade(color, Shade.DARK) == Shade.DARK
-        darkCompatible.imageTintList = if (!suitableColor) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
-        else ColorStateList.valueOf(resources.getColor(R.color.green_500, null))
+        darkCompatible.imageTintList =
+            if (!suitableColor) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
+            else ColorStateList.valueOf(resources.getColor(R.color.green_500, null))
         darkCompatible.setImageResource(if (!suitableColor) R.drawable.ic_error_round
         else R.drawable.ic_check_circle)
         darkApply.setOnClickListener {

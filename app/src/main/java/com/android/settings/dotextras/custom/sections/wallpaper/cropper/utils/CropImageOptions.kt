@@ -472,7 +472,7 @@ class CropImageOptions : Parcelable {
         require(!(rotationDegrees < 0 || rotationDegrees > 360)) { "Cannot set rotation degrees value to a number < 0 or > 360" }
     }
 
-    companion object CREATOR: Parcelable.Creator<CropImageOptions> {
+    companion object CREATOR : Parcelable.Creator<CropImageOptions> {
 
         override fun createFromParcel(`in`: Parcel): CropImageOptions {
             return CropImageOptions(`in`)

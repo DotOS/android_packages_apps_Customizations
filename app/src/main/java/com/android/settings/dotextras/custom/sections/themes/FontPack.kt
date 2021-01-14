@@ -21,7 +21,7 @@ class FontPack(
     val headLineFont: Typeface?,
     val bodyFont: Typeface?,
     val packageName: String,
-    val label: String
+    val label: String,
 ) {
     var selected = false
 }

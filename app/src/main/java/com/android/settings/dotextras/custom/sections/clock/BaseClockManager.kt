@@ -26,7 +26,7 @@ abstract class BaseClockManager(private val mClockProvider: ClockProvider?) {
 
     fun fetchOptions(
         callback: OptionsFetchedListener,
-        reload: Boolean
+        reload: Boolean,
     ) {
         mClockProvider!!.fetch(callback, false)
     }

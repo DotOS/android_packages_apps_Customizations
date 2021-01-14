@@ -22,8 +22,9 @@ import android.widget.ImageView
  * Animation to handle smooth cropping image matrix transformation change, specifically for
  * zoom-in/out.
  */
-internal class CropImageAnimation(// region: Fields and Consts
-    private val mImageView: ImageView, private val mCropOverlayView: CropOverlayView?
+internal class CropImageAnimation(
+// region: Fields and Consts
+    private val mImageView: ImageView, private val mCropOverlayView: CropOverlayView?,
 ) : Animation(), Animation.AnimationListener {
     private val mStartBoundPoints = FloatArray(8)
     private val mEndBoundPoints = FloatArray(8)

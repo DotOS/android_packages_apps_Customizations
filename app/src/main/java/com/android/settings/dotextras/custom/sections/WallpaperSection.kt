@@ -49,13 +49,10 @@ import com.android.settings.dotextras.custom.utils.DepthPageTransformer
 import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.utils.internetAvailable
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.doAsyncResult
-import org.jetbrains.anko.uiThread
+import nl.komponents.kovenant.task
+import nl.komponents.kovenant.ui.successUi
 import org.json.JSONObject
-import java.io.File
 import java.net.URL
-import java.util.concurrent.Future
 
 @Suppress("NAME_SHADOWING")
 class WallpaperSection() : GenericSection() {
@@ -73,8 +70,9 @@ class WallpaperSection() : GenericSection() {
     private var permlist = ArrayList<WallpaperBase>()
     private lateinit var sectionTitle: TextView
     private lateinit var currentPager: ViewPager2
-    private lateinit var filters: Future<ArrayList<WallpaperFilter>>
-    private lateinit var filteredWalls: Future<ArrayList<WallpaperBase>>
+    private lateinit var filters: ArrayList<WallpaperFilter>
+    private lateinit var filteredWalls: ArrayList<WallpaperBase>
+    private lateinit var adapter: WallpaperPreviewAdapter
     private val onDismissListener: onDismiss = {
         run {
             sectionTitle.visibility = View.VISIBLE
@@ -100,6 +98,13 @@ class WallpaperSection() : GenericSection() {
         currentPager = view.findViewById(R.id.wallPager)
         currentPager.adapter = CurrentWallpaperAdapter(requireActivity())
         currentPager.setPageTransformer(DepthPageTransformer())
+        adapter = WallpaperPreviewAdapter(
+            exlist,
+            wallpaperManager!!,
+            this,
+            currentPager,
+            onDismissListener
+        )
         val pagerLeft: ImageButton = view.findViewById(R.id.wallLeft)
         val pagerRight: ImageButton = view.findViewById(R.id.wallRight)
         pagerLeft.setOnClickListener {
@@ -127,7 +132,7 @@ class WallpaperSection() : GenericSection() {
     private fun buildCategories() {
         val categoriesRecycler: RecyclerView =
             requireView().findViewById(R.id.dotCategoriesRecycler)
-        filters = doAsyncResult {
+        task {
             val filterList: ArrayList<WallpaperFilter> = ArrayList()
             val jsonObject = JSONObject(URL(getString(R.string.papaers_url)).readText())
             val jsonArray = jsonObject.optJSONArray("Categories")
@@ -144,30 +149,33 @@ class WallpaperSection() : GenericSection() {
                     filterList.add(filter)
                 }
             }
-            filterList
-        }
-        parseExclusives()
+            filters = filterList
+        } successUi {
+            requireActivity().runOnUiThread {
+                parseExclusives()
 
-        categoriesRecycler.adapter = WallpaperFilterAdapter(filters.get())
-        categoriesRecycler.addItemDecoration(
-            ItemRecyclerSpacer(
-                requireContext().resources.getDimension(
-                    R.dimen.recyclerSpacerSmall
-                ), 0, false
-            )
-        )
-        categoriesRecycler.addItemDecoration(
-            ItemRecyclerSpacer(
-                requireContext().resources.getDimension(
-                    R.dimen.recyclerSpacerSmall
-                ), null, false
-            )
-        )
-        categoriesRecycler.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+                categoriesRecycler.adapter = WallpaperFilterAdapter(filters)
+                categoriesRecycler.addItemDecoration(
+                    ItemRecyclerSpacer(
+                        requireContext().resources.getDimension(
+                            R.dimen.recyclerSpacerSmall
+                        ), 0, false
+                    )
+                )
+                categoriesRecycler.addItemDecoration(
+                    ItemRecyclerSpacer(
+                        requireContext().resources.getDimension(
+                            R.dimen.recyclerSpacerSmall
+                        ), null, false
+                    )
+                )
+                categoriesRecycler.layoutManager = LinearLayoutManager(
+                    context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            }
+        }
     }
 
     private fun parseLiveWallpapers() {
@@ -189,14 +197,7 @@ class WallpaperSection() : GenericSection() {
     private fun parseExclusives() {
         val exclusiveRecycler: RecyclerView = requireView().findViewById(R.id.dotRecycler)
         permlist.clear()
-        val adapter = WallpaperPreviewAdapter(
-            exlist,
-            wallpaperManager!!,
-            this,
-            currentPager,
-            onDismissListener
-        )
-        filteredWalls = doAsyncResult {
+        task {
             val jsonObject = JSONObject(URL(getString(R.string.papaers_url)).readText())
             val jsonArray = jsonObject.optJSONArray("Wallpapers")
             if (jsonArray != null) {
@@ -224,22 +225,28 @@ class WallpaperSection() : GenericSection() {
                     permlist.add(wallpaper)
                 }
             }
-            permlist
+            filteredWalls = permlist
+        } successUi {
+            if (filteredWalls.isNotEmpty() && filters.isNotEmpty()) {
+                exlist = filteredWalls
+                val tempList = ArrayList<WallpaperBase>()
+                tempList.addAll(exlist)
+                tempList.removeIf { it.category != filters[0].category }
+                requireActivity().runOnUiThread {
+                    adapter.updateList(tempList)
+                    adapter.notifyDataSetChanged()
+                    exclusiveRecycler.adapter = adapter
+                    exclusiveRecycler.layoutManager = LinearLayoutManager(
+                        context,
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
+                }
+            }
+        } fail {
+            throw it
         }
-        if (filteredWalls.get().isNotEmpty() && filters.get().isNotEmpty()) {
-            exlist = filteredWalls.get()
-            val tempList = ArrayList<WallpaperBase>()
-            tempList.addAll(exlist)
-            tempList.removeIf { it.category != filters.get()[0].category }
-            adapter.updateList(tempList)
-            adapter.notifyDataSetChanged()
-            exclusiveRecycler.adapter = adapter
-            exclusiveRecycler.layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-        }
+
     }
 
     private fun reloadExclusives(filter: String?) {

@@ -31,8 +31,6 @@ import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.system.FeatureManager
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 class FodColorAdapter(
     private val featureManager: FeatureManager,
@@ -57,19 +55,13 @@ class FodColorAdapter(
         val fodIcon: FodResource = items[position]
         fodIcon.selected =
             featureManager.System().getInt(featureManager.System().FOD_COLOR, 0) == fodIcon.id
-        doAsync {
-            uiThread {
-                Glide.with(holder.fodIcon)
-                    .load(ResourceHelper.getDrawable(holder.fodIcon.context,
-                        packageName = holder.fodIcon.context.getString(R.string.systemui_package),
-                        drawableName = fodIcon.resource
-                    ))
-                    .override(250, 250)
-                    .thumbnail(0.1f)
-                    .placeholder(android.R.color.transparent)
-                    .into(holder.fodIcon)
-            }
-        }
+        Glide.with(holder.fodIcon)
+            .load(ResourceHelper.getDrawable(holder.fodIcon.context,
+                packageName = holder.fodIcon.context.getString(R.string.systemui_package),
+                drawableName = fodIcon.resource
+            ))
+            .placeholder(android.R.color.transparent)
+            .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {
             featureManager.System().setInt(featureManager.System().FOD_COLOR, fodIcon.id)
             select(position)

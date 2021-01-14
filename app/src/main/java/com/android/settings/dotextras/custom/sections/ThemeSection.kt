@@ -34,7 +34,7 @@ class ThemeSection : GenericSection() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.section_themes, container, false)
     }

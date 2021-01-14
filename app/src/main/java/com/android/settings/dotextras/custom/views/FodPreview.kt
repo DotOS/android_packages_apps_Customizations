@@ -23,8 +23,6 @@ import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
 import com.android.settings.dotextras.R
-import org.jetbrains.anko.doAsync
-import java.lang.Thread.sleep
 
 class FodPreview(context: Context?, attributesSet: AttributeSet) : RelativeLayout(
     context,
@@ -47,11 +45,20 @@ class FodPreview(context: Context?, attributesSet: AttributeSet) : RelativeLayou
     }
 
     fun setPreviewAnimation(anim: AnimationDrawable, start: Boolean) {
-        if (fodAnimPreview.drawable!= null && (fodAnimPreview.drawable as AnimationDrawable).isRunning)
+        if (fodAnimPreview.drawable != null && (fodAnimPreview.drawable as AnimationDrawable).isRunning)
             (fodAnimPreview.drawable as AnimationDrawable).stop()
         fodAnimPreview.setImageDrawable(anim)
         if (start) {
             anim.start()
         }
+    }
+
+    fun isAnimating(): Boolean = (fodAnimPreview.drawable!! as AnimationDrawable).isRunning
+
+    fun setAnimationState(running: Boolean) {
+        if (running)
+            (fodAnimPreview.drawable!! as AnimationDrawable).start()
+        else
+            (fodAnimPreview.drawable!! as AnimationDrawable).stop()
     }
 }

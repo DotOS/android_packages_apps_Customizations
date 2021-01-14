@@ -389,7 +389,7 @@ class CropOverlayView  // endregion
      * limits appropriately.
      */
     fun setCropWindowLimits(
-        maxWidth: Float, maxHeight: Float, scaleFactorWidth: Float, scaleFactorHeight: Float
+        maxWidth: Float, maxHeight: Float, scaleFactorWidth: Float, scaleFactorHeight: Float,
     ) {
         mCropWindowHandler.setCropWindowLimits(
             maxWidth, maxHeight, scaleFactorWidth, scaleFactorHeight
@@ -726,7 +726,8 @@ class CropOverlayView  // endregion
             val cornerWidth = mBorderCornerPaint!!.strokeWidth
 
             // for rectangle crop shape we allow the corners to be offset from the borders
-            val w = (cornerWidth / 2 + if (mCropShape == CropShape.RECTANGLE) mBorderCornerOffset else 0f)
+            val w =
+                (cornerWidth / 2 + if (mCropShape == CropShape.RECTANGLE) mBorderCornerOffset else 0f)
             val rect = mCropWindowHandler.rect
             rect!!.inset(w, w)
             val cornerOffset = (cornerWidth - lineWidth) / 2

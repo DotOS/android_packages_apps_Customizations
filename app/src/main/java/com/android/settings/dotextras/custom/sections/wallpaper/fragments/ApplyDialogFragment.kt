@@ -28,10 +28,8 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.os.StrictMode
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.*
 import android.view.ViewGroup
 import android.widget.*
@@ -48,9 +46,8 @@ import com.android.settings.dotextras.custom.views.ExpandableLayout
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.doAsyncResult
-import org.jetbrains.anko.uiThread
+import nl.komponents.kovenant.task
+import nl.komponents.kovenant.ui.successUi
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -89,7 +86,8 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         savedInstanceState: Bundle?,
     ): View? {
         requireDialog().requestWindowFeature(Window.FEATURE_NO_TITLE)
-        targetWall = if (wallpaper.type == wallpaper.WEB) drawableFromUrl(wallpaper.url!!) else wallpaper.drawable!!
+        targetWall =
+            if (wallpaper.type == wallpaper.WEB) drawableFromUrl(wallpaper.url!!) else wallpaper.drawable!!
         return inflater.inflate(R.layout.item_wallpaper_apply, container, false)
     }
 
@@ -121,13 +119,14 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         wallpaperManager = WallpaperManager.getInstance(requireContext())
         val chipRotate: Chip = view.findViewById(R.id.chipCrop)
         val uriB = if (wallpaper.type == wallpaper.WEB) {
-            val bitmap = BitmapFactory.decodeStream(URL(wallpaper.url!!).openConnection().getInputStream())
+            val bitmap =
+                BitmapFactory.decodeStream(URL(wallpaper.url!!).openConnection().getInputStream())
             val imageFileName = "temp.jpg"
             val storageDir = File(requireContext().cacheDir.toString())
             val imageFile = File(storageDir, imageFileName)
             try {
                 val fOut = FileOutputStream(imageFile)
-                doAsync {
+                task {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut)
                     fOut.close()
                 }
@@ -165,7 +164,7 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
                 .thumbnail(0.1f)
                 .into(wallOverlay)
         } else {
-            if (wallpaper.title!=null) title.text = wallpaper.title
+            if (wallpaper.title != null) title.text = wallpaper.title
             Glide.with(requireContext())
                 .load(wallpaper.drawable)
                 .thumbnail(0.1f)
@@ -263,12 +262,16 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         val width = wallpaperManager.desiredMinimumWidth
         val height = wallpaperManager.desiredMinimumHeight
         val wallpaper = scaleCropToFit(drawableToBitmap(drawable)!!, width, height)
-        doAsync {
+        task {
             try {
                 wallpaperManager.setBitmap(wallpaper, null, true, flag)
-                uiThread { afterApply(flag) }
+
             } catch (e: IOException) {
                 e.printStackTrace()
+            }
+        } successUi {
+            requireActivity().runOnUiThread {
+                afterApply(flag)
             }
         }
     }
@@ -283,12 +286,15 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         val width = wallpaperManager.desiredMinimumWidth
         val height = wallpaperManager.desiredMinimumHeight
         val wallpaper = scaleCropToFit(drawableToBitmap(drawable)!!, width, height)
-        doAsync {
+        task {
             try {
                 wallpaperManager.bitmap = wallpaper
-                uiThread { afterApply(null) }
             } catch (e: IOException) {
                 e.printStackTrace()
+            }
+        } successUi {
+            requireActivity().runOnUiThread {
+                afterApply(null)
             }
         }
     }

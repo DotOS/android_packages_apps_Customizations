@@ -120,7 +120,7 @@ open class GenericSection : Fragment(), SectionInterface {
         accentColor: Int,
         feature: String,
         featureType: Int,
-        pagerAdapter: FragmentStateAdapter
+        pagerAdapter: FragmentStateAdapter,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -141,7 +141,7 @@ open class GenericSection : Fragment(), SectionInterface {
         subtitle: String,
         accentColor: Int,
         feature: String,
-        featureType: Int
+        featureType: Int,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -161,7 +161,7 @@ open class GenericSection : Fragment(), SectionInterface {
         subtitle: String,
         accentColor: Int,
         feature: String,
-        featureType: Int
+        featureType: Int,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -181,7 +181,7 @@ open class GenericSection : Fragment(), SectionInterface {
         accentColor: Int,
         feature: String,
         featureType: Int,
-        pagerAdapter: FragmentStateAdapter
+        pagerAdapter: FragmentStateAdapter,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -202,7 +202,7 @@ open class GenericSection : Fragment(), SectionInterface {
         accentColor: Int,
         feature: String,
         featureType: Int,
-        summary: String
+        summary: String,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -225,7 +225,7 @@ open class GenericSection : Fragment(), SectionInterface {
         accentColor: Int,
         feature: String,
         featureType: Int,
-        summary: String
+        summary: String,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -248,7 +248,7 @@ open class GenericSection : Fragment(), SectionInterface {
         accentColor: Int,
         feature: String,
         featureType: Int,
-        enabled: Boolean
+        enabled: Boolean,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -270,7 +270,7 @@ open class GenericSection : Fragment(), SectionInterface {
         accentColor: Int,
         feature: String,
         featureType: Int,
-        enabled: Boolean
+        enabled: Boolean,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -294,7 +294,7 @@ open class GenericSection : Fragment(), SectionInterface {
         feature: String,
         featureType: Int,
         summary: String,
-        enabled: Boolean
+        enabled: Boolean,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -319,7 +319,7 @@ open class GenericSection : Fragment(), SectionInterface {
         feature: String,
         featureType: Int,
         summary: String,
-        listener: ContextCardsListener
+        listener: ContextCardsListener,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,
@@ -343,7 +343,7 @@ open class GenericSection : Fragment(), SectionInterface {
         feature: String,
         featureType: Int,
         summary: String,
-        enabled: Boolean
+        enabled: Boolean,
     ) {
         val contextCards = ContextCards(
             iconID = iconID,

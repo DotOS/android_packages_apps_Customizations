@@ -54,13 +54,13 @@ object ResourceHelper {
 
     fun getLightCousinColor(darkColor: Int): Int {
         val darkness = getDarkness(darkColor)
-        val light = darkness + (1-darkness) / 1.5
+        val light = darkness + (1 - darkness) / 1.5
         return getColorByDarkness(darkColor, light)
     }
 
     fun getDarkCousinColor(lightColor: Int): Int {
         val lightness = getDarkness(lightColor)
-        val dark = lightness + (1-lightness) * 1.5
+        val dark = lightness + (1 - lightness) * 1.5
         return getColorByDarkness(lightColor, dark)
     }
 
@@ -89,9 +89,9 @@ object ResourceHelper {
         val colorDarkness = getDarkness(color)
         var toleratedDarkness = colorDarkness
         if (shade == LIGHT)
-            toleratedDarkness-=tolerance
+            toleratedDarkness -= tolerance
         if (shade == DARK)
-            toleratedDarkness+=tolerance
+            toleratedDarkness += tolerance
         return if (toleratedDarkness in 0.0..0.5) LIGHT else DARK
     }
 
@@ -105,8 +105,8 @@ object ResourceHelper {
     fun getToleratedShade(color: Int, tolerance: Double, shade: Shade): Shade {
         val colorDarkness = getDarkness(color)
         var toleratedDarkness = colorDarkness
-        if (shade == LIGHT) toleratedDarkness-=tolerance
-        if (shade == DARK) toleratedDarkness+=tolerance
+        if (shade == LIGHT) toleratedDarkness -= tolerance
+        if (shade == DARK) toleratedDarkness += tolerance
         return if (toleratedDarkness in 0.0..0.5) LIGHT else DARK
     }
 
@@ -273,7 +273,9 @@ object ResourceHelper {
         val list = ArrayList<Drawable>()
         val walls = context.resources.getStringArray(R.array.dot_walls)
         for (wall in walls) {
-            list.add(getDrawable(context, context.getString(R.string.dot_wallpapers_packagename), wall)!!)
+            list.add(getDrawable(context,
+                context.getString(R.string.dot_wallpapers_packagename),
+                wall)!!)
         }
         return list
     }

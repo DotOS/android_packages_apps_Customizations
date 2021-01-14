@@ -55,7 +55,7 @@ class ColorSheet : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         if (savedInstanceState != null) dismiss()
         return inflater.inflate(R.layout.item_colorpicker, container, false)
@@ -121,7 +121,7 @@ class ColorSheet : BottomSheetDialogFragment() {
         @ColorInt selectedColor: Int? = null,
         noColorOption: Boolean = false,
         onResetListener: onResetListener,
-        listener: ColorPickerListener
+        listener: ColorPickerListener,
     ): ColorSheet {
         this.onResetListener = onResetListener
         colorAdapter =

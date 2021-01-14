@@ -172,7 +172,7 @@ object CropImage {
         context: Context,
         title: CharSequence?,
         includeDocuments: Boolean,
-        includeCamera: Boolean
+        includeCamera: Boolean,
     ): Intent {
         val allIntents: MutableList<Intent> = ArrayList()
         val packageManager = context.packageManager
@@ -230,7 +230,7 @@ object CropImage {
      * Get all Camera intents for capturing image using device camera apps.
      */
     fun getCameraIntents(
-        context: Context, packageManager: PackageManager
+        context: Context, packageManager: PackageManager,
     ): List<Intent> {
         val allIntents: MutableList<Intent> = ArrayList()
 
@@ -255,7 +255,7 @@ object CropImage {
      * images.
      */
     fun getGalleryIntents(
-        packageManager: PackageManager, action: String, includeDocuments: Boolean
+        packageManager: PackageManager, action: String, includeDocuments: Boolean,
     ): List<Intent> {
         val intents: MutableList<Intent> = ArrayList()
         val galleryIntent = if (action === Intent.ACTION_GET_CONTENT) Intent(action) else Intent(
@@ -310,7 +310,7 @@ object CropImage {
      * @return true - the permission in requested in manifest, false - not.
      */
     fun hasPermissionInManifest(
-        context: Context, permissionName: String
+        context: Context, permissionName: String,
     ): Boolean {
         val packageName = context.packageName
         try {
@@ -374,7 +374,7 @@ object CropImage {
      * they are granted
      */
     fun isReadExternalStoragePermissionsRequired(
-        context: Context, uri: Uri
+        context: Context, uri: Uri,
     ): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (context.checkSelfPermission(
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -442,7 +442,7 @@ object CropImage {
         /**
          * The image to crop source Android uri.
          */
-        private val mSource: Uri?
+        private val mSource: Uri?,
     ) {
         /**
          * Options for image crop UX
@@ -518,7 +518,7 @@ object CropImage {
          * @param fragment fragment to receive result
          */
         fun start(
-            context: Context, fragment: Fragment, cls: Class<*>?
+            context: Context, fragment: Fragment, cls: Class<*>?,
         ) {
             fragment.startActivityForResult(
                 getIntent(context, cls),
@@ -533,7 +533,7 @@ object CropImage {
          */
         @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
         fun start(
-            context: Context, fragment: android.app.Fragment, cls: Class<*>?
+            context: Context, fragment: android.app.Fragment, cls: Class<*>?,
         ) {
             fragment.startActivityForResult(
                 getIntent(context, cls),
@@ -750,7 +750,7 @@ object CropImage {
          */
         fun setMinCropWindowSize(
             minCropWindowWidth: Int,
-            minCropWindowHeight: Int
+            minCropWindowHeight: Int,
         ): ActivityBuilder {
             mOptions.minCropWindowWidth = minCropWindowWidth
             mOptions.minCropWindowHeight = minCropWindowHeight
@@ -764,7 +764,7 @@ object CropImage {
          */
         fun setMinCropResultSize(
             minCropResultWidth: Int,
-            minCropResultHeight: Int
+            minCropResultHeight: Int,
         ): ActivityBuilder {
             mOptions.minCropResultWidth = minCropResultWidth
             mOptions.minCropResultHeight = minCropResultHeight
@@ -778,7 +778,7 @@ object CropImage {
          */
         fun setMaxCropResultSize(
             maxCropResultWidth: Int,
-            maxCropResultHeight: Int
+            maxCropResultHeight: Int,
         ): ActivityBuilder {
             mOptions.maxCropResultWidth = maxCropResultWidth
             mOptions.maxCropResultHeight = maxCropResultHeight
@@ -844,7 +844,7 @@ object CropImage {
          * *Default: 0, 0 - not set, will not resize*
          */
         fun setRequestedSize(
-            reqWidth: Int, reqHeight: Int, options: RequestSizeOptions?
+            reqWidth: Int, reqHeight: Int, options: RequestSizeOptions?,
         ): ActivityBuilder {
             mOptions.outputRequestWidth = reqWidth
             mOptions.outputRequestHeight = reqHeight
@@ -973,7 +973,7 @@ object CropImage {
             cropRect: Rect?,
             rotation: Int,
             wholeImageRect: Rect?,
-            sampleSize: Int
+            sampleSize: Int,
         ) : super(
             null,
             originalUri,
@@ -985,8 +985,7 @@ object CropImage {
             wholeImageRect,
             rotation,
             sampleSize
-        ) {
-        }
+        )
 
         protected constructor(`in`: Parcel) : super(
             null,
@@ -999,8 +998,7 @@ object CropImage {
             `in`.readParcelable<Parcelable>(Rect::class.java.classLoader) as Rect,
             `in`.readInt(),
             `in`.readInt()
-        ) {
-        }
+        )
 
         override fun writeToParcel(dest: Parcel, flags: Int) {
             dest.writeParcelable(originalUri, flags)

@@ -56,5 +56,6 @@
     <string-array name="dot_walls">
         <item>dot_wall_0</item>
         <item>dot_wall_1</item>
+        <item>dot_wall_2</item>
     </string-array>
 </resources>

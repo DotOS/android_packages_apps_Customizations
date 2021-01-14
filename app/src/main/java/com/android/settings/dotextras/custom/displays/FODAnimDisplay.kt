@@ -27,7 +27,7 @@ class FODAnimDisplay : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.display_fod_anim, container, false)
     }

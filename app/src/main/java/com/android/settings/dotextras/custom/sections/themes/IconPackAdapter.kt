@@ -29,7 +29,7 @@ import com.android.settings.dotextras.system.OverlayController
 
 class IconPackAdapter(
     private val overlayController: OverlayController,
-    private val items: ArrayList<IconPack>
+    private val items: ArrayList<IconPack>,
 ) :
     RecyclerView.Adapter<IconPackAdapter.ViewHolder>() {
 
@@ -86,7 +86,7 @@ class IconPackAdapter(
     private fun select(pos: Int) {
         for (i in items.indices) {
             items[i].selected = pos == i
-            notifyItemChanged(i);
+            notifyItemChanged(i)
         }
     }
 

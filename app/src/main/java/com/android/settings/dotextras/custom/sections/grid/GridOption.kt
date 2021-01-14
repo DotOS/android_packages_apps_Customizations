@@ -43,7 +43,7 @@ open class GridOption : Parcelable {
 
     constructor(
         title: String, name: String, isCurrent: Boolean, rows: Int, cols: Int,
-        previewImageUri: Uri, previewPagesCount: Int, iconShapePath: String
+        previewImageUri: Uri, previewPagesCount: Int, iconShapePath: String,
     ) {
         this.title = title
         mIsCurrent = isCurrent
@@ -70,7 +70,8 @@ open class GridOption : Parcelable {
 
     fun bindThumbnailTile(view: View) {
         val context = view.context
-        mTileDrawable.setColorFilter(context.getNormalizedSecondaryColor(ResourceHelper.getAccent(context)), PorterDuff.Mode.ADD)
+        mTileDrawable.setColorFilter(context.getNormalizedSecondaryColor(ResourceHelper.getAccent(
+            context)), PorterDuff.Mode.ADD)
         (view.findViewById<View>(R.id.gridThumbnail) as ImageView)
             .setImageDrawable(mTileDrawable)
     }

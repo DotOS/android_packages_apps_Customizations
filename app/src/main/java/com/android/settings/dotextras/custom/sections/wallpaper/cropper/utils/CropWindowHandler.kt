@@ -151,7 +151,7 @@ internal class CropWindowHandler {
      * limits appropriately.
      */
     fun setCropWindowLimits(
-        maxWidth: Float, maxHeight: Float, scaleFactorWidth: Float, scaleFactorHeight: Float
+        maxWidth: Float, maxHeight: Float, scaleFactorWidth: Float, scaleFactorHeight: Float,
     ) {
         mMaxCropWindowWidth = maxWidth
         mMaxCropWindowHeight = maxHeight
@@ -191,7 +191,7 @@ internal class CropWindowHandler {
      * @return the Handle that was pressed; null if no Handle was pressed
      */
     fun getMoveHandler(
-        x: Float, y: Float, targetRadius: Float, cropShape: CropShape?
+        x: Float, y: Float, targetRadius: Float, cropShape: CropShape?,
     ): CropWindowMoveHandler? {
         val type = if (cropShape == CropShape.OVAL) getOvalPressedMoveType(
             x,
@@ -210,7 +210,7 @@ internal class CropWindowHandler {
      * @return the Handle that was pressed; null if no Handle was pressed
      */
     private fun getRectanglePressedMoveType(
-        x: Float, y: Float, targetRadius: Float
+        x: Float, y: Float, targetRadius: Float,
     ): CropWindowMoveHandler.Type? {
         var moveType: CropWindowMoveHandler.Type? = null
 
@@ -350,7 +350,7 @@ internal class CropWindowHandler {
          * @return true if the touch point is in the target touch zone; false otherwise
          */
         private fun isInCornerTargetZone(
-            x: Float, y: Float, handleX: Float, handleY: Float, targetRadius: Float
+            x: Float, y: Float, handleX: Float, handleY: Float, targetRadius: Float,
         ): Boolean {
             return Math.abs(x - handleX) <= targetRadius && Math.abs(y - handleY) <= targetRadius
         }
@@ -372,7 +372,7 @@ internal class CropWindowHandler {
             handleXStart: Float,
             handleXEnd: Float,
             handleY: Float,
-            targetRadius: Float
+            targetRadius: Float,
         ): Boolean {
             return x > handleXStart && x < handleXEnd && Math.abs(y - handleY) <= targetRadius
         }
@@ -394,7 +394,7 @@ internal class CropWindowHandler {
             handleX: Float,
             handleYStart: Float,
             handleYEnd: Float,
-            targetRadius: Float
+            targetRadius: Float,
         ): Boolean {
             return Math.abs(x - handleX) <= targetRadius && y > handleYStart && y < handleYEnd
         }
@@ -411,7 +411,7 @@ internal class CropWindowHandler {
          * @return true if the touch point is inside the bounding rectangle; false otherwise
          */
         private fun isInCenterTargetZone(
-            x: Float, y: Float, left: Float, top: Float, right: Float, bottom: Float
+            x: Float, y: Float, left: Float, top: Float, right: Float, bottom: Float,
         ): Boolean {
             return x > left && x < right && y > top && y < bottom
         }

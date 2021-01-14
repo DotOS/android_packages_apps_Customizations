@@ -34,7 +34,6 @@ import androidx.core.widget.NestedScrollView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.WallpaperSection
 import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
-import com.android.settings.dotextras.custom.utils.MaidService
 import com.google.android.material.appbar.AppBarLayout
 import java.io.File
 
@@ -96,7 +95,7 @@ class StandalonePreviewActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE) {
@@ -135,7 +134,7 @@ class StandalonePreviewActivity : AppCompatActivity() {
             }
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, ApplyStandaloneFragment(wallpaperBase))
-                .commit();
+                .commit()
         } else supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, WallpaperSection(standalone))
             .commit()

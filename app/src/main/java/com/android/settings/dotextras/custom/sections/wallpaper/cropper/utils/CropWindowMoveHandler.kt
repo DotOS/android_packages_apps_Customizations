@@ -23,7 +23,8 @@ internal class CropWindowMoveHandler(
     /**
      * The type of crop window move that is handled.
      */
-    private val mType: Type, cropWindowHandler: CropWindowHandler, touchX: Float, touchY: Float
+    private val mType: Type,
+    cropWindowHandler: CropWindowHandler, touchX: Float, touchY: Float,
 ) {
     /**
      * Minimum width in pixels that the crop window can get.
@@ -85,7 +86,7 @@ internal class CropWindowMoveHandler(
         viewHeight: Int,
         snapMargin: Float,
         fixedAspectRatio: Boolean,
-        aspectRatio: Float
+        aspectRatio: Float,
     ) {
 
         // Adjust the coordinates for the finger position's offset (i.e. the
@@ -177,7 +178,7 @@ internal class CropWindowMoveHandler(
         bounds: RectF,
         viewWidth: Int,
         viewHeight: Int,
-        snapRadius: Float
+        snapRadius: Float,
     ) {
         var dx = x - rect!!.centerX()
         var dy = y - rect.centerY()
@@ -205,7 +206,7 @@ internal class CropWindowMoveHandler(
         bounds: RectF,
         viewWidth: Int,
         viewHeight: Int,
-        snapMargin: Float
+        snapMargin: Float,
     ) {
         when (mType) {
             Type.TOP_LEFT -> {
@@ -247,7 +248,7 @@ internal class CropWindowMoveHandler(
         viewWidth: Int,
         viewHeight: Int,
         snapMargin: Float,
-        aspectRatio: Float
+        aspectRatio: Float,
     ) {
         when (mType) {
             Type.TOP_LEFT -> if (calculateAspectRatio(
@@ -350,7 +351,7 @@ internal class CropWindowMoveHandler(
         snapMargin: Float,
         aspectRatio: Float,
         topMoves: Boolean,
-        bottomMoves: Boolean
+        bottomMoves: Boolean,
     ) {
         var newLeft = left
         if (newLeft < 0) {
@@ -436,7 +437,7 @@ internal class CropWindowMoveHandler(
         snapMargin: Float,
         aspectRatio: Float,
         topMoves: Boolean,
-        bottomMoves: Boolean
+        bottomMoves: Boolean,
     ) {
         var newRight = right
         if (newRight > viewWidth) {
@@ -524,7 +525,7 @@ internal class CropWindowMoveHandler(
         snapMargin: Float,
         aspectRatio: Float,
         leftMoves: Boolean,
-        rightMoves: Boolean
+        rightMoves: Boolean,
     ) {
         var newTop = top
         if (newTop < 0) {
@@ -610,7 +611,7 @@ internal class CropWindowMoveHandler(
         snapMargin: Float,
         aspectRatio: Float,
         leftMoves: Boolean,
-        rightMoves: Boolean
+        rightMoves: Boolean,
     ) {
         var newBottom = bottom
         if (newBottom > viewHeight) {
@@ -761,7 +762,7 @@ internal class CropWindowMoveHandler(
             left: Float,
             top: Float,
             right: Float,
-            bottom: Float
+            bottom: Float,
         ): Float {
             return (right - left) / (bottom - top)
         }

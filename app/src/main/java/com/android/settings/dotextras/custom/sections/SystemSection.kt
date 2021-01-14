@@ -127,13 +127,13 @@ open class SystemSection : GenericSection() {
                             )
                             overlayManager.setEnabled(OverlayController.Packages.HIDDEN_OVERLAY_PKG,
                                 false,
-                                UserHandle.USER_SYSTEM);
+                                UserHandle.USER_SYSTEM)
                             overlayManager.setEnabled(OverlayController.Packages.NAVBAR_LONG_OVERLAY_PKG,
                                 false,
-                                UserHandle.USER_SYSTEM);
+                                UserHandle.USER_SYSTEM)
                             overlayManager.setEnabled(OverlayController.Packages.NAVBAR_MEDIUM_OVERLAY_PKG,
                                 false,
-                                UserHandle.USER_SYSTEM);
+                                UserHandle.USER_SYSTEM)
                         }
                         2 -> overlayManager.setEnabledExclusiveInCategory(
                             OverlayController.Packages.NAVBAR_MEDIUM_OVERLAY_PKG,

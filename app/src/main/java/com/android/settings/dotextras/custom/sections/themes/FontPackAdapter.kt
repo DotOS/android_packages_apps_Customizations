@@ -30,7 +30,7 @@ import com.android.settings.dotextras.system.OverlayController
 
 class FontPackAdapter(
     private val overlayController: OverlayController,
-    private val items: ArrayList<FontPack>
+    private val items: ArrayList<FontPack>,
 ) :
     RecyclerView.Adapter<FontPackAdapter.ViewHolder>() {
 
@@ -88,7 +88,7 @@ class FontPackAdapter(
     private fun select(pos: Int) {
         for (i in items.indices) {
             items[i].selected = pos == i
-            notifyItemChanged(i);
+            notifyItemChanged(i)
         }
     }
 

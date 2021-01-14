@@ -29,7 +29,7 @@ import com.android.settings.dotextras.system.OverlayController
 
 class ShapeAdapter(
     private val overlayController: OverlayController,
-    private val items: ArrayList<Shape>
+    private val items: ArrayList<Shape>,
 ) :
     RecyclerView.Adapter<ShapeAdapter.ViewHolder>() {
 
@@ -79,7 +79,7 @@ class ShapeAdapter(
     private fun select(pos: Int) {
         for (i in items.indices) {
             items[i].selected = pos == i
-            notifyItemChanged(i);
+            notifyItemChanged(i)
         }
     }
 

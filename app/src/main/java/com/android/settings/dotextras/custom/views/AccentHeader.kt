@@ -18,19 +18,12 @@ package com.android.settings.dotextras.custom.views
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Configuration
-import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.checkbox.MaterialCheckBox
-import com.google.android.material.chip.Chip
-import com.google.android.material.radiobutton.MaterialRadioButton
-import com.google.android.material.switchmaterial.SwitchMaterial
 
 class AccentHeader(context: Context?, attributesSet: AttributeSet) : LinearLayout(
     context,

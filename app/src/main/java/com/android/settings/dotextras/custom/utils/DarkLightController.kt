@@ -109,7 +109,7 @@ internal fun resolveColor(context: Context, @ColorRes colorRes: Int): Int {
 @ColorInt
 internal fun resolveColorAttr(
     context: Context,
-    @AttrRes attrRes: Int
+    @AttrRes attrRes: Int,
 ): Int {
     val a = context.theme.obtainStyledAttributes(intArrayOf(attrRes))
     return a.getColor(0, 0)

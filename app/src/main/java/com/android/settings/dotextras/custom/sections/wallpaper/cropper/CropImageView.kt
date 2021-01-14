@@ -27,7 +27,6 @@ import android.widget.ProgressBar
 import androidx.exifinterface.media.ExifInterface
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.*
-import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImageAnimation
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropOverlayView.CropWindowChangeListener
 import java.lang.ref.WeakReference
 import java.util.*
@@ -397,7 +396,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
      * both the X and Y values of the aspectRatio.
      */
     val aspectRatio: Pair<Int, Int>
-        get() = Pair(mCropOverlayView!!.aspectRatioX, mCropOverlayView!!.aspectRatioY)
+        get() = Pair(mCropOverlayView!!.aspectRatioX, mCropOverlayView.aspectRatioY)
 
     /**
      * Sets the both the X and Y values of the aspectRatio.<br></br>
@@ -712,7 +711,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
         saveCompressFormat: Bitmap.CompressFormat?,
         saveCompressQuality: Int,
         reqWidth: Int,
-        reqHeight: Int
+        reqHeight: Int,
     ) {
         saveCroppedImageAsync(
             saveUri,
@@ -756,7 +755,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
         saveCompressQuality: Int = 90,
         reqWidth: Int = 0,
         reqHeight: Int = 0,
-        options: RequestSizeOptions? = RequestSizeOptions.NONE
+        options: RequestSizeOptions? = RequestSizeOptions.NONE,
     ) {
         requireNotNull(mOnCropImageCompleteListener) { "mOnCropImageCompleteListener is not set" }
         startCropWorkerTask(
@@ -1010,7 +1009,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
         imageResource: Int,
         imageUri: Uri?,
         loadSampleSize: Int,
-        degreesRotated: Int
+        degreesRotated: Int,
     ) {
         if (mBitmap == null || mBitmap != bitmap) {
             mImageView.clearAnimation()
@@ -1078,7 +1077,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
         options: RequestSizeOptions?,
         saveUri: Uri?,
         saveCompressFormat: Bitmap.CompressFormat?,
-        saveCompressQuality: Int
+        saveCompressQuality: Int,
     ) {
         var reqWidth = reqWidth
         var reqHeight = reqHeight
@@ -1475,12 +1474,12 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
                 // was moved outside
                 mZoomOffsetX = (Math.min(
                     Math.max(mZoomOffsetX * scaleX, -cropRect!!.left),
-                    -cropRect!!.right + width
+                    -cropRect.right + width
                 )
                         / scaleX)
                 mZoomOffsetY = (Math.min(
-                    Math.max(mZoomOffsetY * scaleY, -cropRect!!.top),
-                    -cropRect!!.bottom + height
+                    Math.max(mZoomOffsetY * scaleY, -cropRect.top),
+                    -cropRect.bottom + height
                 )
                         / scaleY)
             }
@@ -1490,7 +1489,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
             cropRect!!.offset(mZoomOffsetX * scaleX, mZoomOffsetY * scaleY)
             mCropOverlayView.cropWindowRect = cropRect
             mapImagePointsByImageMatrix()
-            mCropOverlayView!!.invalidate()
+            mCropOverlayView.invalidate()
 
             // set matrix to apply
             if (animate) {
@@ -1800,7 +1799,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
         /**
          * sample size used creating the crop bitmap to lower its size
          */
-        val sampleSize: Int
+        val sampleSize: Int,
     ) {
         /**
          * The image bitmap of the original image loaded for cropping.<br></br>
@@ -1857,7 +1856,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
         private fun getOnMeasureSpec(
             measureSpecMode: Int,
             measureSpecSize: Int,
-            desiredSize: Int
+            desiredSize: Int,
         ): Int {
 
             // Measure Width

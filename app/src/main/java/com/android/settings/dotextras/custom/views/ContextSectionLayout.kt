@@ -25,7 +25,7 @@ import com.android.settings.dotextras.R
 
 class ContextSectionLayout(
     context: Context?,
-    attrs: AttributeSet?
+    attrs: AttributeSet?,
 ) : LinearLayout(context, attrs) {
 
     private var title: TextView

@@ -39,10 +39,10 @@ class ContentProviderClockProvider(private val mContext: Context) : ClockProvide
         try {
             ClocksFetchTask(mContext, mProviderInfo) { options ->
                 run {
-                    mClocks = options;
+                    mClocks = options
                     if (callback != null) {
                         if (mClocks?.isNotEmpty()!!) {
-                            callback.invoke(mClocks);
+                            callback.invoke(mClocks)
                         } else {
                             callback.invoke(null)
                         }

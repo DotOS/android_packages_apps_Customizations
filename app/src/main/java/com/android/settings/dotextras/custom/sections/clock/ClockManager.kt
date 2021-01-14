@@ -16,14 +16,13 @@
 package com.android.settings.dotextras.custom.sections.clock
 
 import android.content.ContentResolver
-import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import com.android.settings.dotextras.system.FeatureManager
 import org.json.JSONException
 import org.json.JSONObject
 
-typealias onHandleCallback = ( (success: Boolean) -> Unit)?
+typealias onHandleCallback = ((success: Boolean) -> Unit)?
 
 class ClockManager(mContentResolver: ContentResolver, provider: ClockProvider?) :
     BaseClockManager(provider) {
@@ -38,7 +37,8 @@ class ClockManager(mContentResolver: ContentResolver, provider: ClockProvider?) 
             json.put(CLOCK_FIELD, option!!.id)
             json.put(TIMESTAMP_FIELD, System.currentTimeMillis())
             Log.e("ClockManager", json.toString())
-            featureManager.Secure().setStringBool(featureManager.Secure().CLOCK_FACE_SETTING, json.toString())
+            featureManager.Secure()
+                .setStringBool(featureManager.Secure().CLOCK_FACE_SETTING, json.toString())
         } catch (ex: JSONException) {
             false
         }

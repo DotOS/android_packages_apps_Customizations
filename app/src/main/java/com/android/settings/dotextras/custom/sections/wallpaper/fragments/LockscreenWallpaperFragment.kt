@@ -42,7 +42,7 @@ class LockscreenWallpaperFragment() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val normal = inflater.inflate(R.layout.item_wallpaper_preview_card, container, false)
         val big = inflater.inflate(R.layout.item_wallpaper_preview_card_big, container, false)

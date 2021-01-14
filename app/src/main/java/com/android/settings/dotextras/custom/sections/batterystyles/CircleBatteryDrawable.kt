@@ -124,13 +124,13 @@ open class CircleBatteryDrawable(private val context: Context, frameColor: Int) 
     /**
      * Set the fill level
      */
-    public open fun setBatteryLevel(l: Int) {
+    open fun setBatteryLevel(l: Int) {
         batteryLevel = l
         chargeColor = batteryColorForLevel(batteryLevel)
         invalidateSelf()
     }
 
-    public fun getBatteryLevel(): Int {
+    fun getBatteryLevel(): Int {
         return batteryLevel
     }
 
@@ -267,7 +267,7 @@ open class CircleBatteryDrawable(private val context: Context, frameColor: Int) 
     companion object {
         private fun loadPoints(
             res: Resources,
-            pointArrayRes: Int
+            pointArrayRes: Int,
         ): FloatArray {
             val pts = res.getIntArray(pointArrayRes)
             var maxX = 0

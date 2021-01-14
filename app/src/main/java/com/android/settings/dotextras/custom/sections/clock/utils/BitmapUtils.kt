@@ -38,7 +38,7 @@ class BitmapUtils private constructor() {
          * @return Highest subsampling factor as a power of 2.
          */
         fun calculateInSampleSize(
-            srcWidth: Int, srcHeight: Int, targetWidth: Int, targetHeight: Int
+            srcWidth: Int, srcHeight: Int, targetWidth: Int, targetHeight: Int,
         ): Int {
             var shift = 0
             val halfHeight = srcHeight / 2

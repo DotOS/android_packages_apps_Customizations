@@ -38,7 +38,7 @@ internal class ColorAdapter(
     private var colors: IntArray,
     private val selectedColor: Int?,
     private val noColorOption: Boolean,
-    private val listener: ColorPickerListener
+    private val listener: ColorPickerListener,
 ) : RecyclerView.Adapter<ColorAdapter.ColorItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorItemViewHolder {

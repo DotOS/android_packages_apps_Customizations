@@ -16,17 +16,14 @@
 package com.android.settings.dotextras.custom.sections.wallpaper
 
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.app.WallpaperManager
 import android.content.ContentResolver
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.LayoutInflater
@@ -36,7 +33,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -56,7 +52,7 @@ class WallpaperPreviewAdapter(
     private val wallpaperManager: WallpaperManager,
     private val fragment: Fragment,
     private val pager: ViewPager2,
-    private val dismissListener: onDismiss
+    private val dismissListener: onDismiss,
 ) : RecyclerView.Adapter<WallpaperPreviewAdapter.ViewHolder>() {
 
     private val SELECT_PICTURE = 1
@@ -72,31 +68,35 @@ class WallpaperPreviewAdapter(
     private var listener: onWallpaperChanged = null
 
     fun updateList(list: ArrayList<WallpaperBase>) {
-        items=list
+        items = list
     }
 
-    private val getContent = fragment.registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        if (uri != null) {
-            val drawable = Drawable.createFromStream(
-                contentResolver.openInputStream(uri),
-                uri.toString()
-            )
-            val display: DisplayMetrics = synteticActivity.resources.displayMetrics
-            val bitmapDrawable = scaleCropToFit(drawableToBitmap(drawable)!!, display.widthPixels, display.heightPixels)
-            val wallpaperGallery = WallpaperBase(bitmapDrawable!!.toDrawable(synteticActivity.resources))
-            wallpaperGallery.type = wallpaperGallery.GALLERY
-            wallpaperGallery.listener = listener
-            wallpaperGallery.onPressed = wallpaperBase.onPressed
-            wallpaperGallery.uri = uri
-            val dialog = ApplyDialogFragment(wallpaperGallery, pager.currentItem)
-            dialog.dismissListener = dismissListener
-            dialog.show(
-                fragment.parentFragmentManager,
-                "${wallpaperGallery.type}"
-            )
-            wallpaperGallery.onPressed?.invoke()
+    private val getContent =
+        fragment.registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            if (uri != null) {
+                val drawable = Drawable.createFromStream(
+                    contentResolver.openInputStream(uri),
+                    uri.toString()
+                )
+                val display: DisplayMetrics = synteticActivity.resources.displayMetrics
+                val bitmapDrawable = scaleCropToFit(drawableToBitmap(drawable)!!,
+                    display.widthPixels,
+                    display.heightPixels)
+                val wallpaperGallery =
+                    WallpaperBase(bitmapDrawable!!.toDrawable(synteticActivity.resources))
+                wallpaperGallery.type = wallpaperGallery.GALLERY
+                wallpaperGallery.listener = listener
+                wallpaperGallery.onPressed = wallpaperBase.onPressed
+                wallpaperGallery.uri = uri
+                val dialog = ApplyDialogFragment(wallpaperGallery, pager.currentItem)
+                dialog.dismissListener = dismissListener
+                dialog.show(
+                    fragment.parentFragmentManager,
+                    "${wallpaperGallery.type}"
+                )
+                wallpaperGallery.onPressed?.invoke()
+            }
         }
-    }
 
     private fun scaleCropToFit(original: Bitmap, targetWidth: Int, targetHeight: Int): Bitmap? {
         val width = original.width
@@ -149,7 +149,8 @@ class WallpaperPreviewAdapter(
             wallpaper.GALLERY -> {
                 holder.wallpaperPreview.setImageDrawable(wallpaper.drawable)
                 holder.wallpaperPreview.scaleType = ImageView.ScaleType.CENTER_INSIDE
-                holder.wallpaperPreview.imageTintList = ColorStateList.valueOf(ResourceHelper.getSecondaryTextColor(synteticActivity))
+                holder.wallpaperPreview.imageTintList =
+                    ColorStateList.valueOf(ResourceHelper.getSecondaryTextColor(synteticActivity))
                 holder.wallpaperPreview.setOnClickListener {
                     getContent.launch("image/*")
                 }

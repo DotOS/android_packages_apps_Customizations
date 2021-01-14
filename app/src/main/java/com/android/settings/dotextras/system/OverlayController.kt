@@ -93,7 +93,7 @@ class OverlayController(
         fun setOverlay(
             packageName: String,
             accent: Accent,
-            holder: AccentAdapter.ViewHolder
+            holder: AccentAdapter.ViewHolder,
         ): Boolean {
             val currentPackageName = getOverlayInfos().stream()
                 .filter { info: OverlayInfo -> info.isEnabled }
@@ -223,7 +223,7 @@ class OverlayController(
         fun setOverlay(
             packageName: String,
             shape: Shape,
-            holder: ShapeAdapter.ViewHolder
+            holder: ShapeAdapter.ViewHolder,
         ): Boolean {
             val currentPackageName = getOverlayInfos().stream()
                 .filter { info: OverlayInfo -> info.isEnabled }
@@ -376,7 +376,7 @@ class OverlayController(
         fun setOverlay(
             packageName: String,
             fontPack: FontPack,
-            holder: FontPackAdapter.ViewHolder
+            holder: FontPackAdapter.ViewHolder,
         ): Boolean {
             val currentPackageName = getOverlayInfos().stream()
                 .filter { info: OverlayInfo -> info.isEnabled }
@@ -501,7 +501,7 @@ class OverlayController(
 
         private fun getFontFamily(
             overlayPackage: String,
-            configName: String
+            configName: String,
         ): String? {
             val resources: Resources =
                 if (OVERLAY_TARGET_PACKAGE == overlayPackage) Resources.getSystem() else packageManager
@@ -546,7 +546,7 @@ class OverlayController(
         fun setOverlay(
             packageName: String,
             iconPack: IconPack,
-            holder: IconPackAdapter.ViewHolder
+            holder: IconPackAdapter.ViewHolder,
         ): Boolean {
             val currentPackageName = getOverlayInfos().stream()
                 .filter { info: OverlayInfo -> info.isEnabled }
@@ -653,7 +653,7 @@ class OverlayController(
         @SuppressLint("UseCompatLoadingForDrawables")
         fun loadIconPreviewDrawable(
             drawableName: String,
-            packageName: String
+            packageName: String,
         ): Drawable {
             val resources: Resources =
                 if (OVERLAY_TARGET_PACKAGE == packageName) Resources.getSystem() else packageManager
@@ -755,7 +755,7 @@ class OverlayController(
                 ) as ArrayList<OverlayInfo>
             for (overlayInfo in overlayInfos) {
                 //Log.d(TAG, "Overlay Categories : ${overlayInfo.category}")
-                if (mCategory!! == overlayInfo.category) {
+                if (mCategory == overlayInfo.category) {
                     filteredInfos.add(overlayInfo)
                 }
             }

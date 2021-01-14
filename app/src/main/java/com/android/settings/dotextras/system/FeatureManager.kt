@@ -27,7 +27,7 @@ class FeatureManager(private val contentResolver: ContentResolver) {
     /**
      * Accent Manager
      */
-    inner class AccentManager() {
+    inner class AccentManager {
 
         private val RESET = "-1"
 
@@ -65,7 +65,7 @@ class FeatureManager(private val contentResolver: ContentResolver) {
             applyDark(RESET)
         }
 
-        fun isUsingRGBAccent(configuration: Int): Boolean = when(configuration) {
+        fun isUsingRGBAccent(configuration: Int): Boolean = when (configuration) {
             Configuration.UI_MODE_NIGHT_NO -> getLight() != "-1"
             Configuration.UI_MODE_NIGHT_YES -> getDark() != "-1"
             else -> false
@@ -177,7 +177,7 @@ class FeatureManager(private val contentResolver: ContentResolver) {
             Settings.Secure.putFloat(contentResolver, feature, value)
         }
 
-        fun setStringBool(feature: String, value: String) : Boolean {
+        fun setStringBool(feature: String, value: String): Boolean {
             return Settings.Secure.putString(contentResolver, feature, value)
         }
 
