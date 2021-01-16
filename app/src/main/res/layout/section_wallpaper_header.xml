@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_centerVertical="false"
+                android:fontFamily="google-sans"
                 android:text="@string/current_wallpaper"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp" />
@@ -76,6 +76,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="google-sans-medium"
         android:paddingStart="18dp"
         android:paddingTop="14dp"
         android:paddingEnd="18dp"
@@ -98,6 +100,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="google-sans-medium"
             android:paddingStart="18dp"
             android:paddingTop="14dp"
             android:paddingEnd="18dp"

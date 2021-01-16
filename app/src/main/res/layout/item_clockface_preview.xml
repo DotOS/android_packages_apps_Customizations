@@ -71,6 +71,7 @@
             android:layout_marginBottom="4dp"
             android:checkable="true"
             android:clickable="false"
+            android:fontFamily="google-sans"
             app:chipBackgroundColor="@color/chip_state"
             tools:text="Analog" />
 

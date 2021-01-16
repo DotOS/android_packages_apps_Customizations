@@ -45,6 +45,7 @@
         android:layout_below="@id/gridCard"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="google-sans-medium"
         android:padding="10dp"
         android:textAlignment="center"
         android:textSize="14sp" />

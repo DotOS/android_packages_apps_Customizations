@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
+        android:fontFamily="google-sans-medium"
         android:text="@string/icon_pack"
         android:textSize="20sp"
         android:textStyle="bold" />

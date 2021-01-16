@@ -46,6 +46,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="google-sans-medium"
                         android:text="@string/picker_title"
                         android:textColor="?attr/colorOnSurface"
                         android:textSize="20sp" />
@@ -54,6 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.7"
+                        android:fontFamily="google-sans"
                         android:text="@string/picker_summary"
                         android:textColor="?attr/colorOnSurface"
                         android:textSize="14sp" />
@@ -65,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:fontFamily="google-sans"
                     android:text="@string/reset"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textColor="?android:textColorPrimary"

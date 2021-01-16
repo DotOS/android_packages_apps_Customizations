@@ -52,6 +52,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="google-sans-medium"
                             android:text="Home Screen"
                             android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp" />
@@ -91,6 +92,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="google-sans-medium"
                             android:text="Lock Screen"
                             android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp" />
@@ -130,6 +132,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="google-sans-medium"
                             android:text="@string/apply_both"
                             android:textColor="?android:attr/textColorPrimary"
                             android:textSize="16sp" />

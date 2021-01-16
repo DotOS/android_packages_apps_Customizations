@@ -55,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="google-sans"
             android:text="Crop &amp; Rotate"
             app:chipMinTouchTargetSize="32dp" />
 
@@ -101,6 +102,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="google-sans"
                                 android:text="@string/apply_wallpaper"
                                 android:textColor="?attr/colorOnSurface"
                                 android:textSize="20sp" />
@@ -109,6 +111,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:alpha="0.7"
+                                android:fontFamily="google-sans"
                                 android:text="@string/apply_wallpaper_summary"
                                 android:textColor="?attr/colorOnSurface"
                                 android:textSize="14sp" />
@@ -120,6 +123,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:fontFamily="google-sans"
                             android:text="@string/apply_for"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textColor="?android:textColorPrimary"
@@ -184,6 +188,7 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:fontFamily="google-sans"
                                             android:text="Home Screen"
                                             android:textColor="?android:attr/textColorPrimary"
                                             android:textSize="16sp" />
@@ -223,6 +228,7 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:fontFamily="google-sans"
                                             android:text="Lock Screen"
                                             android:textColor="?android:attr/textColorPrimary"
                                             android:textSize="16sp" />
@@ -262,6 +268,7 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:fontFamily="google-sans"
                                             android:text="Both"
                                             android:textColor="?android:attr/textColorPrimary"
                                             android:textSize="16sp" />

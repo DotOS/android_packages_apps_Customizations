@@ -94,7 +94,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:alpha="0.9"
-                            android:fontFamily="sans-serif-medium"
+                            android:fontFamily="google-sans-medium"
                             android:textSize="16sp"
                             tools:text="Card title" />
                     </LinearLayout>
@@ -135,6 +135,7 @@
                     android:id="@+id/cardApply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="google-sans"
                     android:text="@string/apply"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textColor="?android:textColorPrimary"

@@ -10,11 +10,11 @@
         android:id="@+id/contextTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:fontFamily="google-sans-medium"
         android:paddingStart="28dp"
         android:paddingEnd="28dp"
-        android:background="?attr/selectableItemBackground"
         android:textSize="20sp"
-        android:textStyle="bold"
         tools:text="Title" />
 
     <com.android.settings.dotextras.custom.views.ExpandableLayout

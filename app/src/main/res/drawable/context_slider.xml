@@ -13,7 +13,6 @@
             <shape android:tint="?android:attr/colorAccent" >
                 <solid android:color="#66FFFFFF"/>
                 <size android:height="132dp"/>
-                <corners android:radius="@dimen/default_dialog_radius" />
             </shape>
         </scale>
     </item>

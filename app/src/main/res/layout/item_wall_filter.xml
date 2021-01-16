@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checkable="true"
+        android:fontFamily="google-sans-medium"
         app:checkedIconEnabled="false"
         app:chipBackgroundColor="@color/chip_state"
         tools:text="DotOS walls" />
