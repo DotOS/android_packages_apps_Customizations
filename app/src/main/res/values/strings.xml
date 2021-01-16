@@ -134,4 +134,18 @@
     <string name="qs_tiles_accent_v2_summary">Better use of accent color in tiles</string>
     <string name="dot_wallpapers_packagename">com.dot.extra.wallpapers</string>
 
+    <string name="traffic_indicator">Traffic Indicator</string>
+    <string name="network_traffic_title">Network traffic</string>
+    <string name="network_traffic_type">Select net activity type</string>
+    <string name="show_network_traffic_up">Uplink</string>
+    <string name="show_network_traffic_down">Downlink</string>
+    <string name="show_network_traffic_all">Uplink and Downlink</string>
+    <string name="network_traffic_state_title">Show net activity in statusbar</string>
+    <string name="network_traffic_autohide_threshold_title">Net activity autohide threshold (KB/s)</string>
+    <string name="traffic_meter_title">Show Traffic Meter</string>
+    <string name="traffic_meter_summary">Keep track of your internet traffic</string>
+    <string name="traffic_meter_treshold_subtitle">Activity threshold</string>
+    <string name="traffic_meter_treshold_summary">Auto-hide traffic meter</string>
+    <string name="traffic_meter_treshold_extra">KB/s</string>
+
 </resources>

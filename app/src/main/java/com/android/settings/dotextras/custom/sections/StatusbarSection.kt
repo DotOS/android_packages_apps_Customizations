@@ -39,6 +39,7 @@ class StatusbarSection : GenericSection() {
         val list = ArrayList<ContextCards>()
         val perclist = ArrayList<ContextCards>()
         val batteryLightList = ArrayList<ContextCards>()
+        val trafficList = ArrayList<ContextCards>()
         buildPager(list,
             iconID = R.drawable.round_battery_full_white_36dp,
             title = getString(R.string.battery_styles),
@@ -93,6 +94,27 @@ class StatusbarSection : GenericSection() {
             }
         }
         setupLayout(perclist, R.id.sectionPercentage)
+        buildSwitch(trafficList,
+            iconID = R.drawable.ic_traffic,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.traffic_meter_title),
+            accentColor = R.color.cyan_700,
+            feature = featureManager.System().NETWORK_TRAFFIC_STATE,
+            featureType = SYSTEM,
+            summary = getString(R.string.traffic_meter_summary))
+        buildSwipeable(trafficList,
+            iconID = R.drawable.ic_traffic,
+            subtitle = getString(R.string.traffic_meter_treshold_subtitle),
+            accentColor = R.color.blue_800,
+            feature = featureManager.System().NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD,
+            featureType = SYSTEM,
+            min = 0,
+            max = 10,
+            default = 0,
+            summary = getString(R.string.traffic_meter_treshold_summary),
+            extraTitle = getString(R.string.traffic_meter_treshold_extra)
+        )
+        setupLayout(trafficList, R.id.sectionTraffic)
         buildSwitch(batteryLightList,
             iconID = R.drawable.round_battery_full_white_36dp,
             title = getString(R.string.disabled),

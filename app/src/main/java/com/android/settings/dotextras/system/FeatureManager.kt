@@ -381,6 +381,16 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          */
         val QS_PANEL_BG_USE_NEW_TINT = "qs_panel_bg_use_new_tint"
 
+        /**
+         * Wheter to show network traffic indicator in statusbar
+         */
+        val NETWORK_TRAFFIC_STATE = "network_traffic_state"
+
+        /**
+         * Network traffic inactivity threshold (default is 1 kBs)
+         */
+        val NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold"
+
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)
         }
