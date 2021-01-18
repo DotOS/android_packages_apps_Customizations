@@ -12,41 +12,40 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
+class StatsBuilder(private val pref: SharedPreferences) {
 
-class StatsBuilder(
-    private val pref: SharedPreferences,
-    private val mCompositeDisposable: CompositeDisposable,
-) {
+    private val mCompositeDisposable = CompositeDisposable()
 
-    //Anonymous Stats
     fun push(activity: Activity) {
-        if (!TextUtils.isEmpty(SystemProperties.get(Constants.KEY_DEVICE))) {
-            val requestInterface = Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build().create(RequestInterface::class.java)
-            val stats = StatsData()
-            stats.device = stats.device
-            stats.model = stats.model
-            stats.setVersion(stats.getVersion())
-            stats.buildType = stats.buildType
-            stats.setCountryCode(stats.getCountryCode(activity))
-            stats.buildDate = stats.buildDate
-            val request = ServerRequest()
-            request.setOperation(Constants.PUSH_OPERATION)
-            request.setStats(stats)
-            mCompositeDisposable.add(requestInterface.operation(request)
-            !!.observeOn(AndroidSchedulers.mainThread(), false, 100)
-                .subscribeOn(Schedulers.io())
-                .subscribe({ resp: ServerResponse? ->
-                    handleResponse(resp!!)
-                },
-                    { error: Throwable ->
-                        handleError(error)
-                    }))
-        } else {
-            Log.d(Constants.TAG, "Unsupported ROM")
+        if (pref.getBoolean(Constants.ALLOW_STATS, false) && pref.getBoolean(Constants.IS_FIRST_LAUNCH, true)) {
+            if (!TextUtils.isEmpty(SystemProperties.get(Constants.KEY_DEVICE))) {
+                val requestInterface = Retrofit.Builder()
+                    .baseUrl(Constants.BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build().create(RequestInterface::class.java)
+                val stats = StatsData()
+                stats.device = stats.device
+                stats.model = stats.model
+                stats.setVersion(stats.getVersion())
+                stats.buildType = stats.buildType
+                stats.setCountryCode(stats.getCountryCode(activity))
+                stats.buildDate = stats.buildDate
+                val request = ServerRequest()
+                request.setOperation(Constants.PUSH_OPERATION)
+                request.setStats(stats)
+                mCompositeDisposable.add(requestInterface.operation(request)
+                !!.observeOn(AndroidSchedulers.mainThread(), false, 100)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({ resp: ServerResponse? ->
+                        handleResponse(resp!!)
+                    },
+                        { error: Throwable ->
+                            handleError(error)
+                        }))
+            } else {
+                Log.d(Constants.TAG, "Unsupported ROM")
+            }
         }
     }
 
@@ -57,7 +56,7 @@ class StatsBuilder(
             editor.putString(Constants.LAST_BUILD_DATE,
                 SystemProperties.get(Constants.KEY_BUILD_DATE))
             editor.apply()
-            Log.d(Constants.TAG, "Anonymous Stats pushed")
+            Log.d(Constants.TAG, "Stats pushed")
         } else {
             Log.d(Constants.TAG, resp.message)
         }
@@ -65,5 +64,9 @@ class StatsBuilder(
 
     private fun handleError(error: Throwable) {
         Log.d(Constants.TAG, error.toString())
+    }
+
+    fun clearComposite() {
+        mCompositeDisposable.clear()
     }
 }

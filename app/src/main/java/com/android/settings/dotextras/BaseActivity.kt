@@ -16,26 +16,50 @@
 package com.android.settings.dotextras
 
 import android.animation.LayoutTransition
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.android.settings.dotextras.custom.SectionFragment
+import com.android.settings.dotextras.custom.sections.SettingsSection
+import com.android.settings.dotextras.custom.stats.StatsBuilder
 import com.android.settings.dotextras.custom.utils.MaidService
 import com.google.android.material.appbar.AppBarLayout
 
 class BaseActivity : AppCompatActivity() {
+
     private var appTitle: TextView? = null
     private var appBarLayout: LinearLayout? = null
+    private var launchSettings: ImageButton? = null
+
+    private lateinit var statsBuilder: StatsBuilder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dashboard_layout)
+        statsBuilder = StatsBuilder(getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE))
         startService(Intent(this, MaidService::class.java))
         appTitle = findViewById(R.id.appTitle)
         appBarLayout = findViewById(R.id.appblayout)
+        launchSettings = findViewById(R.id.launchSettings)
+        launchSettings!!.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.slide_out
+                )
+                .replace(R.id.frameContent, SettingsSection(), "settings")
+                .addToBackStack("Settings")
+                .commit()
+            setTitle("Settings")
+        }
         appBarLayout!!.layoutTransition
             .enableTransitionType(LayoutTransition.CHANGING)
         if (savedInstanceState == null) {
@@ -43,6 +67,16 @@ class BaseActivity : AppCompatActivity() {
                 .replace(R.id.frameContent, SectionFragment(), "section_fragment")
                 .commit()
         }
+        statsBuilder.push(this)
+    }
+
+    fun enableSettingsLauncher(enable: Boolean) {
+        launchSettings!!.visibility = if (enable) View.VISIBLE else View.GONE
+    }
+
+    override fun onDestroy() {
+        statsBuilder.clearComposite()
+        super.onDestroy()
     }
 
     override fun onBackPressed() {
@@ -60,6 +94,7 @@ class BaseActivity : AppCompatActivity() {
         if (appBarLayout!!.layoutParams.height == 0)
             toggleAppBar(false)
         setTitle(null)
+        enableSettingsLauncher(true)
     }
 
     fun scrollTo(x: Int, y: Int) {

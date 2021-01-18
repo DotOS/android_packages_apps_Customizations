@@ -23,6 +23,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.SectionInterface
 import com.android.settings.dotextras.custom.sections.cards.*
@@ -46,6 +47,7 @@ open class GenericSection : Fragment(), SectionInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as BaseActivity).enableSettingsLauncher(false)
         SPACER = resources.getDimension(R.dimen.recyclerSpacer).toInt()
         featureManager = FeatureManager(requireActivity().contentResolver)
         overlayManager = IOverlayManager.Stub

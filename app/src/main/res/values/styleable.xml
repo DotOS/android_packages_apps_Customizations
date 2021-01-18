@@ -72,4 +72,14 @@
     <declare-styleable name="Themes">
         <attr name="waveViewStyle" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="DotMaterialPreference">
+        <attr name="android:icon" format="reference"/>
+        <attr name="android:title" format="string|reference"/>
+        <attr name="android:summary" format="string|reference"/>
+        <attr name="android:checkable" format="boolean|reference"/>
+        <attr name="android:checked" format="boolean|reference"/>
+        <attr name="cardStyle" format="boolean|reference"/>
+        <attr name="android:tint" format="color|reference"/>
+    </declare-styleable>
 </resources>

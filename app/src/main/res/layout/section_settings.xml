@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.android.settings.dotextras.custom.views.DotMaterialPreference
+        android:id="@+id/pref_stats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:checked="true"
+        android:icon="@drawable/ic_error_round"
+        android:summary="Allow dotOS to collect anonymous data like ROM version, device and country from your phone."
+        android:tint="?android:attr/textColorPrimary"
+        android:title="Enable Dot Stats"
+        app:cardStyle="true" />
+</LinearLayout>
