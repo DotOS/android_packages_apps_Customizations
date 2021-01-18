@@ -15,6 +15,7 @@
  */
 package com.android.settings.dotextras.custom.sections
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.batterystyles.BatteryStylesAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
+import com.android.settings.dotextras.custom.utils.SettingsConstants
 
 class StatusbarSection : GenericSection() {
 
@@ -139,42 +141,45 @@ class StatusbarSection : GenericSection() {
             feature = featureManager.System().BATTERY_LIGHT_LOW_BLINKING,
             featureType = SYSTEM,
             summary = getString(R.string.blinking_on_low))
-        buildRGB(
-            list = batteryLightList,
-            iconID = R.drawable.ic_light,
-            subtitle = getString(R.string.led_color),
-            feature = featureManager.System().BATTERY_LIGHT_REALLYFULL_COLOR,
-            featureType = SYSTEM,
-            summary = getString(R.string.light_charged),
-            defaultColor = resources.getColor(R.color.purple_500, null)
-        ) {}
-        buildRGB(
-            list = batteryLightList,
-            iconID = R.drawable.ic_light,
-            subtitle = getString(R.string.led_color),
-            feature = featureManager.System().BATTERY_LIGHT_FULL_COLOR,
-            featureType = SYSTEM,
-            summary = getString(R.string.light_full),
-            defaultColor = resources.getColor(R.color.green_500, null)
-        ) {}
-        buildRGB(
-            list = batteryLightList,
-            iconID = R.drawable.ic_light,
-            subtitle = getString(R.string.led_color),
-            feature = featureManager.System().BATTERY_LIGHT_LOW_COLOR,
-            featureType = SYSTEM,
-            summary = getString(R.string.light_low),
-            defaultColor = resources.getColor(R.color.orange_500, null)
-        ) {}
-        buildRGB(
-            list = batteryLightList,
-            iconID = R.drawable.ic_light,
-            subtitle = getString(R.string.led_color),
-            feature = featureManager.System().BATTERY_LIGHT_MEDIUM_COLOR,
-            featureType = SYSTEM,
-            summary = getString(R.string.light_medium),
-            defaultColor = resources.getColor(R.color.blue_500, null)
-        ) {}
+        val pref = requireActivity().getSharedPreferences(SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE)
+        if (pref.getBoolean(SettingsConstants.ALLOW_RGB_BLIGHT, false)) {
+            buildRGB(
+                list = batteryLightList,
+                iconID = R.drawable.ic_light,
+                subtitle = getString(R.string.led_color),
+                feature = featureManager.System().BATTERY_LIGHT_REALLYFULL_COLOR,
+                featureType = SYSTEM,
+                summary = getString(R.string.light_charged),
+                defaultColor = resources.getColor(R.color.purple_500, null)
+            ) {}
+            buildRGB(
+                list = batteryLightList,
+                iconID = R.drawable.ic_light,
+                subtitle = getString(R.string.led_color),
+                feature = featureManager.System().BATTERY_LIGHT_FULL_COLOR,
+                featureType = SYSTEM,
+                summary = getString(R.string.light_full),
+                defaultColor = resources.getColor(R.color.green_500, null)
+            ) {}
+            buildRGB(
+                list = batteryLightList,
+                iconID = R.drawable.ic_light,
+                subtitle = getString(R.string.led_color),
+                feature = featureManager.System().BATTERY_LIGHT_LOW_COLOR,
+                featureType = SYSTEM,
+                summary = getString(R.string.light_low),
+                defaultColor = resources.getColor(R.color.orange_500, null)
+            ) {}
+            buildRGB(
+                list = batteryLightList,
+                iconID = R.drawable.ic_light,
+                subtitle = getString(R.string.led_color),
+                feature = featureManager.System().BATTERY_LIGHT_MEDIUM_COLOR,
+                featureType = SYSTEM,
+                summary = getString(R.string.light_medium),
+                defaultColor = resources.getColor(R.color.blue_500, null)
+            ) {}
+        }
         setupLayout(batteryLightList, R.id.sectionBatteryLight)
     }
 }

@@ -6,6 +6,15 @@
     android:orientation="vertical">
 
     <com.android.settings.dotextras.custom.views.DotMaterialPreference
+        android:id="@+id/pref_rgb_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:checkable="true"
+        android:icon="@drawable/ic_light_pulse"
+        android:summary="Show RGB Picker for battery light states"
+        android:title="RGB Battery Light" />
+
+    <com.android.settings.dotextras.custom.views.DotMaterialPreference
         android:id="@+id/pref_stats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,5 +24,13 @@
         android:summary="Allow dotOS to collect anonymous data like ROM version, device and country from your phone."
         android:tint="?android:attr/textColorPrimary"
         android:title="Enable Dot Stats"
-        app:cardStyle="true" />
+        app:cardStyle="true" >
+
+    </com.android.settings.dotextras.custom.views.DotMaterialPreference>
+
+    <com.android.settings.dotextras.custom.views.DotMaterialPreference
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:summary="Check stats at stats.droidontime.com"
+        app:url="https://stats.droidontime.com" />
 </LinearLayout>

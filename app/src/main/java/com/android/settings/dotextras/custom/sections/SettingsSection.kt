@@ -24,6 +24,7 @@ import android.view.ViewGroup
 import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.stats.Constants
+import com.android.settings.dotextras.custom.utils.SettingsConstants
 import com.android.settings.dotextras.custom.views.DotMaterialPreference
 import com.google.android.material.snackbar.Snackbar
 
@@ -39,16 +40,26 @@ class SettingsSection : GenericSection() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pref = requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
+        (requireActivity() as BaseActivity).setTitle(getString(R.string.section_settings))
+        val sharedprefStats = requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
         val prefStats: DotMaterialPreference = view.findViewById(R.id.pref_stats)
-        prefStats.switchView!!.isChecked = pref.getBoolean(Constants.ALLOW_STATS, false)
+        prefStats.switchView!!.isChecked = sharedprefStats.getBoolean(Constants.ALLOW_STATS, false)
         prefStats.setOnClickPreference {
             prefStats.switchView!!.isChecked = !prefStats.switchView!!.isChecked
-            val editor: SharedPreferences.Editor = pref.edit()
+            val editor: SharedPreferences.Editor = sharedprefStats.edit()
             editor.putBoolean(Constants.ALLOW_STATS, prefStats.switchView!!.isChecked)
             editor.apply()
-            if (prefStats.switchView!!.isChecked && pref.getBoolean(Constants.IS_FIRST_LAUNCH, true))
+            if (prefStats.switchView!!.isChecked && sharedprefStats.getBoolean(Constants.IS_FIRST_LAUNCH, true))
                 Snackbar.make(view, "Stats will be pushed on the next launch!", Snackbar.LENGTH_SHORT).show()
+        }
+        val pref = requireActivity().getSharedPreferences(SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE)
+        val prefRgb: DotMaterialPreference = view.findViewById(R.id.pref_rgb_light)
+        prefRgb.switchView!!.isChecked = pref.getBoolean(SettingsConstants.ALLOW_RGB_BLIGHT, false)
+        prefRgb.setOnClickPreference {
+            prefRgb.switchView!!.isChecked = !prefRgb.switchView!!.isChecked
+            val editor: SharedPreferences.Editor = pref.edit()
+            editor.putBoolean(SettingsConstants.ALLOW_RGB_BLIGHT, prefRgb.switchView!!.isChecked)
+            editor.apply()
         }
     }
 }
