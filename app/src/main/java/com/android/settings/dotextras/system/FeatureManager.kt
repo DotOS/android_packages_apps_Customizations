@@ -391,6 +391,11 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          */
         val NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold"
 
+        /**
+         * Lockscreen media art
+         */
+        val LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata"
+
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)
         }

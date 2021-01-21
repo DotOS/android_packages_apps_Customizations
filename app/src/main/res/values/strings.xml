@@ -147,5 +147,8 @@
     <string name="traffic_meter_treshold_subtitle">Activity threshold</string>
     <string name="traffic_meter_treshold_summary">Auto-hide traffic meter</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="media_art_title">Lockscreen Media Art</string>
+    <string name="media_art_summary">Lockscreen\'s going fancy</string>
 
 </resources>

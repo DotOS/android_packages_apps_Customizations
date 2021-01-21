@@ -35,6 +35,7 @@ open class SystemSection : GenericSection() {
 
     private var gesturesCardList: ArrayList<ContextCards> = ArrayList()
     private var securityCardList: ArrayList<ContextCards> = ArrayList()
+    private var miscCardList: ArrayList<ContextCards> = ArrayList()
     private lateinit var mDevicePolicyManager: DevicePolicyManager
     private lateinit var mFingerprintManager: FingerprintManager
     private var mEncryptionStatus by Delegates.notNull<Int>()
@@ -51,10 +52,13 @@ open class SystemSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         gesturesCardList.clear()
         securityCardList.clear()
+        miscCardList.clear()
         addGestures()
         addSecurity()
+        addMisc()
         setupLayout(gesturesCardList, R.id.sectionGestures)
         setupLayout(securityCardList, R.id.sectionSecurity)
+        setupLayout(miscCardList, R.id.sectionMisc)
     }
 
     private fun addGestures() {
@@ -188,5 +192,17 @@ open class SystemSection : GenericSection() {
                 summary = getString(R.string.biometrics_unlock_summary),
                 enabled = false)
         }
+    }
+
+    private fun addMisc() {
+        buildSwitch(miscCardList,
+            iconID = R.drawable.ic_lock,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.media_art_title),
+            accentColor = R.color.light_green_A700,
+            feature = featureManager.System().LOCKSCREEN_MEDIA_METADATA,
+            featureType = SYSTEM,
+            summary = getString(R.string.media_art_summary),
+            enabled = false)
     }
 }
