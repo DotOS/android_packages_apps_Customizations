@@ -89,10 +89,13 @@ class WallpaperSection() : GenericSection() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        useInitUI = false
         super.onViewCreated(view, savedInstanceState)
-        if (!standalone)
+        if (!standalone) {
             (requireActivity() as BaseActivity).toggleAppBar(true)
-        else
+            (requireActivity() as BaseActivity).enableSettingsLauncher(false)
+        } else
             (requireActivity() as StandalonePreviewActivity).toggleAppBar(true)
         sectionTitle = view.findViewById(R.id.section_wp_title)
         currentPager = view.findViewById(R.id.wallPager)

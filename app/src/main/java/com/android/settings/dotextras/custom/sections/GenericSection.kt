@@ -44,10 +44,11 @@ open class GenericSection : Fragment(), SectionInterface {
     var SPACER by Delegates.notNull<Int>()
     lateinit var featureManager: FeatureManager
     lateinit var overlayManager: IOverlayManager
+    var useInitUI = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as BaseActivity).enableSettingsLauncher(false)
+        if (useInitUI) (requireActivity() as BaseActivity).enableSettingsLauncher(false)
         SPACER = resources.getDimension(R.dimen.recyclerSpacer).toInt()
         featureManager = FeatureManager(requireActivity().contentResolver)
         overlayManager = IOverlayManager.Stub
