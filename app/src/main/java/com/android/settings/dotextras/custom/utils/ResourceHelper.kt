@@ -252,17 +252,22 @@ object ResourceHelper {
     }
 
     fun hasFodSupport(context: Context): Boolean {
-        return context.resources.getBoolean(
-            Resources.getSystem()
-                .getIdentifier("config_supportsInDisplayFingerprint", "bool", "android")
-        )
+        return try {
+            context.resources.getBoolean(Resources.getSystem()
+                .getIdentifier("config_supportsInDisplayFingerprint", "bool", "android"))
+        } catch (e: Resources.NotFoundException) {
+            false
+        }
     }
 
     fun getFodAnimationPackage(context: Context): String {
-        return context.resources.getString(
-            Resources.getSystem()
-                .getIdentifier("config_fodAnimationPackage", "string", "android")
-        )
+        return try {
+            context.resources.getString(
+                Resources.getSystem()
+                    .getIdentifier("config_fodAnimationPackage", "string", "android"))
+        } catch (e: Resources.NotFoundException) {
+            ""
+        }
     }
 
     fun getDotWallsSupport(context: Context): Boolean {
