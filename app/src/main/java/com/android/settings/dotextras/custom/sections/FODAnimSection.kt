@@ -104,12 +104,6 @@ open class FODAnimSection : GenericSection() {
         fodAnims.clear()
         val fodAnimSwitch: SwitchMaterial = view.findViewById(R.id.fodAnimSwitch)
         val fodAnimLayout: ExpandableLayout = view.findViewById(R.id.fodAnimLayout)
-        val fodAnimSupport = ResourceHelper.isPackageInstalled(
-            requireContext(),
-            ResourceHelper.getFodAnimationPackage(requireContext())
-        )
-        fodAnimSwitch.isEnabled = fodAnimSupport
-        fodAnimLayout.visibility = if (fodAnimSupport) View.VISIBLE else View.GONE
         val fodPreview: FodPreview = view.findViewById(R.id.fodAnimPreview)
         for (j in ICON_STYLES.indices) {
             if (j == featureManager.System().getInt(featureManager.System().FOD_ICON, 0)) {
@@ -117,48 +111,46 @@ open class FODAnimSection : GenericSection() {
                     getString(R.string.systemui_package), ICON_STYLES[j]))
             }
         }
-        if (fodAnimSupport) {
-            val fodAnimStart: MaterialButton = view.findViewById(R.id.fodAnimStart)
-            for (i in ANIM_STYLES.indices) {
-                val fodAnim = FodResource(ANIM_STYLES[i], i)
-                fodAnim.listenerAnim = { drawable ->
-                    fodPreview.setPreviewAnimation(drawable!!, false)
-                    fodAnimStart.setOnClickListener {
-                        fodAnimStart.text =
-                            if (!fodPreview.isAnimating()) "Stop Animation" else "Start Animation"
-                        fodPreview.setAnimationState(running = !fodPreview.isAnimating())
-                    }
-                }
-                fodAnims.add(fodAnim)
-            }
-            val recyclerViewAnim: RecyclerView = requireView().findViewById(R.id.fodAnimRecycler)
-            recyclerViewAnim.setHasFixedSize(true)
-            val adapterAnim =
-                FodAnimationAdapter(featureManager, fodAnims)
-            recyclerViewAnim.adapter = adapterAnim
-            recyclerViewAnim.addItemDecoration(
-                GridSpacingItemDecoration(
-                    GRID_FOD_COLUMNS,
-                    SPACER,
-                    true
-                )
-            )
-            fodAnimSwitch.isChecked = featureManager.System()
-                .getInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, 0) == 1
-            fodAnimLayout.setExpanded(fodAnimSwitch.isChecked, false)
-            fodAnimSwitch.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    fodAnimLayout.setExpanded(expand = true, animate = true)
-                    featureManager.System()
-                        .setInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, 1)
-                } else {
-                    fodAnimLayout.setExpanded(expand = false, animate = true)
-                    featureManager.System()
-                        .setInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, 0)
+        val fodAnimStart: MaterialButton = view.findViewById(R.id.fodAnimStart)
+        for (i in ANIM_STYLES.indices) {
+            val fodAnim = FodResource(ANIM_STYLES[i], i)
+            fodAnim.listenerAnim = { drawable ->
+                fodPreview.setPreviewAnimation(drawable!!, false)
+                fodAnimStart.setOnClickListener {
+                    fodAnimStart.text =
+                        if (!fodPreview.isAnimating()) "Stop Animation" else "Start Animation"
+                    fodPreview.setAnimationState(running = !fodPreview.isAnimating())
                 }
             }
-            recyclerViewAnim.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
+            fodAnims.add(fodAnim)
         }
+        val recyclerViewAnim: RecyclerView = requireView().findViewById(R.id.fodAnimRecycler)
+        recyclerViewAnim.setHasFixedSize(true)
+        val adapterAnim =
+            FodAnimationAdapter(featureManager, fodAnims)
+        recyclerViewAnim.adapter = adapterAnim
+        recyclerViewAnim.addItemDecoration(
+            GridSpacingItemDecoration(
+                GRID_FOD_COLUMNS,
+                SPACER,
+                true
+            )
+        )
+        fodAnimSwitch.isChecked = featureManager.System()
+            .getInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, 0) == 1
+        fodAnimLayout.setExpanded(fodAnimSwitch.isChecked, false)
+        fodAnimSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                fodAnimLayout.setExpanded(expand = true, animate = true)
+                featureManager.System()
+                    .setInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, 1)
+            } else {
+                fodAnimLayout.setExpanded(expand = false, animate = true)
+                featureManager.System()
+                    .setInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, 0)
+            }
+        }
+        recyclerViewAnim.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
     }
 
 }

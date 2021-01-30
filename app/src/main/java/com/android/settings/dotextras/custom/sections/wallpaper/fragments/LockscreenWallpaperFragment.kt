@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 
 class LockscreenWallpaperFragment() : Fragment() {
@@ -62,14 +63,17 @@ class LockscreenWallpaperFragment() : Fragment() {
             if (pfd != null)
                 Glide.with(view)
                     .load(BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(wallpaper)
             else
                 Glide.with(view)
                     .load(wallpaperManager.drawable)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(wallpaper)
         } else {
             Glide.with(view)
                 .load(wallpaperBase!!.drawable)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(wallpaper)
         }
     }

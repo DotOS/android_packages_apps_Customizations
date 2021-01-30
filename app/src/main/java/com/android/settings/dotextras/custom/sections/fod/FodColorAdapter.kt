@@ -30,6 +30,7 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.system.FeatureManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.card.MaterialCardView
 
 class FodColorAdapter(
@@ -60,6 +61,7 @@ class FodColorAdapter(
                 packageName = holder.fodIcon.context.getString(R.string.systemui_package),
                 drawableName = fodIcon.resource
             ))
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(android.R.color.transparent)
             .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {

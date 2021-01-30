@@ -39,7 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:fontFamily="google-sans"
             android:text="@string/twotone_accent_summary" />
 
     </com.google.android.material.card.MaterialCardView>

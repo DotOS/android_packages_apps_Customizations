@@ -43,7 +43,7 @@ class SettingsSection : GenericSection() {
         (requireActivity() as BaseActivity).setTitle(getString(R.string.section_settings))
         val sharedprefStats = requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
         val prefStats: DotMaterialPreference = view.findViewById(R.id.pref_stats)
-        prefStats.switchView!!.isChecked = sharedprefStats.getBoolean(Constants.ALLOW_STATS, false)
+        prefStats.switchView!!.isChecked = sharedprefStats.getBoolean(Constants.ALLOW_STATS, true)
         prefStats.setOnClickPreference {
             prefStats.switchView!!.isChecked = !prefStats.switchView!!.isChecked
             val editor: SharedPreferences.Editor = sharedprefStats.edit()

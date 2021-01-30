@@ -17,7 +17,7 @@ class StatsBuilder(private val pref: SharedPreferences) {
     private val mCompositeDisposable = CompositeDisposable()
 
     fun push(activity: Activity) {
-        if (pref.getBoolean(Constants.ALLOW_STATS, false) && pref.getBoolean(Constants.IS_FIRST_LAUNCH, true)) {
+        if (pref.getBoolean(Constants.ALLOW_STATS, true) && pref.getBoolean(Constants.IS_FIRST_LAUNCH, true)) {
             if (!TextUtils.isEmpty(SystemProperties.get(Constants.KEY_DEVICE))) {
                 val requestInterface = Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)

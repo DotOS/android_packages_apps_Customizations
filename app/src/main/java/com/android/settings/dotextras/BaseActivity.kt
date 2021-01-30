@@ -16,14 +16,17 @@
 package com.android.settings.dotextras
 
 import android.animation.LayoutTransition
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.NestedScrollView
 import com.android.settings.dotextras.custom.SectionFragment
 import com.android.settings.dotextras.custom.sections.SettingsSection
@@ -31,11 +34,13 @@ import com.android.settings.dotextras.custom.stats.StatsBuilder
 import com.android.settings.dotextras.custom.utils.MaidService
 import com.google.android.material.appbar.AppBarLayout
 
+
 class BaseActivity : AppCompatActivity() {
 
     private var appTitle: TextView? = null
     private var appBarLayout: LinearLayout? = null
     private var launchSettings: ImageButton? = null
+    lateinit var appBar: AppBarLayout
 
     private lateinit var statsBuilder: StatsBuilder
 
@@ -44,6 +49,7 @@ class BaseActivity : AppCompatActivity() {
         setContentView(R.layout.dashboard_layout)
         statsBuilder = StatsBuilder(getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE))
         startService(Intent(this, MaidService::class.java))
+        appBar = findViewById(R.id.dashboardAppBar)
         appTitle = findViewById(R.id.appTitle)
         appBarLayout = findViewById(R.id.appblayout)
         launchSettings = findViewById(R.id.launchSettings)
@@ -70,6 +76,24 @@ class BaseActivity : AppCompatActivity() {
         statsBuilder.push(this)
     }
 
+    fun expandToolbar() {
+        val params: CoordinatorLayout.LayoutParams = appBar.layoutParams as CoordinatorLayout.LayoutParams
+        val behavior = params.behavior as AppBarLayout.Behavior?
+        if (behavior != null) {
+            val valueAnimator = ValueAnimator.ofInt()
+            valueAnimator.interpolator = DecelerateInterpolator()
+            valueAnimator.addUpdateListener { animation ->
+                behavior.topAndBottomOffset = (animation.animatedValue as Int)
+                appBar.requestLayout()
+            }
+            valueAnimator.setIntValues(behavior.topAndBottomOffset, 0)
+            valueAnimator.duration = 400
+            valueAnimator.start()
+        }
+    }
+
+    fun getNestedScroll() : NestedScrollView = findViewById(R.id.nestedContainer)
+
     fun enableSettingsLauncher(enable: Boolean) {
         launchSettings!!.visibility = if (enable) View.VISIBLE else View.GONE
     }
@@ -95,6 +119,7 @@ class BaseActivity : AppCompatActivity() {
             toggleAppBar(false)
         setTitle(null)
         enableSettingsLauncher(true)
+        expandToolbar()
     }
 
     fun scrollTo(x: Int, y: Int) {

@@ -72,6 +72,8 @@ class DashboardAdapter(
                 .replace(R.id.frameContent, dashboardItem.target_fragment, dashboardItem.card_title)
                 .addToBackStack(dashboardItem.card_title)
                 .commit()
+            activity.getNestedScroll().smoothScrollTo(0, 0, 200)
+            activity.expandToolbar()
             activity.setTitle(dashboardItem.card_title)
         }
         holder.fragmentlayout.setOnTouchListener { _, event ->

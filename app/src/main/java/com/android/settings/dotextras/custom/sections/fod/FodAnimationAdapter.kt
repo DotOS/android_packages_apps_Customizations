@@ -33,6 +33,7 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.system.FeatureManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.card.MaterialCardView
 
 class FodAnimationAdapter(
@@ -86,6 +87,7 @@ class FodAnimationAdapter(
             featureManager.System().getInt(featureManager.System().FOD_ANIM, 0) == fodIcon.id
         Glide.with(holder.fodIcon)
             .load(getAnimationPreview(holder.fodIcon.context, fodIcon.resource))
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {
             featureManager.System().setInt(featureManager.System().FOD_ANIM, fodIcon.id)

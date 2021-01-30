@@ -36,6 +36,7 @@ class ContextSectionLayout(
         val layout = inflate(context, R.layout.layout_context_section, this)
         title = layout.findViewById(R.id.contextTitle)
         recylcer = layout.findViewById(R.id.contextRecycler)
+        recylcer.isNestedScrollingEnabled = false
         val expandableLayout: ExpandableLayout = layout.findViewById(R.id.contextExpandable)
         if (attrs != null) {
             val a = getContext().obtainStyledAttributes(attrs, R.styleable.ContextSectionLayout)

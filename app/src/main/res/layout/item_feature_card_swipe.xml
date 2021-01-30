@@ -26,7 +26,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/cardPager"
                 android:layout_width="match_parent"
-                android:layout_height="92dp">
+                android:layout_height="128dp">
 
             </androidx.viewpager2.widget.ViewPager2>
 

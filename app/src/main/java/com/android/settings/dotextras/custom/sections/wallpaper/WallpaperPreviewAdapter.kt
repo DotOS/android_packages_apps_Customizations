@@ -41,6 +41,7 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.wallpaper.fragments.ApplyDialogFragment
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.card.MaterialCardView
 import java.io.IOException
 
@@ -170,6 +171,7 @@ class WallpaperPreviewAdapter(
             wallpaper.WEB -> {
                 Glide.with(holder.wallpaperPreview)
                     .load(Uri.parse(wallpaper.url))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .thumbnail(0.1f)
                     .into(holder.wallpaperPreview)
                 holder.wallpaperPreview.setOnClickListener {

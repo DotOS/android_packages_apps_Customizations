@@ -54,6 +54,8 @@ class SectionFragment : Fragment() {
         parent = requireActivity() as BaseActivity
         val recycler: RecyclerView = view.findViewById(R.id.dashboard_Recycler)
         val headerRecycler: RecyclerView = view.findViewById(R.id.header_Recycler)
+        recycler.isNestedScrollingEnabled = false
+        headerRecycler.isNestedScrollingEnabled = false
         clean()
         addSections()
         dashadapter = DashboardAdapter(items, parentFragmentManager, parent!!)
