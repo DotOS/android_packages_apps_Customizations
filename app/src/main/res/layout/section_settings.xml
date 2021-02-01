@@ -6,13 +6,23 @@
     android:orientation="vertical">
 
     <com.android.settings.dotextras.custom.views.DotMaterialPreference
+        android:id="@+id/pref_balloons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:checkable="true"
+        android:icon="@drawable/ic_balloon"
+        android:summary="@string/enable_balloons_summary"
+        android:tint="@color/deep_orange_600"
+        android:title="@string/enable_balloons" />
+
+    <com.android.settings.dotextras.custom.views.DotMaterialPreference
         android:id="@+id/pref_rgb_light"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:checkable="true"
         android:icon="@drawable/ic_light_pulse"
-        android:summary="Show RGB Picker for battery light states"
-        android:title="RGB Battery Light" />
+        android:summary="@string/rgb_battery_light_summary"
+        android:title="@string/rgb_battery_light" />
 
     <com.android.settings.dotextras.custom.views.DotMaterialPreference
         android:id="@+id/pref_stats"
@@ -21,9 +31,9 @@
         android:checkable="true"
         android:checked="true"
         android:icon="@drawable/ic_error_round"
-        android:summary="Allow dotOS to collect anonymous data like ROM version, device and country from your phone."
+        android:summary="@string/enable_dot_stats_summary"
         android:tint="?android:attr/textColorPrimary"
-        android:title="Enable Dot Stats"
+        android:title="@string/enable_dot_stats"
         app:cardStyle="true" >
 
     </com.android.settings.dotextras.custom.views.DotMaterialPreference>
@@ -31,6 +41,6 @@
     <com.android.settings.dotextras.custom.views.DotMaterialPreference
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:summary="Check stats at stats.droidontime.com"
+        android:summary="@string/check_stats"
         app:url="https://stats.droidontime.com" />
 </LinearLayout>

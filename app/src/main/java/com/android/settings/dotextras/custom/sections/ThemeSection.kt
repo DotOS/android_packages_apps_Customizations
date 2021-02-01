@@ -15,17 +15,23 @@
  */
 package com.android.settings.dotextras.custom.sections
 
+import android.content.Context
+import android.content.om.IOverlayManager
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.ServiceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.android.settings.dotextras.custom.utils.SettingsConstants
 import com.android.settings.dotextras.custom.views.AccentColorController
 import com.android.settings.dotextras.custom.views.ColorSheet
 import com.android.settings.dotextras.custom.views.TwoToneAccentView
+import com.android.settings.dotextras.system.OverlayController
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class ThemeSection : GenericSection() {
 
@@ -43,6 +49,7 @@ class ThemeSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as BaseActivity).setTitle(getString(R.string.section_themes_title))
         twoToneAccentView = view.findViewById(R.id.twoTone)
+        twoToneAccentView.setSharedPref(requireActivity().getSharedPreferences(SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
         twoToneAccentView.bindWhiteColor(
             ResourceHelper.getAccent(
                 requireContext(),
@@ -80,6 +87,14 @@ class ThemeSection : GenericSection() {
                     )
                 }).show(requireActivity().supportFragmentManager)
         }
+        val notificationOverlay: OverlayController.NotificationOpacity = OverlayController(
+            OverlayController.Categories.NOTIFICATION_CATEGORY,
+            requireActivity().packageManager,
+            IOverlayManager.Stub
+                .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))).NotificationOpacity()
+        val notifOpacitySwitch: SwitchMaterial = view.findViewById(R.id.notifOpacitySwitch)
+        notifOpacitySwitch.isChecked = notificationOverlay.isEnabled()
+        notifOpacitySwitch.setOnCheckedChangeListener { buttonView, isChecked ->  notificationOverlay.toggleOpacity(isChecked)}
     }
 
 }

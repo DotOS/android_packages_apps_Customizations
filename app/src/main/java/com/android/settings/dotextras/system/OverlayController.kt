@@ -64,12 +64,14 @@ class OverlayController(
         const val SYSUI_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.systemui"
         const val LAUNCHER_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.launcher"
         const val ACCENT_CATEGORY = "android.theme.customization.accent_color"
+        const val NOTIFICATION_CATEGORY = "android.theme.customization.notification_alpha"
     }
 
     object Packages {
         const val NAVBAR_LONG_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.long"
         const val NAVBAR_MEDIUM_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.medium"
         const val HIDDEN_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.hidden"
+        const val NOTIFICATION_OPAQUE = "com.dot.overlay.systemui.notification.opaque"
     }
 
     object Constants {
@@ -86,6 +88,13 @@ class OverlayController(
             "ic_battery_80_24dp"
         )
         const val PATH_SIZE = 100f
+    }
+
+    inner class NotificationOpacity {
+        fun toggleOpacity(toggle: Boolean) {
+            overlayManager.setEnabled(Packages.NOTIFICATION_OPAQUE, toggle, USER_SYSTEM)
+        }
+        fun isEnabled(): Boolean = overlayManager.getOverlayInfo(Packages.NOTIFICATION_OPAQUE, USER_SYSTEM).isEnabled
     }
 
     inner class AccentColors {

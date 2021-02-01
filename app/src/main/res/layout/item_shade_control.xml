@@ -232,9 +232,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_weight="1"
-                android:fontFamily="google-sans-medium"
                 android:text="@string/smart_accent_picker"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
@@ -270,10 +270,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_weight="1"
-                android:fontFamily="google-sans-medium"
                 android:text="Reset Custom Accents"
                 android:textColor="@color/red_500"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"

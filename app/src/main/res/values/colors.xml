@@ -10,6 +10,7 @@
 
     <color name="ic_launcher_background">@color/colorPrimary</color>
 
+    <color name="colorAccent40">#663C85ED</color>
     <color name="cardBackground">#F3F3F3</color>
 
     <!-- QS Custom Colors -->
@@ -19,5 +20,8 @@
     <color name="fod_item_background_stroke_color">#D6D6D6</color>
 
     <color name="defaultEdgeLightningColor">#3980FF</color>
+
+    <color name="dot_notification_dim">#B2000000</color>
+    <color name="dot_notification_bg">#CCFFFFFF</color>
 
 </resources>

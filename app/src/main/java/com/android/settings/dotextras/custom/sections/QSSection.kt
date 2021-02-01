@@ -77,6 +77,7 @@ open class QSSection : GenericSection() {
             summary = getString(R.string.qs_tiles_accent_v2_summary),
             enabled = true)
         setupLayout(qsList, R.id.sectionQS)
+        createBalloon(R.string.click_to_toggle, 1, R.id.sectionQS)
         /**
          * Rows & Columns
          */

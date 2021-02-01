@@ -18,6 +18,7 @@ package com.android.settings.dotextras.custom.sections
 import android.content.Context
 import android.content.om.IOverlayManager
 import android.os.Bundle
+import android.os.Handler
 import android.os.ServiceManager
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -31,7 +32,9 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.RGB
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
+import com.android.settings.dotextras.custom.utils.BalloonPump
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
+import com.android.settings.dotextras.custom.utils.SettingsConstants
 import com.android.settings.dotextras.custom.views.ContextSectionLayout
 import com.android.settings.dotextras.system.FeatureManager
 import kotlin.properties.Delegates
@@ -56,6 +59,37 @@ open class GenericSection : Fragment(), SectionInterface {
     }
 
     override fun isAvailable(context: Context): Boolean = true
+
+    fun createBalloon(resID: Int, view: View) {
+        val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
+            SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        balloonPump.create(resID)
+        balloonPump.show(view)
+    }
+
+    fun createBalloon(string: String, view: View) {
+        val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
+            SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        balloonPump.create(string)
+        balloonPump.show(view)
+    }
+
+    fun createBalloon(resID: Int, pos: Int, layoutID: Int) {
+        val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
+            SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        balloonPump.create(resID)
+        Handler().postDelayed({balloonPump.show(getContextView(pos, layoutID))}, 500)
+    }
+
+    fun createBalloon(string: String, pos: Int, layoutID: Int) {
+        val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
+            SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        balloonPump.create(string)
+        Handler().postDelayed({balloonPump.show(getContextView(pos, layoutID))}, 500)
+    }
+
+    fun getContextView(pos: Int, layoutID: Int): View =
+        requireView().findViewById<ContextSectionLayout>(layoutID).getViewByPos(pos)
 
     fun setupLayout(list: ArrayList<ContextCards>, layoutID: Int) {
         val contextLayout = requireView().findViewById<ContextSectionLayout>(layoutID)

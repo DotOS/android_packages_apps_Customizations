@@ -53,12 +53,26 @@ class SettingsSection : GenericSection() {
                 Snackbar.make(view, "Stats will be pushed on the next launch!", Snackbar.LENGTH_SHORT).show()
         }
         val pref = requireActivity().getSharedPreferences(SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE)
-        val prefRgb: DotMaterialPreference = view.findViewById(R.id.pref_rgb_light)
-        prefRgb.switchView!!.isChecked = pref.getBoolean(SettingsConstants.ALLOW_RGB_BLIGHT, false)
-        prefRgb.setOnClickPreference {
-            prefRgb.switchView!!.isChecked = !prefRgb.switchView!!.isChecked
-            val editor: SharedPreferences.Editor = pref.edit()
-            editor.putBoolean(SettingsConstants.ALLOW_RGB_BLIGHT, prefRgb.switchView!!.isChecked)
+        buildSetting(pref, view.findViewById(R.id.pref_rgb_light), SettingsConstants.ALLOW_RGB_BLIGHT)
+        buildSetting(pref, view.findViewById(R.id.pref_balloons), SettingsConstants.SHOW_BALLOONS, true)
+    }
+
+    private fun buildSetting(preferences: SharedPreferences, view: DotMaterialPreference, setting: String) {
+        view.switchView!!.isChecked = preferences.getBoolean(setting, false)
+        view.setOnClickPreference {
+            view.switchView!!.isChecked = !view.switchView!!.isChecked
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.putBoolean(setting, view.switchView!!.isChecked)
+            editor.apply()
+        }
+    }
+
+    private fun buildSetting(preferences: SharedPreferences, view: DotMaterialPreference, setting: String, default: Boolean) {
+        view.switchView!!.isChecked = preferences.getBoolean(setting, default)
+        view.setOnClickPreference {
+            view.switchView!!.isChecked = !view.switchView!!.isChecked
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.putBoolean(setting, view.switchView!!.isChecked)
             editor.apply()
         }
     }

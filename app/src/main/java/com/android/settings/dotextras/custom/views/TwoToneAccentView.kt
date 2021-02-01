@@ -16,17 +16,22 @@
 package com.android.settings.dotextras.custom.views
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.os.Handler
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.utils.BalloonPump
 import com.android.settings.dotextras.custom.utils.ColorSheetUtils
 import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.android.settings.dotextras.custom.utils.SettingsConstants
 import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.button.MaterialButton
 
@@ -54,6 +59,8 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     private var listener: onTwoTonePressed = null
     private var lightColor: Int? = null
     private var darkColor: Int? = null
+
+    private var sharedPref: SharedPreferences? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.item_shade_control, this, true)
@@ -110,11 +117,22 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         }
     }
 
+    fun setSharedPref(prefs: SharedPreferences) {
+        sharedPref = prefs
+        createBalloon(if (isInFocus(Shade.DARK)) darkLayout else whiteLayout)
+    }
+
+    private fun createBalloon(view: View) {
+        val balloonPump = BalloonPump(mContext, sharedPref!!)
+        balloonPump.create(R.string.ballon_twotone)
+        balloonPump.show(view)
+    }
+
     fun setOnTwoTonePressed(listener: onTwoTonePressed) {
         this.listener = listener
     }
 
-    fun requestFocus(shade: Shade) {
+    private fun requestFocus(shade: Shade) {
         when (shade) {
             Shade.LIGHT -> {
                 whitePreview.contentDescription = "focused"
@@ -137,7 +155,7 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         }
     }
 
-    fun isInFocus(shade: Shade): Boolean = when (shade) {
+    private fun isInFocus(shade: Shade): Boolean = when (shade) {
         Shade.LIGHT -> whitePreview.contentDescription == "focused"
         Shade.DARK -> darkPreview.contentDescription == "focused"
     }

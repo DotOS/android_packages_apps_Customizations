@@ -96,6 +96,7 @@ class StatusbarSection : GenericSection() {
             }
         }
         setupLayout(perclist, R.id.sectionPercentage)
+        createBalloon(R.string.swipe_to_change, 0, R.id.sectionPercentage)
         buildSwitch(trafficList,
             iconID = R.drawable.ic_traffic,
             title = getString(R.string.disabled),

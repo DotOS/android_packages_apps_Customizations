@@ -16,6 +16,7 @@
 package com.android.settings.dotextras.custom.views
 
 import android.content.Context
+import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
@@ -47,6 +48,10 @@ class ContextSectionLayout(
             title.isClickable = true
             title.setOnClickListener { expandableLayout.toggle(true) }
         } else title.isClickable = false
+    }
+
+    fun getViewByPos(pos: Int): View {
+        return recylcer.findViewHolderForLayoutPosition(pos)!!.itemView
     }
 
     fun hideTitle(hide: Boolean) {

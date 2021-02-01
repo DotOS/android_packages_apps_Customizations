@@ -25,7 +25,32 @@
         android:layout_marginTop="12dp"/>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="@color/colorAccent40"
+        app:cardCornerRadius="@dimen/default_dialog_radius"
+        app:cardElevation="0dp">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/notifOpacitySwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/disable_notification_transparency"
+            android:textColor="?attr/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/recyclerSpacerBig"
         android:layout_marginTop="12dp"
@@ -38,7 +63,10 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/twotone_accent_summary" />
 
     </com.google.android.material.card.MaterialCardView>
