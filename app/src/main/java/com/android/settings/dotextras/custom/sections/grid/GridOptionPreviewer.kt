@@ -16,6 +16,7 @@
 package com.android.settings.dotextras.custom.sections.grid
 
 import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -23,8 +24,10 @@ import android.graphics.PixelFormat
 import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatImageView
 import com.android.settings.dotextras.custom.utils.SurfaceViewUtils.createSurfaceViewRequest
 import com.android.settings.dotextras.custom.utils.WorkspaceSurfaceHolderCallback
@@ -71,8 +74,9 @@ internal class GridOptionPreviewer(
             Glide.with(mPreviewContainer)
                 .load(wallpaperManager.drawable)
                 .into(wallpaperPreview)
-        wallpaperPreview.scaleType = ImageView.ScaleType.CENTER_CROP
+        wallpaperPreview.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         wallpaperPreview.adjustViewBounds = true
+        wallpaperPreview.scaleType = ImageView.ScaleType.CENTER_CROP
         if (mSurfaceCallback != null) {
             mSurfaceCallback!!.resetLastSurface()
         }
