@@ -63,11 +63,11 @@
                         android:alpha="0.9"
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
-                        android:fontFamily="google-sans-medium"
                         android:marqueeRepeatLimit="marquee_forever"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:textSize="16sp"
+                        android:textStyle="bold"
                         tools:text="%s %s" />
                 </LinearLayout>
 
@@ -83,12 +83,12 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
-                        android:fontFamily="google-sans-medium"
                         android:marqueeRepeatLimit="marquee_forever"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:textColor="@color/colorAccent"
                         android:textSize="16sp"
+                        android:textStyle="bold"
                         tools:text="Card Subtitle" />
 
                     <TextView
@@ -96,7 +96,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
-                        android:fontFamily="google-sans"
                         android:lines="2"
                         android:textSize="12sp"
                         tools:text="Summary" />
