@@ -53,4 +53,12 @@
 
     </com.android.settings.dotextras.custom.views.ContextSectionLayout>
 
+    <com.android.settings.dotextras.custom.views.NotSupportedView
+        android:id="@+id/aodNS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:featureTitle="Always on Display"
+        tools:visibility="visible" />
+
 </LinearLayout>

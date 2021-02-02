@@ -83,4 +83,8 @@
         <attr name="android:tint" format="color|reference"/>
         <attr name="url" format="string|reference"/>
     </declare-styleable>
+
+    <declare-styleable name="NotSupportedView">
+        <attr name="featureTitle" format="string|reference"/>
+    </declare-styleable>
 </resources>

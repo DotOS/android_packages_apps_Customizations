@@ -187,4 +187,6 @@
     <string name="ampm_summary">Perfect for 12hr format</string>
     <string name="dt_doze">Double tap to doze</string>
     <string name="dt_doze_summary">Double tap to open ambient display</string>
+
+    <string name="feature_control_not_supported">%s feature control not supported.</string>
 </resources>

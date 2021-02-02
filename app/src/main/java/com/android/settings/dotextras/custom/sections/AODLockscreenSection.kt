@@ -31,6 +31,8 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
 import com.android.settings.dotextras.custom.sections.clock.*
 import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
+import com.android.settings.dotextras.custom.views.NotSupportedView
+import com.android.settings.dotextras.system.FeatureManager
 
 class AODLockscreenSection : GenericSection() {
 
@@ -49,7 +51,7 @@ class AODLockscreenSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as BaseActivity).setTitle(getString(R.string.section_aod_title))
         val recyclerView = view.findViewById<RecyclerView>(R.id.clockfaceOptionsRecycler)
-        recyclerView.isNestedScrollingEnabled = true
+        recyclerView.isNestedScrollingEnabled = false
         val contentProviderClockProvider = ContentProviderClockProvider(requireActivity())
         mClockManager = object : BaseClockManager(
             ContentProviderClockProvider(requireActivity())) {
@@ -95,56 +97,61 @@ class AODLockscreenSection : GenericSection() {
             }, false)
         }
         val optionsList = ArrayList<ContextCards>()
-        buildSwitch(optionsList,
-            iconID = R.drawable.ic_aod,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.aod_title),
-            accentColor = R.color.orange_500,
-            feature = featureManager.Secure().DOZE_ALWAYS_ON,
-            featureType = SECURE,
-            summary = getString(R.string.aod_summary)
-        )
-        buildSwitch(optionsList,
-            iconID = R.drawable.ic_light_pulse,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.edge_lightning_title),
-            accentColor = R.color.blue_900,
-            feature = featureManager.System().AMBIENT_NOTIFICATION_LIGHT,
-            featureType = SYSTEM,
-            summary = getString(R.string.edge_lightning_summary)
-        )
-        buildSwipeable(optionsList,
-            iconID = R.drawable.ic_light_pulse,
-            subtitle = getString(R.string.edge_lightning_title),
-            accentColor = R.color.teal_500,
-            feature = featureManager.System().AMBIENT_NOTIFICATION_LIGHT_MODE,
-            featureType = SYSTEM,
-            min = 0,
-            max = 3,
-            default = 1,
-            summary = getString(R.string.edge_lightning_summary_colormode),
-            extraTitle = getString(R.string.style)
-        ) { position, title ->
-            run {
-                var newTitle = ""
-                when (position) {
-                    0 -> newTitle = getString(R.string.edge_lightning_mode_default)
-                    1 -> newTitle = getString(R.string.edge_lightning_mode_accent)
-                    2 -> newTitle = getString(R.string.edge_lightning_mode_custom)
-                    3 -> newTitle = getString(R.string.edge_lightning_mode_auto)
+        val featureManager = FeatureManager(requireContext().contentResolver)
+        if (featureManager.Secure().getInt(featureManager.Secure().DOZE_ENABLED, 0) == 1) {
+            buildSwitch(optionsList,
+                iconID = R.drawable.ic_aod,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.aod_title),
+                accentColor = R.color.orange_500,
+                feature = featureManager.Secure().DOZE_ALWAYS_ON,
+                featureType = SECURE,
+                summary = getString(R.string.aod_summary)
+            )
+            buildSwitch(optionsList,
+                iconID = R.drawable.ic_light_pulse,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.edge_lightning_title),
+                accentColor = R.color.blue_900,
+                feature = featureManager.System().AMBIENT_NOTIFICATION_LIGHT,
+                featureType = SYSTEM,
+                summary = getString(R.string.edge_lightning_summary)
+            )
+            buildSwipeable(optionsList,
+                iconID = R.drawable.ic_light_pulse,
+                subtitle = getString(R.string.edge_lightning_title),
+                accentColor = R.color.teal_500,
+                feature = featureManager.System().AMBIENT_NOTIFICATION_LIGHT_MODE,
+                featureType = SYSTEM,
+                min = 0,
+                max = 3,
+                default = 1,
+                summary = getString(R.string.edge_lightning_summary_colormode),
+                extraTitle = getString(R.string.style)
+            ) { position, title ->
+                run {
+                    var newTitle = ""
+                    when (position) {
+                        0 -> newTitle = getString(R.string.edge_lightning_mode_default)
+                        1 -> newTitle = getString(R.string.edge_lightning_mode_accent)
+                        2 -> newTitle = getString(R.string.edge_lightning_mode_custom)
+                        3 -> newTitle = getString(R.string.edge_lightning_mode_auto)
+                    }
+                    title.text = newTitle
                 }
-                title.text = newTitle
             }
+            buildRGB(optionsList,
+                iconID = R.drawable.ic_light_pulse,
+                subtitle = getString(R.string.edge_lightning_title),
+                feature = featureManager.System().AMBIENT_NOTIFICATION_LIGHT_COLOR,
+                featureType = SYSTEM,
+                summary = getString(R.string.edge_lightning_summary_color),
+                defaultColor = resources.getColor(R.color.defaultEdgeLightningColor, null)
+            ) {}
+            setupLayout(optionsList, R.id.aodlockContextSection)
+        } else {
+            view.findViewById<NotSupportedView>(R.id.aodNS).visibility = View.VISIBLE
         }
-        buildRGB(optionsList,
-            iconID = R.drawable.ic_light_pulse,
-            subtitle = getString(R.string.edge_lightning_title),
-            feature = featureManager.System().AMBIENT_NOTIFICATION_LIGHT_COLOR,
-            featureType = SYSTEM,
-            summary = getString(R.string.edge_lightning_summary_color),
-            defaultColor = resources.getColor(R.color.defaultEdgeLightningColor, null)
-        ) {}
-        setupLayout(optionsList, R.id.aodlockContextSection)
     }
 
 }
