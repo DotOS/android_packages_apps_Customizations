@@ -164,5 +164,27 @@
     <string name="traffic_indicator">Traffic Indicator</string>
     <string name="swipe_to_change">Swipe to change it!</string>
     <string name="click_to_toggle">Click to toggle</string>
-
+    <string name="clock_customization">Clock Customization</string>
+    <string name="show_clock_tile">Show clock</string>
+    <string name="show_clock_summary">Show time in your statusbar</string>
+    <string name="clock_position_title">Clock Position</string>
+    <string name="clock_position_summary">Set position of your clock</string>
+    <string name="clock">Clock</string>
+    <string name="right_clock">Right Clock</string>
+    <string name="center_clock">Center Clock</string>
+    <string name="left_clock">Left Clock</string>
+    <string name="show_seconds_title">Show seconds</string>
+    <string name="show_seconds_summary">Be more precise please</string>
+    <string name="ampm_title">AM/PM Style</string>
+    <string name="normal_ampm">Normal AM/PM</string>
+    <string name="small_ampm">Small AM/PM</string>
+    <string name="no_ampm">No AM/PM</string>
+    <string name="no_date">No date</string>
+    <string name="small_date">Small date</string>
+    <string name="normal_date">Normal date</string>
+    <string name="show_date_title">Show date besides time</string>
+    <string name="show_date_summary">See date and time in the statusbar</string>
+    <string name="ampm_summary">Perfect for 12hr format</string>
+    <string name="dt_doze">Double tap to doze</string>
+    <string name="dt_doze_summary">Double tap to open ambient display</string>
 </resources>

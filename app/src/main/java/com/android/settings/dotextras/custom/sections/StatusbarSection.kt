@@ -42,6 +42,7 @@ class StatusbarSection : GenericSection() {
         val perclist = ArrayList<ContextCards>()
         val batteryLightList = ArrayList<ContextCards>()
         val trafficList = ArrayList<ContextCards>()
+        var clockList = ArrayList<ContextCards>()
         buildPager(list,
             iconID = R.drawable.round_battery_full_white_36dp,
             title = getString(R.string.battery_styles),
@@ -182,5 +183,92 @@ class StatusbarSection : GenericSection() {
             ) {}
         }
         setupLayout(batteryLightList, R.id.sectionBatteryLight)
+        buildSwitch(clockList,
+            iconID = R.drawable.ic_alarm_clock,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.show_clock_tile),
+            accentColor = R.color.blue_700,
+            feature = featureManager.System().STATUSBAR_CLOCK,
+            featureType = SYSTEM,
+            summary = getString(R.string.show_clock_summary),
+            enabled = true)
+        buildSwipeable(
+            list = clockList,
+            iconID = R.drawable.ic_alarm_clock,
+            subtitle = getString(R.string.clock_position_title),
+            accentColor = R.color.teal_500,
+            feature = featureManager.System().STATUSBAR_CLOCK_STYLE,
+            featureType = SYSTEM,
+            min = 0,
+            max = 2,
+            default = 0,
+            summary = getString(R.string.clock_position_summary),
+            extraTitle = getString(R.string.clock)
+        ) { position, title ->
+            run {
+                var newTitle = ""
+                when (position) {
+                    0 -> newTitle = getString(R.string.left_clock)
+                    1 -> newTitle = getString(R.string.center_clock)
+                    2 -> newTitle = getString(R.string.right_clock)
+                }
+                title.text = newTitle
+            }
+        }
+        buildSwitch(clockList,
+            iconID = R.drawable.ic_alarm_clock,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.show_seconds_title),
+            accentColor = R.color.orange_600,
+            feature = featureManager.System().STATUSBAR_CLOCK_SECONDS,
+            featureType = SYSTEM,
+            summary = getString(R.string.show_seconds_summary))
+        buildSwipeable(
+            list = clockList,
+            iconID = R.drawable.ic_alarm_clock,
+            subtitle = getString(R.string.ampm_title),
+            accentColor = R.color.cyan_800,
+            feature = featureManager.System().STATUSBAR_CLOCK_AM_PM_STYLE,
+            featureType = SYSTEM,
+            min = 0,
+            max = 2,
+            default = 2,
+            summary = getString(R.string.ampm_summary),
+            extraTitle = getString(R.string.clock)
+        ) { position, title ->
+            run {
+                var newTitle = ""
+                when (position) {
+                    0 -> newTitle = getString(R.string.normal_ampm)
+                    1 -> newTitle = getString(R.string.small_ampm)
+                    2 -> newTitle = getString(R.string.no_ampm)
+                }
+                title.text = newTitle
+            }
+        }
+        buildSwipeable(
+            list = clockList,
+            iconID = R.drawable.ic_alarm_clock,
+            subtitle = getString(R.string.show_date_title),
+            accentColor = R.color.red_600,
+            feature = featureManager.System().STATUSBAR_CLOCK_DATE_DISPLAY,
+            featureType = SYSTEM,
+            min = 0,
+            max = 2,
+            default = 0,
+            summary = getString(R.string.show_date_summary),
+            extraTitle = getString(R.string.clock)
+        ) { position, title ->
+            run {
+                var newTitle = ""
+                when (position) {
+                    0 -> newTitle = getString(R.string.no_date)
+                    1 -> newTitle = getString(R.string.small_date)
+                    2 -> newTitle = getString(R.string.normal_date)
+                }
+                title.text = newTitle
+            }
+        }
+        setupLayout(clockList, R.id.sectionClock)
     }
 }

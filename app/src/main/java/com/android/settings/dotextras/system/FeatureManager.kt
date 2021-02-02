@@ -157,14 +157,6 @@ class FeatureManager(private val contentResolver: ContentResolver) {
             setInt(DOZE_ALWAYS_ON, 1)
         }
 
-        fun enableAmbient() {
-            setInt(DOZE_ENABLED, 1)
-        }
-
-        fun disableAmbient() {
-            setInt(DOZE_ENABLED, 0)
-        }
-
         fun setInt(feature: String, value: Int) {
             Settings.Secure.putInt(contentResolver, feature, value)
         }
@@ -395,6 +387,69 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          * Lockscreen media art
          */
         val LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata"
+
+        /**
+         * Show or hide clock
+         * 0 - hide
+         * 1 - show (default)
+         */
+        val STATUSBAR_CLOCK = "statusbar_clock"
+
+        /**
+         * Style of clock
+         * 0 - Left Clock (default)
+         * 1 - Center Clock
+         * 2 - Right Clock
+         */
+        val STATUSBAR_CLOCK_STYLE = "statusbar_clock_style"
+
+        /**
+         * Whether to show seconds next to clock in status bar
+         * 0 - hide (default)
+         * 1 - show
+         */
+        val STATUSBAR_CLOCK_SECONDS = "statusbar_clock_seconds"
+
+        /**
+         * AM/PM Style for clock options
+         * 0 - Normal AM/PM
+         * 1 - Small AM/PM
+         * 2 - No AM/PM  (default)
+         */
+        val STATUSBAR_CLOCK_AM_PM_STYLE = "statusbar_clock_am_pm_style"
+
+        /**
+         * Shows custom date before clock time
+         * 0 - No Date (default)
+         * 1 - Small Date
+         * 2 - Normal Date
+         */
+        val STATUSBAR_CLOCK_DATE_DISPLAY = "statusbar_clock_date_display"
+
+        /**
+         * Sets the date string style
+         * 0 - Regular style (default)
+         * 1 - Lowercase
+         * 2 - Uppercase
+         */
+        val STATUSBAR_CLOCK_DATE_STYLE = "statusbar_clock_date_style"
+
+        /**
+         * Stores the java DateFormat string for the date
+         */
+        val STATUSBAR_CLOCK_DATE_FORMAT = "statusbar_clock_date_format"
+
+        /**
+         * Position of date
+         * 0 - Left of clock
+         * 1 - Right of clock
+         */
+        val STATUSBAR_CLOCK_DATE_POSITION = "statusbar_clock_date_position"
+
+        /**
+         * Use doubletap as doze pulse triggers
+         */
+        val DOZE_TRIGGER_DOUBLETAP = "doze_trigger_doubletap"
 
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)

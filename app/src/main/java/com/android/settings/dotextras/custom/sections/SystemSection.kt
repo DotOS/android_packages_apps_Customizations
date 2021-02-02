@@ -89,6 +89,15 @@ open class SystemSection : GenericSection() {
             summary = getString(R.string.lockscreen_dt2s_summary),
             enabled = true)
         buildSwitch(gesturesCardList,
+            iconID = R.drawable.ic_touch,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.dt_doze),
+            accentColor = R.color.dot_grey,
+            feature = featureManager.System().DOZE_TRIGGER_DOUBLETAP,
+            featureType = SYSTEM,
+            summary = getString(R.string.dt_doze_summary),
+            enabled = false)
+        buildSwitch(gesturesCardList,
             iconID = R.drawable.ic_three_fingers,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.threewayss),
