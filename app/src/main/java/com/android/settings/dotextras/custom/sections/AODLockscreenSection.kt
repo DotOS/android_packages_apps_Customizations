@@ -65,7 +65,6 @@ class AODLockscreenSection : GenericSection() {
         }
         if (!mClockManager.isAvailable) {
             view.findViewById<LinearLayout>(R.id.clockfaceSection).visibility = View.GONE
-            Log.e("ClockManager", "Not available")
         } else {
             mClockManager.fetchOptions({ options ->
                 run {
@@ -97,7 +96,6 @@ class AODLockscreenSection : GenericSection() {
             }, false)
         }
         val optionsList = ArrayList<ContextCards>()
-        val featureManager = FeatureManager(requireContext().contentResolver)
         if (featureManager.Secure().getInt(featureManager.Secure().DOZE_ENABLED, 0) == 1) {
             buildSwitch(optionsList,
                 iconID = R.drawable.ic_aod,
