@@ -76,14 +76,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="google-sans-medium"
         android:paddingStart="18dp"
         android:paddingTop="14dp"
         android:paddingEnd="18dp"
         android:paddingBottom="14dp"
         android:text="@string/built_in_wallpapers"
         android:textColor="?android:attr/textColorSecondary"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/builtInRecycler"
@@ -99,7 +99,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="google-sans-medium"
             android:paddingStart="18dp"
             android:paddingTop="14dp"
             android:paddingEnd="18dp"
@@ -107,6 +106,7 @@
             android:text="@string/dotos_exclusives"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="22sp"
+            android:textStyle="bold"
             app:drawableEndCompat="@drawable/drag_handle" />
 
         <androidx.recyclerview.widget.RecyclerView
