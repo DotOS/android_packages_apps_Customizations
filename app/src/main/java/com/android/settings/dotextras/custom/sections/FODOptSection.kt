@@ -29,6 +29,7 @@ import com.android.settings.dotextras.custom.sections.fod.FodColorAdapter
 import com.android.settings.dotextras.custom.sections.fod.FodResource
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.snackbar.Snackbar
 
 open class FODOptSection : GenericSection() {
@@ -65,25 +66,28 @@ open class FODOptSection : GenericSection() {
             featureType = ContextCardsAdapter.Type.SYSTEM,
             summary = getString(R.string.fod_nightlight_summary),
             enabled = ResourceHelper.shouldDisableNightLight(requireContext()))
-        buildSwitch(fodoptList,
-            iconID = R.drawable.ic_lock,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.fod_screenoff_title),
-            accentColor = R.color.cyan_800,
-            feature = featureManager.System().FOD_GESTURE,
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.fod_screenoff_summary))
-        { value ->
-            when (value) {
-                0 -> {
-                    Snackbar.make(view, getString(R.string.enable_aod), Snackbar.LENGTH_LONG)
-                        .setAction(R.string.enable) {
-                            featureManager.Secure().enableAOD()
-                        }.show()
+        if (featureManager.Secure().getInt(featureManager.Secure().DOZE_ENABLED, 0) == 1) {
+            buildSwitch(fodoptList,
+                iconID = R.drawable.ic_lock,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.fod_screenoff_title),
+                accentColor = R.color.cyan_800,
+                feature = featureManager.System().FOD_GESTURE,
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.fod_screenoff_summary))
+            { value ->
+                when (value) {
+                    0 -> {
+                        Snackbar.make(view, getString(R.string.enable_aod), Snackbar.LENGTH_LONG)
+                            .setAction(R.string.enable) {
+                                featureManager.Secure().enableAOD()
+                            }.show()
+                    }
+                    1 -> {
+                        featureManager.Secure().disableAOD()
+                    }
                 }
-                1 -> {
-                    featureManager.Secure().disableAOD()
-                }
+
             }
         }
         setupLayout(fodoptList, R.id.fodOptSection, GRID_OPT_COLUMNS)
