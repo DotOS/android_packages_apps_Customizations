@@ -37,7 +37,7 @@ open class SystemSection : GenericSection() {
     private var securityCardList: ArrayList<ContextCards> = ArrayList()
     private var miscCardList: ArrayList<ContextCards> = ArrayList()
     private lateinit var mDevicePolicyManager: DevicePolicyManager
-    private lateinit var mFingerprintManager: FingerprintManager
+    private var mFingerprintManager: FingerprintManager? = null
     private var mEncryptionStatus by Delegates.notNull<Int>()
 
     override fun onCreateView(
@@ -182,24 +182,27 @@ open class SystemSection : GenericSection() {
             accentColor = R.color.dot_blue,
             feature = featureManager.System().POCKET_JUDGE,
             featureType = SYSTEM)
+
         mFingerprintManager =
-            requireContext().getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
-        mDevicePolicyManager =
-            requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-        mEncryptionStatus = mDevicePolicyManager.storageEncryptionStatus
-        if (mFingerprintManager.isHardwareDetected
-            && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE
-            && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE_PER_USER
-        ) {
-            buildSwitch(securityCardList,
-                iconID = R.drawable.fod_icon_default_aosp,
-                title = getString(R.string.disabled),
-                subtitle = getString(R.string.biometrics_unlock),
-                accentColor = R.color.deep_orange_800,
-                feature = featureManager.System().FP_UNLOCK_KEYSTORE,
-                featureType = SYSTEM,
-                summary = getString(R.string.biometrics_unlock_summary),
-                enabled = false)
+            requireContext().getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager?
+        if (mFingerprintManager != null) {
+            mDevicePolicyManager =
+                requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            mEncryptionStatus = mDevicePolicyManager.storageEncryptionStatus
+            if (mFingerprintManager!!.isHardwareDetected
+                && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE
+                && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE_PER_USER
+            ) {
+                buildSwitch(securityCardList,
+                    iconID = R.drawable.fod_icon_default_aosp,
+                    title = getString(R.string.disabled),
+                    subtitle = getString(R.string.biometrics_unlock),
+                    accentColor = R.color.deep_orange_800,
+                    feature = featureManager.System().FP_UNLOCK_KEYSTORE,
+                    featureType = SYSTEM,
+                    summary = getString(R.string.biometrics_unlock_summary),
+                    enabled = false)
+            }
         }
     }
 

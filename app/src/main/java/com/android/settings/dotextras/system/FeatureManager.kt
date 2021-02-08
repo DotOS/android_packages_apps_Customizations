@@ -16,10 +16,12 @@
 package com.android.settings.dotextras.system
 
 import android.content.ContentResolver
+import android.content.Context
 import android.content.res.Configuration
 import android.os.UserHandle
 import android.provider.Settings
 import android.view.Display
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 
 class FeatureManager(private val contentResolver: ContentResolver) {
@@ -155,6 +157,11 @@ class FeatureManager(private val contentResolver: ContentResolver) {
 
         fun enableAOD() {
             setInt(DOZE_ALWAYS_ON, 1)
+        }
+
+        fun enableDozeIfNeeded(context: Context) {
+            if (ResourceHelper.hasAmbient(context) && getInt(DOZE_ENABLED, 0) != 1)
+                setInt(DOZE_ENABLED, 1)
         }
 
         fun setInt(feature: String, value: Int) {

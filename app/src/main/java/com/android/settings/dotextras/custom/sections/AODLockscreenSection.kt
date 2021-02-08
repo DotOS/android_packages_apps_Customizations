@@ -16,7 +16,6 @@
 package com.android.settings.dotextras.custom.sections
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +30,8 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
 import com.android.settings.dotextras.custom.sections.clock.*
 import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.NotSupportedView
-import com.android.settings.dotextras.system.FeatureManager
 
 class AODLockscreenSection : GenericSection() {
 
@@ -96,7 +95,8 @@ class AODLockscreenSection : GenericSection() {
             }, false)
         }
         val optionsList = ArrayList<ContextCards>()
-        if (featureManager.Secure().getInt(featureManager.Secure().DOZE_ENABLED, 0) == 1) {
+        if (ResourceHelper.hasAmbient(requireContext())) {
+            featureManager.Secure().enableDozeIfNeeded(requireContext())
             buildSwitch(optionsList,
                 iconID = R.drawable.ic_aod,
                 title = getString(R.string.disabled),

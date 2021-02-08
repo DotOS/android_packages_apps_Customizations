@@ -29,7 +29,6 @@ import com.android.settings.dotextras.custom.sections.fod.FodColorAdapter
 import com.android.settings.dotextras.custom.sections.fod.FodResource
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.snackbar.Snackbar
 
 open class FODOptSection : GenericSection() {
@@ -66,7 +65,7 @@ open class FODOptSection : GenericSection() {
             featureType = ContextCardsAdapter.Type.SYSTEM,
             summary = getString(R.string.fod_nightlight_summary),
             enabled = ResourceHelper.shouldDisableNightLight(requireContext()))
-        if (featureManager.Secure().getInt(featureManager.Secure().DOZE_ENABLED, 0) == 1) {
+        if (ResourceHelper.hasAmbient(requireContext())) {
             buildSwitch(fodoptList,
                 iconID = R.drawable.ic_lock,
                 title = getString(R.string.disabled),
@@ -76,6 +75,7 @@ open class FODOptSection : GenericSection() {
                 featureType = ContextCardsAdapter.Type.SYSTEM,
                 summary = getString(R.string.fod_screenoff_summary))
             { value ->
+                featureManager.Secure().enableDozeIfNeeded(requireContext())
                 when (value) {
                     0 -> {
                         Snackbar.make(view, getString(R.string.enable_aod), Snackbar.LENGTH_LONG)

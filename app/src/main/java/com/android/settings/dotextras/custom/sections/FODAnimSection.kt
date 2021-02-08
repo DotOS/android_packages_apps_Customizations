@@ -97,7 +97,7 @@ open class FODAnimSection : GenericSection() {
         return inflater.inflate(R.layout.section_fod_anim, container, false)
     }
 
-    override fun isAvailable(context: Context): Boolean = ResourceHelper.hasFodSupport(context)
+    override fun isAvailable(context: Context): Boolean = ResourceHelper.hasFodSupport(context) && ResourceHelper.getFodAnimationPackage(context).isNotEmpty()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

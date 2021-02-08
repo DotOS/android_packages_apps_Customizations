@@ -244,6 +244,15 @@ object ResourceHelper {
         return typedValue
     }
 
+    fun hasAmbient(context: Context): Boolean {
+        return try {
+            context.resources.getBoolean(Resources.getSystem()
+                .getIdentifier("config_dozeAlwaysOnDisplayAvailable", "bool", "android"))
+        } catch (e: Resources.NotFoundException) {
+            false
+        }
+    }
+
     fun shouldDisableNightLight(context: Context): Boolean {
         return context.resources.getBoolean(
             Resources.getSystem()
