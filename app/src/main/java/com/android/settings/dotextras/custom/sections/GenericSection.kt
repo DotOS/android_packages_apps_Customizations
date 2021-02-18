@@ -78,14 +78,14 @@ open class GenericSection : Fragment(), SectionInterface {
         val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
             SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
         balloonPump.create(resID)
-        Handler().postDelayed({balloonPump.show(getContextView(pos, layoutID))}, 500)
+        Handler().postDelayed({ balloonPump.show(getContextView(pos, layoutID)) }, 500)
     }
 
     fun createBalloon(string: String, pos: Int, layoutID: Int) {
         val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
             SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
         balloonPump.create(string)
-        Handler().postDelayed({balloonPump.show(getContextView(pos, layoutID))}, 500)
+        Handler().postDelayed({ balloonPump.show(getContextView(pos, layoutID)) }, 500)
     }
 
     fun getContextView(pos: Int, layoutID: Int): View =

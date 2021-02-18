@@ -189,4 +189,16 @@
     <string name="dt_doze_summary">Double tap to open ambient display</string>
 
     <string name="feature_control_not_supported">%s feature control not supported.</string>
+    <string name="stb_brightness_title">Statusbar brightness control</string>
+    <string name="stb_brightness_summary">Control the brightness using statusbar</string>
+    <string name="dot_data_used"><![CDATA[<font color="%1$s">●&#32;</font>]]>‎‎ ‎%2$s data used</string>
+    <string name="data_usage_title">Data Usage</string>
+    <string name="data_usage_summary">Quickly check your mobile data usage</string>
+    <string name="qs_columns">QS Columns</string>
+    <string name="qs_rows">QS Rows</string>
+    <string name="columns">Column(s)</string>
+    <string name="rows">Row(s)</string>
+    <string name="portrait">Portrait</string>
+    <string name="landscape">Landscape</string>
+    <string name="disable_qs_transparency">Disable QSPanel\'s Transparency</string>
 </resources>
