@@ -458,6 +458,16 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          */
         val DOZE_TRIGGER_DOUBLETAP = "doze_trigger_doubletap"
 
+        /**
+         * Control brightness by swiping on statusbar
+         */
+        val STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control"
+
+        /**
+         * Show current active data sim data usage
+         */
+        val QS_SHOW_DATA_USAGE = "qs_show_data_usage"
+
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)
         }

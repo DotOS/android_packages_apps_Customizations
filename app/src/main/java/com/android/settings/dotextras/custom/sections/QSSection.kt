@@ -25,6 +25,7 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
 import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.android.settings.dotextras.custom.utils.TelephonyUtils
 import com.android.settings.dotextras.system.FeatureManager
 
 open class QSSection : GenericSection() {
@@ -59,6 +60,16 @@ open class QSSection : GenericSection() {
         /**
          * Options
          */
+        if (TelephonyUtils.isSimAvailable(requireContext())) {
+            buildSwitch(qsList,
+                iconID = R.drawable.ic_sim,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.data_usage_title),
+                accentColor = R.color.green_800,
+                feature = featureManager.System().QS_SHOW_DATA_USAGE,
+                featureType = SYSTEM,
+                summary = getString(R.string.data_usage_summary))
+        }
         buildSwitch(qsList,
             iconID = R.drawable.ic_qs_title,
             title = getString(R.string.disabled),
@@ -84,54 +95,54 @@ open class QSSection : GenericSection() {
         buildSwipeable(
             rows_columnsList,
             iconID = R.drawable.ic_add,
-            subtitle = "QS Columns",
+            subtitle = getString(R.string.qs_columns),
             accentColor = R.color.dot_red,
             feature = featureManager.System().QS_COLUMNS_PORTRAIT,
             featureType = SYSTEM,
             min = 1,
             max = 7,
             default = 4,
-            summary = "Portrait",
-            extraTitle = "Column(s)"
+            summary = getString(R.string.portrait),
+            extraTitle = getString(R.string.columns)
         )
         buildSwipeable(
             rows_columnsList,
             iconID = R.drawable.ic_add,
-            subtitle = "QS Columns",
+            subtitle = getString(R.string.qs_columns),
             accentColor = R.color.dot_pink,
             feature = featureManager.System().QS_COLUMNS_LANDSCAPE,
             featureType = SYSTEM,
             min = 1,
             max = 9,
             default = 4,
-            summary = "Landscape",
-            extraTitle = "Column(s)"
+            summary = getString(R.string.landscape),
+            extraTitle = getString(R.string.columns)
         )
         buildSwipeable(
             rows_columnsList,
             iconID = R.drawable.ic_add,
-            subtitle = "QS Rows",
+            subtitle = getString(R.string.qs_rows),
             accentColor = R.color.dot_violet,
             feature = featureManager.System().QS_ROWS_PORTRAIT,
             featureType = SYSTEM,
             min = 1,
             max = 5,
             default = 3,
-            summary = "Portrait",
-            extraTitle = "Row(s)"
+            summary = getString(R.string.portrait),
+            extraTitle = getString(R.string.rows)
         )
         buildSwipeable(
             rows_columnsList,
             iconID = R.drawable.ic_add,
-            subtitle = "QS Rows",
+            subtitle = getString(R.string.qs_rows),
             accentColor = R.color.dot_green,
             feature = featureManager.System().QS_ROWS_LANDSCAPE,
             featureType = SYSTEM,
             min = 1,
             max = 5,
             default = 1,
-            summary = "Landscape",
-            extraTitle = "Row(s)"
+            summary = getString(R.string.landscape),
+            extraTitle = getString(R.string.rows)
         )
         setupLayout(rows_columnsList, R.id.sectionRows)
     }
