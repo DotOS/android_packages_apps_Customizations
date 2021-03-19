@@ -3,16 +3,16 @@
 
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@android:color/transparent"/>
-            <size android:height="132dp"/>
+            <solid android:color="@android:color/transparent" />
+            <size android:height="132dp" />
             <corners android:radius="@dimen/default_dialog_radius" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
         <scale android:scaleWidth="100%">
-            <shape android:tint="?android:attr/colorAccent" >
-                <solid android:color="#66FFFFFF"/>
-                <size android:height="132dp"/>
+            <shape android:tint="?android:attr/colorAccent">
+                <solid android:color="#66FFFFFF" />
+                <size android:height="132dp" />
             </shape>
         </scale>
     </item>

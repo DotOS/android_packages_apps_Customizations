@@ -3,10 +3,6 @@
     <!-- Common Strings -->
     <string name="apply">Apply</string>
     <string name="apply_for">Apply for</string>
-    <string name="back_behaviour">back_behaviour</string>
-    <string name="button">Button</string>
-    <string name="buttons">Buttons</string>
-    <string name="chip">Chip</string>
     <string name="clockface">Clockface</string>
     <string name="disabled">Disabled</string>
     <string name="enable">Enable</string>
@@ -14,17 +10,13 @@
     <string name="lockscreen_date_pattern">EEE, MMM d</string>
     <string name="options">Options</string>
     <string name="picker_title">Pick a color</string>
-    <string name="progress">Progress</string>
     <string name="reset">Reset</string>
     <string name="sections">Sections</string>
-    <string name="switches">Switches</string>
     <string name="manifest_wallpaper">Wallpaper</string>
     <string name="style">Style</string>
     <string name="hide">Hide</string>
     <string name="inside">Inside</string>
     <string name="outside">Outside</string>
-    <string name="estimate">Estimate</string>
-    <string name="percentage">Percentage</string>
     <string name="default_theme_title">Default</string>
     <string name="icons">Icons</string>
     <string name="miscellaneous">Miscellaneous</string>
@@ -32,8 +24,6 @@
     <!-- Themes Section -->
     <string name="accent_color">Accent Color</string>
     <string name="picker_summary">Select the one that fits you.</string>
-    <string name="built_in_accents">Built-in Accents</string>
-    <string name="material_palette">Material Palette</string>
     <string name="headline_01">Headline 01</string>
     <string name="body_02">Body 02</string>
     <string name="fonts">Fonts</string>
@@ -52,8 +42,6 @@
 
     <!-- Wallpapers Section -->
     <string name="current_wallpaper">Current Wallpaper</string>
-    <string name="image_color_s">Image Color(s)</string>
-    <string name="my_photos">My Photos</string>
     <string name="built_in_wallpapers">Built-in Wallpapers</string>
     <string name="live_wallpapers">Live Wallpapers</string>
     <string name="dotos_exclusives">DotOS Exclusives</string>
@@ -96,7 +84,6 @@
     <string name="no_navbar">Navbar Pill</string>
     <string name="no_navbar_summary">Customize length</string>
     <string name="security">Security</string>
-    <string name="navbar">Navigation System</string>
     <string name="length_size">Length</string>
     <string name="media_art_title">Lockscreen Media Art</string>
     <string name="media_art_summary">Lockscreen\'s going fancy</string>
@@ -106,17 +93,12 @@
     <string name="rows_amp_columns"><![CDATA[Rows & Columns]]></string>
     <string name="qs_tiles_accent_v2">Tiles Accent V2</string>
     <string name="qs_percentage_style">QS Percentage Style</string>
-    <string name="quick_settings">Quick Settings</string>
     <string name="qs_tiles_accent_v2_summary">Better use of accent color in tiles</string>
 
     <!-- FOD Section -->
-    <string name="fod_icon_picker_title">Fingerprint icon</string>
-    <string name="fod_icon_picker_summary">Choose your favorite fingerprint icon</string>
-    <string name="fod_icon_picker_footer">In order to add your own icon, select the top left icon and use the OnePlus 6T FP Customizer app to select the icon you want.</string>
     <string name="fod_screenoff_summary">Use Biometric Authentication while you screen is closed. </string>
     <string name="fod_screenoff_title">Screen-off FOD</string>
     <string name="fod_animations">Animations</string>
-    <string name="fod_icons">Icons</string>
     <string name="fod_color">Recognising Color</string>
     <string name="enable_aod">Enable Always on Display?</string>
 
@@ -141,17 +123,6 @@
     <string name="show_batterylight_dnd">Enable it in Do-Not-Disturb mode</string>
     <string name="blinking">Blinking</string>
     <string name="blinking_on_low">Light Blinking on low battery</string>
-    <string name="status_bar_battery_style_title">Battery style</string>
-    <string name="status_bar_battery_style_icon_portrait">Icon portrait</string>
-    <string name="status_bar_battery_style_circle">Circle</string>
-    <string name="status_bar_battery_style_dotted_circle">Dotted circle</string>
-    <string name="status_bar_battery_style_filled_circle">Filled circle</string>
-    <string name="status_bar_battery_style_text">Text</string>
-    <string name="status_bar_battery_style_hidden">Hidden</string>
-    <string name="status_bar_battery_percentage_title">Battery percentage</string>
-    <string name="status_bar_battery_percentage_default">Hidden</string>
-    <string name="status_bar_battery_percentage_text_inside">Inside the icon</string>
-    <string name="status_bar_battery_percentage_text_next">Next to the icon</string>
 
     <!-- Settings Section -->
     <string name="enable_dot_stats">Enable Dot Stats</string>
@@ -191,7 +162,6 @@
     <string name="feature_control_not_supported">%s feature control not supported.</string>
     <string name="stb_brightness_title">Statusbar brightness control</string>
     <string name="stb_brightness_summary">Control the brightness using statusbar</string>
-    <string name="dot_data_used"><![CDATA[<font color="%1$s">●&#32;</font>]]>‎‎ ‎%2$s data used</string>
     <string name="data_usage_title">Data Usage</string>
     <string name="data_usage_summary">Quickly check your mobile data usage</string>
     <string name="qs_columns">QS Columns</string>
@@ -201,4 +171,6 @@
     <string name="portrait">Portrait</string>
     <string name="landscape">Landscape</string>
     <string name="disable_qs_transparency">Disable QSPanel\'s Transparency</string>
+    <string name="settings">Settings</string>
+    <string name="qs_percentage">Show percentage in quick settings</string>
 </resources>

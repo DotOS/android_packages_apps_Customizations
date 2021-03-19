@@ -16,7 +16,6 @@
 package com.android.settings.dotextras.custom.views
 
 import android.content.Context
-import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout

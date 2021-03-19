@@ -48,7 +48,8 @@ class ClockfaceDisplay : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mClockManager = object : BaseClockManager(
-            ContentProviderClockProvider(requireActivity())) {
+            ContentProviderClockProvider(requireActivity())
+        ) {
             override fun handleApply(option: Clockface?, callback: onHandleCallback) {
                 val result = Intent()
                 result.putExtra(EXTRA_CLOCK_FACE_NAME, option!!.id)

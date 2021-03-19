@@ -61,29 +61,41 @@ open class GenericSection : Fragment(), SectionInterface {
     override fun isAvailable(context: Context): Boolean = true
 
     fun createBalloon(resID: Int, view: View) {
-        val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
-            SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        val balloonPump = BalloonPump(
+            requireContext(), requireActivity().getSharedPreferences(
+                SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE
+            )
+        )
         balloonPump.create(resID)
         balloonPump.show(view)
     }
 
     fun createBalloon(string: String, view: View) {
-        val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
-            SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        val balloonPump = BalloonPump(
+            requireContext(), requireActivity().getSharedPreferences(
+                SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE
+            )
+        )
         balloonPump.create(string)
         balloonPump.show(view)
     }
 
     fun createBalloon(resID: Int, pos: Int, layoutID: Int) {
-        val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
-            SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        val balloonPump = BalloonPump(
+            requireContext(), requireActivity().getSharedPreferences(
+                SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE
+            )
+        )
         balloonPump.create(resID)
         Handler().postDelayed({ balloonPump.show(getContextView(pos, layoutID)) }, 500)
     }
 
     fun createBalloon(string: String, pos: Int, layoutID: Int) {
-        val balloonPump = BalloonPump(requireContext(), requireActivity().getSharedPreferences(
-            SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        val balloonPump = BalloonPump(
+            requireContext(), requireActivity().getSharedPreferences(
+                SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE
+            )
+        )
         balloonPump.create(string)
         Handler().postDelayed({ balloonPump.show(getContextView(pos, layoutID)) }, 500)
     }

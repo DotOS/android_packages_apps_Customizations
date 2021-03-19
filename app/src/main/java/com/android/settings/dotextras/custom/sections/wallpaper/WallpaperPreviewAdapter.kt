@@ -41,24 +41,22 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.wallpaper.fragments.ApplyDialogFragment
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.card.MaterialCardView
 import java.io.IOException
 
 typealias onDismiss = (() -> Unit)?
-typealias onShow = (() -> Unit)?
 
 class WallpaperPreviewAdapter(
     private var items: ArrayList<WallpaperBase>,
-    private val wallpaperManager: WallpaperManager,
     private val fragment: Fragment,
     private val pager: ViewPager2,
     private val dismissListener: onDismiss,
 ) : RecyclerView.Adapter<WallpaperPreviewAdapter.ViewHolder>() {
-
-    private val SELECT_PICTURE = 1
-
-    private lateinit var selectedImagePath: String
 
     private lateinit var contentResolver: ContentResolver
 
@@ -80,16 +78,20 @@ class WallpaperPreviewAdapter(
                     uri.toString()
                 )
                 val display: DisplayMetrics = synteticActivity.resources.displayMetrics
-                val bitmapDrawable = scaleCropToFit(drawableToBitmap(drawable)!!,
+                val bitmapDrawable = scaleCropToFit(
+                    drawableToBitmap(drawable)!!,
                     display.widthPixels,
-                    display.heightPixels)
+                    display.heightPixels
+                )
                 val wallpaperGallery =
                     WallpaperBase(bitmapDrawable!!.toDrawable(synteticActivity.resources))
                 wallpaperGallery.type = wallpaperGallery.GALLERY
                 wallpaperGallery.listener = listener
                 wallpaperGallery.onPressed = wallpaperBase.onPressed
                 wallpaperGallery.uri = uri
-                val dialog = ApplyDialogFragment(wallpaperGallery, pager.currentItem)
+                val dialog = ApplyDialogFragment()
+                dialog.wallpaper = wallpaperGallery
+                dialog.position = pager.currentItem
                 dialog.dismissListener = dismissListener
                 dialog.show(
                     fragment.parentFragmentManager,
@@ -160,7 +162,9 @@ class WallpaperPreviewAdapter(
                 holder.wallpaperPreview.setImageDrawable(wallpaper.drawable)
                 holder.wallpaperPreview.setOnClickListener {
                     wallpaper.onPressed?.invoke()
-                    val dialog = ApplyDialogFragment(wallpaper, pager.currentItem)
+                    val dialog = ApplyDialogFragment()
+                    dialog.wallpaper = wallpaper
+                    dialog.position = pager.currentItem
                     dialog.dismissListener = dismissListener
                     dialog.show(
                         fragment.parentFragmentManager,
@@ -173,10 +177,34 @@ class WallpaperPreviewAdapter(
                     .load(Uri.parse(wallpaper.url))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .thumbnail(0.1f)
+                    .addListener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            notifyItemRemoved(position)
+                            return false
+                        }
+
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            return false
+                        }
+
+                    })
                     .into(holder.wallpaperPreview)
                 holder.wallpaperPreview.setOnClickListener {
                     wallpaper.onPressed?.invoke()
-                    val dialog = ApplyDialogFragment(wallpaper, pager.currentItem)
+                    val dialog = ApplyDialogFragment()
+                    dialog.wallpaper = wallpaper
+                    dialog.position = pager.currentItem
                     dialog.dismissListener = dismissListener
                     dialog.show(
                         fragment.parentFragmentManager,
@@ -184,40 +212,6 @@ class WallpaperPreviewAdapter(
                     )
                 }
             }
-        }
-    }
-
-    private fun setWallpaper(bitmap: Bitmap) {
-        val metrics = DisplayMetrics()
-        val display: Display = synteticActivity.windowManager.defaultDisplay
-        display.getMetrics(metrics)
-        val screenWidth = metrics.widthPixels
-        val screenHeight = metrics.heightPixels
-        wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
-        val width = wallpaperManager.desiredMinimumWidth
-        val height = wallpaperManager.desiredMinimumHeight
-        val wallpaper = Bitmap.createScaledBitmap(bitmap, width, height, true)
-        try {
-            wallpaperManager.bitmap = wallpaper
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
-    private fun setWallpaper(drawable: Drawable) {
-        val metrics = DisplayMetrics()
-        val display: Display = synteticActivity.windowManager.defaultDisplay
-        display.getMetrics(metrics)
-        val screenWidth = metrics.widthPixels
-        val screenHeight = metrics.heightPixels
-        wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
-        val width = wallpaperManager.desiredMinimumWidth
-        val height = wallpaperManager.desiredMinimumHeight
-        val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
-        try {
-            wallpaperManager.bitmap = wallpaper
-        } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 
@@ -249,7 +243,6 @@ class WallpaperPreviewAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.wallpaperTitle)
         val wallpaperPreview: ImageButton = view.findViewById(R.id.wallpaper_preview)
-        val wallpaperHolder: MaterialCardView = view.findViewById(R.id.wall_holder)
     }
 
 }

@@ -32,8 +32,10 @@ open class WorkspaceSurfaceHolderCallback(
     private val mWorkspaceSurface: SurfaceView,
     context: Context,
 ) : SurfaceHolder.Callback {
-    private val mPreviewUtils: PreviewUtils = PreviewUtils(context,
-        context.getString(R.string.grid_control_metadata_name))
+    private val mPreviewUtils: PreviewUtils = PreviewUtils(
+        context,
+        context.getString(R.string.grid_control_metadata_name)
+    )
     private var mLastSurface: Surface? = null
     private var mCallback: Message? = null
     private var mNeedsToCleanUp = false
@@ -43,7 +45,8 @@ open class WorkspaceSurfaceHolderCallback(
             val result = renderPreview(mWorkspaceSurface)
             if (result != null) {
                 mWorkspaceSurface.setChildSurfacePackage(
-                    getSurfacePackage(result))
+                    getSurfacePackage(result)
+                )
                 mCallback = getCallback(result)
                 if (mNeedsToCleanUp) {
                     cleanUp()
@@ -74,7 +77,8 @@ open class WorkspaceSurfaceHolderCallback(
 
     protected open fun renderPreview(workspaceSurface: SurfaceView?): Bundle? {
         return mPreviewUtils.renderPreview(
-            createSurfaceViewRequest(workspaceSurface!!))
+            createSurfaceViewRequest(workspaceSurface!!)
+        )
     }
 
 }

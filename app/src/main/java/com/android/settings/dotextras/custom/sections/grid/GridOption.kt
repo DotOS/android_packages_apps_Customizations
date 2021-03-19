@@ -71,10 +71,18 @@ open class GridOption : Parcelable {
     fun bindThumbnailTile(view: View) {
         val context = view.context
         if (mIsCurrent)
-            mTileDrawable.setColorFilter(context.getNormalizedSecondaryColor(ResourceHelper.getAccent(
-                context)), PorterDuff.Mode.ADD)
+            mTileDrawable.setColorFilter(
+                context.getNormalizedSecondaryColor(
+                    ResourceHelper.getAccent(
+                        context
+                    )
+                ), PorterDuff.Mode.ADD
+            )
         else
-            mTileDrawable.setColorFilter(ResourceHelper.getSecondaryTextColor(context), PorterDuff.Mode.ADD)
+            mTileDrawable.setColorFilter(
+                ResourceHelper.getSecondaryTextColor(context),
+                PorterDuff.Mode.ADD
+            )
         (view.findViewById<View>(R.id.gridThumbnail) as ImageView)
             .setImageDrawable(mTileDrawable)
     }

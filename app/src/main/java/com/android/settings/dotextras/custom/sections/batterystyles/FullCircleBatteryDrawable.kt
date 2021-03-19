@@ -25,6 +25,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 import kotlin.math.min
 
 open class FullCircleBatteryDrawable(private val context: Context, frameColor: Int) : Drawable() {
@@ -292,7 +293,7 @@ open class FullCircleBatteryDrawable(private val context: Context, frameColor: I
         for (i in 0 until color_levels.length()) {
             colors[2 * i] = color_levels.getInt(i, 0)
             if (color_values.getType(i) == TypedValue.TYPE_ATTRIBUTE) {
-                colors[2 * i + 1] = Utils.getColorAttrDefaultColor(
+                colors[2 * i + 1] = ResourceHelper.getColorAttrDefaultColor(
                     context,
                     color_values.getThemeAttributeId(i, 0)
                 )
@@ -314,9 +315,9 @@ open class FullCircleBatteryDrawable(private val context: Context, frameColor: I
         textPaint.textAlign = Paint.Align.CENTER
         textPaint.strokeWidth = 2f
         textPaint.style = Paint.Style.STROKE
-        chargeColor = Utils.getColorStateListDefaultColor(context, R.color.meter_consumed_color)
+        chargeColor = ResourceHelper.getColorStateListDefaultColor(context, R.color.meter_consumed_color)
         powerSavePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        powerSavePaint.color = Utils.getColorStateListDefaultColor(
+        powerSavePaint.color = ResourceHelper.getColorStateListDefaultColor(
             context,
             R.color.batterymeter_plus_color
         )

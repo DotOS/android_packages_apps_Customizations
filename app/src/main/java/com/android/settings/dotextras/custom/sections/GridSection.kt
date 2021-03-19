@@ -42,12 +42,18 @@ class GridSection : GenericSection() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mGridManager = GridOptionsManager(LauncherGridOptionsProvider(requireContext(),
-            getString(R.string.grid_control_metadata_name)))
+        mGridManager = GridOptionsManager(
+            LauncherGridOptionsProvider(
+                requireContext(),
+                getString(R.string.grid_control_metadata_name)
+            )
+        )
 
         recycler = view.findViewById(R.id.gridRecycler)
-        mGridOptionPreviewer = GridOptionPreviewer(mGridManager,
-            view.findViewById(R.id.grid_preview_container))
+        mGridOptionPreviewer = GridOptionPreviewer(
+            mGridManager,
+            view.findViewById(R.id.grid_preview_container)
+        )
         fetchOptions(false)
     }
 
@@ -78,14 +84,20 @@ class GridSection : GenericSection() {
 
     private fun addRecyclerDecoration() {
         recycler.addItemDecoration(
-            ItemRecyclerSpacer(resources.getDimension(R.dimen.recyclerSpacerBigger),
+            ItemRecyclerSpacer(
+                resources.getDimension(R.dimen.recyclerSpacerBigger),
                 null,
-                false)
+                false
+            )
         )
     }
 
     override fun isAvailable(context: Context): Boolean {
-        return GridOptionsManager(LauncherGridOptionsProvider(context,
-            context.getString(R.string.grid_control_metadata_name))).isAvailable
+        return GridOptionsManager(
+            LauncherGridOptionsProvider(
+                context,
+                context.getString(R.string.grid_control_metadata_name)
+            )
+        ).isAvailable
     }
 }

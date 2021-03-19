@@ -15,6 +15,7 @@
  */
 package com.android.settings.dotextras.custom.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Configuration
@@ -25,12 +26,14 @@ import android.widget.LinearLayout
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 
+@SuppressLint("MissingPermission")
 class AccentHeader(context: Context?, attributesSet: AttributeSet) : LinearLayout(
     context,
     attributesSet
 ) {
 
     init {
+        val mContext = context!!
         LayoutInflater.from(mContext).inflate(
             R.layout.item_accent_header, this, true
         )

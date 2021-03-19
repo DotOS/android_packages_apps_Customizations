@@ -78,10 +78,18 @@ class ContentProviderClockProvider(private val mContext: Context) : ClockProvide
                     val preview = Uri.parse(previewUri)
                     val builder: Clockface.Builder = Clockface.Builder()
                     builder.setId(id).setTitle(title)
-                        .setThumbnail(ContentUriAsset(mContext, thumbnail,
-                            RequestOptions.centerInsideTransform()))
-                        .setPreview(ContentUriAsset(mContext, preview,
-                            RequestOptions.fitCenterTransform()))
+                        .setThumbnail(
+                            ContentUriAsset(
+                                mContext, thumbnail,
+                                RequestOptions.centerInsideTransform()
+                            )
+                        )
+                        .setPreview(
+                            ContentUriAsset(
+                                mContext, preview,
+                                RequestOptions.fitCenterTransform()
+                            )
+                        )
                     clockfaces.add(builder.build())
                 }
                 Glide.get(mContext).clearDiskCache()

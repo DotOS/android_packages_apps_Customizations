@@ -64,9 +64,11 @@ class GridRecyclerAdapter(
                 }
             }
             gridOptionCompat.listener?.invoke(gridOptionCompat.gridOption)
-            Snackbar.make(holder.itemView,
+            Snackbar.make(
+                holder.itemView,
                 "Grid '${gridOptionCompat.gridOption.title}' applied.",
-                Snackbar.LENGTH_SHORT).show()
+                Snackbar.LENGTH_SHORT
+            ).show()
             select(position)
             updateSelection(gridOptionCompat, holder)
         }
@@ -125,8 +127,12 @@ class GridRecyclerAdapter(
             holder.gridLayout.setBackgroundColor(accentColor)
             holder.gridLayout.invalidate(true)
         } else {
-            holder.gridLayout.setBackgroundColor(ContextCompat.getColor(holder.gridLayout.context,
-                android.R.color.transparent))
+            holder.gridLayout.setBackgroundColor(
+                ContextCompat.getColor(
+                    holder.gridLayout.context,
+                    android.R.color.transparent
+                )
+            )
             holder.gridLayout.invalidate(true)
         }
     }

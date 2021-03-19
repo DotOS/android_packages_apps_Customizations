@@ -28,6 +28,8 @@ import com.android.settings.dotextras.custom.sections.fod.FodResource
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.FodPreview
+import nl.komponents.kovenant.task
+import nl.komponents.kovenant.ui.successUi
 
 open class FODIconSection : GenericSection() {
 
@@ -74,15 +76,21 @@ open class FODIconSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         fodIcons.clear()
         val fodPreview: FodPreview = view.findViewById(R.id.fodIconPreview)
-        for (i in ICON_STYLES.indices) {
-            val fodIcon = FodResource(ICON_STYLES[i], i)
-            fodIcon.listener = { drawable -> fodPreview.setPreview(drawable) }
-            fodIcons.add(fodIcon)
-        }
         val recyclerView: RecyclerView = view.findViewById(R.id.fodIconRecycler)
-        val adapter = FodIconAdapter(featureManager, fodIcons)
+        var adapter: FodIconAdapter
+        task {
+            for (i in ICON_STYLES.indices) {
+                val fodIcon = FodResource(ICON_STYLES[i], i)
+                fodIcon.listener = { drawable -> fodPreview.setPreview(drawable) }
+                fodIcons.add(fodIcon)
+            }
+        } successUi {
+            adapter = FodIconAdapter(featureManager, fodIcons)
+            requireActivity().runOnUiThread {
+                recyclerView.adapter = adapter
+            }
+        }
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = adapter
         recyclerView.addItemDecoration(
             GridSpacingItemDecoration(
                 GRID_FOD_COLUMNS,

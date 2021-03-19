@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.SystemProperties
 import android.text.TextUtils
 import android.util.Log
+import com.google.gson.GsonBuilder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -22,7 +23,11 @@ class StatsBuilder(private val pref: SharedPreferences) {
                 val requestInterface = Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(
+                        GsonConverterFactory.create(
+                            GsonBuilder().setLenient().create()
+                        )
+                    )
                     .build().create(RequestInterface::class.java)
                 val stats = StatsData()
                 stats.device = stats.device
@@ -34,15 +39,16 @@ class StatsBuilder(private val pref: SharedPreferences) {
                 val request = ServerRequest()
                 request.setOperation(Constants.PUSH_OPERATION)
                 request.setStats(stats)
-                mCompositeDisposable.add(requestInterface.operation(request)
-                !!.observeOn(AndroidSchedulers.mainThread(), false, 100)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({ resp: ServerResponse? ->
-                        handleResponse(resp!!)
-                    },
-                        { error: Throwable ->
+                mCompositeDisposable.add(
+                    requestInterface.operation(request)
+                    !!.observeOn(AndroidSchedulers.mainThread(), false, 100)
+                        .subscribeOn(Schedulers.io())
+                        .subscribe({ resp: ServerResponse? ->
+                            handleResponse(resp!!)
+                        }, { error: Throwable ->
                             handleError(error)
-                        }))
+                        })
+                )
             } else {
                 Log.d(Constants.TAG, "Unsupported ROM")
             }
@@ -53,17 +59,19 @@ class StatsBuilder(private val pref: SharedPreferences) {
         if (resp.result == Constants.SUCCESS) {
             val editor: SharedPreferences.Editor = pref.edit()
             editor.putBoolean(Constants.IS_FIRST_LAUNCH, false)
-            editor.putString(Constants.LAST_BUILD_DATE,
-                SystemProperties.get(Constants.KEY_BUILD_DATE))
+            editor.putString(
+                Constants.LAST_BUILD_DATE,
+                SystemProperties.get(Constants.KEY_BUILD_DATE)
+            )
             editor.apply()
             Log.d(Constants.TAG, "Stats pushed")
         } else {
-            Log.d(Constants.TAG, resp.message)
+            resp.message?.let { Log.d(Constants.TAG, it) }
         }
     }
 
     private fun handleError(error: Throwable) {
-        Log.d(Constants.TAG, error.toString())
+        Log.d(Constants.TAG, error.stackTraceToString())
     }
 
     fun clearComposite() {

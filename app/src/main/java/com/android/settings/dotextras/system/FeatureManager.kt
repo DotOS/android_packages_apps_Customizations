@@ -468,6 +468,65 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          */
         val QS_SHOW_DATA_USAGE = "qs_show_data_usage"
 
+        /**
+         * Whether the button backlight is only lit when pressed (and not when screen is touched)
+         * The value is boolean (1 or 0).
+         */
+        val BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED = "button_backlight_only_when_pressed"
+
+        /**
+         * Force show navigation bar setting.
+         */
+        val NAVIGATION_BAR_SHOW = "navigation_bar_show"
+
+        /**
+         * Force show navigation bar setting.
+         */
+        val NAVIGATION_BAR_MODE_OVERLAY = "navigation_bar_mode_overlay"
+
+        /**
+         * Action to perform when the home key is long-pressed.
+         */
+        val KEY_HOME_LONG_PRESS_ACTION = "key_home_long_press_action"
+
+        /**
+         * Action to perform when the home key is double-tapped.
+         * (Default can be configured via config_doubleTapOnHomeBehavior)
+         */
+        val KEY_HOME_DOUBLE_TAP_ACTION = "key_home_double_tap_action"
+
+        /**
+         * Action to perform when the menu key is pressed. (Default is 1)
+         */
+        val KEY_MENU_ACTION = "key_menu_action"
+
+        /**
+         * Action to perform when the menu key is long-pressed.
+         * (Default is 0 on devices with a search key, 3 on devices without)
+         */
+        val KEY_MENU_LONG_PRESS_ACTION = "key_menu_long_press_action"
+
+        /**
+         * Action to perform when the assistant (search) key is pressed. (Default is 3)
+         */
+        val KEY_ASSIST_ACTION = "key_assist_action"
+
+        /**
+         * Action to perform when the assistant (search) key is long-pressed. (Default is 4)
+         */
+        val KEY_ASSIST_LONG_PRESS_ACTION = "key_assist_long_press_action"
+
+        /**
+         * Action to perform when the app switch key is pressed. (Default is 2)
+         */
+        val KEY_APP_SWITCH_ACTION = "key_app_switch_action"
+
+        /**
+         * Action to perform when the app switch key is long-pressed. (Default is 0)
+         */
+        val KEY_APP_SWITCH_LONG_PRESS_ACTION = "key_app_switch_long_press_action"
+
+
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)
         }

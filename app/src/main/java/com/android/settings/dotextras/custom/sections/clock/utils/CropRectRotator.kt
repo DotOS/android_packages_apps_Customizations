@@ -36,18 +36,24 @@ object CropRectRotator {
     ): Rect {
         return when (exifOrientation) {
             ExifInterface.ORIENTATION_NORMAL -> Rect(srcRect)
-            ExifInterface.ORIENTATION_ROTATE_90 -> Rect(srcRect.top,
+            ExifInterface.ORIENTATION_ROTATE_90 -> Rect(
+                srcRect.top,
                 dimensions.x - srcRect.right,
                 srcRect.bottom,
-                dimensions.x - srcRect.left)
-            ExifInterface.ORIENTATION_ROTATE_180 -> Rect(dimensions.x - srcRect.right,
+                dimensions.x - srcRect.left
+            )
+            ExifInterface.ORIENTATION_ROTATE_180 -> Rect(
+                dimensions.x - srcRect.right,
                 dimensions.y - srcRect.bottom,
                 dimensions.x - srcRect.left,
-                dimensions.y - srcRect.top)
-            ExifInterface.ORIENTATION_ROTATE_270 -> Rect(dimensions.y - srcRect.bottom,
+                dimensions.y - srcRect.top
+            )
+            ExifInterface.ORIENTATION_ROTATE_270 -> Rect(
+                dimensions.y - srcRect.bottom,
                 srcRect.left,
                 dimensions.y - srcRect.top,
-                srcRect.right)
+                srcRect.right
+            )
             else -> {
                 Log.w(TAG, "Unsupported EXIF orientation $exifOrientation")
                 Rect(srcRect)

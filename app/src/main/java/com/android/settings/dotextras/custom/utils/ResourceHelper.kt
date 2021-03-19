@@ -38,6 +38,10 @@ import kotlin.math.roundToInt
 
 object ResourceHelper {
 
+    fun colorToHex(@ColorInt color: Int): String {
+        return String.format("#%06X", 0xFFFFFF and color)
+    }
+
     fun isDark(color: Int): Boolean {
         val darkness: Double =
             1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255
@@ -68,10 +72,12 @@ object ResourceHelper {
         val r = (Color.red(initialColor) * darkness).roundToInt()
         val g = (Color.green(initialColor) * darkness).roundToInt()
         val b = (Color.blue(initialColor) * darkness).roundToInt()
-        return Color.argb(Color.alpha(initialColor),
+        return Color.argb(
+            Color.alpha(initialColor),
             r.coerceAtMost(255),
             g.coerceAtMost(255),
-            b.coerceAtMost(255))
+            b.coerceAtMost(255)
+        )
     }
 
     fun lightsOut(context: Context): Boolean {
@@ -172,6 +178,18 @@ object ResourceHelper {
         }
     }
 
+    fun isNightMode(context: Context): Boolean {
+        val nightModeFlags: Int = context.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    @ColorInt
+    fun getColorStateListDefaultColor(context: Context, resId: Int): Int {
+        val list = context.resources.getColorStateList(resId, context.theme)
+        return list.defaultColor
+    }
+
     @ColorInt
     fun getColorAttrDefaultColor(context: Context, attr: Int): Int {
         val ta = context.obtainStyledAttributes(intArrayOf(attr))
@@ -203,11 +221,13 @@ object ResourceHelper {
     fun getDrawable(context: Context, packageName: String, drawableName: String): Drawable? = try {
         val pm: PackageManager = context.packageManager
         val mApkResources: Resources = pm.getResourcesForApplication(packageName)
-        ResourcesCompat.getDrawable(mApkResources, mApkResources.getIdentifier(
-            drawableName,
-            "drawable",
-            packageName
-        ), null)
+        ResourcesCompat.getDrawable(
+            mApkResources, mApkResources.getIdentifier(
+                drawableName,
+                "drawable",
+                packageName
+            ), null
+        )
     } catch (e: PackageManager.NameNotFoundException) {
         e.printStackTrace()
         null
@@ -246,8 +266,10 @@ object ResourceHelper {
 
     fun hasAmbient(context: Context): Boolean {
         return try {
-            context.resources.getBoolean(Resources.getSystem()
-                .getIdentifier("config_dozeAlwaysOnDisplayAvailable", "bool", "android"))
+            context.resources.getBoolean(
+                Resources.getSystem()
+                    .getIdentifier("config_dozeAlwaysOnDisplayAvailable", "bool", "android")
+            )
         } catch (e: Resources.NotFoundException) {
             false
         }
@@ -262,8 +284,10 @@ object ResourceHelper {
 
     fun hasFodSupport(context: Context): Boolean {
         return try {
-            context.resources.getBoolean(Resources.getSystem()
-                .getIdentifier("config_supportsInDisplayFingerprint", "bool", "android"))
+            context.resources.getBoolean(
+                Resources.getSystem()
+                    .getIdentifier("config_supportsInDisplayFingerprint", "bool", "android")
+            )
         } catch (e: Resources.NotFoundException) {
             false
         }
@@ -273,7 +297,8 @@ object ResourceHelper {
         return try {
             context.resources.getString(
                 Resources.getSystem()
-                    .getIdentifier("config_fodAnimationPackage", "string", "android"))
+                    .getIdentifier("config_fodAnimationPackage", "string", "android")
+            )
         } catch (e: Resources.NotFoundException) {
             ""
         }
@@ -287,9 +312,13 @@ object ResourceHelper {
         val list = ArrayList<Drawable>()
         val walls = context.resources.getStringArray(R.array.dot_walls)
         for (wall in walls) {
-            list.add(getDrawable(context,
-                context.getString(R.string.dot_wallpapers_packagename),
-                wall)!!)
+            list.add(
+                getDrawable(
+                    context,
+                    context.getString(R.string.dot_wallpapers_packagename),
+                    wall
+                )!!
+            )
         }
         return list
     }

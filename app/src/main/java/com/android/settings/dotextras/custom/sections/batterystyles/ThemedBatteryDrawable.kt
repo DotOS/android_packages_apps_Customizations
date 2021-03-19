@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable
 import android.util.PathParser
 import android.util.TypedValue
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 
 /**
@@ -137,7 +138,7 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
     }
 
     private val errorPaint = Paint(Paint.ANTI_ALIAS_FLAG).also { p ->
-        p.color = Utils.getColorStateListDefaultColor(context, R.color.batterymeter_plus_color)
+        p.color = ResourceHelper.getColorStateListDefaultColor(context, R.color.batterymeter_plus_color)
         p.alpha = 255
         p.isDither = true
         p.strokeWidth = 0f
@@ -172,7 +173,7 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
         for (i in 0 until N) {
             colorLevels[2 * i] = levels.getInt(i, 0)
             if (colors.getType(i) == TypedValue.TYPE_ATTRIBUTE) {
-                colorLevels[2 * i + 1] = Utils.getColorAttrDefaultColor(
+                colorLevels[2 * i + 1] = ResourceHelper.getColorAttrDefaultColor(
                     context,
                     colors.getThemeAttributeId(i, 0)
                 )

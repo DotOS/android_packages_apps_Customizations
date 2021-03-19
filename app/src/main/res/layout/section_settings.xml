@@ -34,7 +34,7 @@
         android:summary="@string/enable_dot_stats_summary"
         android:tint="?android:attr/textColorPrimary"
         android:title="@string/enable_dot_stats"
-        app:cardStyle="true" >
+        app:cardStyle="true">
 
     </com.android.settings.dotextras.custom.views.DotMaterialPreference>
 

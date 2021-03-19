@@ -62,23 +62,28 @@ open class SystemSection : GenericSection() {
     }
 
     private fun addGestures() {
-        buildSwitch(gesturesCardList,
+        buildSwitch(
+            gesturesCardList,
             iconID = R.drawable.ic_torch,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.hold_to_torch),
             accentColor = R.color.dot_sky,
             feature = featureManager.Secure().TORCH_POWER_BUTTON_GESTURE,
             featureType = SECURE,
-            summary = getString(R.string.hold_to_torch_summary))
-        buildSwitch(gesturesCardList,
+            summary = getString(R.string.hold_to_torch_summary)
+        )
+        buildSwitch(
+            gesturesCardList,
             iconID = R.drawable.ic_touch,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.stb_brightness_title),
             accentColor = R.color.orange_900,
             feature = featureManager.System().STATUS_BAR_BRIGHTNESS_CONTROL,
             featureType = SYSTEM,
-            summary = getString(R.string.stb_brightness_summary))
-        buildSwitch(gesturesCardList,
+            summary = getString(R.string.stb_brightness_summary)
+        )
+        buildSwitch(
+            gesturesCardList,
             iconID = R.drawable.ic_touch,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.statusbar_dt2s),
@@ -86,8 +91,10 @@ open class SystemSection : GenericSection() {
             feature = featureManager.System().DOUBLE_TAP_SLEEP_GESTURE,
             featureType = SYSTEM,
             summary = getString(R.string.statusbar_dt2s_summary),
-            enabled = true)
-        buildSwitch(gesturesCardList,
+            enabled = true
+        )
+        buildSwitch(
+            gesturesCardList,
             iconID = R.drawable.ic_touch,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.lockscreen_dt2s),
@@ -95,8 +102,10 @@ open class SystemSection : GenericSection() {
             feature = featureManager.System().DOUBLE_TAP_SLEEP_LOCKSCREEN,
             featureType = SYSTEM,
             summary = getString(R.string.lockscreen_dt2s_summary),
-            enabled = true)
-        buildSwitch(gesturesCardList,
+            enabled = true
+        )
+        buildSwitch(
+            gesturesCardList,
             iconID = R.drawable.ic_touch,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.dt_doze),
@@ -104,8 +113,10 @@ open class SystemSection : GenericSection() {
             feature = featureManager.System().DOZE_TRIGGER_DOUBLETAP,
             featureType = SYSTEM,
             summary = getString(R.string.dt_doze_summary),
-            enabled = false)
-        buildSwitch(gesturesCardList,
+            enabled = false
+        )
+        buildSwitch(
+            gesturesCardList,
             iconID = R.drawable.ic_three_fingers,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.threewayss),
@@ -113,8 +124,10 @@ open class SystemSection : GenericSection() {
             feature = featureManager.System().THREE_FINGER_GESTURE,
             featureType = SYSTEM,
             summary = getString(R.string.threewayss_summary),
-            enabled = false)
-        buildSwitch(gesturesCardList,
+            enabled = false
+        )
+        buildSwitch(
+            gesturesCardList,
             iconID = R.drawable.ic_direction,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.volume_left),
@@ -122,7 +135,8 @@ open class SystemSection : GenericSection() {
             feature = featureManager.System().VOLUME_PANEL_ON_LEFT,
             featureType = SYSTEM,
             summary = getString(R.string.volume_left_summary),
-            enabled = false)
+            enabled = false
+        )
         buildSwipeable(gesturesCardList,
             iconID = R.drawable.ic_swipe,
             subtitle = getString(R.string.no_navbar),
@@ -146,15 +160,21 @@ open class SystemSection : GenericSection() {
                                 NAV_BAR_MODE_GESTURAL_OVERLAY,
                                 UserHandle.USER_SYSTEM
                             )
-                            overlayManager.setEnabled(OverlayController.Packages.HIDDEN_OVERLAY_PKG,
+                            overlayManager.setEnabled(
+                                OverlayController.Packages.HIDDEN_OVERLAY_PKG,
                                 false,
-                                UserHandle.USER_SYSTEM)
-                            overlayManager.setEnabled(OverlayController.Packages.NAVBAR_LONG_OVERLAY_PKG,
+                                UserHandle.USER_SYSTEM
+                            )
+                            overlayManager.setEnabled(
+                                OverlayController.Packages.NAVBAR_LONG_OVERLAY_PKG,
                                 false,
-                                UserHandle.USER_SYSTEM)
-                            overlayManager.setEnabled(OverlayController.Packages.NAVBAR_MEDIUM_OVERLAY_PKG,
+                                UserHandle.USER_SYSTEM
+                            )
+                            overlayManager.setEnabled(
+                                OverlayController.Packages.NAVBAR_MEDIUM_OVERLAY_PKG,
                                 false,
-                                UserHandle.USER_SYSTEM)
+                                UserHandle.USER_SYSTEM
+                            )
                         }
                         2 -> overlayManager.setEnabledExclusiveInCategory(
                             OverlayController.Packages.NAVBAR_MEDIUM_OVERLAY_PKG,
@@ -183,13 +203,15 @@ open class SystemSection : GenericSection() {
     }
 
     private fun addSecurity() {
-        buildSwitch(securityCardList,
+        buildSwitch(
+            securityCardList,
             iconID = R.drawable.ic_lock,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.pocket_mode),
             accentColor = R.color.dot_blue,
             feature = featureManager.System().POCKET_JUDGE,
-            featureType = SYSTEM)
+            featureType = SYSTEM
+        )
 
         mFingerprintManager =
             requireContext().getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager?
@@ -201,7 +223,8 @@ open class SystemSection : GenericSection() {
                 && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE
                 && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE_PER_USER
             ) {
-                buildSwitch(securityCardList,
+                buildSwitch(
+                    securityCardList,
                     iconID = R.drawable.fod_icon_default_aosp,
                     title = getString(R.string.disabled),
                     subtitle = getString(R.string.biometrics_unlock),
@@ -209,13 +232,15 @@ open class SystemSection : GenericSection() {
                     feature = featureManager.System().FP_UNLOCK_KEYSTORE,
                     featureType = SYSTEM,
                     summary = getString(R.string.biometrics_unlock_summary),
-                    enabled = false)
+                    enabled = false
+                )
             }
         }
     }
 
     private fun addMisc() {
-        buildSwitch(miscCardList,
+        buildSwitch(
+            miscCardList,
             iconID = R.drawable.ic_lock,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.media_art_title),
@@ -223,6 +248,7 @@ open class SystemSection : GenericSection() {
             feature = featureManager.System().LOCKSCREEN_MEDIA_METADATA,
             featureType = SYSTEM,
             summary = getString(R.string.media_art_summary),
-            enabled = false)
+            enabled = false
+        )
     }
 }

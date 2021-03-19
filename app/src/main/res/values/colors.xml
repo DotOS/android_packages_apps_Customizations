@@ -14,14 +14,11 @@
     <color name="cardBackground">#F3F3F3</color>
 
     <!-- QS Custom Colors -->
-    <color name="default_qs_transparency">#BFffffff</color> <!-- 75% Alpha -->
-    <color name="default_volume_transparency">#33FFFFFF</color> <!-- 20% Alpha -->
+    <!-- 75% Alpha -->
+    <!-- 20% Alpha -->
     <!-- FOD icon picker -->
     <color name="fod_item_background_stroke_color">#D6D6D6</color>
 
     <color name="defaultEdgeLightningColor">#3980FF</color>
-
-    <color name="dot_notification_dim">#B2000000</color>
-    <color name="dot_notification_bg">#CCFFFFFF</color>
 
 </resources>

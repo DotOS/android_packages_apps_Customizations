@@ -43,7 +43,7 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.utils.ColorSheetUtils
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.ColorSheet
 import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.button.MaterialButton
@@ -293,9 +293,11 @@ class ContextCardsAdapter(
                                     intent.data =
                                         Uri.parse("package:" + holder.itemView.context.packageName)
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    startActivity(holder.itemView.context,
+                                    startActivity(
+                                        holder.itemView.context,
                                         intent,
-                                        null)
+                                        null
+                                    )
                                 }
                             }
                         }
@@ -402,9 +404,11 @@ class ContextCardsAdapter(
                                 intent.data =
                                     Uri.parse("package:" + holder.itemView.context.packageName)
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                startActivity(holder.itemView.context,
+                                startActivity(
+                                    holder.itemView.context,
                                     intent,
-                                    null)
+                                    null
+                                )
                             }
                         }
                     }
@@ -583,7 +587,7 @@ class ContextCardsAdapter(
     }
 
     private fun updateRGBSection(contextCard: ContextCards, holder: ViewHolder) {
-        holder.cardTitle.text = ColorSheetUtils.colorToHex(contextCard.colorInt)
+        holder.cardTitle.text = ResourceHelper.colorToHex(contextCard.colorInt)
         val accentColor: Int = adjustAlpha(
             contextCard.colorInt, 0.4f
         )

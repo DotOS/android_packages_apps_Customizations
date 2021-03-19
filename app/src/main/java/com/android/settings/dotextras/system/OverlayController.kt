@@ -65,6 +65,8 @@ class OverlayController(
         const val LAUNCHER_ICON_PACK_CATEGORY = "android.theme.customization.icon_pack.launcher"
         const val ACCENT_CATEGORY = "android.theme.customization.accent_color"
         const val NOTIFICATION_CATEGORY = "android.theme.customization.notification_alpha"
+        const val OVERLAY_CATEGORY_STYLES_SETTINGS = "android.theme.customization.styles_settings"
+        const val OVERLAY_CATEGORY_STYLES_SYSUI = "android.theme.customization.styles_sysui"
     }
 
     object Packages {
@@ -72,6 +74,8 @@ class OverlayController(
         const val NAVBAR_MEDIUM_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.medium"
         const val HIDDEN_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.hidden"
         const val NOTIFICATION_OPAQUE = "com.dot.overlay.systemui.notification.opaque"
+        const val STYLES_SETTINGS = "com.dot.overlay.styles.nocards"
+        const val QS_OPAQUE = "com.dot.overlay.systemui.qs.opaque"
     }
 
     object Constants {
@@ -90,11 +94,13 @@ class OverlayController(
         const val PATH_SIZE = 100f
     }
 
-    inner class NotificationOpacity {
-        fun toggleOpacity(toggle: Boolean) {
-            overlayManager.setEnabled(Packages.NOTIFICATION_OPAQUE, toggle, USER_SYSTEM)
+    inner class Styles {
+        fun toggleStyle(pckg: String, toggle: Boolean) {
+            overlayManager.setEnabled(pckg, toggle, USER_SYSTEM)
         }
-        fun isEnabled(): Boolean = overlayManager.getOverlayInfo(Packages.NOTIFICATION_OPAQUE, USER_SYSTEM).isEnabled
+
+        fun isEnabled(pckg: String): Boolean =
+            overlayManager.getOverlayInfo(pckg, USER_SYSTEM).isEnabled
     }
 
     inner class AccentColors {
@@ -190,7 +196,7 @@ class OverlayController(
             )
         }
 
-        fun getAccentColors(context: Context): ArrayList<Accent> {
+        fun getAccentColors(): ArrayList<Accent> {
             val accentPacks = ArrayList<Accent>()
             val selectedPkg = OVERLAY_TARGET_PACKAGE
             accentPacks.add(

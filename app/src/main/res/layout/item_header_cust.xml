@@ -25,9 +25,9 @@
                 android:id="@+id/card_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:minHeight="@dimen/default_card_height"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
+                android:minHeight="@dimen/default_card_height"
                 android:orientation="vertical">
 
             </LinearLayout>

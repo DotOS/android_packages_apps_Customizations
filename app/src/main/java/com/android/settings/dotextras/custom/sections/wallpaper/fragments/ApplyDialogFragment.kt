@@ -53,8 +53,10 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
-class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : DialogFragment() {
+class ApplyDialogFragment : DialogFragment() {
 
+    lateinit var wallpaper: WallpaperBase
+    var position: Int = 0
     var dismissListener: onDismiss = null
 
     private lateinit var wallOverlay: ImageView
@@ -86,8 +88,7 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         savedInstanceState: Bundle?,
     ): View? {
         requireDialog().requestWindowFeature(Window.FEATURE_NO_TITLE)
-        targetWall =
-            if (wallpaper.type == wallpaper.WEB) drawableFromUrl(wallpaper.url!!) else wallpaper.drawable!!
+        targetWall = if (wallpaper.type == wallpaper.WEB) drawableFromUrl(wallpaper.url!!) else wallpaper.drawable!!
         return inflater.inflate(R.layout.item_wallpaper_apply, container, false)
     }
 
@@ -207,7 +208,7 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
             val result = CropImage.getActivityResult(data)
             val resultUri: Uri? = result!!.uri
             val drawable = Drawable.createFromStream(
-                requireContext().contentResolver.openInputStream(resultUri),
+                requireContext().contentResolver.openInputStream(resultUri!!),
                 resultUri.toString()
             )
             wallpaper.drawable = drawable
@@ -233,7 +234,8 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         return try {
-            BitmapDrawable(Resources.getSystem(),
+            BitmapDrawable(
+                Resources.getSystem(),
                 BitmapFactory.decodeStream(URL(urlString).content as InputStream)
             )
         } catch (e: IOException) {
@@ -243,10 +245,10 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
 
     override fun onStart() {
         super.onStart()
-        requireDialog().window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        requireDialog().window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         requireDialog().setCanceledOnTouchOutside(true)
-        requireDialog().window.setGravity(Gravity.TOP)
-        requireDialog().window.setLayout(
+        requireDialog().window!!.setGravity(Gravity.TOP)
+        requireDialog().window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
@@ -265,7 +267,6 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         task {
             try {
                 wallpaperManager.setBitmap(wallpaper, null, true, flag)
-
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -288,7 +289,7 @@ class ApplyDialogFragment(val wallpaper: WallpaperBase, val position: Int) : Dia
         val wallpaper = scaleCropToFit(drawableToBitmap(drawable)!!, width, height)
         task {
             try {
-                wallpaperManager.bitmap = wallpaper
+                wallpaperManager.setBitmap(wallpaper)
             } catch (e: IOException) {
                 e.printStackTrace()
             }

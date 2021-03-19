@@ -66,7 +66,8 @@ class FodAnimationAdapter(
         "fod_pureview_molecular_recognizing_anim",
         "fod_rog_fusion_recognizing_anim",
         "fod_rog_pulsar_recognizing_anim",
-        "fod_rog_supernova_recognizing_anim")
+        "fod_rog_supernova_recognizing_anim"
+    )
 
     override fun getItemCount(): Int = items.size
 
@@ -148,8 +149,12 @@ class FodAnimationAdapter(
         if (fodIcon.selected) {
             holder.fodLayout.setBackgroundColor(accentColor)
             holder.fodLayout.invalidate(true)
-            fodIcon.listenerAnim?.invoke(getAnimationPreview(holder.itemView.context,
-                ANIMATION_STYLES_NAMES[position]) as AnimationDrawable?)
+            fodIcon.listenerAnim?.invoke(
+                getAnimationPreview(
+                    holder.itemView.context,
+                    ANIMATION_STYLES_NAMES[position]
+                ) as AnimationDrawable?
+            )
         } else {
             holder.fodLayout.setBackgroundColor(
                 ContextCompat.getColor(
@@ -162,9 +167,11 @@ class FodAnimationAdapter(
     }
 
     private fun getAnimationPreview(context: Context, drawableName: String): Drawable? {
-        return ResourceHelper.getDrawable(context,
+        return ResourceHelper.getDrawable(
+            context,
             ResourceHelper.getFodAnimationPackage(context),
-            drawableName)
+            drawableName
+        )
     }
 
     private fun select(pos: Int) {

@@ -7,14 +7,18 @@ internal class ExifInterfaceCompat(inputStream: InputStream?) {
     private var mSupportExifInterface: ExifInterface? = null
     private var mFrameworkExifInterface: android.media.ExifInterface? = null
     fun getAttributeInt(tag: String?, defaultValue: Int): Int {
-        return if (mFrameworkExifInterface != null) mFrameworkExifInterface!!.getAttributeInt(tag,
-            defaultValue) else mSupportExifInterface!!.getAttributeInt(
-            tag!!, defaultValue)
+        return if (mFrameworkExifInterface != null) mFrameworkExifInterface!!.getAttributeInt(
+            tag,
+            defaultValue
+        ) else mSupportExifInterface!!.getAttributeInt(
+            tag!!, defaultValue
+        )
     }
 
     fun getAttribute(tag: String?): String {
         return if (mFrameworkExifInterface != null) mFrameworkExifInterface!!.getAttribute(tag) else mSupportExifInterface!!.getAttribute(
-            tag!!)!!
+            tag!!
+        )!!
     }
 
     companion object {

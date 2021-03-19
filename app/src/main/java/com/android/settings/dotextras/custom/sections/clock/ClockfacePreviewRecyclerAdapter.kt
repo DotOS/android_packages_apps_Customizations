@@ -58,9 +58,11 @@ class ClockfacePreviewRecyclerAdapter(
         holder.clockfaceChip.text = clockfaceCompat.clockface.getTitle()
         holder.clockfaceLayout.setOnClickListener {
             clockManager.apply(clockfaceCompat.clockface) {}
-            Snackbar.make(holder.itemView,
+            Snackbar.make(
+                holder.itemView,
                 "Clockface '${clockfaceCompat.clockface.getTitle()}' applied.",
-                Snackbar.LENGTH_SHORT).show()
+                Snackbar.LENGTH_SHORT
+            ).show()
             select(position)
             updateSelection(clockfaceCompat, holder)
         }

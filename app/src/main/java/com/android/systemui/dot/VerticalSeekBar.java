@@ -36,11 +36,8 @@
 package com.android.systemui.dot;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -48,6 +45,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+
+import androidx.core.view.ViewCompat;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -74,6 +73,10 @@ public class VerticalSeekBar extends SeekBar {
     public VerticalSeekBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initialize(context, attrs, defStyle, 0);
+    }
+
+    private static boolean isValidRotationAngle(int angle) {
+        return (angle == ROTATION_ANGLE_CW_90 || angle == ROTATION_ANGLE_CW_270);
     }
 
     private void initialize(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -385,9 +388,5 @@ public class VerticalSeekBar extends SeekBar {
         } else {
             return null;
         }
-    }
-
-    private static boolean isValidRotationAngle(int angle) {
-        return (angle == ROTATION_ANGLE_CW_90 || angle == ROTATION_ANGLE_CW_270);
     }
 }

@@ -30,14 +30,18 @@ class Clockface private constructor(
 
     fun bindThumbnailTile(view: View) {
         val thumbView = view.findViewById<ImageView>(R.id.defaultClockPreview)
-        mThumbnail!!.loadDrawableWithTransition(thumbView.context, thumbView, 50, null,
-            thumbView.resources.getColor(android.R.color.transparent, null))
+        mThumbnail!!.loadDrawableWithTransition(
+            thumbView.context, thumbView, 50, null,
+            thumbView.resources.getColor(android.R.color.transparent, null)
+        )
     }
 
     fun bindPreviewTile(view: View) {
         val thumbView = view.findViewById<ImageView>(R.id.defaultClockPreview)
-        previewAsset!!.loadDrawableWithTransition(thumbView.context, thumbView, 50, null,
-            thumbView.resources.getColor(android.R.color.transparent, null))
+        previewAsset!!.loadDrawableWithTransition(
+            thumbView.context, thumbView, 50, null,
+            thumbView.resources.getColor(android.R.color.transparent, null)
+        )
     }
 
     fun getTitle(): String? = mTitle

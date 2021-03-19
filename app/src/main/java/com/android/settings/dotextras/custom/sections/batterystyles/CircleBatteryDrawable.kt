@@ -22,6 +22,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 import kotlin.math.max
 import kotlin.math.min
 
@@ -299,7 +300,7 @@ open class CircleBatteryDrawable(private val context: Context, frameColor: Int) 
         for (i in 0 until color_levels.length()) {
             colors[2 * i] = color_levels.getInt(i, 0)
             if (color_values.getType(i) == TypedValue.TYPE_ATTRIBUTE) {
-                colors[2 * i + 1] = Utils.getColorAttrDefaultColor(
+                colors[2 * i + 1] = ResourceHelper.getColorAttrDefaultColor(
                     context,
                     color_values.getThemeAttributeId(i, 0)
                 )
@@ -324,16 +325,16 @@ open class CircleBatteryDrawable(private val context: Context, frameColor: Int) 
         if (colors.size > 1) {
             warningTextPaint.color = colors[1]
         }
-        chargeColor = Utils.getColorStateListDefaultColor(context, R.color.meter_consumed_color)
+        chargeColor = ResourceHelper.getColorStateListDefaultColor(context, R.color.meter_consumed_color)
         boltPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        boltPaint.color = Utils.getColorStateListDefaultColor(
+        boltPaint.color = ResourceHelper.getColorStateListDefaultColor(
             context,
             R.color.batterymeter_bolt_color
         )
         boltPoints =
             loadPoints(res, R.array.batterymeter_bolt_points)
         plusPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        plusPaint.color = Utils.getColorStateListDefaultColor(
+        plusPaint.color = ResourceHelper.getColorStateListDefaultColor(
             context,
             R.color.batterymeter_plus_color
         )

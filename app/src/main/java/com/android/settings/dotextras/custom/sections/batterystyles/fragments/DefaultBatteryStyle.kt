@@ -39,9 +39,11 @@ class DefaultBatteryStyle : Fragment() {
         val batteryView: ImageView = view.findViewById(R.id.batteryView)
         val drawable = ThemedBatteryDrawable(requireContext(), R.color.meter_background_color)
         drawable.setBatteryLevel(50)
-        drawable.setColors(requireContext().getColor(R.color.colorAccent),
+        drawable.setColors(
+            requireContext().getColor(R.color.colorAccent),
             requireContext().getColor(R.color.colorPrimary),
-            requireContext().getColor(R.color.colorAccent))
+            requireContext().getColor(R.color.colorAccent)
+        )
         batteryView.setImageDrawable(drawable)
     }
 

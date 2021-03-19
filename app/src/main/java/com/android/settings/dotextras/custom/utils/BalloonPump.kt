@@ -50,9 +50,11 @@ class BalloonPump(val context: Context, val preferences: SharedPreferences) {
     fun show(target: View) {
         if (preferences.getBoolean(SettingsConstants.SHOW_BALLOONS, true)) {
             Handler().postDelayed({
-                balloon.showAlignTop(target,
+                balloon.showAlignTop(
+                    target,
                     0,
-                    -context.resources.getDimension(R.dimen.default_dialog_radius).roundToInt() / 2)
+                    -context.resources.getDimension(R.dimen.default_dialog_radius).roundToInt() / 2
+                )
             }, 400)
         }
     }

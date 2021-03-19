@@ -33,14 +33,17 @@ class DotMaterialPreference(context: Context?, attrs: AttributeSet?) : FrameLayo
         )
         if (attrs != null) {
             val a = getContext().obtainStyledAttributes(attrs, R.styleable.DotMaterialPreference)
-            if (a.getBoolean(R.styleable.DotMaterialPreference_cardStyle,
-                    false)
+            if (a.getBoolean(
+                    R.styleable.DotMaterialPreference_cardStyle,
+                    false
+                )
             ) {
                 if (childCount != 0) {
                     removeAllViews()
                 }
                 LayoutInflater.from(context).inflate(
-                    R.layout.preference_card_base, this, true)
+                    R.layout.preference_card_base, this, true
+                )
             } else {
                 if (childCount != 0) {
                     removeAllViews()
@@ -57,8 +60,10 @@ class DotMaterialPreference(context: Context?, attrs: AttributeSet?) : FrameLayo
             layoutView = findViewById(R.id.preference_layout)
             widgetFrame = findViewById(android.R.id.widget_frame)
             if (a.getBoolean(R.styleable.DotMaterialPreference_android_checkable, false)) {
-                widgetFrame!!.addView(LayoutInflater.from(context)
-                    .inflate(R.layout.preference_widget_switch, this, false))
+                widgetFrame!!.addView(
+                    LayoutInflater.from(context)
+                        .inflate(R.layout.preference_widget_switch, this, false)
+                )
                 switchView = findViewById(android.R.id.switch_widget)
                 switchView!!.isSelected =
                     a.getBoolean(R.styleable.DotMaterialPreference_android_checked, false)
@@ -70,11 +75,19 @@ class DotMaterialPreference(context: Context?, attrs: AttributeSet?) : FrameLayo
             summaryView!!.text = a.getString(R.styleable.DotMaterialPreference_android_summary)
             titleView!!.visibility = if (titleView!!.text.isEmpty()) GONE else VISIBLE
             summaryView!!.visibility = if (summaryView!!.text.isEmpty()) GONE else VISIBLE
-            iconView!!.setImageResource(a.getResourceId(R.styleable.DotMaterialPreference_android_icon,
-                android.R.color.transparent))
+            iconView!!.setImageResource(
+                a.getResourceId(
+                    R.styleable.DotMaterialPreference_android_icon,
+                    android.R.color.transparent
+                )
+            )
             iconView!!.imageTintList =
-                ColorStateList.valueOf(a.getColor(R.styleable.DotMaterialPreference_android_tint,
-                    getContext().getColor(R.color.colorAccent)))
+                ColorStateList.valueOf(
+                    a.getColor(
+                        R.styleable.DotMaterialPreference_android_tint,
+                        getContext().getColor(R.color.colorAccent)
+                    )
+                )
             if (a.getString(R.styleable.DotMaterialPreference_url) != null) {
                 val builder = CustomTabsIntent.Builder()
                 val customTabsIntent = builder.build()
