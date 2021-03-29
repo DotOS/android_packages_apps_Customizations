@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BatteryMeterView parameters -->
+    <array name="batterymeter_color_levels">
+        <item>15</item>
+        <item>100</item>
+    </array>
+    <array name="batterymeter_color_values">
+        <item>?android:attr/colorError</item>
+        <item>@android:color/white</item>
+    </array>
+    <array name="batterymeter_bolt_points">
+        <item>73</item> <item>0</item>
+        <item>392</item><item>0</item>
+        <item>201</item><item>259</item>
+        <item>442</item><item>259</item>
+        <item>4</item>  <item>703</item>
+        <item>157</item><item>334</item>
+        <item>0</item>  <item>334</item>
+    </array>
+    <array name="batterymeter_plus_points">
+        <item>3</item><item>0</item>
+        <item>5</item><item>0</item>
+        <item>5</item><item>3</item>
+        <item>8</item><item>3</item>
+        <item>8</item><item>5</item>
+        <item>5</item><item>5</item>
+        <item>5</item><item>8</item>
+        <item>3</item><item>8</item>
+        <item>3</item><item>5</item>
+        <item>0</item><item>5</item>
+        <item>0</item><item>3</item>
+        <item>3</item><item>3</item>
+    </array>
+
+    <!-- All of the paths defined for the batterymeter are defined on a 12x20 canvas, and must
+     be parsable by android.utill.PathParser -->
+    <string name="config_batterymeterPerimeterPath" translatable="false">
+		M3.5,2 v0 H1.33 C0.6,2 0,2.6 0,3.33 V13v5.67 C0,19.4 0.6,20 1.33,20 h9.33 C11.4,20 12,19.4 12,18.67 V13V3.33 C12,2.6 11.4,2 10.67,2 H8.5 V0 H3.5 z M2,18v-7V4h8v9v5H2L2,18z
+    </string>
+    <string name="config_batterymeterErrorPerimeterPath" translatable="false">@string/config_batterymeterPerimeterPath</string>
+    <string name="config_batterymeterFillMask" translatable="false">
+        M2,18 v-14 h8 v14 z
+    </string>
+    <string name="config_batterymeterBoltPath" translatable="false">
+        M5,17.5 V12 H3 L7,4.5 V10 h2 L5,17.5 z
+    </string>
+    <string name="config_batterymeterPowersavePath" translatable="false">
+        M9,10l-2,0l0,-2l-2,0l0,2l-2,0l0,2l2,0l0,2l2,0l0,-2l2,0z
+    </string>
+
+    <!-- A dual tone battery meter draws the perimeter path twice - once to define the shape
+     and a second time clipped to the fill level to indicate charge -->
+    <bool name="config_batterymeterDualTone">false</bool>
+
+    <string-array name="dot_walls">
+        <item>dot_wall_0</item>
+        <item>dot_wall_1</item>
+        <item>dot_wall_2</item>
+    </string-array>
+</resources>

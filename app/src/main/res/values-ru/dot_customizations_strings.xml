@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Sections -->
+    <string name="section_statusbar_title">Статусбар</string>
+    <string name="section_qs_title">Быстрые настройки</string>
+    <string name="section_system_title">Система</string>
+    <string name="section_themes_title">Темы</string>
+    <string name="section_wallpaper_title">Обои</string>
+    <string name="section_aod_title">AOD и экран блокировки</string>
+    <string name="section_icons_title">Форма иконки</string>
+    <string name="section_fod_icon">Иконки FOD</string>
+    <string name="section_fod_anim">Анимации FOD</string>
+    <string name="section_fod_color_opt">Опции FOD</string>
+    <string name="grid_section">Сетка приложений</string>
+    <string name="section_settings">Настройки</string>
+
+    <string name="set_wallpaper">Установить обои</string>
+    <string name="system_gestures">Жесты</string>
+
+    <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
+    <string name="grid_title_pattern" translatable="false"><xliff:g name="num_cols" example="1">%1$d</xliff:g>x<xliff:g name="num_rows" example="1">%2$d</xliff:g></string>
+
+    <string name="themes_stub_package" translatable="false">com.dot.stub</string>
+    <string name="clocks_stub_package" translatable="false">com.dot.stub</string>
+    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
+    <string name="clocks_provider_authority" translatable="false">com.android.keyguard.clock</string>
+
+    <string name="launcher_overlayable_package" translatable="false">com.android.launcher3</string>
+
+    <string name="systemui_package" translatable="false">com.android.systemui</string>
+
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to provide available grids and
+    allow for changing them -->
+    <string name="grid_control_metadata_name" translatable="false">com.android.launcher3.grid.control</string>
+
+    <string name="dot_wallpapers_packagename" translatable="false">com.dot.extra.wallpapers</string>
+</resources>

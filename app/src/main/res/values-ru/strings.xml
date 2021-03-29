@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Твики системы</string>
+    <!-- Common Strings -->
+    <string name="apply">Применить</string>
+    <string name="apply_for">Применить</string>
+    <string name="back_behaviour">back_behaviour</string>
+    <string name="button">Кнопка</string>
+    <string name="buttons">Кнопки</string>
+    <string name="chip">Фишка</string>
+    <string name="clockface">Циферблаты</string>
+    <string name="disabled">Отключено</string>
+    <string name="enable">Включено</string>
+    <string name="enabled">Включено</string>
+    <string name="lockscreen_date_pattern">EEE, MMM d</string>
+    <string name="options">Опции</string>
+    <string name="picker_title">Выбор цвета</string>
+    <string name="progress">Прогресс</string>
+    <string name="reset">Сброс</string>
+    <string name="sections">Разделы</string>
+    <string name="switches">Переключатели</string>
+    <string name="manifest_wallpaper">Обои</string>
+    <string name="style">Стиль</string>
+    <string name="hide">Скрыть</string>
+    <string name="inside">Внутри</string>
+    <string name="outside">Внешний</string>
+    <string name="estimate">Расценивать</string>
+    <string name="percentage">Процентный</string>
+    <string name="default_theme_title">По умолчанию</string>
+    <string name="icons">Иконки</string>
+    <string name="miscellaneous">Разное</string>
+
+    <!-- Themes Section -->
+    <string name="accent_color">Цвет акцента</string>
+    <string name="picker_summary">Выберите тот, который вам подходит.</string>
+    <string name="built_in_accents">Встроенные акценты</string>
+    <string name="material_palette">Цветовая палитра</string>
+    <string name="headline_01">Заголовок 01</string>
+    <string name="body_02">Тело 02</string>
+    <string name="fonts">Шрифты</string>
+    <string name="icon_pack">Пакет иконок</string>
+    <string name="icon_shapes">Форма иконок</string>
+    <string name="device_default">По умолчанию</string>
+    <string name="device_default_font">По умолчанию</string>
+    <string name="light_shade">Светлая тема</string>
+    <string name="dark_shade">Темная тема</string>
+    <string name="twotone_accent_summary">"Примените оттенок акцента для Светлой и Темной темы. Вы также можете выбрать два разных акцента для каждого стиля.
+ 
+Пример : Белая тема с голубым акцентом и Темная тема с желтым акцентом.
+ 
+Чтобы использовать пакеты акцентов на устройстве, сбросьте пользовательский акцент с помощью правой верхней кнопки в палитре цветов."</string>
+    <string name="ballon_twotone">Используйте длительное нажатие для выбора цвета акцента</string>
+    <string name="smart_accent_picker">Умный выбор акцента</string>
+    <string name="disable_notification_transparency">Отключить прозрачность уведомлений</string>
+
+    <!-- Wallpapers Section -->
+    <string name="current_wallpaper">Текущие обои</string>
+    <string name="image_color_s">Цвет картинки(ок)</string>
+    <string name="my_photos">Мои фото</string>
+    <string name="built_in_wallpapers">Встроенные обои</string>
+    <string name="live_wallpapers">Живые обои</string>
+    <string name="dotos_exclusives">Эксклюзивные dotOS</string>
+    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    <string name="apply_wallpaper">Применить обои</string>
+    <string name="apply_wallpaper_summary">Вы уверены, что хотите использовать эти обои?</string>
+    <string name="apply_both">Домашний экран и экран блокировки</string>
+    <string name="wall_applied">Обои установлены!</string>
+    <string name="pick_image_intent_chooser_title">Выберите источник</string>
+    <string name="crop_image_activity_no_permissions">Отмена, необходимые разрешения не предоставлены</string>
+
+    <!-- AOD Section -->
+    <string name="aod_title">AOD и экран блокировки</string>
+    <string name="aod_summary">Всегда показывать на Amdient Dislpay</string>
+    <string name="edge_lightning_title">Подсветка краев</string>
+    <string name="edge_lightning_summary">Подсвечивать края при получении уведомления AOD</string>
+    <string name="edge_lightning_summary_colormode">Цветовой режим</string>
+    <string name="edge_lightning_summary_color">Другой цвет</string>
+    <string name="edge_lightning_mode_default">Цвет по умолчанию (Синий)</string>
+    <string name="edge_lightning_mode_accent">Цвет акцента</string>
+    <string name="edge_lightning_mode_custom">Другой цвет</string>
+    <string name="edge_lightning_mode_auto">Цвет уведомления</string>
+
+    <!-- System Section -->
+    <string name="hold_to_torch">Включение фонарика</string>
+    <string name="hold_to_torch_summary">Вкл/Выкл кнопкой питания</string>
+    <string name="pocket_mode">Карманный режим</string>
+    <string name="statusbar_dt2s">Двойное нажатие по статус бару</string>
+    <string name="statusbar_dt2s_summary">Нажмите дважды для сна</string>
+    <string name="lockscreen_dt2s">Двойное нажатие на экране блокировки</string>
+    <string name="lockscreen_dt2s_summary">Нажмите дважды для сна</string>
+    <string name="threewayss">Быстрый скриншот</string>
+    <string name="threewayss_summary">Проведите тремя пальцами для скриншота</string>
+    <string name="biometrics_unlock">Отпечаток после перезагрузки</string>
+    <string name="biometrics_unlock_summary">Использовать биометрическую разблокировку после перезагрузки</string>
+    <string name="volume_left">Звуковая панель</string>
+    <string name="volume_left_summary">Сделать удобной для левшей</string>
+    <string name="fod_nightlight">FOD подсветка</string>
+    <string name="fod_nightlight_summary">Автоматическое отключение подсветки при использовании fod</string>
+    <string name="no_navbar">Полоса навбара</string>
+    <string name="no_navbar_summary">Настройка длины полосы</string>
+    <string name="security">Безопасность</string>
+    <string name="navbar">Навигационная система</string>
+    <string name="length_size">Длина</string>
+    <string name="media_art_title">Обложка альбома на экране блокировки</string>
+    <string name="media_art_summary">Показывать обложку текущего трека</string>
+
+    <!-- QS Section -->
+    <string name="qs_title">Название плиток</string>
+    <string name="rows_amp_columns">Строки и столбцы</string>
+    <string name="qs_tiles_accent_v2">Акцент плиток V2</string>
+    <string name="qs_percentage_style">QS Стиль процентов</string>
+    <string name="quick_settings">Быстрые настройки</string>
+    <string name="qs_tiles_accent_v2_summary">Лучшее использование акцентного цвета в плитках</string>
+
+    <!-- FOD Section -->
+    <string name="fod_icon_picker_title">Значок отпечатка пальца</string>
+    <string name="fod_icon_picker_summary">Выберите свой любимый значок отпечатка пальца</string>
+    <string name="fod_icon_picker_footer">Для того, чтобы добавить свой собственный значок, нажмите верхний левый значок и использовать в OnePlus 6Т FP настройщик приложения, чтобы выбрать значок, который вы хотите.</string>
+    <string name="fod_screenoff_summary">Используйте биометрическую аутентификацию, пока экран заблокирован.</string>
+    <string name="fod_screenoff_title">Экран-выключен FOD</string>
+    <string name="fod_animations">Анимации</string>
+    <string name="fod_icons">Иконки</string>
+    <string name="fod_color">Распознавание цвета</string>
+    <string name="enable_aod">Включить Always on Display?</string>
+
+    <!-- Statusbar Section -->
+    <string name="battery_styles">Стили батареи</string>
+    <string name="percentage_style">Стиль процентов</string>
+    <string name="battery_meter_very_low_overlay_symbol">!</string>
+    <string name="traffic_meter_title">Показывать счетчик трафика</string>
+    <string name="traffic_meter_summary">Следите за своим интернет трафиком</string>
+    <string name="traffic_meter_treshold_subtitle">Порог активности</string>
+    <string name="traffic_meter_treshold_summary">Автоматическое скрытие счетчика трафика</string>
+    <string name="traffic_meter_treshold_extra">Kб/с</string>
+    <string name="status_bar">Статусбар</string>
+    <string name="led_color">Цвет индикатора</string>
+    <string name="light_charged">Когда батарея заряжена</string>
+    <string name="light_full">Когда батарея полностью заряжена</string>
+    <string name="light_low">Когда батарея разряжена</string>
+    <string name="light_medium">При средней зарядке батареи</string>
+    <string name="battery_light_title">Индикатор батареи</string>
+    <string name="battery_light_dnd">Индикатор батареи в DND</string>
+    <string name="show_batterylight">Включение и отключение индикатора</string>
+    <string name="show_batterylight_dnd">Включите его в режиме Не беспокоить</string>
+    <string name="blinking">Моргание</string>
+    <string name="blinking_on_low">Индикатор мигает при низком заряде батареи</string>
+    <string name="status_bar_battery_style_title">Стиль батареи</string>
+    <string name="status_bar_battery_style_icon_portrait">Портретная иконка</string>
+    <string name="status_bar_battery_style_circle">Круг</string>
+    <string name="status_bar_battery_style_dotted_circle">Точечный круг</string>
+    <string name="status_bar_battery_style_filled_circle">Заполненый круг</string>
+    <string name="status_bar_battery_style_text">Текстовый</string>
+    <string name="status_bar_battery_style_hidden">Скрыть</string>
+    <string name="status_bar_battery_percentage_title">Процент заряда батареи</string>
+    <string name="status_bar_battery_percentage_default">Скрыто</string>
+    <string name="status_bar_battery_percentage_text_inside">Внутри иконки</string>
+    <string name="status_bar_battery_percentage_text_next">За иконкой</string>
+
+    <!-- Settings Section -->
+    <string name="enable_dot_stats">Включить статистику dotOS</string>
+    <string name="enable_dot_stats_summary">Разрешать dotOS собирать анонимные данные, такие как версия, устройство и страна, с вашего телефона.</string>
+    <string name="rgb_battery_light">RGB индикатор батареи</string>
+    <string name="rgb_battery_light_summary">Показать палитры RGB для батареи</string>
+    <string name="enable_balloons">Включить подсказки</string>
+    <string name="enable_balloons_summary">Показывать всплывающие подсказки поверх приложений</string>
+    <string name="check_stats">Проверить статистику на stats.droidontime.com</string>
+    <string name="traffic_indicator">Индикатор трафика</string>
+    <string name="swipe_to_change">Проведите пальцем для изменения!</string>
+    <string name="click_to_toggle">Нажмите, чтобы переключиться</string>
+    <string name="clock_customization">Настройки часов</string>
+    <string name="show_clock_tile">Показывать часы</string>
+    <string name="show_clock_summary">Показывать время в статусбаре</string>
+    <string name="clock_position_title">Позиция часов</string>
+    <string name="clock_position_summary">Установите позицию ваших часов</string>
+    <string name="clock">Часы</string>
+    <string name="right_clock">Часы справа</string>
+    <string name="center_clock">Часы по центру</string>
+    <string name="left_clock">Часы слева</string>
+    <string name="show_seconds_title">Показывать секунды</string>
+    <string name="show_seconds_summary">Будьте более точны пожалуйста</string>
+    <string name="ampm_title">Стиль AM/PM</string>
+    <string name="normal_ampm">Нормальный AM/PM</string>
+    <string name="small_ampm">Маленький AM/PM</string>
+    <string name="no_ampm">Без AM/PM</string>
+    <string name="no_date">Без даты</string>
+    <string name="small_date">Маленькая дата</string>
+    <string name="normal_date">Нормальный размер даты</string>
+    <string name="show_date_title">Показывать дату без времени</string>
+    <string name="show_date_summary">Показывать время и дату в статусбаре</string>
+    <string name="ampm_summary">Идеально подходит для 12-часового формата</string>
+    <string name="dt_doze">Двойное нажатие ambient display</string>
+    <string name="dt_doze_summary">Нажмите дважды, чтобы открыть ambient display</string>
+
+    <string name="feature_control_not_supported">%s не поддерживается.</string>
+    <string name="stb_brightness_title">Регулировка яркости панели состояния</string>
+    <string name="stb_brightness_summary">Контролируйте яркость с помощью строки состояния</string>
+    <string name="dot_data_used"><![CDATA[<font color="%1$s">●&#32;</font>]]>‎‎ ‎%2$s использовано данных</string>
+    <string name="data_usage_title">Мобильные данные</string>
+    <string name="data_usage_summary">Быстрая проверка использования мобильных данных</string>
+    <string name="qs_columns">Столбцы QS</string>
+    <string name="qs_rows">Строки QS</string>
+    <string name="columns">Столбец(ов))</string>
+    <string name="rows">Строка(и)</string>
+    <string name="portrait">Портретный режим</string>
+    <string name="landscape">Ландшафтный режим</string>
+    <string name="disable_qs_transparency">Отключить прозрачность панели QS</string>
+</resources>
