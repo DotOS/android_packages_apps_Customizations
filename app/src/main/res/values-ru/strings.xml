@@ -59,7 +59,7 @@
     <string name="my_photos">Мои фото</string>
     <string name="built_in_wallpapers">Встроенные обои</string>
     <string name="live_wallpapers">Живые обои</string>
-    <string name="dotos_exclusives">Эксклюзивные dotOS</string>
+    <string name="dotos_exclusives">Эксклюзивы DotOS</string>
     <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
     <string name="apply_wallpaper">Применить обои</string>
     <string name="apply_wallpaper_summary">Вы уверены, что хотите использовать эти обои?</string>
@@ -108,7 +108,7 @@
     <string name="qs_title">Название плиток</string>
     <string name="rows_amp_columns">Строки и столбцы</string>
     <string name="qs_tiles_accent_v2">Акцент плиток V2</string>
-    <string name="qs_percentage_style">QS Стиль процентов</string>
+    <string name="qs_percentage_style">Стиль процента заряда в панели быстрых настроек</string>
     <string name="quick_settings">Быстрые настройки</string>
     <string name="qs_tiles_accent_v2_summary">Лучшее использование акцентного цвета в плитках</string>
 
@@ -117,7 +117,7 @@
     <string name="fod_icon_picker_summary">Выберите свой любимый значок отпечатка пальца</string>
     <string name="fod_icon_picker_footer">Для того, чтобы добавить свой собственный значок, нажмите верхний левый значок и использовать в OnePlus 6Т FP настройщик приложения, чтобы выбрать значок, который вы хотите.</string>
     <string name="fod_screenoff_summary">Используйте биометрическую аутентификацию, пока экран заблокирован.</string>
-    <string name="fod_screenoff_title">Экран-выключен FOD</string>
+    <string name="fod_screenoff_title">Отпечаток на выключенном экране</string>
     <string name="fod_animations">Анимации</string>
     <string name="fod_icons">Иконки</string>
     <string name="fod_color">Распознавание цвета</string>
@@ -139,9 +139,9 @@
     <string name="light_low">Когда батарея разряжена</string>
     <string name="light_medium">При средней зарядке батареи</string>
     <string name="battery_light_title">Индикатор батареи</string>
-    <string name="battery_light_dnd">Индикатор батареи в DND</string>
+    <string name="battery_light_dnd">Индикация батареи в режиме не беспокоить</string>
     <string name="show_batterylight">Включение и отключение индикатора</string>
-    <string name="show_batterylight_dnd">Включите его в режиме Не беспокоить</string>
+    <string name="show_batterylight_dnd">Включить в режиме не беспокоить</string>
     <string name="blinking">Моргание</string>
     <string name="blinking_on_low">Индикатор мигает при низком заряде батареи</string>
     <string name="status_bar_battery_style_title">Стиль батареи</string>
@@ -188,8 +188,8 @@
     <string name="show_date_title">Показывать дату без времени</string>
     <string name="show_date_summary">Показывать время и дату в статусбаре</string>
     <string name="ampm_summary">Идеально подходит для 12-часового формата</string>
-    <string name="dt_doze">Двойное нажатие ambient display</string>
-    <string name="dt_doze_summary">Нажмите дважды, чтобы открыть ambient display</string>
+    <string name="dt_doze">Двойное нажатие Ambient Display</string>
+    <string name="dt_doze_summary">Нажмите дважды, чтобы открыть Ambient Display</string>
 
     <string name="feature_control_not_supported">%s не поддерживается.</string>
     <string name="stb_brightness_title">Регулировка яркости панели состояния</string>
@@ -197,11 +197,11 @@
     <string name="dot_data_used"><![CDATA[<font color="%1$s">●&#32;</font>]]>‎‎ ‎%2$s использовано данных</string>
     <string name="data_usage_title">Мобильные данные</string>
     <string name="data_usage_summary">Быстрая проверка использования мобильных данных</string>
-    <string name="qs_columns">Столбцы QS</string>
-    <string name="qs_rows">Строки QS</string>
-    <string name="columns">Столбец(ов))</string>
+    <string name="qs_columns">Столбцы</string>
+    <string name="qs_rows">Строки</string>
+    <string name="columns">Столбец(ов)</string>
     <string name="rows">Строка(и)</string>
     <string name="portrait">Портретный режим</string>
     <string name="landscape">Ландшафтный режим</string>
-    <string name="disable_qs_transparency">Отключить прозрачность панели QS</string>
+    <string name="disable_qs_transparency">Отключить прозрачность панели быстрых настроек</string>
 </resources>
