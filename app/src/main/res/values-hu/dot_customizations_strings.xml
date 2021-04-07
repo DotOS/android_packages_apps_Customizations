@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Sections -->
+    <string name="section_statusbar_title">Állapotsor</string>
+    <string name="section_qs_title">Gyorsbeállítások</string>
+    <string name="section_system_title">Rendszer</string>
+    <string name="section_themes_title">Témák</string>
+    <string name="section_wallpaper_title">Háttérképek</string>
+    <string name="section_aod_title">AOD @amp, Záróképernyő</string>
+    <string name="section_icons_title">Ikonok formája</string>
+    <string name="section_fod_icon">FOD ikonok</string>
+    <string name="section_fod_anim">FOD animációk</string>
+    <string name="section_fod_color_opt">FOD beállítások</string>
+    <string name="grid_section">Indító rácsmérete</string>
+    <string name="section_settings">Beállítások</string>
+    <string name="set_wallpaper">Háttérkép beállítása</string>
+    <string name="system_gestures">Gesztusok</string>
+    <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
+    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to provide available grids and
+    allow for changing them -->
+</resources>

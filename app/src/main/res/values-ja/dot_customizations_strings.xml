@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Sections -->
+    <string name="section_statusbar_title">ステータスバー</string>
+    <string name="section_qs_title">クイック設定</string>
+    <string name="section_system_title">システム</string>
+    <string name="section_themes_title">テーマ</string>
+    <string name="section_wallpaper_title">壁紙</string>
+    <string name="section_aod_title">Always On Display とロック画面</string>
+    <string name="section_icons_title">アイコンの形状</string>
+    <string name="section_fod_icon">指紋認証のアイコン</string>
+    <string name="section_fod_anim">指紋認証のアニメーション</string>
+    <string name="section_fod_color_opt">指紋認証のオプション</string>
+    <string name="grid_section">ランチャーのグリッド</string>
+    <string name="section_settings">設定</string>
+    <string name="set_wallpaper">壁紙の設定</string>
+    <string name="system_gestures">ジェスチャー</string>
+    <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
+    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to provide available grids and
+    allow for changing them -->
+</resources>

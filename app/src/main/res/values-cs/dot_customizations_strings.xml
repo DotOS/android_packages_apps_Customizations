@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Sections -->
+    <string name="section_statusbar_title">Stavový řádek</string>
+    <string name="section_qs_title">Rychlá nastavení</string>
+    <string name="section_system_title">Systém</string>
+    <string name="section_themes_title">Motivy</string>
+    <string name="section_wallpaper_title">Tapety</string>
+    <string name="section_aod_title">AOD a zamykací obrazovka</string>
+    <string name="section_icons_title">Tvar ikony</string>
+    <string name="section_fod_icon">Ikony FOD</string>
+    <string name="section_fod_anim">Animace FOD</string>
+    <string name="section_fod_color_opt">Možnosti FOD</string>
+    <string name="grid_section">Mřížka spouštěče</string>
+    <string name="section_settings">Nastavení</string>
+    <string name="set_wallpaper">Nastavit tapetu</string>
+    <string name="system_gestures">Gesta</string>
+    <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
+    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to provide available grids and
+    allow for changing them -->
+</resources>

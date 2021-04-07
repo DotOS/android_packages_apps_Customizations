@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Sections -->
+    <string name="section_statusbar_title">Thanh trạng thái</string>
+    <string name="section_qs_title">Cài Đặt Nhanh</string>
+    <string name="section_system_title">Hệ Thống</string>
+    <string name="section_themes_title">Chủ đề</string>
+    <string name="section_wallpaper_title">Hình nền</string>
+    <string name="section_aod_title">AOD &amp; Màn hình khóa</string>
+    <string name="section_icons_title">Hình dạng biểu tượng</string>
+    <string name="section_fod_icon">Biểu tượng FOD</string>
+    <string name="section_fod_anim">Hiệu ứng FOD</string>
+    <string name="section_fod_color_opt">Tùy chọn FOD</string>
+    <string name="grid_section">Launcher Grid</string>
+    <string name="section_settings">Cài đặt</string>
+    <string name="set_wallpaper">Đặt làm hình nền</string>
+    <string name="system_gestures">Cử chỉ</string>
+    <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
+    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to provide available grids and
+    allow for changing them -->
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Sections -->
+    <string name="section_statusbar_title">Status Bar</string>
+    <string name="section_qs_title">Quick Settings</string>
+    <string name="section_system_title">System</string>
+    <string name="section_themes_title">Themes</string>
+    <string name="section_wallpaper_title">Wallpapers</string>
+    <string name="section_aod_title">AOD &amp; Lockscreen</string>
+    <string name="section_icons_title">Icon Shapes</string>
+    <string name="section_fod_icon">FOD Icons</string>
+    <string name="section_fod_anim">FOD Animations</string>
+    <string name="section_fod_color_opt">FOD Options</string>
+    <string name="grid_section">Launcher Grid</string>
+    <string name="section_settings">Settings</string>
+    <string name="set_wallpaper">Set Wallpaper</string>
+    <string name="system_gestures">Gestures</string>
+    <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
+    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to provide available grids and
+    allow for changing them -->
+</resources>
