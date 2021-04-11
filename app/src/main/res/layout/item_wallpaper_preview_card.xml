@@ -13,8 +13,8 @@
         app:cardBackgroundColor="@color/colorPrimaryBackground"
         app:cardCornerRadius="18dp"
         app:cardElevation="0dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="?android:textColorSecondary">
+        app:strokeColor="?android:textColorSecondary"
+        app:strokeWidth="1dp">
 
         <FrameLayout
             android:layout_width="192dp"

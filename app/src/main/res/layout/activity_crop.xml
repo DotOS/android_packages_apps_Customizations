@@ -26,7 +26,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="28dp"
-                android:fontFamily="google-sans-medium"
                 android:text="Crop &amp; Rotate"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="18sp"
@@ -89,7 +88,6 @@
                 android:layout_marginTop="28dp"
                 android:layout_marginEnd="28dp"
                 android:layout_marginBottom="28dp"
-                android:fontFamily="google-sans"
                 android:text="@string/apply"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="?android:textColorPrimary"
@@ -103,7 +101,6 @@
                 android:layout_alignBottom="@id/cardApplyCrop"
                 android:layout_marginStart="28dp"
                 android:layout_marginEnd="28dp"
-                android:fontFamily="google-sans-medium"
                 android:gravity="center_vertical"
                 android:text="@string/options"
                 android:textColor="?android:textColorSecondary"
@@ -121,7 +118,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginEnd="28dp"
-                android:fontFamily="google-sans-medium"
                 android:gravity="center_vertical"
                 android:text="Aspect Ratio"
                 android:textColor="?android:textColorSecondary"
@@ -142,7 +138,6 @@
                     android:layout_marginStart="28dp"
                     android:checkable="true"
                     android:checked="true"
-                    android:fontFamily="google-sans-medium"
                     android:text="18:9" />
 
                 <com.google.android.material.chip.Chip
@@ -152,7 +147,6 @@
                     android:layout_marginStart="6dp"
                     android:checkable="true"
                     android:checked="false"
-                    android:fontFamily="google-sans-medium"
                     android:text="16:9" />
 
                 <com.google.android.material.chip.Chip
@@ -162,7 +156,6 @@
                     android:layout_marginStart="6dp"
                     android:checkable="true"
                     android:checked="false"
-                    android:fontFamily="google-sans-medium"
                     android:text="4:3" />
 
                 <com.google.android.material.chip.Chip
@@ -172,7 +165,6 @@
                     android:layout_marginStart="6dp"
                     android:checkable="true"
                     android:checked="false"
-                    android:fontFamily="google-sans-medium"
                     android:text="1:1" />
 
                 <com.google.android.material.chip.Chip
@@ -182,7 +174,6 @@
                     android:layout_marginStart="6dp"
                     android:checkable="true"
                     android:checked="false"
-                    android:fontFamily="google-sans-medium"
                     android:text="Custom" />
             </com.google.android.material.chip.ChipGroup>
 
@@ -192,7 +183,6 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="28dp"
-                android:fontFamily="google-sans-medium"
                 android:gravity="center_vertical"
                 android:text="Reflect"
                 android:textColor="?android:textColorSecondary"
@@ -208,7 +198,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
-                    android:fontFamily="google-sans-medium"
                     android:text="Horizontal" />
 
                 <com.google.android.material.chip.Chip
@@ -216,7 +205,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:fontFamily="google-sans-medium"
                     android:text="Vertical" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -227,7 +215,6 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="28dp"
-                android:fontFamily="google-sans-medium"
                 android:gravity="center_vertical"
                 android:text="Rotate"
                 android:textColor="?android:textColorSecondary"
@@ -244,7 +231,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
-                    android:fontFamily="google-sans-medium"
                     android:text="Left (-90°)" />
 
                 <com.google.android.material.chip.Chip
@@ -252,7 +238,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:fontFamily="google-sans-medium"
                     android:text="Right (90°)" />
 
             </com.google.android.material.chip.ChipGroup>

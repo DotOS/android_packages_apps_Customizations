@@ -49,7 +49,12 @@ class ThemeSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as BaseActivity).setTitle(getString(R.string.section_themes_title))
         twoToneAccentView = view.findViewById(R.id.twoTone)
-        twoToneAccentView.setSharedPref(requireActivity().getSharedPreferences(SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE))
+        twoToneAccentView.setSharedPref(
+            requireActivity().getSharedPreferences(
+                SettingsConstants.SETTINGS_PREF,
+                Context.MODE_PRIVATE
+            )
+        )
         twoToneAccentView.bindWhiteColor(
             ResourceHelper.getAccent(
                 requireContext(),
@@ -87,14 +92,31 @@ class ThemeSection : GenericSection() {
                     )
                 }).show(requireActivity().supportFragmentManager)
         }
-        val notificationOverlay: OverlayController.NotificationOpacity = OverlayController(
+        setupStyles(
+            view.findViewById(R.id.notifOpacitySwitch),
             OverlayController.Categories.NOTIFICATION_CATEGORY,
+            OverlayController.Packages.NOTIFICATION_OPAQUE
+        )
+        setupStyles(
+            view.findViewById(R.id.settingsStyleSwitch),
+            OverlayController.Categories.OVERLAY_CATEGORY_STYLES_SETTINGS,
+            OverlayController.Packages.STYLES_SETTINGS
+        )
+        setupStyles(
+            view.findViewById(R.id.qsOpacitySwitch),
+            OverlayController.Categories.OVERLAY_CATEGORY_STYLES_SYSUI,
+            OverlayController.Packages.QS_OPAQUE
+        )
+    }
+
+    private fun setupStyles(switch: SwitchMaterial, category: String, pckg: String) {
+        val styles: OverlayController.Styles = OverlayController(
+            category,
             requireActivity().packageManager,
-            IOverlayManager.Stub
-                .asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))).NotificationOpacity()
-        val notifOpacitySwitch: SwitchMaterial = view.findViewById(R.id.notifOpacitySwitch)
-        notifOpacitySwitch.isChecked = notificationOverlay.isEnabled()
-        notifOpacitySwitch.setOnCheckedChangeListener { buttonView, isChecked ->  notificationOverlay.toggleOpacity(isChecked)}
+            IOverlayManager.Stub.asInterface(ServiceManager.getService(Context.OVERLAY_SERVICE))
+        ).Styles()
+        switch.isChecked = styles.isEnabled(pckg)
+        switch.setOnCheckedChangeListener { _, isChecked -> styles.toggleStyle(pckg, isChecked) }
     }
 
 }

@@ -5,11 +5,8 @@
     <dimen name="large_card_height">286dp</dimen>
     <dimen name="default_size_icon">52dp</dimen>
     <dimen name="default_header_height">174dp</dimen>
-    <dimen name="system_header_height">148dp</dimen>
-    <dimen name="small_card_width_with_spacing">140dp</dimen>
     <dimen name="small_card_width">128dp</dimen>
     <dimen name="small_card_height">128dp</dimen>
-    <dimen name="wallpaper_card_width">128dp</dimen>
     <dimen name="wallpaper_card_height">248dp</dimen>
     <dimen name="default_dialog_radius">16dp</dimen>
     <dimen name="recyclerSpacer">16dp</dimen>
@@ -19,30 +16,11 @@
     <dimen name="component_shape_thumb_size">72dp</dimen>
 
     <!-- FOD icon picker -->
-    <dimen name="fod_picker_item_margin">10dp</dimen>
     <dimen name="fod_picker_item_size">106dp</dimen>
-    <dimen name="fod_picker_item_padding">20dp</dimen>
 
     <dimen name="battery_height">14.5dp</dimen>
     <dimen name="battery_width">9.5dp</dimen>
-    <dimen name="battery_powersave_outline_thickness">1dp</dimen>
 
-    <dimen name="bt_battery_padding">2dp</dimen>
+    <dimen name="colltoolbar_height">180dp</dimen>
 
-    <!-- Margin on the right side of the system icon group on Keyguard. -->
-    <fraction name="battery_button_height_fraction">10.5%</fraction>
-
-    <!-- Ratio between height of button part and height of total -->
-    <fraction name="bt_battery_button_height_fraction">7.8%</fraction>
-
-    <!-- Ratio between width and height -->
-    <fraction name="bt_battery_ratio_fraction">35%</fraction>
-
-    <!-- Ratio of height between battery icon and bluetooth icon -->
-    <fraction name="bt_battery_scale_fraction">75%</fraction>
-
-    <!-- Fraction value to smooth the edges of the battery icon. The path will be inset by this
-         fraction of a pixel.-->
-    <fraction name="battery_subpixel_smoothing_left">0%</fraction>
-    <fraction name="battery_subpixel_smoothing_right">0%</fraction>
 </resources>

@@ -51,13 +51,18 @@ class LauncherGridOptionsProvider(context: Context, authorityMetadataKey: String
             return mOptions
         }
         val resolver = mContext.contentResolver
-        val iconPath = mContext.resources.getString(Resources.getSystem().getIdentifier(
-            OverlayController.Constants.CONFIG_ICON_MASK,
-            "string",
-            OverlayController.Constants.ANDROID_PACKAGE))
+        val iconPath = mContext.resources.getString(
+            Resources.getSystem().getIdentifier(
+                OverlayController.Constants.CONFIG_ICON_MASK,
+                "string",
+                OverlayController.Constants.ANDROID_PACKAGE
+            )
+        )
         try {
-            resolver.query(mPreviewUtils.getUri(LIST_OPTIONS), null, null, null,
-                null).use { c ->
+            resolver.query(
+                mPreviewUtils.getUri(LIST_OPTIONS), null, null, null,
+                null
+            ).use { c ->
                 mOptions = ArrayList()
                 while (c.moveToNext()) {
                     val name = c.getString(c.getColumnIndex(COL_NAME))
@@ -68,9 +73,14 @@ class LauncherGridOptionsProvider(context: Context, authorityMetadataKey: String
                         java.lang.Boolean.valueOf(c.getString(c.getColumnIndex(COL_IS_DEFAULT)))
                     val title =
                         if (GRID_NAME_NORMAL == name) mContext.getString(R.string.default_theme_title) else mContext.getString(
-                            R.string.grid_title_pattern, cols, rows)
-                    mOptions!!.add(GridOption(title, name, isSet, rows, cols,
-                        mPreviewUtils.getUri(PREVIEW), previewCount, iconPath))
+                            R.string.grid_title_pattern, cols, rows
+                        )
+                    mOptions!!.add(
+                        GridOption(
+                            title, name, isSet, rows, cols,
+                            mPreviewUtils.getUri(PREVIEW), previewCount, iconPath
+                        )
+                    )
                 }
                 Glide.get(mContext).clearDiskCache()
             }
@@ -94,8 +104,10 @@ class LauncherGridOptionsProvider(context: Context, authorityMetadataKey: String
     fun applyGrid(name: String?): Int {
         val values = ContentValues()
         values.put("name", name)
-        return mContext.contentResolver.update(mPreviewUtils.getUri(DEFAULT_GRID), values,
-            null, null)
+        return mContext.contentResolver.update(
+            mPreviewUtils.getUri(DEFAULT_GRID), values,
+            null, null
+        )
     }
 
     companion object {

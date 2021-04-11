@@ -59,13 +59,14 @@
         <item name="fontFamily">google-sans</item>
     </style>
 
-    <style name="WallpaperApplyDialog" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="fontFamily">google-sans</item>
+    <style name="Dashboard.Toolbar.Collapsed" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="fontFamily">google-sans-medium</item>
+    </style>
+
+    <style name="Dashboard.Toolbar.Expanded" parent="Dashboard.Toolbar.Collapsed">
+        <item name="android:textSize">34sp</item>
     </style>
 
 </resources>

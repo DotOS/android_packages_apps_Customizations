@@ -56,7 +56,8 @@ open class FODOptSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         fodoptList.clear()
         fodColors.clear()
-        buildSwitch(fodoptList,
+        buildSwitch(
+            fodoptList,
             iconID = R.drawable.ic_night_mode,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.fod_nightlight),
@@ -64,16 +65,19 @@ open class FODOptSection : GenericSection() {
             feature = featureManager.System().FOD_NIGHT_LIGHT,
             featureType = ContextCardsAdapter.Type.SYSTEM,
             summary = getString(R.string.fod_nightlight_summary),
-            enabled = ResourceHelper.shouldDisableNightLight(requireContext()))
+            enabled = ResourceHelper.shouldDisableNightLight(requireContext())
+        )
         if (ResourceHelper.hasAmbient(requireContext())) {
-            buildSwitch(fodoptList,
+            buildSwitch(
+                fodoptList,
                 iconID = R.drawable.ic_lock,
                 title = getString(R.string.disabled),
                 subtitle = getString(R.string.fod_screenoff_title),
                 accentColor = R.color.cyan_800,
                 feature = featureManager.System().FOD_GESTURE,
                 featureType = ContextCardsAdapter.Type.SYSTEM,
-                summary = getString(R.string.fod_screenoff_summary))
+                summary = getString(R.string.fod_screenoff_summary)
+            )
             { value ->
                 featureManager.Secure().enableDozeIfNeeded(requireContext())
                 when (value) {

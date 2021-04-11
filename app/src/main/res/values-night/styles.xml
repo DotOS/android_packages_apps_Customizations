@@ -45,13 +45,4 @@
         <item name="fontFamily">google-sans</item>
     </style>
 
-    <style name="WallpaperApplyDialog" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightNavigationBar">false</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="fontFamily">google-sans</item>
-    </style>
-
 </resources>

@@ -32,6 +32,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -85,14 +86,13 @@ class WallpaperSection() : GenericSection() {
         savedInstanceState: Bundle?,
     ): View? {
         wallpaperManager = WallpaperManager.getInstance(requireContext())
-        return inflater.inflate(R.layout.section_wallpaper_header, container, false)
+        return inflater.inflate(R.layout.section_wallpaper, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         useInitUI = false
         super.onViewCreated(view, savedInstanceState)
-        if (!standalone) {
+        if (requireActivity() is BaseActivity) {
             (requireActivity() as BaseActivity).toggleAppBar(true)
             (requireActivity() as BaseActivity).enableSettingsLauncher(false)
         } else
@@ -101,13 +101,7 @@ class WallpaperSection() : GenericSection() {
         currentPager = view.findViewById(R.id.wallPager)
         currentPager.adapter = CurrentWallpaperAdapter(requireActivity())
         currentPager.setPageTransformer(DepthPageTransformer())
-        adapter = WallpaperPreviewAdapter(
-            exlist,
-            wallpaperManager!!,
-            this,
-            currentPager,
-            onDismissListener
-        )
+        adapter = WallpaperPreviewAdapter(exlist, this, currentPager, onDismissListener)
         val pagerLeft: ImageButton = view.findViewById(R.id.wallLeft)
         val pagerRight: ImageButton = view.findViewById(R.id.wallRight)
         pagerLeft.setOnClickListener {
@@ -130,7 +124,8 @@ class WallpaperSection() : GenericSection() {
 
     override fun isAvailable(context: Context): Boolean =
         WallpaperManager.getInstance(context).isSetWallpaperAllowed && WallpaperManager.getInstance(
-            context).isWallpaperSupported
+            context
+        ).isWallpaperSupported
 
     private fun buildCategories() {
         val categoriesRecycler: RecyclerView =
@@ -156,7 +151,6 @@ class WallpaperSection() : GenericSection() {
         } successUi {
             requireActivity().runOnUiThread {
                 parseExclusives()
-
                 categoriesRecycler.adapter = WallpaperFilterAdapter(filters)
                 categoriesRecycler.addItemDecoration(
                     ItemRecyclerSpacer(
@@ -228,6 +222,9 @@ class WallpaperSection() : GenericSection() {
                     permlist.add(wallpaper)
                 }
             }
+            val linkedHashSet = LinkedHashSet<WallpaperBase>(permlist)
+            permlist.clear()
+            permlist.addAll(linkedHashSet)
             filteredWalls = permlist
         } successUi {
             if (filteredWalls.isNotEmpty() && filters.isNotEmpty()) {
@@ -239,11 +236,7 @@ class WallpaperSection() : GenericSection() {
                     adapter.updateList(tempList)
                     adapter.notifyDataSetChanged()
                     exclusiveRecycler.adapter = adapter
-                    exclusiveRecycler.layoutManager = LinearLayoutManager(
-                        context,
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                    )
+                    exclusiveRecycler.layoutManager = GridLayoutManager(context, 3)
                 }
             }
         } fail {
@@ -260,14 +253,13 @@ class WallpaperSection() : GenericSection() {
         if (filter != null) {
             tempList.removeIf { it.category != filter }
         }
+        val linkedHashSet = LinkedHashSet<WallpaperBase>(tempList)
+        tempList.clear()
+        tempList.addAll(linkedHashSet)
         (exclusiveRecycler.adapter as WallpaperPreviewAdapter).updateList(tempList)
         (exclusiveRecycler.adapter as WallpaperPreviewAdapter).notifyDataSetChanged()
         exclusiveRecycler.adapter = (exclusiveRecycler.adapter as WallpaperPreviewAdapter)
-        exclusiveRecycler.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        exclusiveRecycler.layoutManager = GridLayoutManager(context, 3)
     }
 
     private fun parseBuiltInWallpapers() {
@@ -335,16 +327,11 @@ class WallpaperSection() : GenericSection() {
         }
         val adapter = WallpaperPreviewAdapter(
             mBuiltInWallpapers,
-            wallpaperManager!!,
             this,
             currentPager,
             onDismissListener
         )
         builtInRecycler.adapter = adapter
-        builtInRecycler.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        builtInRecycler.layoutManager = GridLayoutManager(context, 3)
     }
 }

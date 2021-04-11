@@ -41,7 +41,8 @@ class SettingsSection : GenericSection() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as BaseActivity).setTitle(getString(R.string.section_settings))
-        val sharedprefStats = requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
+        val sharedprefStats =
+            requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
         val prefStats: DotMaterialPreference = view.findViewById(R.id.pref_stats)
         prefStats.switchView!!.isChecked = sharedprefStats.getBoolean(Constants.ALLOW_STATS, true)
         prefStats.setOnClickPreference {
@@ -49,15 +50,39 @@ class SettingsSection : GenericSection() {
             val editor: SharedPreferences.Editor = sharedprefStats.edit()
             editor.putBoolean(Constants.ALLOW_STATS, prefStats.switchView!!.isChecked)
             editor.apply()
-            if (prefStats.switchView!!.isChecked && sharedprefStats.getBoolean(Constants.IS_FIRST_LAUNCH, true))
-                Snackbar.make(view, "Stats will be pushed on the next launch!", Snackbar.LENGTH_SHORT).show()
+            if (prefStats.switchView!!.isChecked && sharedprefStats.getBoolean(
+                    Constants.IS_FIRST_LAUNCH,
+                    true
+                )
+            )
+                Snackbar.make(
+                    view,
+                    "Stats will be pushed on the next launch!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
         }
-        val pref = requireActivity().getSharedPreferences(SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE)
-        buildSetting(pref, view.findViewById(R.id.pref_rgb_light), SettingsConstants.ALLOW_RGB_BLIGHT)
-        buildSetting(pref, view.findViewById(R.id.pref_balloons), SettingsConstants.SHOW_BALLOONS, true)
+        val pref = requireActivity().getSharedPreferences(
+            SettingsConstants.SETTINGS_PREF,
+            Context.MODE_PRIVATE
+        )
+        buildSetting(
+            pref,
+            view.findViewById(R.id.pref_rgb_light),
+            SettingsConstants.ALLOW_RGB_BLIGHT
+        )
+        buildSetting(
+            pref,
+            view.findViewById(R.id.pref_balloons),
+            SettingsConstants.SHOW_BALLOONS,
+            true
+        )
     }
 
-    private fun buildSetting(preferences: SharedPreferences, view: DotMaterialPreference, setting: String) {
+    private fun buildSetting(
+        preferences: SharedPreferences,
+        view: DotMaterialPreference,
+        setting: String
+    ) {
         view.switchView!!.isChecked = preferences.getBoolean(setting, false)
         view.setOnClickPreference {
             view.switchView!!.isChecked = !view.switchView!!.isChecked
@@ -67,7 +92,12 @@ class SettingsSection : GenericSection() {
         }
     }
 
-    private fun buildSetting(preferences: SharedPreferences, view: DotMaterialPreference, setting: String, default: Boolean) {
+    private fun buildSetting(
+        preferences: SharedPreferences,
+        view: DotMaterialPreference,
+        setting: String,
+        default: Boolean
+    ) {
         view.switchView!!.isChecked = preferences.getBoolean(setting, default)
         view.setOnClickPreference {
             view.switchView!!.isChecked = !view.switchView!!.isChecked

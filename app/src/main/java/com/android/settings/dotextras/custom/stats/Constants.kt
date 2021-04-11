@@ -5,7 +5,6 @@ object Constants {
     const val TAG = "Statistics"
     const val PUSH_OPERATION = "push"
     const val SUCCESS = "success"
-    const val FAILURE = "failure"
     const val ALLOW_STATS = "allow_stats"
     const val IS_FIRST_LAUNCH = "isFirstLaunch"
     const val LAST_BUILD_DATE = "lastBuild"

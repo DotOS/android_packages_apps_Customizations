@@ -17,8 +17,10 @@ class NotSupportedView(context: Context?, attrs: AttributeSet?) : FrameLayout(co
             val a = getContext().obtainStyledAttributes(attrs, R.styleable.NotSupportedView)
             if (a.hasValue(R.styleable.NotSupportedView_featureTitle)) {
                 findViewById<TextView>(R.id.notSupportedTitle).text =
-                    String.format(mContext.getString(R.string.feature_control_not_supported),
-                        a.getString(R.styleable.NotSupportedView_featureTitle))
+                    String.format(
+                        mContext.getString(R.string.feature_control_not_supported),
+                        a.getString(R.styleable.NotSupportedView_featureTitle)
+                    )
             }
             a.recycle()
         }

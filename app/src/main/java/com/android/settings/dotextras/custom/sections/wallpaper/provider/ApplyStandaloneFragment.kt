@@ -34,7 +34,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.wallpaper.Type
 import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
@@ -45,7 +44,6 @@ import com.android.settings.dotextras.custom.utils.getFileName
 import com.android.settings.dotextras.custom.utils.removeExtension
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
-import java.io.IOException
 
 
 class ApplyStandaloneFragment(val wallpaper: WallpaperBase) : Fragment() {

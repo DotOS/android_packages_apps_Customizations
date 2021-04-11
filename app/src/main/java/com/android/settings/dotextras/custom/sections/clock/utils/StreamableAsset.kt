@@ -119,9 +119,11 @@ abstract class StreamableAsset : Asset() {
         val inputStream = openInputStream() ?: return null
         // Input stream may be null if there was an error opening it.
         BitmapFactory.decodeStream(inputStream, null, options)
-        closeInputStream(inputStream,
+        closeInputStream(
+            inputStream,
             "There was an error closing the input stream used to calculate "
-                    + "the image's raw dimensions")
+                    + "the image's raw dimensions"
+        )
         val exifOrientation = exifOrientation
         // Swap height and width if image is rotated 90 or 270 degrees.
         mDimensions = if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90
@@ -150,8 +152,10 @@ abstract class StreamableAsset : Asset() {
         } catch (e: IOException) {
             Log.w(TAG, "Unable to open BitmapRegionDecoder", e)
         } finally {
-            closeInputStream(inputStream, "Unable to close input stream used to create "
-                    + "BitmapRegionDecoder")
+            closeInputStream(
+                inputStream, "Unable to close input stream used to create "
+                        + "BitmapRegionDecoder"
+            )
         }
         return brd
     }
@@ -203,12 +207,14 @@ abstract class StreamableAsset : Asset() {
             val rawDimensions = calculateRawDimensions() ?: return null
             // Raw dimensions may be null if there was an error opening the underlying input stream.
             options.inSampleSize = BitmapUtils.calculateInSampleSize(
-                rawDimensions.x, rawDimensions.y, mTargetWidth, mTargetHeight)
+                rawDimensions.x, rawDimensions.y, mTargetWidth, mTargetHeight
+            )
             options.inPreferredConfig = Bitmap.Config.HARDWARE
             val inputStream = openInputStream()
             var bitmap = BitmapFactory.decodeStream(inputStream, null, options)
             closeInputStream(
-                inputStream, "Error closing the input stream used to decode the full bitmap")
+                inputStream, "Error closing the input stream used to decode the full bitmap"
+            )
 
             // Rotate output bitmap if necessary because of EXIF orientation tag.
             val matrixRotation = getDegreesRotationForExifOrientation(exifOrientation)
@@ -216,7 +222,8 @@ abstract class StreamableAsset : Asset() {
                 val rotateMatrix = Matrix()
                 rotateMatrix.setRotate(matrixRotation.toFloat())
                 bitmap = Bitmap.createBitmap(
-                    bitmap, 0, 0, bitmap.width, bitmap.height, rotateMatrix, false)
+                    bitmap, 0, 0, bitmap.width, bitmap.height, rotateMatrix, false
+                )
             }
             return bitmap
         }
@@ -246,10 +253,12 @@ abstract class StreamableAsset : Asset() {
 
             // Rotate crop rect if image is rotated more than 0 degrees.
             mCropRect = rotateCropRectForExifOrientation(
-                calculateRawDimensions()!!, mCropRect!!, exifOrientation)
+                calculateRawDimensions()!!, mCropRect!!, exifOrientation
+            )
             val options = BitmapFactory.Options()
             options.inSampleSize = BitmapUtils.calculateInSampleSize(
-                mCropRect!!.width(), mCropRect!!.height(), mTargetWidth, mTargetHeight)
+                mCropRect!!.width(), mCropRect!!.height(), mTargetWidth, mTargetHeight
+            )
             if (mBitmapRegionDecoder == null) {
                 mBitmapRegionDecoder = openBitmapRegionDecoder()
             }
@@ -266,7 +275,8 @@ abstract class StreamableAsset : Asset() {
                         val rotateMatrix = Matrix()
                         rotateMatrix.setRotate(matrixRotation.toFloat())
                         bitmap = Bitmap.createBitmap(
-                            bitmap, 0, 0, bitmap.width, bitmap.height, rotateMatrix, false)
+                            bitmap, 0, 0, bitmap.width, bitmap.height, rotateMatrix, false
+                        )
                     }
                     bitmap
                 } catch (e: OutOfMemoryError) {
@@ -307,7 +317,8 @@ abstract class StreamableAsset : Asset() {
                 Math.round(rect.left.toFloat() * scale),
                 Math.round(rect.top.toFloat() * scale),
                 Math.round(rect.right.toFloat() * scale),
-                Math.round(rect.bottom.toFloat() * scale))
+                Math.round(rect.bottom.toFloat() * scale)
+            )
         }
 
         /**
@@ -320,8 +331,10 @@ abstract class StreamableAsset : Asset() {
                 ExifInterface.ORIENTATION_ROTATE_180 -> 180
                 ExifInterface.ORIENTATION_ROTATE_270 -> 270
                 else -> {
-                    Log.w(TAG,
-                        "Unsupported EXIF orientation $exifOrientation")
+                    Log.w(
+                        TAG,
+                        "Unsupported EXIF orientation $exifOrientation"
+                    )
                     0
                 }
             }

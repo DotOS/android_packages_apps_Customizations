@@ -24,7 +24,7 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.NestedScrollView
@@ -33,11 +33,11 @@ import com.android.settings.dotextras.custom.sections.SettingsSection
 import com.android.settings.dotextras.custom.stats.StatsBuilder
 import com.android.settings.dotextras.custom.utils.MaidService
 import com.google.android.material.appbar.AppBarLayout
-
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 class BaseActivity : AppCompatActivity() {
 
-    private var appTitle: TextView? = null
+    private var collapsingToolbar: CollapsingToolbarLayout? = null
     private var appBarLayout: LinearLayout? = null
     private var launchSettings: ImageButton? = null
     lateinit var appBar: AppBarLayout
@@ -50,7 +50,7 @@ class BaseActivity : AppCompatActivity() {
         statsBuilder = StatsBuilder(getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE))
         startService(Intent(this, MaidService::class.java))
         appBar = findViewById(R.id.dashboardAppBar)
-        appTitle = findViewById(R.id.appTitle)
+        collapsingToolbar = findViewById(R.id.collapsing_toolbar)
         appBarLayout = findViewById(R.id.appblayout)
         launchSettings = findViewById(R.id.launchSettings)
         launchSettings!!.setOnClickListener {
@@ -61,11 +61,14 @@ class BaseActivity : AppCompatActivity() {
                     R.anim.fade_in,
                     R.anim.slide_out
                 )
-                .replace(R.id.frameContent, SettingsSection(), "settings")
+                .replace(R.id.frameContent, SettingsSection(), "Settings")
                 .addToBackStack("Settings")
                 .commit()
-            setTitle("Settings")
+            setTitle(getString(R.string.settings))
         }
+        val toolbar: Toolbar = findViewById(R.id.appTitle)
+        toolbar.layoutTransition
+            .enableTransitionType(LayoutTransition.CHANGING)
         appBarLayout!!.layoutTransition
             .enableTransitionType(LayoutTransition.CHANGING)
         if (savedInstanceState == null) {
@@ -77,7 +80,8 @@ class BaseActivity : AppCompatActivity() {
     }
 
     fun expandToolbar() {
-        val params: CoordinatorLayout.LayoutParams = appBar.layoutParams as CoordinatorLayout.LayoutParams
+        val params: CoordinatorLayout.LayoutParams =
+            appBar.layoutParams as CoordinatorLayout.LayoutParams
         val behavior = params.behavior as AppBarLayout.Behavior?
         if (behavior != null) {
             val valueAnimator = ValueAnimator.ofInt()
@@ -92,7 +96,7 @@ class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun getNestedScroll() : NestedScrollView = findViewById(R.id.nestedContainer)
+    fun getNestedScroll(): NestedScrollView = findViewById(R.id.nestedContainer)
 
     fun enableSettingsLauncher(enable: Boolean) {
         launchSettings!!.visibility = if (enable) View.VISIBLE else View.GONE
@@ -109,13 +113,13 @@ class BaseActivity : AppCompatActivity() {
     }
 
     fun setTitle(title: String?) = if (title == null) {
-        appTitle!!.text = getString(R.string.app_name)
+        collapsingToolbar!!.title = getString(R.string.app_name)
     } else {
-        appTitle!!.text = title
+        collapsingToolbar!!.title = title
     }
 
     private fun resetUI() {
-        if (appBarLayout!!.layoutParams.height == 0)
+        if (appBar.layoutParams.height == 0)
             toggleAppBar(false)
         setTitle(null)
         enableSettingsLauncher(true)
@@ -127,10 +131,10 @@ class BaseActivity : AppCompatActivity() {
     }
 
     fun toggleAppBar(hide: Boolean) {
-        val lp = appBarLayout!!.layoutParams as AppBarLayout.LayoutParams
-        val actionBarHeight = AppBarLayout.LayoutParams.WRAP_CONTENT
+        val lp = appBar.layoutParams as CoordinatorLayout.LayoutParams
+        val actionBarHeight = resources.getDimension(R.dimen.colltoolbar_height).toInt()
         lp.height = if (hide) 0 else actionBarHeight
-        appBarLayout!!.layoutParams = lp
+        appBar.layoutParams = lp
     }
 
 }

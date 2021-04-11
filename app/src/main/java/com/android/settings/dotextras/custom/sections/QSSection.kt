@@ -61,24 +61,29 @@ open class QSSection : GenericSection() {
          * Options
          */
         if (TelephonyUtils.isSimAvailable(requireContext())) {
-            buildSwitch(qsList,
+            buildSwitch(
+                qsList,
                 iconID = R.drawable.ic_sim,
                 title = getString(R.string.disabled),
                 subtitle = getString(R.string.data_usage_title),
                 accentColor = R.color.green_800,
                 feature = featureManager.System().QS_SHOW_DATA_USAGE,
                 featureType = SYSTEM,
-                summary = getString(R.string.data_usage_summary))
+                summary = getString(R.string.data_usage_summary)
+            )
         }
-        buildSwitch(qsList,
+        buildSwitch(
+            qsList,
             iconID = R.drawable.ic_qs_title,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.qs_title),
             accentColor = R.color.dot_red,
             feature = featureManager.System().QS_TILE_TITLE_VISIBILITY,
             featureType = SYSTEM,
-            enabled = true)
-        buildSwitch(qsList,
+            enabled = true
+        )
+        buildSwitch(
+            qsList,
             iconID = R.drawable.ic_settings_aosp,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.qs_tiles_accent_v2),
@@ -86,7 +91,8 @@ open class QSSection : GenericSection() {
             feature = featureManager.System().QS_PANEL_BG_USE_NEW_TINT,
             featureType = SYSTEM,
             summary = getString(R.string.qs_tiles_accent_v2_summary),
-            enabled = true)
+            enabled = true
+        )
         setupLayout(qsList, R.id.sectionQS)
         createBalloon(R.string.click_to_toggle, 1, R.id.sectionQS)
         /**

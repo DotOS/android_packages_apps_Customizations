@@ -17,6 +17,7 @@ package com.android.settings.dotextras.custom.utils
 
 import android.animation.ObjectAnimator
 import android.view.View
+import androidx.core.animation.doOnEnd
 
 object ObjectToolsAnimator {
     fun animate(v: View, direction: String?, start: Long, end: Long, duration: Long) {
@@ -37,13 +38,26 @@ object ObjectToolsAnimator {
         mover.start()
     }
 
+    fun gone(v: View, duration: Long) {
+        v.visibility = View.VISIBLE
+        v.alpha = 1f
+        val mover = ObjectAnimator.ofFloat(v, "alpha", 1f, 0f)
+        mover.duration = duration
+        mover.start()
+        mover.doOnEnd {
+            v.visibility = View.GONE
+        }
+    }
+
     fun hide(v: View, duration: Long) {
         v.visibility = View.VISIBLE
         v.alpha = 1f
         val mover = ObjectAnimator.ofFloat(v, "alpha", 1f, 0f)
         mover.duration = duration
         mover.start()
-        v.visibility = View.INVISIBLE
+        mover.doOnEnd {
+            v.visibility = View.INVISIBLE
+        }
     }
 
     fun show(v: View, duration: Long) {

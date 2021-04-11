@@ -31,8 +31,10 @@ class PreviewUtils(private val mContext: Context, authorityMetadataKey: String?)
 
     /** Render preview under the current grid option.  */
     fun renderPreview(bundle: Bundle?): Bundle {
-        return mContext.contentResolver.call(getUri(PREVIEW), METHOD_GET_PREVIEW, null,
-            bundle)
+        return mContext.contentResolver.call(
+            getUri(PREVIEW), METHOD_GET_PREVIEW, null,
+            bundle
+        )
     }
 
     /** Easy way to generate a Uri with the provider info from this class.  */
@@ -56,8 +58,10 @@ class PreviewUtils(private val mContext: Context, authorityMetadataKey: String?)
 
     init {
         val homeIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-        val info = mContext.packageManager.resolveActivity(homeIntent,
-            PackageManager.MATCH_DEFAULT_ONLY or PackageManager.GET_META_DATA)
+        val info = mContext.packageManager.resolveActivity(
+            homeIntent,
+            PackageManager.MATCH_DEFAULT_ONLY or PackageManager.GET_META_DATA
+        )
         mProviderAuthority =
             if (info?.activityInfo != null && info.activityInfo.metaData != null) {
                 info.activityInfo.metaData.getString(authorityMetadataKey)
@@ -68,6 +72,7 @@ class PreviewUtils(private val mContext: Context, authorityMetadataKey: String?)
         mProviderInfo =
             if (TextUtils.isEmpty(mProviderAuthority)) null else mContext.packageManager.resolveContentProvider(
                 mProviderAuthority,
-                0)
+                0
+            )
     }
 }

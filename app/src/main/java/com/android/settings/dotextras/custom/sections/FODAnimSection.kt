@@ -31,6 +31,8 @@ import com.android.settings.dotextras.custom.views.ExpandableLayout
 import com.android.settings.dotextras.custom.views.FodPreview
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
+import nl.komponents.kovenant.task
+import nl.komponents.kovenant.ui.successUi
 
 open class FODAnimSection : GenericSection() {
 
@@ -97,7 +99,9 @@ open class FODAnimSection : GenericSection() {
         return inflater.inflate(R.layout.section_fod_anim, container, false)
     }
 
-    override fun isAvailable(context: Context): Boolean = ResourceHelper.hasFodSupport(context) && ResourceHelper.getFodAnimationPackage(context).isNotEmpty()
+    override fun isAvailable(context: Context): Boolean =
+        ResourceHelper.hasFodSupport(context) && ResourceHelper.getFodAnimationPackage(context)
+            .isNotEmpty()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -107,28 +111,37 @@ open class FODAnimSection : GenericSection() {
         val fodPreview: FodPreview = view.findViewById(R.id.fodAnimPreview)
         for (j in ICON_STYLES.indices) {
             if (j == featureManager.System().getInt(featureManager.System().FOD_ICON, 0)) {
-                fodPreview.setPreview(ResourceHelper.getDrawable(requireContext(),
-                    getString(R.string.systemui_package), ICON_STYLES[j]))
+                fodPreview.setPreview(
+                    ResourceHelper.getDrawable(
+                        requireContext(),
+                        getString(R.string.systemui_package), ICON_STYLES[j]
+                    )
+                )
             }
         }
         val fodAnimStart: MaterialButton = view.findViewById(R.id.fodAnimStart)
-        for (i in ANIM_STYLES.indices) {
-            val fodAnim = FodResource(ANIM_STYLES[i], i)
-            fodAnim.listenerAnim = { drawable ->
-                fodPreview.setPreviewAnimation(drawable!!, false)
-                fodAnimStart.setOnClickListener {
-                    fodAnimStart.text =
-                        if (!fodPreview.isAnimating()) "Stop Animation" else "Start Animation"
-                    fodPreview.setAnimationState(running = !fodPreview.isAnimating())
-                }
-            }
-            fodAnims.add(fodAnim)
-        }
         val recyclerViewAnim: RecyclerView = requireView().findViewById(R.id.fodAnimRecycler)
+        var adapterAnim: FodAnimationAdapter
+        task {
+            for (i in ANIM_STYLES.indices) {
+                val fodAnim = FodResource(ANIM_STYLES[i], i)
+                fodAnim.listenerAnim = { drawable ->
+                    fodPreview.setPreviewAnimation(drawable!!, false)
+                    fodAnimStart.setOnClickListener {
+                        fodAnimStart.text =
+                            if (!fodPreview.isAnimating()) "Stop Animation" else "Start Animation"
+                        fodPreview.setAnimationState(running = !fodPreview.isAnimating())
+                    }
+                }
+                fodAnims.add(fodAnim)
+            }
+        } successUi {
+            adapterAnim = FodAnimationAdapter(featureManager, fodAnims)
+            requireActivity().runOnUiThread {
+                recyclerViewAnim.adapter = adapterAnim
+            }
+        }
         recyclerViewAnim.setHasFixedSize(true)
-        val adapterAnim =
-            FodAnimationAdapter(featureManager, fodAnims)
-        recyclerViewAnim.adapter = adapterAnim
         recyclerViewAnim.addItemDecoration(
             GridSpacingItemDecoration(
                 GRID_FOD_COLUMNS,

@@ -47,7 +47,7 @@ class AccentColorController(context: Context?, attrs: AttributeSet?) :
         )
         recycler = findViewById(R.id.accentRecycler)
         val adapter = AccentAdapter(
-            overlayController, overlayController.AccentColors().getAccentColors(context!!)
+            overlayController, overlayController.AccentColors().getAccentColors()
         )
         recycler.adapter = adapter
         recycler.addItemDecoration(
@@ -64,7 +64,7 @@ class AccentColorController(context: Context?, attrs: AttributeSet?) :
                 true
             )
         )
-        featureManager = FeatureManager(context.contentResolver)
+        featureManager = FeatureManager(context!!.contentResolver)
         recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         visibility = if (overlayController.isAvailable()) VISIBLE else GONE
     }

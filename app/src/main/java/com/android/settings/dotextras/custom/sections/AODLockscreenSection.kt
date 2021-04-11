@@ -53,13 +53,14 @@ class AODLockscreenSection : GenericSection() {
         recyclerView.isNestedScrollingEnabled = false
         val contentProviderClockProvider = ContentProviderClockProvider(requireActivity())
         mClockManager = object : BaseClockManager(
-            ContentProviderClockProvider(requireActivity())) {
+            ContentProviderClockProvider(requireActivity())
+        ) {
             override fun handleApply(option: Clockface?, callback: onHandleCallback) {
                 callback?.invoke(true)
             }
 
             override fun lookUpCurrentClock(): String {
-                return requireActivity().intent.getStringExtra(EXTRA_CLOCK_FACE_NAME)
+                return requireActivity().intent.getStringExtra(EXTRA_CLOCK_FACE_NAME).toString()
             }
         }
         if (!mClockManager.isAvailable) {
@@ -68,8 +69,10 @@ class AODLockscreenSection : GenericSection() {
             mClockManager.fetchOptions({ options ->
                 run {
                     if (options != null) {
-                        val cm = ClockManager(requireContext().contentResolver,
-                            contentProviderClockProvider)
+                        val cm = ClockManager(
+                            requireContext().contentResolver,
+                            contentProviderClockProvider
+                        )
                         val optionsCompat = ArrayList<ClockfaceCompat>()
                         for (option in options) {
                             optionsCompat.add(ClockfaceCompat(option))
@@ -79,9 +82,11 @@ class AODLockscreenSection : GenericSection() {
                         recyclerView.layoutManager =
                             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                         recyclerView.addItemDecoration(
-                            ItemRecyclerSpacer(resources.getDimension(R.dimen.recyclerSpacerBigger),
+                            ItemRecyclerSpacer(
+                                resources.getDimension(R.dimen.recyclerSpacerBigger),
                                 null,
-                                false)
+                                false
+                            )
                         )
                         val snap = PagerSnapHelper()
                         snap.attachToRecyclerView(recyclerView)
@@ -97,7 +102,8 @@ class AODLockscreenSection : GenericSection() {
         val optionsList = ArrayList<ContextCards>()
         if (ResourceHelper.hasAmbient(requireContext())) {
             featureManager.Secure().enableDozeIfNeeded(requireContext())
-            buildSwitch(optionsList,
+            buildSwitch(
+                optionsList,
                 iconID = R.drawable.ic_aod,
                 title = getString(R.string.disabled),
                 subtitle = getString(R.string.aod_title),
@@ -106,7 +112,8 @@ class AODLockscreenSection : GenericSection() {
                 featureType = SECURE,
                 summary = getString(R.string.aod_summary)
             )
-            buildSwitch(optionsList,
+            buildSwitch(
+                optionsList,
                 iconID = R.drawable.ic_light_pulse,
                 title = getString(R.string.disabled),
                 subtitle = getString(R.string.edge_lightning_title),
@@ -115,7 +122,8 @@ class AODLockscreenSection : GenericSection() {
                 featureType = SYSTEM,
                 summary = getString(R.string.edge_lightning_summary)
             )
-            buildSwipeable(optionsList,
+            buildSwipeable(
+                optionsList,
                 iconID = R.drawable.ic_light_pulse,
                 subtitle = getString(R.string.edge_lightning_title),
                 accentColor = R.color.teal_500,
@@ -138,7 +146,8 @@ class AODLockscreenSection : GenericSection() {
                     title.text = newTitle
                 }
             }
-            buildRGB(optionsList,
+            buildRGB(
+                optionsList,
                 iconID = R.drawable.ic_light_pulse,
                 subtitle = getString(R.string.edge_lightning_title),
                 feature = featureManager.System().AMBIENT_NOTIFICATION_LIGHT_COLOR,

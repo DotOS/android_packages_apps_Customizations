@@ -42,14 +42,16 @@ class StatusbarSection : GenericSection() {
         val perclist = ArrayList<ContextCards>()
         val batteryLightList = ArrayList<ContextCards>()
         val trafficList = ArrayList<ContextCards>()
-        var clockList = ArrayList<ContextCards>()
-        buildPager(list,
+        val clockList = ArrayList<ContextCards>()
+        buildPager(
+            list,
             iconID = R.drawable.round_battery_full_white_36dp,
             title = getString(R.string.battery_styles),
             accentColor = R.color.colorAccent,
             feature = featureManager.System().STATUS_BAR_BATTERY_STYLE,
             featureType = SYSTEM,
-            pagerAdapter = BatteryStylesAdapter(requireActivity()))
+            pagerAdapter = BatteryStylesAdapter(requireActivity())
+        )
         setupLayout(list, R.id.sectionBS, 1, true)
         buildSwipeable(
             list = perclist,
@@ -74,39 +76,30 @@ class StatusbarSection : GenericSection() {
                 title.text = newTitle
             }
         }
-        buildSwipeable(
+        buildSwitch(
             list = perclist,
             iconID = R.drawable.round_battery_unknown_white_36dp,
+            title = getString(R.string.disabled),
             subtitle = getString(R.string.qs_percentage_style),
             accentColor = R.color.red_500,
             feature = featureManager.System().QS_SHOW_BATTERY_PERCENT,
             featureType = SYSTEM,
-            min = 0,
-            max = 1,
-            default = 0,
-            summary = getString(R.string.quick_settings),
-            extraTitle = getString(R.string.style)
-        ) { position, title ->
-            run {
-                var newTitle = ""
-                when (position) {
-                    0 -> newTitle = getString(R.string.estimate)
-                    1 -> newTitle = getString(R.string.percentage)
-                }
-                title.text = newTitle
-            }
-        }
+            summary = getString(R.string.qs_percentage),
+        )
         setupLayout(perclist, R.id.sectionPercentage)
         createBalloon(R.string.swipe_to_change, 0, R.id.sectionPercentage)
-        buildSwitch(trafficList,
+        buildSwitch(
+            trafficList,
             iconID = R.drawable.ic_traffic,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.traffic_meter_title),
             accentColor = R.color.cyan_700,
             feature = featureManager.System().NETWORK_TRAFFIC_STATE,
             featureType = SYSTEM,
-            summary = getString(R.string.traffic_meter_summary))
-        buildSwipeable(trafficList,
+            summary = getString(R.string.traffic_meter_summary)
+        )
+        buildSwipeable(
+            trafficList,
             iconID = R.drawable.ic_traffic,
             subtitle = getString(R.string.traffic_meter_treshold_subtitle),
             accentColor = R.color.blue_800,
@@ -119,31 +112,41 @@ class StatusbarSection : GenericSection() {
             extraTitle = getString(R.string.traffic_meter_treshold_extra)
         )
         setupLayout(trafficList, R.id.sectionTraffic)
-        buildSwitch(batteryLightList,
+        buildSwitch(
+            batteryLightList,
             iconID = R.drawable.round_battery_full_white_36dp,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.battery_light_title),
             accentColor = R.color.purple_500,
             feature = featureManager.System().BATTERY_LIGHT_ENABLED,
             featureType = SYSTEM,
-            summary = getString(R.string.show_batterylight))
-        buildSwitch(batteryLightList,
+            summary = getString(R.string.show_batterylight),
+            enabled = true
+        )
+        buildSwitch(
+            batteryLightList,
             iconID = R.drawable.ic_dnd,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.battery_light_dnd),
             accentColor = R.color.orange_500,
             feature = featureManager.System().BATTERY_LIGHT_ALLOW_ON_DND,
             featureType = SYSTEM,
-            summary = getString(R.string.show_batterylight_dnd))
-        buildSwitch(batteryLightList,
+            summary = getString(R.string.show_batterylight_dnd)
+        )
+        buildSwitch(
+            batteryLightList,
             iconID = R.drawable.ic_light,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.blinking),
             accentColor = R.color.pink_500,
             feature = featureManager.System().BATTERY_LIGHT_LOW_BLINKING,
             featureType = SYSTEM,
-            summary = getString(R.string.blinking_on_low))
-        val pref = requireActivity().getSharedPreferences(SettingsConstants.SETTINGS_PREF, Context.MODE_PRIVATE)
+            summary = getString(R.string.blinking_on_low)
+        )
+        val pref = requireActivity().getSharedPreferences(
+            SettingsConstants.SETTINGS_PREF,
+            Context.MODE_PRIVATE
+        )
         if (pref.getBoolean(SettingsConstants.ALLOW_RGB_BLIGHT, false)) {
             buildRGB(
                 list = batteryLightList,
@@ -183,7 +186,8 @@ class StatusbarSection : GenericSection() {
             ) {}
         }
         setupLayout(batteryLightList, R.id.sectionBatteryLight)
-        buildSwitch(clockList,
+        buildSwitch(
+            clockList,
             iconID = R.drawable.ic_alarm_clock,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.show_clock_tile),
@@ -191,7 +195,8 @@ class StatusbarSection : GenericSection() {
             feature = featureManager.System().STATUSBAR_CLOCK,
             featureType = SYSTEM,
             summary = getString(R.string.show_clock_summary),
-            enabled = true)
+            enabled = true
+        )
         buildSwipeable(
             list = clockList,
             iconID = R.drawable.ic_alarm_clock,
@@ -215,14 +220,16 @@ class StatusbarSection : GenericSection() {
                 title.text = newTitle
             }
         }
-        buildSwitch(clockList,
+        buildSwitch(
+            clockList,
             iconID = R.drawable.ic_alarm_clock,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.show_seconds_title),
             accentColor = R.color.orange_600,
             feature = featureManager.System().STATUSBAR_CLOCK_SECONDS,
             featureType = SYSTEM,
-            summary = getString(R.string.show_seconds_summary))
+            summary = getString(R.string.show_seconds_summary)
+        )
         buildSwipeable(
             list = clockList,
             iconID = R.drawable.ic_alarm_clock,

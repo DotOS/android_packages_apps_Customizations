@@ -80,16 +80,20 @@ class ContentUriAsset @JvmOverloads constructor(
         decodeRawDimensions(null /* activity */, object : DimensionsReceiver {
             override fun onDimensionsDecoded(dimensions: Point?) {
                 if (dimensions == null) {
-                    Log.e(TAG, "There was an error decoding the asset's raw dimensions with " +
-                            "content URI: " + uri)
+                    Log.e(
+                        TAG, "There was an error decoding the asset's raw dimensions with " +
+                                "content URI: " + uri
+                    )
                     receiver!!.onBitmapDecoded(null)
                     return
                 }
                 decodeBitmap(dimensions.x, dimensions.y, object : BitmapReceiver {
                     override fun onBitmapDecoded(fullBitmap: Bitmap?) {
                         if (fullBitmap == null) {
-                            Log.e(TAG, "There was an error decoding the asset's full bitmap with " +
-                                    "content URI: " + uri)
+                            Log.e(
+                                TAG, "There was an error decoding the asset's full bitmap with " +
+                                        "content URI: " + uri
+                            )
                             receiver!!.onBitmapDecoded(null)
                             return
                         }
@@ -169,12 +173,16 @@ class ContentUriAsset @JvmOverloads constructor(
     private fun readExifOrientation(): Int {
         ensureExifInterface()
         if (mExifCompat == null) {
-            Log.w(TAG, "Unable to read EXIF rotation for content URI asset with content URI: "
-                    + uri)
+            Log.w(
+                TAG, "Unable to read EXIF rotation for content URI asset with content URI: "
+                        + uri
+            )
             return ExifInterfaceCompat.EXIF_ORIENTATION_NORMAL
         }
-        return mExifCompat!!.getAttributeInt(ExifInterfaceCompat.TAG_ORIENTATION,
-            ExifInterfaceCompat.EXIF_ORIENTATION_NORMAL)
+        return mExifCompat!!.getAttributeInt(
+            ExifInterfaceCompat.TAG_ORIENTATION,
+            ExifInterfaceCompat.EXIF_ORIENTATION_NORMAL
+        )
     }
 
     override fun loadDrawable(
@@ -232,7 +240,8 @@ class ContentUriAsset @JvmOverloads constructor(
                 null
             } else Bitmap.createBitmap(
                 mFromBitmap, mCropRect!!.left, mCropRect.top, mCropRect.width(),
-                mCropRect.height())
+                mCropRect.height()
+            )
         }
 
         override fun onPostExecute(bitmapRegion: Bitmap?) {
@@ -260,9 +269,11 @@ class ContentUriAsset @JvmOverloads constructor(
      */
     init {
         mRequestOptions = if (uncached) {
-            requestOptions.apply(RequestOptions
-                .diskCacheStrategyOf(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true))
+            requestOptions.apply(
+                RequestOptions
+                    .diskCacheStrategyOf(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+            )
         } else {
             requestOptions
         }

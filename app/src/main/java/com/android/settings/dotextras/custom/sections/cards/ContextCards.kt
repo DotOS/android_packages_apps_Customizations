@@ -20,7 +20,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type
-import com.android.settings.dotextras.custom.utils.ColorSheetUtils
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 typealias ContextCardsListener = ((value: Int) -> Unit)?
 typealias OnColorChangedListener = ((colorInt: Int) -> Unit)?
@@ -62,6 +62,7 @@ class ContextCards(
     var colorInt: Int = defaultColor
     var colorListener: OnColorChangedListener = null
     var fragmentManager: FragmentManager? = null
+
 
     constructor(
         iconID: Int,
@@ -257,7 +258,7 @@ class ContextCards(
         colorChangedListener: OnColorChangedListener,
     ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
         this.fragmentManager = fragmentManager
-        this.title = ColorSheetUtils.colorToHex(colorInt)
+        this.title = ResourceHelper.colorToHex(colorInt)
         this.colorListener = colorChangedListener
     }
 
@@ -272,7 +273,7 @@ class ContextCards(
     ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
         this.fragmentManager = fragmentManager
         this.defaultColor = defaultColor
-        this.title = ColorSheetUtils.colorToHex(colorInt)
+        this.title = ResourceHelper.colorToHex(colorInt)
         this.colorListener = colorChangedListener
     }
 
@@ -287,7 +288,7 @@ class ContextCards(
     ) : this(iconID, "", subtitle, 0xFFFFFF, feature, featureType) {
         this.fragmentManager = fragmentManager
         this.summary = summary
-        this.title = ColorSheetUtils.colorToHex(colorInt)
+        this.title = ResourceHelper.colorToHex(colorInt)
         this.colorListener = colorChangedListener
     }
 
@@ -304,7 +305,7 @@ class ContextCards(
         this.fragmentManager = fragmentManager
         this.defaultColor = defaultColor
         this.summary = summary
-        this.title = ColorSheetUtils.colorToHex(colorInt)
+        this.title = ResourceHelper.colorToHex(colorInt)
         this.colorListener = colorChangedListener
     }
 

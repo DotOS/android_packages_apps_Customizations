@@ -18,7 +18,6 @@ package com.android.settings.dotextras.custom.views
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
-import android.os.Handler
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -29,9 +28,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.BalloonPump
-import com.android.settings.dotextras.custom.utils.ColorSheetUtils
 import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.custom.utils.SettingsConstants
 import com.android.settings.dotextras.system.FeatureManager
 import com.google.android.material.button.MaterialButton
 
@@ -164,34 +161,38 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         lightColor = color
         whitePreview.imageTintList = ColorStateList.valueOf(color)
         whitePreview.invalidate()
-        whiteHex.text = ColorSheetUtils.colorToHex(color)
+        whiteHex.text = ResourceHelper.colorToHex(color)
         whiteHex.invalidate()
         val suitableColor = ResourceHelper.getToleratedShade(color, Shade.LIGHT) == Shade.LIGHT
         whiteCompatible.imageTintList =
             if (!suitableColor) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
             else ColorStateList.valueOf(resources.getColor(R.color.green_500, null))
-        whiteCompatible.setImageResource(if (!suitableColor) R.drawable.ic_error_round
-        else R.drawable.ic_check_circle)
+        whiteCompatible.setImageResource(
+            if (!suitableColor) R.drawable.ic_error_round
+            else R.drawable.ic_check_circle
+        )
         whiteCompatible.invalidate()
         whiteApply.setOnClickListener {
             featureManager.AccentManager()
-                .applyLight(ColorSheetUtils.colorToHex(color).replace("#", ""))
+                .applyLight(ResourceHelper.colorToHex(color).replace("#", ""))
         }
     }
 
     fun bindDarkColor(color: Int) {
         darkColor = color
         darkPreview.imageTintList = ColorStateList.valueOf(color)
-        darkHex.text = ColorSheetUtils.colorToHex(color)
+        darkHex.text = ResourceHelper.colorToHex(color)
         val suitableColor = ResourceHelper.getToleratedShade(color, Shade.DARK) == Shade.DARK
         darkCompatible.imageTintList =
             if (!suitableColor) ColorStateList.valueOf(resources.getColor(R.color.red_500, null))
             else ColorStateList.valueOf(resources.getColor(R.color.green_500, null))
-        darkCompatible.setImageResource(if (!suitableColor) R.drawable.ic_error_round
-        else R.drawable.ic_check_circle)
+        darkCompatible.setImageResource(
+            if (!suitableColor) R.drawable.ic_error_round
+            else R.drawable.ic_check_circle
+        )
         darkApply.setOnClickListener {
             featureManager.AccentManager()
-                .applyDark(ColorSheetUtils.colorToHex(color).replace("#", ""))
+                .applyDark(ResourceHelper.colorToHex(color).replace("#", ""))
         }
     }
 

@@ -30,7 +30,6 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.system.FeatureManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.card.MaterialCardView
 
 class FodIconAdapter(
@@ -56,9 +55,13 @@ class FodIconAdapter(
         fodIcon.selected =
             featureManager.System().getInt(featureManager.System().FOD_ICON, 0) == fodIcon.id
         Glide.with(holder.fodIcon)
-            .load(ResourceHelper.getDrawable(holder.fodIcon.context,
-                holder.fodIcon.context.getString(R.string.systemui_package),
-                fodIcon.resource))
+            .load(
+                ResourceHelper.getDrawable(
+                    holder.fodIcon.context,
+                    holder.fodIcon.context.getString(R.string.systemui_package),
+                    fodIcon.resource
+                )
+            )
             .placeholder(android.R.color.transparent)
             .into(holder.fodIcon)
         holder.fodLayout.setOnClickListener {
@@ -120,9 +123,13 @@ class FodIconAdapter(
         if (fodIcon.selected) {
             holder.fodLayout.setBackgroundColor(accentColor)
             holder.fodLayout.invalidate(true)
-            fodIcon.listener?.invoke(ResourceHelper.getDrawable(holder.fodIcon.context,
-                holder.fodIcon.context.getString(R.string.systemui_package),
-                fodIcon.resource))
+            fodIcon.listener?.invoke(
+                ResourceHelper.getDrawable(
+                    holder.fodIcon.context,
+                    holder.fodIcon.context.getString(R.string.systemui_package),
+                    fodIcon.resource
+                )
+            )
         } else {
             holder.fodLayout.setBackgroundColor(
                 ContextCompat.getColor(
