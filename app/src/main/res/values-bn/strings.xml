@@ -12,7 +12,7 @@
     <string name="disabled">নিষ্ক্রিয়</string>
     <string name="enable">সক্রিয় করুন</string>
     <string name="enabled">সক্রিয় হয়েছে</string>
-    <string name="lockscreen_date_pattern">বছর, মাস দিন</string>
+    <string name="lockscreen_date_pattern">EEE, MMM d</string>
     <string name="options">অপশন</string>
     <string name="picker_title">রং বাছাই করুন</string>
     <string name="progress">অগ্রগতি</string>

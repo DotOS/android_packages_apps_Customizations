@@ -12,7 +12,7 @@
     <string name="disabled">معطل</string>
     <string name="enable">تفعيل</string>
     <string name="enabled">مفعل</string>
-    <string name="lockscreen_date_pattern">EEEEE، MMM d</string>
+    <string name="lockscreen_date_pattern">EEE, MMM d</string>
     <string name="options">الخيارات</string>
     <string name="picker_title">اختر لون</string>
     <string name="progress">العملية</string>
