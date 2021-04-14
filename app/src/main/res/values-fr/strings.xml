@@ -12,7 +12,6 @@
     <string name="disabled">Désactivé</string>
     <string name="enable">Activer</string>
     <string name="enabled">Activé</string>
-    <string name="lockscreen_date_pattern">EEE, MMM d</string>
     <string name="options">Paramètres</string>
     <string name="picker_title">Choisissez une couleur</string>
     <string name="progress">En cours</string>

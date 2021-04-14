@@ -12,7 +12,6 @@
     <string name="disabled">Отключено</string>
     <string name="enable">Включить</string>
     <string name="enabled">Включено</string>
-    <string name="lockscreen_date_pattern">ГГГГ, ММ, ДД</string>
     <string name="options">Опции</string>
     <string name="picker_title">Выбор цвета</string>
     <string name="progress">Прогресс</string>

@@ -12,7 +12,6 @@
     <string name="disabled">Letiltva</string>
     <string name="enable">Engedélyezés</string>
     <string name="enabled">Engedélyezve</string>
-    <string name="lockscreen_date_pattern">MMM d., EEE</string>
     <string name="options">Beállítások</string>
     <string name="picker_title">Színválasztás</string>
     <string name="progress">Folyamatban</string>

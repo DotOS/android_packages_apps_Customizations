@@ -12,7 +12,6 @@
     <string name="disabled">Απενεργοποιημένο</string>
     <string name="enable">Ενεργοποίηση</string>
     <string name="enabled">Ενεργοποιημένο</string>
-    <string name="lockscreen_date_pattern">EEE, d MMM</string>
     <string name="options">Επιλογές</string>
     <string name="picker_title">Επιλογή χρώματος</string>
     <string name="progress">Πρόοδος</string>

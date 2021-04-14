@@ -12,7 +12,6 @@
     <string name="disabled">Devre dışı</string>
     <string name="enable">Etkinleştir</string>
     <string name="enabled">Etkin</string>
-    <string name="lockscreen_date_pattern">GGG, AAAA g</string>
     <string name="options">Seçenekler</string>
     <string name="picker_title">Bir renk seç</string>
     <string name="progress">İlerleme</string>

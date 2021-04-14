@@ -12,7 +12,6 @@
     <string name="disabled">Đã tắt</string>
     <string name="enable">Bật</string>
     <string name="enabled">Đã bật</string>
-    <string name="lockscreen_date_pattern">EEE, MMMM d</string>
     <string name="options">Tùy chọn</string>
     <string name="picker_title">Chọn màu</string>
     <string name="progress">Quá Trình</string>

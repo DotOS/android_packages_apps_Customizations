@@ -12,7 +12,6 @@
     <string name="disabled">已禁用</string>
     <string name="enable">启用</string>
     <string name="enabled">已启用</string>
-    <string name="lockscreen_date_pattern">M月d日E</string>
     <string name="options">选项</string>
     <string name="picker_title">选取一种颜色</string>
     <string name="progress">进度条</string>
