@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Hình nền dựng sẵn</string>
     <string name="live_wallpapers">Hình nền động</string>
     <string name="dotos_exclusives">DotOS Độc quyền</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Áp dụng hình nền</string>
     <string name="apply_wallpaper_summary">Bạn có chắc chắn muốn sử dụng hình nền này?</string>
     <string name="apply_both">Màn hình chính và màn hình khóa</string>

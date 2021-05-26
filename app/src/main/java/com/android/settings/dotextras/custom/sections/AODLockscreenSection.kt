@@ -19,24 +19,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.FeatureActivityBase
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SECURE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.sections.clock.*
-import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.NotSupportedView
 
 class AODLockscreenSection : GenericSection() {
-
-    private val EXTRA_CLOCK_FACE_NAME = "clock_face_name"
-    private lateinit var mClockManager: BaseClockManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,57 +39,7 @@ class AODLockscreenSection : GenericSection() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as BaseActivity).setTitle(getString(R.string.section_aod_title))
-        val recyclerView = view.findViewById<RecyclerView>(R.id.clockfaceOptionsRecycler)
-        recyclerView.isNestedScrollingEnabled = false
-        val contentProviderClockProvider = ContentProviderClockProvider(requireActivity())
-        mClockManager = object : BaseClockManager(
-            ContentProviderClockProvider(requireActivity())
-        ) {
-            override fun handleApply(option: Clockface?, callback: onHandleCallback) {
-                callback?.invoke(true)
-            }
-
-            override fun lookUpCurrentClock(): String {
-                return requireActivity().intent.getStringExtra(EXTRA_CLOCK_FACE_NAME).toString()
-            }
-        }
-        if (!mClockManager.isAvailable) {
-            view.findViewById<LinearLayout>(R.id.clockfaceSection).visibility = View.GONE
-        } else {
-            mClockManager.fetchOptions({ options ->
-                run {
-                    if (options != null) {
-                        val cm = ClockManager(
-                            requireContext().contentResolver,
-                            contentProviderClockProvider
-                        )
-                        val optionsCompat = ArrayList<ClockfaceCompat>()
-                        for (option in options) {
-                            optionsCompat.add(ClockfaceCompat(option))
-                        }
-                        recyclerView.adapter =
-                            ClockfacePreviewRecyclerAdapter(cm, optionsCompat)
-                        recyclerView.layoutManager =
-                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                        recyclerView.addItemDecoration(
-                            ItemRecyclerSpacer(
-                                resources.getDimension(R.dimen.recyclerSpacerBigger),
-                                null,
-                                false
-                            )
-                        )
-                        val snap = PagerSnapHelper()
-                        snap.attachToRecyclerView(recyclerView)
-                        for (i in 0 until optionsCompat.size) {
-                            if (optionsCompat[i].clockface.isActive(cm))
-                                recyclerView.scrollToPosition(i)
-                        }
-
-                    }
-                }
-            }, false)
-        }
+        (requireActivity() as FeatureActivityBase).setTitle(getString(R.string.section_aod_title))
         val optionsList = ArrayList<ContextCards>()
         if (ResourceHelper.hasAmbient(requireContext())) {
             featureManager.Secure().enableDozeIfNeeded(requireContext())

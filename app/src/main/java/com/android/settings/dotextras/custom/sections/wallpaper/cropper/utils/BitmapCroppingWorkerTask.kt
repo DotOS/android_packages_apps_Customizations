@@ -11,6 +11,7 @@
 // "The Art of War"
 package com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
@@ -46,6 +47,7 @@ class BitmapCroppingWorkerTask :
     /**
      * The context of the crop image view widget used for loading of bitmap by Android URI
      */
+    @SuppressLint("StaticFieldLeak")
     private val mContext: Context
 
     /**
@@ -211,36 +213,39 @@ class BitmapCroppingWorkerTask :
     override fun doInBackground(vararg params: Void?): Result? {
         return try {
             if (!isCancelled) {
-                val bitmapSampled: BitmapSampled?
-                bitmapSampled = if (uri != null) {
-                    BitmapUtils.cropBitmap(
-                        mContext,
-                        uri,
-                        mCropPoints,
-                        mDegreesRotated,
-                        mOrgWidth,
-                        mOrgHeight,
-                        mFixAspectRatio,
-                        mAspectRatioX,
-                        mAspectRatioY,
-                        mReqWidth,
-                        mReqHeight,
-                        mFlipHorizontally,
-                        mFlipVertically
-                    )
-                } else if (mBitmap != null) {
-                    BitmapUtils.cropBitmapObjectHandleOOM(
-                        mBitmap,
-                        mCropPoints,
-                        mDegreesRotated,
-                        mFixAspectRatio,
-                        mAspectRatioX,
-                        mAspectRatioY,
-                        mFlipHorizontally,
-                        mFlipVertically
-                    )
-                } else {
-                    return Result(null as Bitmap?, 1)
+                val bitmapSampled: BitmapSampled = when {
+                    uri != null -> {
+                        BitmapUtils.cropBitmap(
+                            mContext,
+                            uri,
+                            mCropPoints,
+                            mDegreesRotated,
+                            mOrgWidth,
+                            mOrgHeight,
+                            mFixAspectRatio,
+                            mAspectRatioX,
+                            mAspectRatioY,
+                            mReqWidth,
+                            mReqHeight,
+                            mFlipHorizontally,
+                            mFlipVertically
+                        )
+                    }
+                    mBitmap != null -> {
+                        BitmapUtils.cropBitmapObjectHandleOOM(
+                            mBitmap,
+                            mCropPoints,
+                            mDegreesRotated,
+                            mFixAspectRatio,
+                            mAspectRatioX,
+                            mAspectRatioY,
+                            mFlipHorizontally,
+                            mFlipVertically
+                        )
+                    }
+                    else -> {
+                        return Result(null as Bitmap?, 1)
+                    }
                 }
                 val bitmap = BitmapUtils.resizeBitmap(
                     bitmapSampled.bitmap,

@@ -1,177 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="top"
-    android:orientation="vertical"
-    android:paddingTop="10dp"
-    tools:context=".custom.sections.wallpaper.provider.StandalonePreviewActivity">
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/toolbar_height">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/standalonePager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="480dp" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="259dp"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/detailsLayout"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/standalonePager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:padding="16dp">
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="259dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
-        <ImageButton
-            android:id="@+id/wallLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:tint="?android:attr/textColorSecondary"
-            app:srcCompat="@drawable/chevron_left" />
-
-        <ImageButton
-            android:id="@+id/wallRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:rotation="180"
-            android:tint="?android:attr/textColorSecondary"
-            app:srcCompat="@drawable/chevron_left" />
-
-        <TextView
-            android:id="@+id/wp_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="google-sans-medium"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp"
-            tools:text="Target Wallpaper" />
-
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/detailsLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none">
+            <ImageButton
+                android:id="@+id/wallLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="?android:attr/textColorSecondary"
+                app:srcCompat="@drawable/chevron_left" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/wallRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:rotation="180"
+                android:tint="?android:attr/textColorSecondary"
+                app:srcCompat="@drawable/chevron_left" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipCrop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="google-sans"
-                        android:text="Crop &amp; Rotate" />
+            <TextView
+                android:id="@+id/wp_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="20sp"
+                tools:text="Target Wallpaper" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipMetadata"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Metadata"
-                        android:visibility="gone" />
+        </RelativeLayout>
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Info"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </HorizontalScrollView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/recyclerSpacer">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/rounded_bg"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipCrop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Crop &amp; Rotate" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipMetadata"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Metadata"
+                            android:visibility="gone" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Info"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </HorizontalScrollView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/rounded_bg"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:paddingEnd="6dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/recyclerSpacerBigger"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="@dimen/recyclerSpacerBigger"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
 
-                        <TextView
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingEnd="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/apply_wallpaper"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:alpha="0.7"
+                                android:text="@string/apply_wallpaper_summary"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/wp_apply_button"
+                            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="google-sans"
-                            android:text="@string/apply_wallpaper"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="20sp" />
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/apply"
+                            android:textAppearance="@style/TextAppearance.AppCompat"
+                            android:textColor="?android:textColorPrimary"
+                            app:cornerRadius="@dimen/default_dialog_radius_round"
+                            app:iconTint="?android:textColorPrimary" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:alpha="0.7"
-                            android:fontFamily="google-sans"
-                            android:text="@string/apply_wallpaper_summary"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="14sp" />
                     </LinearLayout>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/wp_apply_button"
-                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:fontFamily="google-sans"
-                        android:text="@string/apply"
-                        android:textAppearance="@style/TextAppearance.AppCompat"
-                        android:textColor="?android:textColorPrimary"
-                        app:cornerRadius="24dp"
-                        app:iconTint="?android:textColorPrimary" />
 
                 </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="32dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:contentDescription="@null"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/pin"
+                    app:tint="?android:textColorSecondary" />
+
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="32dp"
-                android:layout_height="8dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:contentDescription="@null"
-                android:visibility="gone"
-                app:srcCompat="@drawable/pin"
-                app:tint="?android:textColorSecondary" />
+        </FrameLayout>
 
-        </LinearLayout>
+    </LinearLayout>
 
-    </FrameLayout>
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

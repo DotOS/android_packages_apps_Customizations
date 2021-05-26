@@ -4,45 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/default_card_width">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:fitsSystemWindows="true">
 
         <ImageView
-            android:layout_width="@dimen/default_size_icon"
-            android:layout_height="@dimen/default_size_icon"
-            android:background="@drawable/circle_bg"
-            android:backgroundTint="?android:attr/textColorSecondaryInverse"
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:contentDescription="@null"
-            android:padding="12dp"
-            app:srcCompat="@drawable/ic_menu"
-            app:tint="?android:attr/textColorPrimary" />
+            android:padding="@dimen/recyclerSpacerBigger"
+            app:srcCompat="@drawable/ic_touch"
+            app:tint="?android:attr/textColorSecondary" />
 
-        <ImageView
-            android:layout_width="@dimen/default_size_icon"
-            android:layout_height="@dimen/default_size_icon"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/circle_bg"
-            android:backgroundTint="?android:attr/textColorSecondaryInverse"
-            android:contentDescription="@null"
-            android:padding="15dp"
-            app:srcCompat="@drawable/ic_homehw"
-            app:tint="?android:attr/textColorPrimary" />
-
-        <ImageView
-            android:layout_width="@dimen/default_size_icon"
-            android:layout_height="@dimen/default_size_icon"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/circle_bg"
-            android:backgroundTint="?android:attr/textColorSecondaryInverse"
-            android:contentDescription="@null"
-            android:padding="16dp"
-            app:srcCompat="@drawable/ic_arrow_back"
-            app:tint="?android:attr/textColorPrimary" />
-
-    </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>

@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Yerleşik duvar kağıtları</string>
     <string name="live_wallpapers">Canlı duvar kağıtları</string>
     <string name="dotos_exclusives">DotOS Ayrıcalıkları</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Duvar kağıdını uygula</string>
     <string name="apply_wallpaper_summary">Bu duvar kağıdını kullanmak istediğinizden emin misiniz?</string>
     <string name="apply_both">Ana ekran ve Kilit ekranı</string>

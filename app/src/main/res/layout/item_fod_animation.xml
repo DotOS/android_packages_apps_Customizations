@@ -8,13 +8,11 @@
         android:id="@+id/fodCard"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fod_picker_item_size"
-        android:scaleX="1"
-        android:scaleY="1"
-        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardBackgroundColor="@android:color/black"
         app:cardCornerRadius="@dimen/default_dialog_radius"
         app:cardElevation="0dp"
         app:strokeColor="@color/fod_item_background_stroke_color"
-        app:strokeWidth="1dp">
+        app:strokeWidth="2dp">
 
         <LinearLayout
             android:id="@+id/fodLayout"

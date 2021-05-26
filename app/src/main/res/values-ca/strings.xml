@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Fons de pantalla inclosa</string>
     <string name="live_wallpapers">Fons de pantalla animats</string>
     <string name="dotos_exclusives">Exclusiu de DotOS</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Establir fons de pantalla</string>
     <string name="apply_wallpaper_summary">Segur que vols utilitzar aquest fons de pantalla?</string>
     <string name="apply_both">Pantalles d\'inici i de bloqueig</string>

@@ -10,30 +10,26 @@
         android:id="@+id/header_Recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="28dp"
-        android:paddingTop="7dp"
-        android:paddingEnd="28dp"
-        android:paddingBottom="14dp"
-        android:text="@string/sections"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="22sp"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:visibility="visible"
-        tools:visibility="visible" />
+        android:text="@string/sections" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dashboard_Recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

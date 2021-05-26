@@ -74,8 +74,8 @@ class WallpaperCropperActivity : AppCompatActivity(), CropImageView.OnCropImageC
         rotateRight = findViewById(R.id.rotateRight)
         val bottomSheetBehavior = BottomSheetBehavior.from(sheetLayout)
         val bundle = intent.getBundleExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE)
-        imageUri = bundle.getParcelable(CropImage.CROP_IMAGE_EXTRA_SOURCE)
-        mOptions = bundle.getParcelable(CropImage.CROP_IMAGE_EXTRA_OPTIONS)
+        imageUri = bundle!!.getParcelable(CropImage.CROP_IMAGE_EXTRA_SOURCE)!!
+        mOptions = bundle.getParcelable(CropImage.CROP_IMAGE_EXTRA_OPTIONS)!!
         cropImageView.setImageUriAsync(imageUri)
         ratio189.setOnClickListener { cropImageView.setAspectRatio(9, 18) }
         ratio169.setOnClickListener { cropImageView.setAspectRatio(9, 16) }

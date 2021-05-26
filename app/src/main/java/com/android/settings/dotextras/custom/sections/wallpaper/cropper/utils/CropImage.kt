@@ -274,9 +274,7 @@ object CropImage {
         // remove documents intent
         if (!includeDocuments) {
             for (intent in intents) {
-                if (intent
-                        .component
-                        .className
+                if (intent.component!!.className
                     == "com.android.documentsui.DocumentsActivity"
                 ) {
                     intents.remove(intent)
@@ -447,7 +445,7 @@ object CropImage {
         /**
          * Options for image crop UX
          */
-        private val mOptions: CropImageOptions
+        private val mOptions: CropImageOptions = CropImageOptions()
 
         /**
          * Get [CropImageActivity] intent to start the activity.
@@ -462,7 +460,7 @@ object CropImage {
         fun getIntent(context: Context, cls: Class<*>?): Intent {
             mOptions.validate()
             val intent = Intent()
-            intent.setClass(context, cls)
+            intent.setClass(context, cls!!)
             val bundle = Bundle()
             bundle.putParcelable(CROP_IMAGE_EXTRA_SOURCE, mSource)
             bundle.putParcelable(CROP_IMAGE_EXTRA_OPTIONS, mOptions)
@@ -586,7 +584,7 @@ object CropImage {
          * The initial scale type of the image in the crop image view<br></br>
          * *Default: FIT_CENTER*
          */
-        fun setScaleType(scaleType: CropImageView.ScaleType): ActivityBuilder {
+        fun setScaleType(scaleType: ScaleType): ActivityBuilder {
             mOptions.scaleType = scaleType
             return this
         }
@@ -955,9 +953,6 @@ object CropImage {
             return this
         }
 
-        init {
-            mOptions = CropImageOptions()
-        }
     }
     // endregion
     // region: Inner class: ActivityResult
@@ -1015,9 +1010,9 @@ object CropImage {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<ActivityResult?> {
+        companion object CREATOR : Parcelable.Creator<ActivityResult> {
 
-            override fun createFromParcel(`in`: Parcel): ActivityResult? {
+            override fun createFromParcel(`in`: Parcel): ActivityResult {
                 return ActivityResult(`in`)
             }
 

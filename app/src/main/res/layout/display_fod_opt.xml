@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:contentDescription="@null"
-            android:padding="24dp"
+            android:padding="@dimen/recyclerSpacerBigger"
             app:srcCompat="@drawable/fod_icon_default_2"
             app:tint="?android:attr/textColorSecondary" />
 

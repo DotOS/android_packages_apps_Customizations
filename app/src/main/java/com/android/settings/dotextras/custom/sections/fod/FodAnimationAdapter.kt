@@ -27,7 +27,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.ResourceHelper
@@ -147,8 +146,7 @@ class FodAnimationAdapter(
     private fun updateSelection(fodIcon: FodResource, holder: ViewHolder, position: Int) {
         val accentColor: Int = ResourceHelper.getAccent(holder.fodLayout.context)
         if (fodIcon.selected) {
-            holder.fodLayout.setBackgroundColor(accentColor)
-            holder.fodLayout.invalidate(true)
+            holder.fodCard.strokeColor = accentColor
             fodIcon.listenerAnim?.invoke(
                 getAnimationPreview(
                     holder.itemView.context,
@@ -156,13 +154,7 @@ class FodAnimationAdapter(
                 ) as AnimationDrawable?
             )
         } else {
-            holder.fodLayout.setBackgroundColor(
-                ContextCompat.getColor(
-                    holder.fodLayout.context,
-                    android.R.color.transparent
-                )
-            )
-            holder.fodLayout.invalidate(true)
+            holder.fodCard.strokeColor = ResourceHelper.getSecondaryTextColor(holder.fodCard.context)
         }
     }
 

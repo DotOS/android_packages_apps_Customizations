@@ -54,8 +54,7 @@ class ContentProviderClockProvider(private val mContext: Context) : ClockProvide
         }
     }
 
-    private class ClocksFetchTask(
-        private var mContext: Context, private val mProviderInfo: ProviderInfo?,
+    private class ClocksFetchTask(private val mContext: Context, private val mProviderInfo: ProviderInfo?,
         callback: OptionsFetchedListener,
     ) : AsyncTask<Void?, Void?, ArrayList<Clockface>?>() {
         private val mCallback: OptionsFetchedListener = callback
@@ -67,36 +66,37 @@ class ContentProviderClockProvider(private val mContext: Context) : ClockProvide
                 .authority(mProviderInfo!!.authority)
                 .appendPath(LIST_OPTIONS)
                 .build()
-            val c = resolver.query(optionsUri, null, null, null, null)
-            try {
-                while (c.moveToNext()) {
-                    val id = c.getString(c.getColumnIndex(COL_ID))
-                    val title = c.getString(c.getColumnIndex(COL_TITLE))
-                    val thumbnailUri = c.getString(c.getColumnIndex(COL_THUMBNAIL))
-                    val previewUri = c.getString(c.getColumnIndex(COL_PREVIEW))
-                    val thumbnail = Uri.parse(thumbnailUri)
-                    val preview = Uri.parse(previewUri)
-                    val builder: Clockface.Builder = Clockface.Builder()
-                    builder.setId(id).setTitle(title)
-                        .setThumbnail(
-                            ContentUriAsset(
-                                mContext, thumbnail,
-                                RequestOptions.centerInsideTransform()
+            resolver.query(optionsUri, null, null, null, null).use { c ->
+                try {
+                    while (c!!.moveToNext()) {
+                        val id = c.getString(c.getColumnIndex(COL_ID))
+                        val title = c.getString(c.getColumnIndex(COL_TITLE))
+                        val thumbnailUri = c.getString(c.getColumnIndex(COL_THUMBNAIL))
+                        val previewUri = c.getString(c.getColumnIndex(COL_PREVIEW))
+                        val thumbnail = Uri.parse(thumbnailUri)
+                        val preview = Uri.parse(previewUri)
+                        val builder: Clockface.Builder = Clockface.Builder()
+                        builder.setId(id).setTitle(title)
+                            .setThumbnail(
+                                ContentUriAsset(
+                                    mContext, thumbnail,
+                                    RequestOptions.centerInsideTransform()
+                                )
                             )
-                        )
-                        .setPreview(
-                            ContentUriAsset(
-                                mContext, preview,
-                                RequestOptions.fitCenterTransform()
+                            .setPreview(
+                                ContentUriAsset(
+                                    mContext, preview,
+                                    RequestOptions.fitCenterTransform()
+                                )
                             )
-                        )
-                    clockfaces.add(builder.build())
+                        clockfaces.add(builder.build())
+                    }
+                    Glide.get(mContext).clearDiskCache()
+                } catch (e: Exception) {
+                    Log.e("Clockfaces", e.message.toString())
+                } finally {
+                    c!!.close()
                 }
-                Glide.get(mContext).clearDiskCache()
-            } catch (e: Exception) {
-                Log.e("Clockfaces", e.message)
-            } finally {
-                c.close()
             }
             return clockfaces
         }

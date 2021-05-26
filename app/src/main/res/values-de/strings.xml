@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Integrierte Hintergrundbilder</string>
     <string name="live_wallpapers">Live-Hintergrundbilder</string>
     <string name="dotos_exclusives">DotOS Exklusiv</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Als Hintergrund festlegen</string>
     <string name="apply_wallpaper_summary">Sind Sie sicher, dass Sie diesen Hintergrund verwenden möchten?</string>
     <string name="apply_both">Start- und Sperrbildschirm</string>

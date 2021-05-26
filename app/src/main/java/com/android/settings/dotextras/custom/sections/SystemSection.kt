@@ -117,11 +117,22 @@ open class SystemSection : GenericSection() {
         )
         buildSwitch(
             gesturesCardList,
+            iconID = R.drawable.ic_arrow_back,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.lrb_title),
+            accentColor = R.color.green_800,
+            feature = featureManager.System().NAVIGATION_BAR_MENU_ARROW_KEYS,
+            featureType = SYSTEM,
+            summary = getString(R.string.lrb_summary),
+            enabled = false
+        )
+        buildSwitch(
+            gesturesCardList,
             iconID = R.drawable.ic_three_fingers,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.threewayss),
             accentColor = R.color.dot_yellow,
-            feature = featureManager.System().THREE_FINGER_GESTURE,
+            feature = featureManager.System().SWIPE_TO_SCREENSHOT,
             featureType = SYSTEM,
             summary = getString(R.string.threewayss_summary),
             enabled = false
@@ -191,10 +202,10 @@ open class SystemSection : GenericSection() {
                 run {
                     var newTitle = ""
                     when (position) {
-                        0 -> newTitle = "Hide"
-                        1 -> newTitle = "Normal"
-                        2 -> newTitle = "Medium"
-                        3 -> newTitle = "Large"
+                        0 -> newTitle = getString(R.string.nav_hide)
+                        1 -> newTitle = getString(R.string.nav_normal)
+                        2 -> newTitle = getString(R.string.nav_medium)
+                        3 -> newTitle = getString(R.string.nav_large)
                     }
                     title.text = newTitle
                 }
@@ -241,6 +252,17 @@ open class SystemSection : GenericSection() {
     private fun addMisc() {
         buildSwitch(
             miscCardList,
+            iconID = R.drawable.ic_settings_aosp,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.advanced_reboot_title),
+            accentColor = R.color.blue_700,
+            feature = featureManager.System().ADVANCED_REBOOT,
+            featureType = SYSTEM,
+            summary = getString(R.string.advanced_reboot_summary),
+            enabled = false
+        )
+        buildSwitch(
+            miscCardList,
             iconID = R.drawable.ic_lock,
             title = getString(R.string.disabled),
             subtitle = getString(R.string.media_art_title),
@@ -248,6 +270,17 @@ open class SystemSection : GenericSection() {
             feature = featureManager.System().LOCKSCREEN_MEDIA_METADATA,
             featureType = SYSTEM,
             summary = getString(R.string.media_art_summary),
+            enabled = false
+        )
+        buildSwitch(
+            miscCardList,
+            iconID = R.drawable.ic_visualizer,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.music_visualizer_title),
+            accentColor = R.color.purple_500,
+            feature = featureManager.Secure().LOCKSCREEN_VISUALIZER_ENABLED,
+            featureType = SECURE,
+            summary = getString(R.string.music_visualizer_summary),
             enabled = false
         )
     }

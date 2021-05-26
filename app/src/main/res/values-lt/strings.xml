@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Built-in Wallpapers</string>
     <string name="live_wallpapers">Live Wallpapers</string>
     <string name="dotos_exclusives">DotOS Exclusives</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Apply Wallpaper</string>
     <string name="apply_wallpaper_summary">Are you sure you want to use this wallpaper?</string>
     <string name="apply_both">Home Screen and Lock Screen</string>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/schedWizardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/colltoolbar_height"
+            app:collapsedTitleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
+            app:contentScrim="?android:attr/colorPrimary"
+            app:expandedTitleMarginStart="32dp"
+            app:expandedTitleTextAppearance="@style/Dashboard.Toolbar.Expanded"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:maxLines="2"
+            app:statusBarScrim="?android:attr/colorPrimary"
+            app:toolbarId="@+id/toolbar">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingStart="32dp"
+                app:title="@string/select_apps" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/appSchedContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="72dp"
+        android:nestedScrollingEnabled="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="72dp"
+            android:orientation="horizontal"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <com.dot.applock.ui.CustomTextView
+                android:id="@+id/schedSelectedText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"
+                android:layout_toStartOf="@id/schedNext"
+                android:gravity="start|center_vertical"
+                android:lines="2"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/Dashboard.TabLayout.Item"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="@string/selected" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/schedNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:enabled="false"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                android:textStyle="bold"
+                app:backgroundTint="@color/colorAccent" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

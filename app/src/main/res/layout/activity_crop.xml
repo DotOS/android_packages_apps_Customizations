@@ -16,19 +16,24 @@
         <LinearLayout
             android:id="@+id/appblayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/toolbar_height"
             android:background="@android:color/transparent"
+            android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_scrollFlags="noScroll">
 
             <TextView
                 android:id="@+id/appTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="28dp"
-                android:text="Crop &amp; Rotate"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="18sp"
+                android:paddingStart="32dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp"
+                android:text="@string/crop_amp_rotate"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -38,7 +43,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="128dp"
         app:cardBackgroundColor="@color/cardBackground"
-        app:cardCornerRadius="32dp"
+        app:cardCornerRadius="@dimen/default_dialog_radius_round"
         app:cardElevation="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -57,53 +62,48 @@
         android:id="@+id/cropSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/sheet_background_rounded"
-        android:backgroundTint="@color/colorPrimaryBackground"
-        android:elevation="4dp"
+        android:background="@drawable/sheet_background"
+        android:backgroundTint="@color/cardBackground"
         android:orientation="vertical"
         app:behavior_hideable="false"
         app:behavior_peekHeight="122dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="32dp"
-            android:layout_height="8dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="12dp"
-            android:contentDescription="@null"
-            app:srcCompat="@drawable/pin"
-            app:tint="?android:textColorSecondary" />
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/pin" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cardApplyCrop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="28dp"
-                android:layout_marginBottom="28dp"
                 android:text="@string/apply"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="?android:textColorPrimary"
                 app:backgroundTint="@color/colorPrimary"
-                app:cornerRadius="24dp" />
+                app:cornerRadius="@dimen/default_dialog_radius_round" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/cardApplyCrop"
                 android:layout_alignBottom="@id/cardApplyCrop"
-                android:layout_marginStart="28dp"
-                android:layout_marginEnd="28dp"
                 android:gravity="center_vertical"
                 android:text="@string/options"
-                android:textColor="?android:textColorSecondary"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -116,10 +116,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginEnd="28dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
                 android:gravity="center_vertical"
-                android:text="Aspect Ratio"
+                android:text="@string/aspect_ratio"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="18sp" />
 
@@ -135,10 +135,10 @@
                     android:id="@+id/ratio189"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
+                    android:layout_marginStart="32dp"
                     android:checkable="true"
                     android:checked="true"
-                    android:text="18:9" />
+                    android:text="@string/_18_9" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/ratio169"
@@ -147,7 +147,7 @@
                     android:layout_marginStart="6dp"
                     android:checkable="true"
                     android:checked="false"
-                    android:text="16:9" />
+                    android:text="@string/_16_9" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/ratio43"
@@ -156,7 +156,7 @@
                     android:layout_marginStart="6dp"
                     android:checkable="true"
                     android:checked="false"
-                    android:text="4:3" />
+                    android:text="@string/_4_3" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/ratio11"
@@ -165,7 +165,7 @@
                     android:layout_marginStart="6dp"
                     android:checkable="true"
                     android:checked="false"
-                    android:text="1:1" />
+                    android:text="@string/_1_1" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/ratiocustom"
@@ -174,17 +174,17 @@
                     android:layout_marginStart="6dp"
                     android:checkable="true"
                     android:checked="false"
-                    android:text="Custom" />
+                    android:text="@string/custom" />
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="28dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:gravity="center_vertical"
-                android:text="Reflect"
+                android:text="@string/reflect"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="18sp" />
 
@@ -197,26 +197,26 @@
                     android:id="@+id/reflectHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:text="Horizontal" />
+                    android:layout_marginStart="32dp"
+                    android:text="@string/horizontal" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/reflectVertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Vertical" />
+                    android:text="@string/vertical" />
 
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="28dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:gravity="center_vertical"
-                android:text="Rotate"
+                android:text="@string/rotate"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="18sp" />
 
@@ -224,21 +224,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="16dp">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/rotateLeft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-                    android:text="Left (-90°)" />
+                    android:layout_marginStart="32dp"
+                    android:text="@string/left_90" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/rotateRight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Right (90°)" />
+                    android:text="@string/right_90" />
 
             </com.google.android.material.chip.ChipGroup>
         </LinearLayout>

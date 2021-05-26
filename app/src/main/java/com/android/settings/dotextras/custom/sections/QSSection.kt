@@ -16,6 +16,7 @@
 package com.android.settings.dotextras.custom.sections
 
 import android.content.res.ColorStateList
+import android.content.res.MonetWannabe
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.utils.TelephonyUtils
 import com.android.settings.dotextras.system.FeatureManager
+import com.android.settings.dotextras.system.MonetManager
 
 open class QSSection : GenericSection() {
 
@@ -82,6 +84,7 @@ open class QSSection : GenericSection() {
             featureType = SYSTEM,
             enabled = true
         )
+        if (!MonetWannabe.isMonetEnabled(context))
         buildSwitch(
             qsList,
             iconID = R.drawable.ic_settings_aosp,
@@ -94,7 +97,7 @@ open class QSSection : GenericSection() {
             enabled = true
         )
         setupLayout(qsList, R.id.sectionQS)
-        createBalloon(R.string.click_to_toggle, 1, R.id.sectionQS)
+        createBalloon(R.string.click_to_toggle, 0, R.id.sectionQS)
         /**
          * Rows & Columns
          */
@@ -145,7 +148,7 @@ open class QSSection : GenericSection() {
             feature = featureManager.System().QS_ROWS_LANDSCAPE,
             featureType = SYSTEM,
             min = 1,
-            max = 5,
+            max = 3,
             default = 1,
             summary = getString(R.string.landscape),
             extraTitle = getString(R.string.rows)

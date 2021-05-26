@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Vstavané tapety</string>
     <string name="live_wallpapers">Živé tapety</string>
     <string name="dotos_exclusives">DotOS Exkluzívne</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Použiť tapetu</string>
     <string name="apply_wallpaper_summary">Naozaj chcete použiť túto tapetu?</string>
     <string name="apply_both">Domovská a zamykacia obrazovka</string>

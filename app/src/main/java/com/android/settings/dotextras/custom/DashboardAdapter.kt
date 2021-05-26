@@ -18,6 +18,7 @@ package com.android.settings.dotextras.custom
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -60,21 +61,12 @@ class DashboardAdapter(
         fragmentManager.beginTransaction().replace(
             holder.fragmentlayout.id,
             dashboardItem.display_fragment
-        ).commit()
+        ).commitAllowingStateLoss()
         holder.fragmentlayout.setOnClickListener {
-            activity.getNestedScroll().smoothScrollTo(0, 0, 200)
-            activity.expandToolbar()
-            activity.setTitle(dashboardItem.card_title)
-            fragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.slide_out
-                )
-                .replace(R.id.frameContent, dashboardItem.target_fragment, dashboardItem.card_title)
-                .addToBackStack(dashboardItem.card_title)
-                .commit()
+            if (dashboardItem.startActivity != null)
+                activity.startActivity(Intent(activity, dashboardItem.startActivity!!::class.java))
+            else
+                launchSection(dashboardItem.target_fragment.javaClass.name, dashboardItem.card_title, dashboardItem.standalone)
         }
         holder.fragmentlayout.setOnTouchListener { _, event ->
             when (event.action) {
@@ -123,13 +115,18 @@ class DashboardAdapter(
             false
         }
         if (dashboardItem.longCard) {
-            holder.fragmentlayout.minimumHeight =
-                holder.fragmentlayout.resources.getDimension(R.dimen.large_card_height).roundToInt()
+            holder.fragmentlayout.minimumHeight = holder.fragmentlayout.resources.getDimension(R.dimen.large_card_height).roundToInt()
         } else {
-            holder.fragmentlayout.minimumHeight =
-                holder.fragmentlayout.resources.getDimension(R.dimen.default_card_height)
-                    .roundToInt()
+            holder.fragmentlayout.minimumHeight = holder.fragmentlayout.resources.getDimension(R.dimen.default_card_height).roundToInt()
         }
+    }
+
+    private fun launchSection(fragment: String, cardTitle: String, standalone: Boolean) {
+        val intent = Intent(activity, FeatureActivityBase::class.java)
+        intent.putExtra("title", cardTitle)
+        intent.putExtra("fragment", fragment)
+        intent.putExtra("standalone", standalone)
+        activity.startActivity(intent)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

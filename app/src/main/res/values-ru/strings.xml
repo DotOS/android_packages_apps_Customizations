@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Встроенные обои</string>
     <string name="live_wallpapers">Живые обои</string>
     <string name="dotos_exclusives">Эксклюзивы DotOS</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Установить как обои</string>
     <string name="apply_wallpaper_summary">Вы уверены, что хотите использовать эти обои?</string>
     <string name="apply_both">Домашний экран и экран блокировки</string>

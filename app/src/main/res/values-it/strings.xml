@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Sfondi Integrati</string>
     <string name="live_wallpapers">Sfondi Animati</string>
     <string name="dotos_exclusives">Esclusive DotOS</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Applica sfondo</string>
     <string name="apply_wallpaper_summary">Sei sicuro di voler usare questo sfondo?</string>
     <string name="apply_both">Schermata home e Schermata di blocco</string>

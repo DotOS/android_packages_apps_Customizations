@@ -11,6 +11,7 @@
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="android:dialogTheme">@style/DialogTheme</item>
         <item name="fontFamily">google-sans</item>
+        <item name="switchStyle">@style/SwitchStyle</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
@@ -19,6 +20,10 @@
         <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="fontFamily">google-sans</item>
+    </style>
+
+    <style name="SwitchStyle" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="colorControlActivated">@color/colorAccent</item>
     </style>
 
     <!-- define your dialog theme -->

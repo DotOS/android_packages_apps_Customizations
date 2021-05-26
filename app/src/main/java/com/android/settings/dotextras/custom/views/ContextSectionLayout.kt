@@ -40,13 +40,16 @@ class ContextSectionLayout(
         val expandableLayout: ExpandableLayout = layout.findViewById(R.id.contextExpandable)
         if (attrs != null) {
             val a = getContext().obtainStyledAttributes(attrs, R.styleable.ContextSectionLayout)
-            setTitle(a.getString(R.styleable.ContextSectionLayout_sectionTitle))
+            val title = a.getString(R.styleable.ContextSectionLayout_sectionTitle)
+            if (title != null) setTitle(title)
+            else this.title.visibility = GONE
             a.recycle()
         }
         if (expandable) {
             title.isClickable = true
             title.setOnClickListener { expandableLayout.toggle(true) }
         } else title.isClickable = false
+        if (recylcer.adapter != null && recylcer.adapter!!.itemCount == 0) visibility = GONE
     }
 
     fun getViewByPos(pos: Int): View {
@@ -80,6 +83,4 @@ class ContextSectionLayout(
     fun setLayoutManger(lm: RecyclerView.LayoutManager) {
         recylcer.layoutManager = lm
     }
-
-    fun getRecycler() = recylcer
 }

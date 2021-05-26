@@ -8,11 +8,12 @@
     <dimen name="small_card_width">128dp</dimen>
     <dimen name="small_card_height">128dp</dimen>
     <dimen name="wallpaper_card_height">248dp</dimen>
-    <dimen name="default_dialog_radius">16dp</dimen>
+    <dimen name="default_dialog_radius">12dp</dimen>
+    <dimen name="default_dialog_radius_round">24dp</dimen>
     <dimen name="recyclerSpacer">16dp</dimen>
-    <dimen name="recyclerSpacerBig">28dp</dimen>
-    <dimen name="recyclerSpacerBigger">18dp</dimen>
-    <dimen name="recyclerSpacerSmall">8dp</dimen>
+    <dimen name="recyclerSpacerBig">32dp</dimen>
+    <dimen name="recyclerSpacerBigger">24dp</dimen>
+    <dimen name="recyclerSpacerSmall">16dp</dimen>
     <dimen name="component_shape_thumb_size">72dp</dimen>
 
     <!-- FOD icon picker -->
@@ -22,5 +23,6 @@
     <dimen name="battery_width">9.5dp</dimen>
 
     <dimen name="colltoolbar_height">180dp</dimen>
+    <dimen name="toolbar_height">80dp</dimen>
 
 </resources>

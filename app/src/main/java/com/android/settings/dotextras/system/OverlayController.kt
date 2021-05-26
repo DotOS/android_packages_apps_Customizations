@@ -75,7 +75,6 @@ class OverlayController(
         const val HIDDEN_OVERLAY_PKG = "com.dot.overlay.systemui.gestural.hidden"
         const val NOTIFICATION_OPAQUE = "com.dot.overlay.systemui.notification.opaque"
         const val STYLES_SETTINGS = "com.dot.overlay.styles.nocards"
-        const val QS_OPAQUE = "com.dot.overlay.systemui.qs.opaque"
     }
 
     object Constants {
@@ -298,11 +297,9 @@ class OverlayController(
             }
         }
 
-        fun getIconMask(packageName: String?): String? {
+        fun getIconMask(packageName: String?): String {
             val resources: Resources =
-                if (OVERLAY_TARGET_PACKAGE == packageName) Resources.getSystem() else packageManager.getResourcesForApplication(
-                    packageName
-                )
+                if (OVERLAY_TARGET_PACKAGE == packageName) Resources.getSystem() else packageManager.getResourcesForApplication(packageName!!)
             return resources.getString(
                 resources.getIdentifier(
                     Constants.CONFIG_ICON_MASK,

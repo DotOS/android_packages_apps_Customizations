@@ -55,7 +55,7 @@ class CropImageOptions : Parcelable {
     /**
      * The initial scale type of the image in the crop image view
      */
-    var scaleType: CropImageView.ScaleType
+    var scaleType: ScaleType
 
     /**
      * if to show crop overlay UI what contains the crop window UI surrounded by background over the
@@ -291,7 +291,7 @@ class CropImageOptions : Parcelable {
         snapRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3f, dm)
         touchRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24f, dm)
         guidelines = Guidelines.ON_TOUCH
-        scaleType = CropImageView.ScaleType.FIT_CENTER
+        scaleType = ScaleType.FIT_CENTER
         showCropOverlay = true
         showProgressBar = true
         autoZoomEnabled = true
@@ -347,7 +347,7 @@ class CropImageOptions : Parcelable {
         snapRadius = `in`.readFloat()
         touchRadius = `in`.readFloat()
         guidelines = Guidelines.values()[`in`.readInt()]
-        scaleType = CropImageView.ScaleType.values()[`in`.readInt()]
+        scaleType = ScaleType.values()[`in`.readInt()]
         showCropOverlay = `in`.readByte().toInt() != 0
         showProgressBar = `in`.readByte().toInt() != 0
         autoZoomEnabled = `in`.readByte().toInt() != 0

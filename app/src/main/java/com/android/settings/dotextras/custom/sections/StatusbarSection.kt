@@ -21,9 +21,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.batterystyles.BatteryStylesAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.utils.SettingsConstants
 
 class StatusbarSection : GenericSection() {
@@ -43,15 +43,30 @@ class StatusbarSection : GenericSection() {
         val batteryLightList = ArrayList<ContextCards>()
         val trafficList = ArrayList<ContextCards>()
         val clockList = ArrayList<ContextCards>()
-        buildPager(
+        buildSwipeable(
             list,
             iconID = R.drawable.round_battery_full_white_36dp,
-            title = getString(R.string.battery_styles),
+            subtitle = getString(R.string.battery_styles),
             accentColor = R.color.colorAccent,
             feature = featureManager.System().STATUS_BAR_BATTERY_STYLE,
             featureType = SYSTEM,
-            pagerAdapter = BatteryStylesAdapter(requireActivity())
-        )
+            min = 0,
+            max = 3,
+            default = 0,
+            summary = getString(R.string.status_bar),
+            extraTitle = getString(R.string.style)
+        ) { position, title ->
+            run {
+                var newTitle = ""
+                when (position) {
+                    0 -> newTitle = "Default"
+                    1 -> newTitle = "Circle"
+                    2 -> newTitle = "Dotted"
+                    3 -> newTitle = "Filled"
+                }
+                title.text = newTitle
+            }
+        }
         setupLayout(list, R.id.sectionBS, 1, true)
         buildSwipeable(
             list = perclist,
@@ -147,7 +162,7 @@ class StatusbarSection : GenericSection() {
             SettingsConstants.SETTINGS_PREF,
             Context.MODE_PRIVATE
         )
-        if (pref.getBoolean(SettingsConstants.ALLOW_RGB_BLIGHT, false)) {
+        if (ResourceHelper.hasRGBLed(requireContext())) {
             buildRGB(
                 list = batteryLightList,
                 iconID = R.drawable.ic_light,

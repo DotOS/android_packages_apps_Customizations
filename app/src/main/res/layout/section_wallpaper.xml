@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/toolbar_height">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="258dp"
         android:gravity="center_horizontal"
-        android:minHeight="@dimen/default_header_height"
         android:nestedScrollingEnabled="false"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <include
-            layout="@layout/item_wallpaper_preview_card"
+            layout="@layout/item_wallpaper_preview_card_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -26,20 +25,32 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/wallPager"
             android:layout_width="match_parent"
-            android:layout_height="364dp"
+            android:layout_height="wrap_content"
             tools:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="258dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
         <RelativeLayout
             android:id="@+id/detailsLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="78dp"
             android:padding="16dp">
 
             <ImageButton
                 android:id="@+id/wallLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/recyclerSpacer"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="?android:attr/textColorSecondary"
                 app:srcCompat="@drawable/chevron_left" />
@@ -49,6 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/recyclerSpacer"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:rotation="180"
                 android:tint="?android:attr/textColorSecondary"
@@ -59,90 +72,238 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:background="@drawable/rounded_bg"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
                 android:text="@string/current_wallpaper"
+                android:textAppearance="?android:attr/textAppearanceListItem"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp" />
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/recyclerSpacerBig"
+            android:layout_marginEnd="@dimen/recyclerSpacerBig"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/wp_gallery"
+                android:layout_width="0dp"
+                android:layout_height="164dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_bg"
+                android:clickable="true"
+                android:foreground="@drawable/rounded_ripple"
+                android:foregroundTint="@color/colorAccent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/ic_wallpaper"
+                    app:tint="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/pick_from_gallery"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wp_builtin"
+                android:layout_width="0dp"
+                android:layout_height="164dp"
+                android:layout_marginStart="@dimen/recyclerSpacer"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_bg"
+                android:clickable="true"
+                android:foreground="@drawable/rounded_ripple"
+                android:foregroundTint="@color/colorAccent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/ic_sd_card"
+                    app:tint="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/built_in_wallpapers"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/recyclerSpacerBig"
+            android:layout_marginTop="@dimen/recyclerSpacer"
+            android:layout_marginEnd="@dimen/recyclerSpacerBig"
+            android:layout_marginBottom="@dimen/recyclerSpacer"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/wp_live"
+                android:layout_width="0dp"
+                android:layout_height="164dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_bg"
+                android:clickable="true"
+                android:foreground="@drawable/rounded_ripple"
+                android:foregroundTint="@color/colorAccent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/ic_live_wall"
+                    app:tint="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/live_wallpapers"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wp_dot"
+                android:layout_width="0dp"
+                android:layout_height="164dp"
+                android:layout_marginStart="@dimen/recyclerSpacer"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_bg"
+                android:clickable="true"
+                android:foreground="@drawable/rounded_ripple"
+                android:foregroundTint="@color/colorAccent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/ic_cloud"
+                    app:tint="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/dotos_exclusives"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingStart="18dp"
-        android:paddingTop="14dp"
-        android:paddingEnd="18dp"
-        android:paddingBottom="14dp"
-        android:text="@string/built_in_wallpapers"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/builtInRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:nestedScrollingEnabled="false"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp" />
 
     <LinearLayout
-        android:id="@+id/dotextitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@drawable/sheet_background"
+        android:backgroundTint="@color/cardBackground"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="18dp"
-            android:paddingTop="14dp"
-            android:paddingEnd="18dp"
-            android:paddingBottom="14dp"
-            android:text="@string/dotos_exclusives"
-            android:textColor="?android:attr/textColorSecondary"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:drawableEndCompat="@drawable/drag_handle" />
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/pin" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dotCategoriesRecycler"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/builtInRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/liveRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp" />
+
+                <LinearLayout
+                    android:id="@+id/dotextitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/dotCategoriesRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/dotRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dotRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="18dp"
-        android:paddingTop="14dp"
-        android:paddingEnd="18dp"
-        android:paddingBottom="14dp"
-        android:text="@string/live_wallpapers"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="22sp"
-        android:visibility="gone" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/liveRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

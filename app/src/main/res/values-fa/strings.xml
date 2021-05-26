@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">تصاویر زمینه نصب شده</string>
     <string name="live_wallpapers">تصویر زمینه زنده</string>
     <string name="dotos_exclusives">موارد انحصاری DotOs</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">اعمال تصویر زمینه</string>
     <string name="apply_wallpaper_summary">آیا مطمئن هستید که می خواهید از این تصویر زمینه استفاده نماييد؟</string>
     <string name="apply_both">صفحه اصلی و صفحه قفل</string>

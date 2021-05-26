@@ -17,17 +17,15 @@ package com.android.settings.dotextras.custom.sections
 
 import android.content.Context
 import android.content.om.IOverlayManager
-import android.os.Bundle
-import android.os.Handler
-import android.os.ServiceManager
+import android.os.*
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.SectionInterface
 import com.android.settings.dotextras.custom.sections.cards.*
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.LIST
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.PAGER
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.RGB
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
@@ -51,7 +49,6 @@ open class GenericSection : Fragment(), SectionInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (useInitUI) (requireActivity() as BaseActivity).enableSettingsLauncher(false)
         SPACER = resources.getDimension(R.dimen.recyclerSpacer).toInt()
         featureManager = FeatureManager(requireActivity().contentResolver)
         overlayManager = IOverlayManager.Stub
@@ -116,6 +113,20 @@ open class GenericSection : Fragment(), SectionInterface {
         contextLayout.setLayoutManger(GridLayoutManager(requireContext(), GRID_COLUMNS))
     }
 
+    fun setupLayoutWithCondition(list: ArrayList<ContextCards>, layoutID: Int, condition: Boolean) {
+        val contextLayout = requireView().findViewById<ContextSectionLayout>(layoutID)
+        if (!condition) contextLayout.visibility = View.GONE
+        contextLayout.setupAdapter(ContextCardsAdapter(requireActivity().contentResolver, list))
+        contextLayout.addDecoration(
+            GridSpacingItemDecoration(
+                GRID_COLUMNS,
+                resources.getDimension(R.dimen.recyclerSpacer).toInt(),
+                true
+            )
+        )
+        contextLayout.setLayoutManger(GridLayoutManager(requireContext(), GRID_COLUMNS))
+    }
+
     fun setupLayout(list: ArrayList<ContextCards>, layoutID: Int, columns: Int) {
         val contextLayout = requireView().findViewById<ContextSectionLayout>(layoutID)
         contextLayout.setupAdapter(ContextCardsAdapter(requireActivity().contentResolver, list))
@@ -160,6 +171,60 @@ open class GenericSection : Fragment(), SectionInterface {
             )
         )
         contextLayout.setLayoutManger(GridLayoutManager(requireContext(), columns))
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        summary: String,
+        default: Int,
+        listener: ContextCardsListener
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = "",
+            featureType = -1,
+            summary = summary
+        )
+        contextCards.default = default
+        contextCards.useCustomListener = true
+        contextCards.listener = listener
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
+    }
+
+    fun buildSwitch(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        summary: String,
+        default: Int,
+        disableColor: Boolean,
+        listener: ContextCardsListener,
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = "",
+            featureType = -1,
+            summary = summary
+        )
+        contextCards.default = default
+        contextCards.useCustomListener = true
+        contextCards.disableCardColor = disableColor
+        contextCards.listener = listener
+        contextCards.viewType = SWITCH
+        list.add(contextCards)
     }
 
     fun buildPager(
@@ -649,6 +714,36 @@ open class GenericSection : Fragment(), SectionInterface {
             colorChangedListener = colorChangedListener
         )
         contextCards.viewType = RGB
+        list.add(contextCards)
+    }
+
+    fun buildListSheet(
+        list: ArrayList<ContextCards>,
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        default: Int,
+        summary: String,
+        entries: ArrayList<String>,
+        entryValues: ArrayList<Int>
+    ) {
+        val contextCards = ContextCards(
+            iconID = iconID,
+            title = title,
+            subtitle = subtitle,
+            accentColor = accentColor,
+            feature = feature,
+            featureType = featureType,
+            default = default,
+            summary = summary,
+            entries = entries,
+            entryValues = entryValues,
+            fragmentManager = requireActivity().supportFragmentManager
+        )
+        contextCards.viewType = LIST
         list.add(contextCards)
     }
 }

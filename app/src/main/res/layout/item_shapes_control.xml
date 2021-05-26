@@ -5,20 +5,22 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@android:id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        android:fontFamily="google-sans-medium"
-        android:text="@string/icon_shapes"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="@string/icon_shapes" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/shapesRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

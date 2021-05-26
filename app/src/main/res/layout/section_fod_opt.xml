@@ -8,12 +8,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
         android:background="?attr/selectableItemBackground"
-        android:paddingStart="28dp"
-        android:paddingEnd="28dp"
-        android:text="@string/fod_color"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="@string/fod_color" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fodRecRecycler"

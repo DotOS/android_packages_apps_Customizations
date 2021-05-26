@@ -19,35 +19,19 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.clock.BaseClockManager
-import com.android.settings.dotextras.custom.sections.clock.Clockface
-import com.android.settings.dotextras.custom.sections.clock.ContentProviderClockProvider
-import com.android.settings.dotextras.custom.sections.clock.onHandleCallback
+import com.android.settings.dotextras.custom.sections.clock.*
 
-class ClockfaceDisplay : Fragment() {
+class ClockfaceDisplay : Fragment(R.layout.display_clockface) {
 
-    private lateinit var mSelectedOption: Clockface
+    private var mClockManager: BaseClockManager? = null
     private val EXTRA_CLOCK_FACE_NAME = "clock_face_name"
-    private var shouldShow = true
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.display_clockface, container, false)
-    }
-
-    fun isAvailable(): Boolean = shouldShow
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mClockManager = object : BaseClockManager(
+        mClockManager = object : BaseClockManager(
             ContentProviderClockProvider(requireActivity())
         ) {
             override fun handleApply(option: Clockface?, callback: onHandleCallback) {
@@ -58,20 +42,52 @@ class ClockfaceDisplay : Fragment() {
             }
 
             override fun lookUpCurrentClock(): String {
-                return requireActivity().intent.getStringExtra(EXTRA_CLOCK_FACE_NAME)
+                return requireActivity().intent.getStringExtra(EXTRA_CLOCK_FACE_NAME).toString()
             }
         }
-        if (!mClockManager.isAvailable) {
-            shouldShow = false
+        if (!mClockManager!!.isAvailable) {
             Log.e("ClockManager", "Not available")
         } else {
-            shouldShow = true
-            mClockManager.fetchOptions({ options ->
+            mClockManager!!.fetchOptions({ options ->
                 run {
-                    mSelectedOption = options!![0]
-                    mSelectedOption.bindThumbnailTile(view)
+                    if (options != null && context != null) {
+                        val cm = ClockManager(requireContext().contentResolver, ContentProviderClockProvider(requireActivity()))
+                        var active = 0
+                        for (option in options) {
+                            if (option.isActive(cm)) {
+                                active = 1
+                                option.bindThumbnailTile(view)
+                            }
+                        }
+                        if (active == 0) options[0].bindThumbnailTile(view)
+                    }
                 }
             }, false)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (context != null) {
+            if (!mClockManager!!.isAvailable) {
+                Log.e("ClockManager", "Not available")
+            } else {
+                mClockManager!!.fetchOptions({ options ->
+                    run {
+                        if (options != null && context != null) {
+                            val cm = ClockManager(
+                                requireContext().contentResolver,
+                                ContentProviderClockProvider(requireActivity())
+                            )
+                            for (option in options) {
+                                if (option.isActive(cm)) {
+                                    option.bindThumbnailTile(requireView())
+                                }
+                            }
+                        }
+                    }
+                }, false)
+            }
         }
     }
 

@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">内置壁纸</string>
     <string name="live_wallpapers">动态壁纸</string>
     <string name="dotos_exclusives">DotOS 独家功能</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packes_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    <string name="papers_url">https://raw.githubusercontent.com/DotOS/android_packes_apps_DotPapers/dot-n/json/wallpapers.json</string>
     <string name="apply_wallpaper">应用壁纸</string>
     <string name="apply_wallpaper_summary">您确定要使用这张壁纸？</string>
     <string name="apply_both">主界面和锁屏界面</string>

@@ -36,11 +36,25 @@ class Clockface private constructor(
         )
     }
 
+    fun bindThumbnailTile2(view: ImageView) {
+        mThumbnail!!.loadDrawableWithTransition(
+            view.context, view, 50, null,
+            view.resources.getColor(android.R.color.transparent, null)
+        )
+    }
+
     fun bindPreviewTile(view: View) {
         val thumbView = view.findViewById<ImageView>(R.id.defaultClockPreview)
         previewAsset!!.loadDrawableWithTransition(
             thumbView.context, thumbView, 50, null,
             thumbView.resources.getColor(android.R.color.transparent, null)
+        )
+    }
+
+    fun bindPreviewTile2(view: ImageView) {
+        previewAsset!!.loadDrawableWithTransition(
+            view.context, view, 50, null,
+            view.resources.getColor(android.R.color.transparent, null)
         )
     }
 

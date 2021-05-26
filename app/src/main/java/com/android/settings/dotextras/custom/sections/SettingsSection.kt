@@ -41,6 +41,7 @@ class SettingsSection : GenericSection() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as BaseActivity).setTitle(getString(R.string.section_settings))
+        (requireActivity() as BaseActivity).enableSettingsLauncher(false)
         val sharedprefStats =
             requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
         val prefStats: DotMaterialPreference = view.findViewById(R.id.pref_stats)
@@ -50,16 +51,8 @@ class SettingsSection : GenericSection() {
             val editor: SharedPreferences.Editor = sharedprefStats.edit()
             editor.putBoolean(Constants.ALLOW_STATS, prefStats.switchView!!.isChecked)
             editor.apply()
-            if (prefStats.switchView!!.isChecked && sharedprefStats.getBoolean(
-                    Constants.IS_FIRST_LAUNCH,
-                    true
-                )
-            )
-                Snackbar.make(
-                    view,
-                    "Stats will be pushed on the next launch!",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+            if (prefStats.switchView!!.isChecked && sharedprefStats.getBoolean(Constants.IS_FIRST_LAUNCH, true))
+                Snackbar.make(view, "Stats will be pushed on the next launch!", Snackbar.LENGTH_SHORT).show()
         }
         val pref = requireActivity().getSharedPreferences(
             SettingsConstants.SETTINGS_PREF,
@@ -67,29 +60,10 @@ class SettingsSection : GenericSection() {
         )
         buildSetting(
             pref,
-            view.findViewById(R.id.pref_rgb_light),
-            SettingsConstants.ALLOW_RGB_BLIGHT
-        )
-        buildSetting(
-            pref,
             view.findViewById(R.id.pref_balloons),
             SettingsConstants.SHOW_BALLOONS,
             true
         )
-    }
-
-    private fun buildSetting(
-        preferences: SharedPreferences,
-        view: DotMaterialPreference,
-        setting: String
-    ) {
-        view.switchView!!.isChecked = preferences.getBoolean(setting, false)
-        view.setOnClickPreference {
-            view.switchView!!.isChecked = !view.switchView!!.isChecked
-            val editor: SharedPreferences.Editor = preferences.edit()
-            editor.putBoolean(setting, view.switchView!!.isChecked)
-            editor.apply()
-        }
     }
 
     private fun buildSetting(

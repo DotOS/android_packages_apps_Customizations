@@ -23,8 +23,8 @@ import android.os.ServiceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.FeatureActivityBase
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.utils.SettingsConstants
 import com.android.settings.dotextras.custom.views.AccentColorController
@@ -47,7 +47,7 @@ class ThemeSection : GenericSection() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as BaseActivity).setTitle(getString(R.string.section_themes_title))
+        (requireActivity() as FeatureActivityBase).setTitle(getString(R.string.section_themes_title))
         twoToneAccentView = view.findViewById(R.id.twoTone)
         twoToneAccentView.setSharedPref(
             requireActivity().getSharedPreferences(
@@ -72,6 +72,10 @@ class ThemeSection : GenericSection() {
             resources.configuration.uiMode and
                     Configuration.UI_MODE_NIGHT_MASK
         )
+        twoToneAccentView.visibility = if (featureManager.AccentManager().isMonetEnabled()) View.GONE else View.VISIBLE
+        view.requireViewById<View>(R.id.accentInfo).visibility = if (featureManager.AccentManager().isMonetEnabled()) View.GONE else View.VISIBLE
+        val monetWarning: View = view.requireViewById(R.id.monetWarning)
+        monetWarning.visibility = if (featureManager.AccentManager().isMonetEnabled()) View.VISIBLE else View.GONE
         twoToneAccentView.setOnTwoTonePressed {
             val colorSheet = ColorSheet()
             colorSheet.colorPicker(resources.getIntArray(R.array.materialColors),
@@ -101,11 +105,6 @@ class ThemeSection : GenericSection() {
             view.findViewById(R.id.settingsStyleSwitch),
             OverlayController.Categories.OVERLAY_CATEGORY_STYLES_SETTINGS,
             OverlayController.Packages.STYLES_SETTINGS
-        )
-        setupStyles(
-            view.findViewById(R.id.qsOpacitySwitch),
-            OverlayController.Categories.OVERLAY_CATEGORY_STYLES_SYSUI,
-            OverlayController.Packages.QS_OPAQUE
         )
     }
 

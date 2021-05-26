@@ -16,6 +16,7 @@ import com.android.dot.extra.maintainers.parsers.HttpHandler
 import com.android.dot.extra.maintainers.parsers.ImageSaver
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.views.DotMaterialPreference
+import kotlinx.android.synthetic.main.preference_base.view.*
 import nl.komponents.kovenant.task
 import nl.komponents.kovenant.ui.successUi
 import org.json.JSONException
@@ -47,6 +48,7 @@ class MaintainersAdapter(
         holder.pref.titleView!!.text = maintainer.name
         holder.pref.summaryView!!.text = maintainer.deviceName
         getGithubIcon(maintainer.githubUsername!!, holder.pref)
+        holder.pref.iconView!!.visibility = View.VISIBLE
     }
 
     fun forceLoadImages() {

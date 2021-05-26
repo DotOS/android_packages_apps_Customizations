@@ -99,7 +99,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="12dp"
-        android:fontFamily="google-sans-medium"
         android:textAlignment="center"
         android:textSize="16sp"
         tools:text="Device default" />

@@ -33,7 +33,6 @@ import com.android.settings.dotextras.R
 import com.google.android.material.card.MaterialCardView
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
-import kotlin.math.roundToInt
 
 class LiveWallpaperAdapter(private val items: ArrayList<ResolveInfo>) :
     RecyclerView.Adapter<LiveWallpaperAdapter.ViewHolder>() {
@@ -55,9 +54,6 @@ class LiveWallpaperAdapter(private val items: ArrayList<ResolveInfo>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val resolveInfo: ResolveInfo = items[position]
         val layoutParams = holder.wallpaperHolder.layoutParams
-        layoutParams.height =
-            holder.wallpaperHolder.resources.getDimension(R.dimen.wallpaper_card_height)
-                .roundToInt()
         holder.wallpaperHolder.layoutParams = layoutParams
         holder.wallpaperPreview.setOnClickListener {
             selectLiveWallpaper(holder.wallpaperPreview.context, resolveInfo)

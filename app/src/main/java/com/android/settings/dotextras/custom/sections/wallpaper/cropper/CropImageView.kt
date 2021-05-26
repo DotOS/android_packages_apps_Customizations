@@ -883,7 +883,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
             }
             val flipAxes = (!mCropOverlayView!!.isFixAspectRatio
                     && (degrees in 46..134 || degrees in 216..304))
-            BitmapUtils.RECT.set(mCropOverlayView.cropWindowRect)
+            BitmapUtils.RECT.set(mCropOverlayView.cropWindowRect!!)
             var halfWidth =
                 (if (flipAxes) BitmapUtils.RECT.height() else BitmapUtils.RECT.width()) / 2f
             var halfHeight =
@@ -1143,7 +1143,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     public override fun onSaveInstanceState(): Parcelable {
         if (imageUri == null && mBitmap == null && mImageResource < 1) {
-            return super.onSaveInstanceState()
+            return super.onSaveInstanceState()!!
         }
         val bundle = Bundle()
         var imageUri = imageUri
@@ -1170,7 +1170,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
         bundle.putInt("LOADED_SAMPLE_SIZE", mLoadedSampleSize)
         bundle.putInt("DEGREES_ROTATED", mDegreesRotated)
         bundle.putParcelable("INITIAL_CROP_RECT", mCropOverlayView!!.initialCropWindowRect)
-        BitmapUtils.RECT.set(mCropOverlayView.cropWindowRect)
+        BitmapUtils.RECT.set(mCropOverlayView.cropWindowRect!!)
         mImageMatrix.invert(mImageInverseMatrix)
         mImageInverseMatrix.mapRect(BitmapUtils.RECT)
         bundle.putParcelable("CROP_WINDOW_RECT", BitmapUtils.RECT)
@@ -1223,7 +1223,7 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
                 if (cropWindowRect != null && (cropWindowRect.width() > 0 || cropWindowRect.height() > 0)) {
                     mRestoreCropWindowRect = cropWindowRect
                 }
-                mCropOverlayView!!.cropShape = CropShape.valueOf(bundle.getString("CROP_SHAPE"))
+                mCropOverlayView!!.cropShape = CropShape.valueOf(bundle.getString("CROP_SHAPE").toString())
                 mAutoZoomEnabled = bundle.getBoolean("CROP_AUTO_ZOOM_ENABLED")
                 mMaxZoom = bundle.getInt("CROP_MAX_ZOOM")
                 mFlipHorizontally = bundle.getBoolean("CROP_FLIP_HORIZONTALLY")
@@ -1860,18 +1860,20 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
         ): Int {
 
             // Measure Width
-            val spec: Int
-            spec = if (measureSpecMode == MeasureSpec.EXACTLY) {
-                // Must be this size
-                measureSpecSize
-            } else if (measureSpecMode == MeasureSpec.AT_MOST) {
-                // Can't be bigger than...; match_parent value
-                Math.min(desiredSize, measureSpecSize)
-            } else {
-                // Be whatever you want; wrap_content
-                desiredSize
+            return when (measureSpecMode) {
+                MeasureSpec.EXACTLY -> {
+                    // Must be this size
+                    measureSpecSize
+                }
+                MeasureSpec.AT_MOST -> {
+                    // Can't be bigger than...; match_parent value
+                    desiredSize.coerceAtMost(measureSpecSize)
+                }
+                else -> {
+                    // Be whatever you want; wrap_content
+                    desiredSize
+                }
             }
-            return spec
         }
     }
 

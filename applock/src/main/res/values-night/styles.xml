@@ -1,0 +1,38 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="fontFamily">google-sans</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">google-sans</item>
+    </style>
+
+    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="fontFamily">google-sans-medium</item>
+    </style>
+
+    <style name="DialogThemeTest" parent="Theme.MaterialComponents.DayNight.Dialog" >
+        <item name="android:backgroundTint">@color/colorPrimaryBackground</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">google-sans</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/DialogButtonStyle</item>
+        <item name="android:buttonBarButtonStyle">@style/DialogButtonStyle</item>
+    </style>
+
+</resources>

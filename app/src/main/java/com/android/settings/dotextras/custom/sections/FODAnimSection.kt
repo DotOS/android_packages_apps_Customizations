@@ -128,8 +128,7 @@ open class FODAnimSection : GenericSection() {
                 fodAnim.listenerAnim = { drawable ->
                     fodPreview.setPreviewAnimation(drawable!!, false)
                     fodAnimStart.setOnClickListener {
-                        fodAnimStart.text =
-                            if (!fodPreview.isAnimating()) "Stop Animation" else "Start Animation"
+                        fodAnimStart.text = if (!fodPreview.isAnimating()) getString(R.string.fod_anim_stop) else getString(R.string.fod_anim_start)
                         fodPreview.setAnimationState(running = !fodPreview.isAnimating())
                     }
                 }

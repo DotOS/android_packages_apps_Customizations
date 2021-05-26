@@ -82,6 +82,11 @@
         <attr name="cardStyle" format="boolean|reference" />
         <attr name="android:tint" format="color|reference" />
         <attr name="url" format="string|reference" />
+        <attr name="seekable" format="boolean|reference" />
+        <attr name="android:max" format="integer|reference" />
+        <attr name="android:min" format="integer|reference" />
+        <attr name="android:progress" format="integer|reference" />
+        <attr name="showDivider" format="boolean|reference" />
     </declare-styleable>
 
     <declare-styleable name="NotSupportedView">

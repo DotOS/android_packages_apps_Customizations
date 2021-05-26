@@ -63,10 +63,10 @@ class MaintainersActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val mainJson = JSONObject(response.body()!!.string())
                 val jsonArray: JSONArray = mainJson.getJSONArray("devs")
-                maintainers = ArrayList();
+                maintainers = ArrayList()
                 for (i in 0 until jsonArray.length()) {
                     val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                    val model = Maintainers();
+                    val model = Maintainers()
                     model.name = jsonObject.getString("name")
                     model.githubUsername = jsonObject.getString("github")
                     model.deviceName = jsonObject.getString("device")

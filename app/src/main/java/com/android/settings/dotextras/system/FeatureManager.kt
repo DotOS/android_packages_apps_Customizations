@@ -18,9 +18,7 @@ package com.android.settings.dotextras.system
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Configuration
-import android.os.UserHandle
 import android.provider.Settings
-import android.view.Display
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 
 
@@ -67,11 +65,18 @@ class FeatureManager(private val contentResolver: ContentResolver) {
             applyDark(RESET)
         }
 
-        fun isUsingRGBAccent(configuration: Int): Boolean = when (configuration) {
-            Configuration.UI_MODE_NIGHT_NO -> getLight() != "-1"
-            Configuration.UI_MODE_NIGHT_YES -> getDark() != "-1"
-            else -> false
+        fun isUsingRGBAccent(configuration: Int): Boolean {
+            if (isMonetEnabled()) {
+                return true
+            }
+            return when (configuration) {
+                Configuration.UI_MODE_NIGHT_NO -> getLight() != "-1"
+                Configuration.UI_MODE_NIGHT_YES -> getDark() != "-1"
+                else -> false
+            }
         }
+
+        fun isMonetEnabled(): Boolean = Secure().getInt(Secure().MONET_ENGINE, 1) == 1
     }
 
     /**
@@ -100,43 +105,14 @@ class FeatureManager(private val contentResolver: ContentResolver) {
 
         /**
          * Indicates whether doze should be always on.
-         *
-         *
          * Type: int (0 for false, 1 for true)
-         *
          */
         val DOZE_ALWAYS_ON = "doze_always_on"
-
-        /**
-         * Whether the device should pulse on pick up gesture.
-         */
-        val DOZE_PICK_UP_GESTURE = "doze_pulse_on_pick_up"
-
-        /**
-         * Whether the device should pulse on long press gesture.
-         */
-        val DOZE_PULSE_ON_LONG_PRESS = "doze_pulse_on_long_press"
-
-        /**
-         * Whether the device should pulse on double tap gesture.
-         */
-        val DOZE_DOUBLE_TAP_GESTURE = "doze_pulse_on_double_tap"
-
-        /**
-         * Whether the device should respond to the SLPI tap gesture.
-         */
-        val DOZE_TAP_SCREEN_GESTURE = "doze_tap_gesture"
 
         /**
          * Gesture that wakes up the display, showing some version of the lock screen.
          */
         val DOZE_WAKE_LOCK_SCREEN_GESTURE = "doze_wake_screen_gesture"
-
-        /**
-         * Gesture that wakes up the display, toggling between [Display.STATE_OFF] and
-         * [Display.STATE_DOZE].
-         */
-        val DOZE_WAKE_DISPLAY_GESTURE = "doze_wake_display_gesture"
 
         /**
          * Position of gesture bar length slider.
@@ -150,6 +126,47 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         val ACCENT_LIGHT_SETTING = "accent_light"
 
         val CLOCK_FACE_SETTING = "lock_screen_custom_clock_face"
+
+        /**
+         * Monet base accent.
+         * Do not override.
+         */
+        val MONET_BASE_ACCENT = "monet_base_accent"
+
+        /**
+         * Monet Theme Engine Switch.
+         * 1 - Enabled (Default)
+         * 0 - Disabled
+         */
+        val MONET_ENGINE = "monet_engine"
+
+        /**
+         * Monet Theme Engine
+         * Set amount of colors to be generated
+         * from wallpaper.
+         * Default = 16 (best one yet)
+         * Lowering the amount of colors will decrease the accuracy (FASTER);
+         * Increasing the amount of colors will increase the accuracy (SLOWER);
+         */
+        val MONET_COLOR_GEN = "monet_color_gen"
+
+        /**
+         * Monet Theme Engine
+         * Set palette type
+         * 0 - Vibrant (default)
+         * 1 - Light Vibrant
+         * 2 - Dark Vibrant
+         * 3 - Dominant
+         * 4 - Muted
+         * 5 - Light Muted
+         * 6 - Dark Muted
+         */
+        val MONET_PALETTE = "monet_palette"
+
+        /**
+         * Enable and disable Lockscreen visualizer
+         */
+        val LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer_enabled"
 
         fun disableAOD() {
             setInt(DOZE_ALWAYS_ON, 0)
@@ -272,9 +289,9 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         val QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility"
 
         /**
-         * Three Finger Gesture from Oppo
+         * Three Finger Gesture from MIUI
          */
-        val THREE_FINGER_GESTURE = "three_finger_gesture"
+        val SWIPE_TO_SCREENSHOT = "swipe_to_screenshot"
 
         /**
          * Volume panel on left
@@ -475,64 +492,15 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         val BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED = "button_backlight_only_when_pressed"
 
         /**
-         * Force show navigation bar setting.
+         * Advanced reboot switch
          */
-        val NAVIGATION_BAR_SHOW = "navigation_bar_show"
+        val ADVANCED_REBOOT = "advanced_reboot"
 
-        /**
-         * Force show navigation bar setting.
-         */
-        val NAVIGATION_BAR_MODE_OVERLAY = "navigation_bar_mode_overlay"
-
-        /**
-         * Action to perform when the home key is long-pressed.
-         */
-        val KEY_HOME_LONG_PRESS_ACTION = "key_home_long_press_action"
-
-        /**
-         * Action to perform when the home key is double-tapped.
-         * (Default can be configured via config_doubleTapOnHomeBehavior)
-         */
-        val KEY_HOME_DOUBLE_TAP_ACTION = "key_home_double_tap_action"
-
-        /**
-         * Action to perform when the menu key is pressed. (Default is 1)
-         */
-        val KEY_MENU_ACTION = "key_menu_action"
-
-        /**
-         * Action to perform when the menu key is long-pressed.
-         * (Default is 0 on devices with a search key, 3 on devices without)
-         */
-        val KEY_MENU_LONG_PRESS_ACTION = "key_menu_long_press_action"
-
-        /**
-         * Action to perform when the assistant (search) key is pressed. (Default is 3)
-         */
-        val KEY_ASSIST_ACTION = "key_assist_action"
-
-        /**
-         * Action to perform when the assistant (search) key is long-pressed. (Default is 4)
-         */
-        val KEY_ASSIST_LONG_PRESS_ACTION = "key_assist_long_press_action"
-
-        /**
-         * Action to perform when the app switch key is pressed. (Default is 2)
-         */
-        val KEY_APP_SWITCH_ACTION = "key_app_switch_action"
-
-        /**
-         * Action to perform when the app switch key is long-pressed. (Default is 0)
-         */
-        val KEY_APP_SWITCH_LONG_PRESS_ACTION = "key_app_switch_long_press_action"
+        val NAVIGATION_BAR_MENU_ARROW_KEYS = "navigation_bar_menu_arrow_keys"
 
 
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)
-        }
-
-        fun setIntForUser(feature: String, value: Int) {
-            Settings.System.putIntForUser(contentResolver, feature, value, UserHandle.USER_CURRENT)
         }
 
         fun setLong(feature: String, value: Long) {
@@ -548,12 +516,6 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         }
 
         fun getInt(feature: String): Int = Settings.System.getInt(contentResolver, feature)
-
-        fun getIntForUser(feature: String): Int = Settings.System.getIntForUser(
-            contentResolver,
-            feature,
-            UserHandle.USER_CURRENT
-        )
 
         fun getInt(feature: String, default: Int): Int =
             Settings.System.getInt(contentResolver, feature, default)
@@ -598,16 +560,6 @@ class FeatureManager(private val contentResolver: ContentResolver) {
 
         fun getInt(feature: String, default: Int): Int =
             Settings.Global.getInt(contentResolver, feature, default)
-
-        fun getLong(feature: String): Long = Settings.Global.getLong(contentResolver, feature)
-
-        fun getLong(feature: String, default: Long): Long =
-            Settings.Global.getLong(contentResolver, feature, default)
-
-        fun getFloat(feature: String): Float = Settings.Global.getFloat(contentResolver, feature)
-
-        fun getFloat(feature: String, default: Float): Float =
-            Settings.Global.getFloat(contentResolver, feature, default)
 
         fun getString(feature: String): String =
             Settings.Global.getString(contentResolver, feature)

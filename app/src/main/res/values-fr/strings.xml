@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Fonds d\'écran intégrés</string>
     <string name="live_wallpapers">Fonds d\'écran animés</string>
     <string name="dotos_exclusives">Exclusivités DotOS</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Appliquer le fond d\'écran</string>
     <string name="apply_wallpaper_summary">Êtes-vous sûr de vouloir utiliser ce modèle ?</string>
     <string name="apply_both">Écrans d\'accueil et de verrouillage</string>

@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">বিল্ট ইন ওয়ালপেপার</string>
     <string name="live_wallpapers">লাইভ ওয়ালপেপার</string>
     <string name="dotos_exclusives">ডট ওএস এক্সক্লুসিভ</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">ওয়ালপেপারটি প্রয়োগ করুন</string>
     <string name="apply_wallpaper_summary">আপনি কি এই ওয়ালপেপার ব্যবহার করার বিষয়ে নিশ্চিত?</string>
     <string name="apply_both">হোম এবং লক্ স্ক্রিন</string>

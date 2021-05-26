@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:animateLayoutChanges="true"
+                android:paddingStart="@dimen/recyclerSpacerBig"
+                android:theme="?android:attr/actionBarTheme"
+                android:title="@string/apply_wallpaper"
+                android:titleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
+                app:layout_collapseMode="pin" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/wallTabs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:tabBackground="@color/colorPrimary"
+                app:tabIndicator="@drawable/material_tab_indicator"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="3dp"
+                app:tabInlineLabel="true"
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextAppearance="@style/Dashboard.TabLayout.Item">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/homescreen" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lockscreen" />
+
+            </com.google.android.material.tabs.TabLayout>
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="208dp"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <include
+            layout="@layout/item_wallpaper_preview_card_big"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/recyclerSpacer" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:layout_gravity="bottom"
+        android:background="@color/cardBackground"
+        android:minHeight="160dp"
+        android:orientation="vertical"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ap_apply"
+            android:layout_alignStart="@id/ap_apply"
+            android:layout_alignEnd="@id/ap_apply"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/monetColorCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/colorAccent"
+                    app:cardCornerRadius="@dimen/default_dialog_radius_round"
+                    app:cardElevation="0dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/paletteTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/system_accent"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/paletteType"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/approximate"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+                    </FrameLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ap_crop"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/recyclerSpacer"
+                android:background="@drawable/rounded_ripple"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="82dp"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    app:srcCompat="@drawable/ic_crop"
+                    app:tint="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/crop"
+                    android:textAlignment="center"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ap_apply"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/recyclerSpacerBig"
+            android:layout_marginTop="@dimen/recyclerSpacer"
+            android:layout_marginEnd="@dimen/recyclerSpacerBig"
+            android:layout_marginBottom="@dimen/recyclerSpacer"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorPrimary"
+            app:cornerRadius="300dp"
+            app:elevation="0dp"
+            app:rippleColor="@color/colorAccent"
+            app:strokeColor="@color/colorPrimaryBackground"
+            app:strokeWidth="2dp" />
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

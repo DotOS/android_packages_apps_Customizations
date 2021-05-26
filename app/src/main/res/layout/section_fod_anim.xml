@@ -1,54 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_marginTop="@dimen/toolbar_height">
 
-    <com.android.settings.dotextras.custom.views.FodPreview
-        android:id="@+id/fodAnimPreview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/fodAnimStart"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-16dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="google-sans-medium"
-        android:text="Start Animation"
-        android:textAllCaps="false"
-        android:textColor="?android:attr/textColorSecondary"
-        app:strokeColor="?android:attr/colorAccent" />
-
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/fodAnimSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        android:fontFamily="google-sans-medium"
-        android:text="@string/fod_animations"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <com.android.settings.dotextras.custom.views.ExpandableLayout
-        android:id="@+id/fodAnimLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:el_expanded="false">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fodAnimRecycler"
+        <com.android.settings.dotextras.custom.views.FodPreview
+            android:id="@+id/fodAnimPreview"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fodAnimStart"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/recyclerSpacerSmall"
-            android:layout_marginEnd="@dimen/recyclerSpacerSmall" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/fod_anim_start"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorSecondary"
+            app:strokeColor="?android:attr/colorAccent" />
 
-    </com.android.settings.dotextras.custom.views.ExpandableLayout>
+    </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sheet_background"
+        android:backgroundTint="@color/cardBackground"
+        android:orientation="vertical"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="232dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/pin" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/fodAnimSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="32dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="32dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/fod_animations"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.android.settings.dotextras.custom.views.ExpandableLayout
+                    android:id="@+id/fodAnimLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:el_expanded="false">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/fodAnimRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/recyclerSpacerSmall"
+                        android:layout_marginEnd="@dimen/recyclerSpacerSmall" />
+
+                </com.android.settings.dotextras.custom.views.ExpandableLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

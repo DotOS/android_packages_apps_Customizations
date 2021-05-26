@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+
 import androidx.annotation.ColorInt
 
 /**
@@ -47,7 +48,7 @@ internal class BlockingBlurController(
 ) : BlurController {
     private var blurRadius = BlurController.DEFAULT_BLUR_RADIUS
     private var blurAlgorithm: BlurAlgorithm
-    private var internalCanvas: Canvas? = null
+    private var internalCanvas: BlurViewCanvas? = null
     private var internalBitmap: Bitmap? = null
     private val rootLocation = IntArray(2)
     private val blurViewLocation = IntArray(2)
@@ -74,7 +75,7 @@ internal class BlockingBlurController(
         }
         blurView.setWillNotDraw(false)
         allocateBitmap(measuredWidth, measuredHeight)
-        internalCanvas = Canvas(internalBitmap)
+        internalCanvas = BlurViewCanvas(internalBitmap!!)
         initialized = true
         if (hasFixedTransformationMatrix) {
             setupInternalCanvasMatrix()
@@ -88,7 +89,7 @@ internal class BlockingBlurController(
         if (frameClearDrawable == null) {
             internalBitmap!!.eraseColor(Color.TRANSPARENT)
         } else {
-            frameClearDrawable!!.draw(internalCanvas)
+            frameClearDrawable!!.draw(internalCanvas!!)
         }
         if (hasFixedTransformationMatrix) {
             rootView.draw(internalCanvas)
@@ -129,14 +130,16 @@ internal class BlockingBlurController(
         if (!blurEnabled || !initialized) {
             return true
         }
-        // Not blurring own children
-        if (canvas === internalCanvas) {
+        // Not blurring itself or other BlurViews to not cause recursive draw calls
+        // Related: https://github.com/Dimezis/BlurView/issues/110
+        //          https://github.com/Dimezis/BlurView/issues/110
+        if (canvas is BlurViewCanvas) {
             return false
         }
         updateBlur()
         canvas.save()
         canvas.scale(scaleFactor, scaleFactor)
-        canvas.drawBitmap(internalBitmap, 0f, 0f, paint)
+        canvas.drawBitmap(internalBitmap!!, 0f, 0f, paint)
         canvas.restore()
         if (overlayColor != TRANSPARENT) {
             canvas.drawColor(overlayColor)

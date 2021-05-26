@@ -16,31 +16,34 @@
 package com.android.settings.dotextras.custom.sections.wallpaper.fragments
 
 import android.app.WallpaperManager
-import android.content.DialogInterface
+import android.content.res.Resources
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.DisplayMetrics
 import android.view.*
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.DialogFragment
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.wallpaper.Type
-import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
-import com.android.settings.dotextras.custom.sections.wallpaper.onDismiss
+import com.android.settings.dotextras.custom.sections.wallpaper.Wallpaper
 import com.android.settings.dotextras.custom.views.ExpandableLayout
 import nl.komponents.kovenant.task
 import nl.komponents.kovenant.ui.successUi
 import java.io.IOException
+import java.io.InputStream
+import java.net.URL
 
-class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
-
-    var dismissListener: onDismiss = null
+class ApplyForDialogFragment(val wallpaper: Wallpaper) : DialogFragment() {
 
     private lateinit var wallpaperManager: WallpaperManager
 
@@ -48,11 +51,6 @@ class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
     private lateinit var forLockscreen: LinearLayout
     private lateinit var forBoth: LinearLayout
     private lateinit var expandable: ExpandableLayout
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        dismissListener?.invoke()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,38 +68,82 @@ class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
         forBoth = view.findViewById(R.id.wp_apply_both)
         expandable = view.findViewById(R.id.wp_choice)
         wallpaperManager = WallpaperManager.getInstance(requireContext())
-        forHome.setOnClickListener {
-            setWallpaper(
-                wallpaper.drawable!!,
-                WallpaperManager.FLAG_SYSTEM
-            )
+        val isSystem = wallpaper.uri != null
+        val drawable: Drawable = if (isSystem) {
+            uriToDrawable(Uri.parse(wallpaper.uri))
+        } else {
+            urlToDrawable(wallpaper.url!!)
         }
-        forLockscreen.setOnClickListener {
-            setWallpaper(
-                wallpaper.drawable!!,
-                WallpaperManager.FLAG_LOCK
+        forHome.setOnClickListener { setWallpaper(drawable, WallpaperManager.FLAG_SYSTEM) }
+        forLockscreen.setOnClickListener { setWallpaper(drawable, WallpaperManager.FLAG_LOCK) }
+        forBoth.setOnClickListener { setWallpaper(drawable) }
+    }
+
+    private fun uriToDrawable(uri: Uri): Drawable {
+        val drawable = Drawable.createFromStream(
+            requireContext().contentResolver.openInputStream(uri),
+            uri.toString()
+        )
+        return scaleCropToFit(drawableToBitmap(drawable)!!).toDrawable(resources)
+    }
+
+    private fun urlToDrawable(urlString: String): Drawable {
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        return try {
+            val bitmap = BitmapDrawable(
+                Resources.getSystem(),
+                BitmapFactory.decodeStream(URL(urlString).content as InputStream)
             )
+            scaleCropToFit(bitmap.bitmap).toDrawable(resources)
+        } catch (e: IOException) {
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_close, requireContext().theme)!!
         }
-        forBoth.setOnClickListener { setWallpaper(wallpaper.drawable!!) }
+    }
+
+    private fun scaleCropToFit(original: Bitmap): Bitmap {
+        val display: DisplayMetrics = resources.displayMetrics
+        val targetWidth = display.widthPixels
+        val targetHeight = display.heightPixels
+        val width = original.width
+        val height = original.height
+        val widthScale = targetWidth.toFloat() / width.toFloat()
+        val heightScale = targetHeight.toFloat() / height.toFloat()
+        val scaledWidth: Float
+        val scaledHeight: Float
+        var startY = 0
+        var startX = 0
+        if (widthScale > heightScale) {
+            scaledWidth = targetWidth.toFloat()
+            scaledHeight = height * widthScale
+            startY = ((scaledHeight - targetHeight) / 2).toInt()
+        } else {
+            scaledHeight = targetHeight.toFloat()
+            scaledWidth = width * heightScale
+            startX = ((scaledWidth - targetWidth) / 2).toInt()
+        }
+        val scaledBitmap = Bitmap.createScaledBitmap(
+            original,
+            scaledWidth.toInt(), scaledHeight.toInt(), true
+        )
+        return Bitmap.createBitmap(scaledBitmap, startX, startY, targetWidth, targetHeight)
     }
 
     override fun onStart() {
         super.onStart()
-        requireDialog().window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        requireDialog().window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         requireDialog().setCanceledOnTouchOutside(true)
-        requireDialog().window.setGravity(Gravity.BOTTOM)
-        requireDialog().window.setLayout(
+        requireDialog().window!!.setGravity(Gravity.BOTTOM)
+        requireDialog().window!!.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
     }
 
     private fun setWallpaper(drawable: Drawable, flag: Int) {
-        val metrics = DisplayMetrics()
-        val display: Display = requireActivity().windowManager.defaultDisplay
-        display.getMetrics(metrics)
-        val screenWidth = metrics.widthPixels
-        val screenHeight = metrics.heightPixels
+        val display: DisplayMetrics = resources.displayMetrics
+        val screenWidth = display.widthPixels
+        val screenHeight = display.heightPixels
         wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
         val width = wallpaperManager.desiredMinimumWidth
         val height = wallpaperManager.desiredMinimumHeight
@@ -113,42 +155,27 @@ class ApplyForDialogFragment(val wallpaper: WallpaperBase) : DialogFragment() {
                 e.printStackTrace()
             }
         } successUi {
-            requireActivity().runOnUiThread {
-                afterApply(flag)
-            }
+            requireActivity().runOnUiThread(this::dismiss)
         }
     }
 
     private fun setWallpaper(drawable: Drawable) {
-        val metrics = DisplayMetrics()
-        val display: Display = requireActivity().windowManager.defaultDisplay
-        display.getMetrics(metrics)
-        val screenWidth = metrics.widthPixels
-        val screenHeight = metrics.heightPixels
+        val display: DisplayMetrics = resources.displayMetrics
+        val screenWidth = display.widthPixels
+        val screenHeight = display.heightPixels
         wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
         val width = wallpaperManager.desiredMinimumWidth
         val height = wallpaperManager.desiredMinimumHeight
         val wallpaper = Bitmap.createScaledBitmap(drawableToBitmap(drawable)!!, width, height, true)
         task {
             try {
-                wallpaperManager.bitmap = wallpaper
+                wallpaperManager.setBitmap(wallpaper)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
         } successUi {
-            requireActivity().runOnUiThread {
-                afterApply(null)
-            }
+            requireActivity().runOnUiThread(this::dismiss)
         }
-    }
-
-    private fun afterApply(flag: Int?) {
-        wallpaper.listener?.invoke(
-            wallpaper.drawable!!, if (flag != null) {
-                if (flag == WallpaperManager.FLAG_LOCK) Type.LOCKSCREEN else Type.HOME
-            } else Type.BOTH
-        )
-        dismiss()
     }
 
     private fun drawableToBitmap(drawable: Drawable): Bitmap? {

@@ -2,16 +2,16 @@
 <resources>
     <color name="colorPrimary">#FFF</color>
     <color name="colorPrimaryDark">#FFF</color>
-    <color name="colorAccent">@color/dot_blue</color>
-    <color name="colorPrimaryBackground">#E6E6E6</color>
-    <color name="colorPrimaryTranslucent">#B3FFFFFF</color>
-    <color name="colorPrimaryScrim">#59FFFFFF</color>
+    <color name="colorAccent">@*android:color/accent_device_default_light</color>
+    <color name="colorPrimaryBackground">#EFEFEF</color>
+    <color name="colorPrimaryTranslucent">#B3EFEFEF</color>
+    <color name="colorPrimaryScrim">#59EFEFEF</color>
     <color name="colorError">#66F44336</color>
+    <color name="pillColor">#9E9E9E</color>
 
     <color name="ic_launcher_background">@color/colorPrimary</color>
 
-    <color name="colorAccent40">#663C85ED</color>
-    <color name="cardBackground">#F3F3F3</color>
+    <color name="cardBackground">#EDEDED</color>
 
     <!-- QS Custom Colors -->
     <!-- 75% Alpha -->
@@ -20,5 +20,7 @@
     <color name="fod_item_background_stroke_color">#D6D6D6</color>
 
     <color name="defaultEdgeLightningColor">#3980FF</color>
+
+    <color name="contextual_card_stroke_color">#1f000000</color>
 
 </resources>

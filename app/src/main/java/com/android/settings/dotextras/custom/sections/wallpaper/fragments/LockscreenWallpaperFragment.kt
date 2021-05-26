@@ -26,7 +26,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
+import com.android.settings.dotextras.custom.sections.wallpaper.Wallpaper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
@@ -34,9 +34,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 class LockscreenWallpaperFragment() : Fragment() {
 
     private lateinit var wallpaper: ImageView
-    private var wallpaperBase: WallpaperBase? = null
+    private var wallpaperBase: Wallpaper? = null
 
-    constructor(wallpaperBase: WallpaperBase) : this() {
+    constructor(wallpaperBase: Wallpaper) : this() {
         this.wallpaperBase = wallpaperBase
     }
 
@@ -45,9 +45,7 @@ class LockscreenWallpaperFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val normal = inflater.inflate(R.layout.item_wallpaper_preview_card, container, false)
-        val big = inflater.inflate(R.layout.item_wallpaper_preview_card_big, container, false)
-        return if (wallpaperBase == null) normal else big
+        return inflater.inflate(R.layout.item_wallpaper_preview_card_big, container, false)
     }
 
     @SuppressLint("MissingPermission")
@@ -72,7 +70,7 @@ class LockscreenWallpaperFragment() : Fragment() {
                     .into(wallpaper)
         } else {
             Glide.with(view)
-                .load(wallpaperBase!!.drawable)
+                .load(wallpaperBase!!.uri)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(wallpaper)
         }

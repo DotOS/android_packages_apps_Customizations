@@ -7,19 +7,30 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/colltoolbar_height">
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
+            android:layout_height="@dimen/colltoolbar_height"
+            app:collapsedTitleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleMarginStart="32dp"
+            app:expandedTitleTextAppearance="@style/Dashboard.Toolbar.Expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:maxLines="2"
+            app:statusBarScrim="@color/colorPrimary"
             app:toolbarId="@+id/toolbar">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="@dimen/toolbar_height"
+                android:animateLayoutChanges="true"
+                android:background="@color/colorPrimary"
+                android:paddingStart="@dimen/recyclerSpacerBig"
+                android:titleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
+                app:layout_collapseMode="pin"
                 app:title="@string/maintainers" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -43,10 +54,9 @@
                 <com.android.settings.dotextras.custom.views.DotMaterialPreference
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
                     android:icon="@drawable/ic_error_round"
-                    android:summary="@string/maintainers_summary"
-                    app:cardStyle="true" />
+                    android:summary="@string/maintainers_summary" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/maintainersRecycler"
@@ -63,10 +73,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="32dp"
+        android:layout_margin="@dimen/recyclerSpacerBig"
         android:clickable="true"
-        android:tint="?android:attr/textColorPrimary"
         app:backgroundTint="@color/colorAccent"
-        app:srcCompat="@drawable/ic_refresh" />
+        app:srcCompat="@drawable/ic_refresh"
+        app:tint="?android:attr/textColorPrimaryInverse" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

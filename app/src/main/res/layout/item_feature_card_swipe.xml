@@ -139,7 +139,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textColor="?android:textColorPrimary"
                     app:backgroundTint="@color/colorPrimary"
-                    app:cornerRadius="24dp" />
+                    app:cornerRadius="@dimen/default_dialog_radius_round" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

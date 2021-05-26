@@ -86,6 +86,13 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".custom.FeatureActivityBase"
+            android:configChanges="orientation"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity android:name=".custom.sections.wallpaper.WallpaperPickActivity" />
+        <activity android:name=".custom.sections.wallpaper.WallpaperApplyActivity" />
     </application>
 
 </manifest>

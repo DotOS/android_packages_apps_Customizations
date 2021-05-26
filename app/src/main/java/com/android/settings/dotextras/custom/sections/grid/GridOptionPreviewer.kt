@@ -108,7 +108,7 @@ internal class GridOptionPreviewer(
             }
         }
 
-        override fun renderPreview(workspaceSurface: SurfaceView?): Bundle? {
+        override fun renderPreview(workspaceSurface: SurfaceView?): Bundle {
             return mGridManager.renderPreview(
                 createSurfaceViewRequest(workspaceSurface!!),
                 mGridOption!!.name

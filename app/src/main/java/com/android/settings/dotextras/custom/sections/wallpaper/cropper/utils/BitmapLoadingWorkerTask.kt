@@ -11,6 +11,7 @@
 // "The Art of War"
 package com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
@@ -40,6 +41,7 @@ class BitmapLoadingWorkerTask(
     /**
      * The context of the crop image view widget used for loading of bitmap by Android URI
      */
+    @SuppressLint("StaticFieldLeak")
     private val mContext: Context = cropImageView.context
 
     /**

@@ -18,13 +18,8 @@ package com.android.settings.dotextras.custom.sections.wallpaper.provider
 import android.app.WallpaperManager
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.wallpaper.WallpaperBase
+import com.android.settings.dotextras.custom.sections.wallpaper.Wallpaper
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage.getActivityResult
@@ -45,8 +40,7 @@ import com.android.settings.dotextras.custom.utils.removeExtension
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 
-
-class ApplyStandaloneFragment(val wallpaper: WallpaperBase) : Fragment() {
+class ApplyStandaloneFragment(val wallpaper: Wallpaper) : Fragment() {
 
     private lateinit var wallpaperManager: WallpaperManager
 
@@ -67,7 +61,7 @@ class ApplyStandaloneFragment(val wallpaper: WallpaperBase) : Fragment() {
         applyButton = view.findViewById(R.id.wp_apply_button)
         title = view.findViewById(R.id.wp_title)
         val chipRotate: Chip = view.findViewById(R.id.chipCrop)
-        val uriB = wallpaper.uri
+        val uriB = Uri.parse(wallpaper.uri)
         chipRotate.setOnClickListener {
             CropImage.activity(uriB)
                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -84,7 +78,7 @@ class ApplyStandaloneFragment(val wallpaper: WallpaperBase) : Fragment() {
         val pagerLeft: ImageButton = view.findViewById(R.id.wallLeft)
         val pagerRight: ImageButton = view.findViewById(R.id.wallRight)
         if (wallpaper.uri != null) {
-            title.text = requireContext().getFileName(wallpaper.uri!!).removeExtension()
+            title.text = requireContext().getFileName(Uri.parse(wallpaper.uri!!)).removeExtension()
         }
         pagerLeft.setOnClickListener {
             currentPager.setCurrentItem(currentPager.currentItem - 1, true)
@@ -92,17 +86,6 @@ class ApplyStandaloneFragment(val wallpaper: WallpaperBase) : Fragment() {
         pagerRight.setOnClickListener {
             currentPager.setCurrentItem(currentPager.currentItem + 1, true)
         }
-        val metrics = DisplayMetrics()
-        val display: Display = requireActivity().windowManager.defaultDisplay
-        display.getMetrics(metrics)
-        val screenWidth = metrics.widthPixels
-        val screenHeight = metrics.heightPixels
-        wallpaperManager.suggestDesiredDimensions(screenWidth, screenHeight)
-        val width = wallpaperManager.desiredMinimumWidth
-        val height = wallpaperManager.desiredMinimumHeight
-        val scaledWallpaper =
-            Bitmap.createScaledBitmap(drawableToBitmap(wallpaper.drawable!!)!!, width, height, true)
-        wallpaper.drawable = BitmapDrawable(resources, scaledWallpaper)
         currentPager.adapter = CurrentWallpaperAdapter(requireActivity(), wallpaper)
         applyButton.setOnClickListener {
             ApplyForDialogFragment(wallpaper).show(parentFragmentManager, tag)
@@ -113,40 +96,9 @@ class ApplyStandaloneFragment(val wallpaper: WallpaperBase) : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
             val result = getActivityResult(data)
-            val resultUri: Uri? = result!!.uri
-            val drawable = Drawable.createFromStream(
-                requireContext().contentResolver.openInputStream(resultUri),
-                resultUri.toString()
-            )
-            wallpaper.drawable = drawable
-            wallpaper.uri = resultUri
+            wallpaper.uri = result!!.uri.toString()
             currentPager.adapter = CurrentWallpaperAdapter(requireActivity(), wallpaper)
             currentPager.adapter!!.notifyDataSetChanged()
         }
-    }
-
-    private fun drawableToBitmap(drawable: Drawable): Bitmap? {
-        if (drawable is BitmapDrawable) {
-            if (drawable.bitmap != null) {
-                return drawable.bitmap
-            }
-        }
-        val bitmap: Bitmap = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
-            Bitmap.createBitmap(
-                1,
-                1,
-                Bitmap.Config.ARGB_8888
-            )
-        } else {
-            Bitmap.createBitmap(
-                drawable.intrinsicWidth,
-                drawable.intrinsicHeight,
-                Bitmap.Config.ARGB_8888
-            )
-        }
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.width, canvas.height)
-        drawable.draw(canvas)
-        return bitmap
     }
 }

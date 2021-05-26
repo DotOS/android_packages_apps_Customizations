@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.GLOBAL
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.LIST
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.PAGER
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.RGB
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SECURE
@@ -87,6 +88,11 @@ class ContextCardsAdapter(
                     .inflate(R.layout.item_feature_card_rgb, parent, false)
                 return ViewHolder(view)
             }
+            LIST -> {
+                view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_feature_card_switch, parent, false)
+                return ViewHolder(view)
+            }
             else -> {
                 view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_feature_card_switch, parent, false)
@@ -103,27 +109,28 @@ class ContextCardsAdapter(
             SWITCH -> {
                 val isByDefault =
                     if (contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
-                when (contextCard.featureType) {
-                    SECURE -> contextCard.isCardChecked = featureManager.Secure()
-                        .getInt(
-                            contextCard.feature,
-                            isByDefault
-                        ) == featureManager.Values().ON
-                    GLOBAL -> contextCard.isCardChecked = featureManager.Global()
-                        .getInt(
-                            contextCard.feature,
-                            isByDefault
-                        ) == featureManager.Values().ON
-                    SYSTEM -> contextCard.isCardChecked = featureManager.System()
-                        .getInt(
-                            contextCard.feature,
-                            isByDefault
-                        ) == featureManager.Values().ON
-                }
+                if (!contextCard.useCustomListener)
+                    when (contextCard.featureType) {
+                        SECURE -> contextCard.isCardChecked = featureManager.Secure()
+                            .getInt(
+                                contextCard.feature,
+                                isByDefault
+                            ) == featureManager.Values().ON
+                        GLOBAL -> contextCard.isCardChecked = featureManager.Global()
+                            .getInt(
+                                contextCard.feature,
+                                isByDefault
+                            ) == featureManager.Values().ON
+                        SYSTEM -> contextCard.isCardChecked = featureManager.System()
+                            .getInt(
+                                contextCard.feature,
+                                isByDefault
+                            ) == featureManager.Values().ON
+                    }
                 (holder as ViewHolder).cardIcon.setImageResource(contextCard.iconID)
                 holder.cardIcon.imageTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(
-                        holder.cardIcon.context,
+                        holder.cardTitle.context,
                         contextCard.accentColor
                     )
                 )
@@ -149,30 +156,31 @@ class ContextCardsAdapter(
                     holder.cardSummary.text = contextCard.summary
                 holder.cardClickable.setOnClickListener {
                     contextCard.listener?.invoke(if (!contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF)
-                    when (contextCard.featureType) {
-                        SECURE -> featureManager.Secure().setInt(
-                            contextCard.feature,
-                            if (!contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
-                        )
-                        GLOBAL -> featureManager.Global().setInt(
-                            contextCard.feature,
-                            if (!contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
-                        )
-                        SYSTEM -> {
-                            if (Settings.System.canWrite(holder.itemView.context)) {
-                                featureManager.System().setInt(
-                                    contextCard.feature,
-                                    if (!contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
-                                )
-                            } else {
-                                val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
-                                intent.data =
-                                    Uri.parse("package:" + holder.itemView.context.packageName)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                startActivity(holder.itemView.context, intent, null)
+                    if (!contextCard.useCustomListener)
+                        when (contextCard.featureType) {
+                            SECURE -> featureManager.Secure().setInt(
+                                contextCard.feature,
+                                if (!contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
+                            )
+                            GLOBAL -> featureManager.Global().setInt(
+                                contextCard.feature,
+                                if (!contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
+                            )
+                            SYSTEM -> {
+                                if (Settings.System.canWrite(holder.itemView.context)) {
+                                    featureManager.System().setInt(
+                                        contextCard.feature,
+                                        if (!contextCard.isCardChecked) featureManager.Values().ON else featureManager.Values().OFF
+                                    )
+                                } else {
+                                    val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                                    intent.data =
+                                        Uri.parse("package:" + holder.itemView.context.packageName)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    startActivity(holder.itemView.context, intent, null)
+                                }
                             }
                         }
-                    }
                     contextCard.isCardChecked = !contextCard.isCardChecked
                     updateSwitchSelection(contextCard, holder)
                 }
@@ -583,6 +591,86 @@ class ContextCardsAdapter(
                 }
                 updateRGBSection(contextCard, holder)
             }
+            LIST -> {
+                contextCard.isCardChecked = true //Checked by default as there's always an option selected
+                (holder as ViewHolder).cardIcon.setImageResource(contextCard.iconID)
+                holder.cardIcon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(holder.cardIcon.context, contextCard.accentColor))
+                when (contextCard.featureType) {
+                    SECURE -> holder.cardTitle.text = contextCard.entries!![featureManager.Secure().getInt(contextCard.feature, contextCard.default)]
+                    SYSTEM -> holder.cardTitle.text = contextCard.entries!![featureManager.System().getInt(contextCard.feature, contextCard.default)]
+                    GLOBAL -> holder.cardTitle.text = contextCard.entries!![featureManager.Global().getInt(contextCard.feature, contextCard.default)]
+                }
+                holder.cardTitle.isSelected = true
+                holder.cardTitle.setTextColor(ContextCompat.getColor(holder.cardTitle.context, contextCard.accentColor))
+                holder.cardSubtitle.text = contextCard.subtitle
+                holder.cardSubtitle.isSelected = true
+                holder.cardSubtitle.setTextColor(ContextCompat.getColor(holder.cardSubtitle.context, contextCard.accentColor))
+                if (contextCard.summary == null) holder.cardSummary.visibility = View.INVISIBLE
+                else holder.cardSummary.text = contextCard.summary
+                holder.cardClickable.setOnClickListener {
+                    val callback = object : ListBottomSheet.Callback {
+                        override fun onApply(entry: String) {
+                            contextCard.title = entry
+                            holder.cardTitle.text = entry
+                        }
+                    }
+                    ListBottomSheet()
+                        .setupDialog(contextCard.subtitle,
+                            contextCard.feature,
+                            contextCard.featureType,
+                            contextCard.default,
+                            contextCard.entries!!,
+                            contextCard.entryValues!!,
+                            callback)
+                        .show(contextCard.fragmentManager!!, contextCard.subtitle)
+                }
+                holder.cardClickable.setOnTouchListener { _, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            val scaleDownX = ObjectAnimator.ofFloat(
+                                holder.cardLayout,
+                                "scaleX", 0.9f
+                            )
+                            val scaleDownY = ObjectAnimator.ofFloat(
+                                holder.cardLayout,
+                                "scaleY", 0.9f
+                            )
+                            scaleDownX.duration = 200
+                            scaleDownY.duration = 200
+                            val scaleDown = AnimatorSet()
+                            scaleDown.play(scaleDownX).with(scaleDownY)
+                            scaleDown.start()
+                        }
+                        MotionEvent.ACTION_UP -> {
+                            val scaleDownX2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleX", 1f
+                            )
+                            val scaleDownY2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleY", 1f
+                            )
+                            scaleDownX2.duration = 200
+                            scaleDownY2.duration = 200
+                            val scaleDown2 = AnimatorSet()
+                            scaleDown2.play(scaleDownX2).with(scaleDownY2)
+                            scaleDown2.start()
+                        }
+                        MotionEvent.ACTION_CANCEL -> {
+                            val scaleDownX2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleX", 1f
+                            )
+                            val scaleDownY2 = ObjectAnimator.ofFloat(
+                                holder.cardLayout, "scaleY", 1f
+                            )
+                            scaleDownX2.duration = 200
+                            scaleDownY2.duration = 200
+                            val scaleDown2 = AnimatorSet()
+                            scaleDown2.play(scaleDownX2).with(scaleDownY2)
+                            scaleDown2.start()
+                        }
+                    }
+                    false
+                }
+            }
         }
     }
 
@@ -620,7 +708,7 @@ class ContextCardsAdapter(
                 contextCard.accentColor
             ), 0.4f
         )
-        if (contextCard.isCardChecked) {
+        if (contextCard.isCardChecked && !contextCard.disableCardColor) {
             holder.cardLayout.setCardBackgroundColor(accentColor)
         } else {
             holder.cardLayout.setCardBackgroundColor(
@@ -684,6 +772,7 @@ class ContextCardsAdapter(
         const val SWIPE = 1
         const val PAGER = 2
         const val RGB = 3
+        const val LIST = 4
 
         const val SECURE = 0
         const val SYSTEM = 1

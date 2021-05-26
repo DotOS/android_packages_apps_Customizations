@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:text="How Often?"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="18sp" />
+
+    <com.creageek.segmentedbutton.SegmentedButton
+        android:id="@+id/segmented"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        app:borderColor="@color/colorPrimaryBackground"
+        app:borderWidth="1dp"
+        app:cornerRadius="@dimen/default_corner_radius"
+        app:rippleColorChecked="@color/colorAccent"
+        app:segmentColor="@color/colorPrimaryBackground"
+        app:segmentColorChecked="@color/colorAccent"
+        app:spreadType="evenly"
+        app:textColor="?android:attr/textColorSecondary"
+        app:textColorChecked="@color/colorAccent" />
+
+    <LinearLayout
+        android:id="@+id/weekendLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="On which day of the week?"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp" />
+
+        <ca.antonious.materialdaypicker.MaterialDayPicker
+            android:id="@+id/day_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:selectionMode="ca.antonious.materialdaypicker.SingleSelectionMode" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/schedTimeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="When?"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/schedTimeContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/colorPrimaryBackground"
+            app:cardCornerRadius="@dimen/default_corner_radius"
+            app:rippleColor="@color/colorAccent">
+
+            <TextView
+                android:id="@+id/schedTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 : 50 PM"
+                android:padding="12dp"
+                android:textSize="24sp"
+                android:textColor="?android:attr/textColorPrimary"/>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</LinearLayout>

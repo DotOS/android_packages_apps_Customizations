@@ -56,8 +56,8 @@
 
         <ImageView
             android:id="@+id/colorSelected"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/recyclerSpacerBigger"
+            android:layout_height="@dimen/recyclerSpacerBigger"
             android:src="@drawable/ic_check"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/colorSelectedCircle"

@@ -3,9 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <com.android.settings.dotextras.custom.views.AccentHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.android.settings.dotextras.custom.views.FontPackController
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.android.settings.dotextras.custom.views.IconPackController
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.android.settings.dotextras.custom.views.ShapeController
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -21,12 +34,55 @@
         android:layout_marginTop="12dp" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/monetWarning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/recyclerSpacerBig"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="@dimen/recyclerSpacerBig"
-        app:cardBackgroundColor="@color/colorAccent40"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/colorError"
+        app:cardCornerRadius="@dimen/default_dialog_radius"
+        app:cardElevation="0dp"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/recyclerSpacerBigger"
+                android:layout_weight="1"
+                android:text="Monet Engine is enabled.\nAccent control has been disabled"
+                android:textColor="@color/red_500"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="@dimen/recyclerSpacerBigger"
+                android:rotation="180"
+                app:srcCompat="@drawable/ic_error_round"
+                app:tint="@color/red_500" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+        app:cardBackgroundColor="@color/theme_card_color"
         app:cardCornerRadius="@dimen/default_dialog_radius"
         app:cardElevation="0dp">
 
@@ -34,9 +90,9 @@
             android:id="@+id/notifOpacitySwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="@dimen/recyclerSpacerBigger"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="@dimen/recyclerSpacerBigger"
             android:layout_marginBottom="12dp"
             android:text="@string/disable_notification_transparency"
             android:textColor="?attr/colorAccent"
@@ -51,32 +107,7 @@
         android:layout_marginStart="@dimen/recyclerSpacerBig"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="@dimen/recyclerSpacerBig"
-        app:cardBackgroundColor="@color/colorAccent40"
-        app:cardCornerRadius="@dimen/default_dialog_radius"
-        app:cardElevation="0dp">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/qsOpacitySwitch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="12dp"
-            android:text="@string/disable_qs_transparency"
-            android:textColor="?attr/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/recyclerSpacerBig"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="@dimen/recyclerSpacerBig"
-        app:cardBackgroundColor="@color/colorAccent40"
+        app:cardBackgroundColor="@color/theme_card_color"
         app:cardCornerRadius="@dimen/default_dialog_radius"
         app:cardElevation="0dp">
 
@@ -84,9 +115,9 @@
             android:id="@+id/settingsStyleSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="@dimen/recyclerSpacerBigger"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="@dimen/recyclerSpacerBigger"
             android:layout_marginBottom="12dp"
             android:text="Disable Settings's Cards"
             android:textColor="?attr/colorAccent"
@@ -96,6 +127,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/accentInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/recyclerSpacerBig"
@@ -109,9 +141,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="@dimen/recyclerSpacerBigger"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="@dimen/recyclerSpacerBigger"
             android:layout_marginBottom="16dp"
             android:text="@string/twotone_accent_summary" />
 
@@ -134,15 +166,4 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <com.android.settings.dotextras.custom.views.FontPackController
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.android.settings.dotextras.custom.views.IconPackController
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.android.settings.dotextras.custom.views.ShapeController
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>

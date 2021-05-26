@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Papéis de parede integrados</string>
     <string name="live_wallpapers">Papéis de Parede Animados</string>
     <string name="dotos_exclusives">Exclusivos DotOS</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    
     <string name="apply_wallpaper">Aplicar papel de parede</string>
     <string name="apply_wallpaper_summary">Tem certeza que deseja usar este papel de parede?</string>
     <string name="apply_both">Tela inicial e tela de bloqueio</string>

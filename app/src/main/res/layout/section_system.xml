@@ -11,19 +11,11 @@
         android:layout_height="wrap_content"
         app:sectionTitle="@string/system_gestures" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="12dp" />
-
     <com.android.settings.dotextras.custom.views.ContextSectionLayout
         android:id="@+id/sectionSecurity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/security" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="12dp" />
 
     <com.android.settings.dotextras.custom.views.ContextSectionLayout
         android:id="@+id/sectionMisc"

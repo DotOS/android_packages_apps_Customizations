@@ -24,6 +24,10 @@ import java.lang.ref.WeakReference
 import javax.microedition.khronos.egl.EGL10
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.egl.EGLContext
+import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.roundToInt
+import kotlin.math.sin
 
 /**
  * Utility class that deals with operations with an ImageView.
@@ -65,7 +69,7 @@ internal object BitmapUtils {
     fun rotateBitmapByExif(bitmap: Bitmap?, context: Context, uri: Uri?): RotateBitmapResult {
         var ei: ExifInterface? = null
         try {
-            val `is` = context.contentResolver.openInputStream(uri)
+            val `is` = context.contentResolver.openInputStream(uri!!)
             if (`is` != null) {
                 ei = ExifInterface(`is`)
                 `is`.close()
@@ -110,11 +114,13 @@ internal object BitmapUtils {
             if (options.outWidth == -1 && options.outHeight == -1) throw RuntimeException("File is not a picture")
 
             // Calculate inSampleSize
-            options.inSampleSize = Math.max(
-                calculateInSampleSizeByReqestedSize(
-                    options.outWidth, options.outHeight, reqWidth, reqHeight
-                ),
-                calculateInSampleSizeByMaxTextureSize(options.outWidth, options.outHeight)
+            options.inSampleSize = calculateInSampleSizeByReqestedSize(
+                options.outWidth, options.outHeight, reqWidth, reqHeight
+            ).coerceAtLeast(
+                calculateInSampleSizeByMaxTextureSize(
+                    options.outWidth,
+                    options.outHeight
+                )
             )
 
             // Decode bitmap with inSampleSize set
@@ -301,28 +307,28 @@ internal object BitmapUtils {
      * Get left value of the bounding rectangle of the given points.
      */
     fun getRectLeft(points: FloatArray): Float {
-        return Math.min(Math.min(Math.min(points[0], points[2]), points[4]), points[6])
+        return points[0].coerceAtMost(points[2]).coerceAtMost(points[4]).coerceAtMost(points[6])
     }
 
     /**
      * Get top value of the bounding rectangle of the given points.
      */
     fun getRectTop(points: FloatArray): Float {
-        return Math.min(Math.min(Math.min(points[1], points[3]), points[5]), points[7])
+        return points[1].coerceAtMost(points[3]).coerceAtMost(points[5]).coerceAtMost(points[7])
     }
 
     /**
      * Get right value of the bounding rectangle of the given points.
      */
     fun getRectRight(points: FloatArray): Float {
-        return Math.max(Math.max(Math.max(points[0], points[2]), points[4]), points[6])
+        return points[0].coerceAtLeast(points[2]).coerceAtLeast(points[4]).coerceAtLeast(points[6])
     }
 
     /**
      * Get bottom value of the bounding rectangle of the given points.
      */
     fun getRectBottom(points: FloatArray): Float {
-        return Math.max(Math.max(Math.max(points[1], points[3]), points[5]), points[7])
+        return points[1].coerceAtLeast(points[3]).coerceAtLeast(points[5]).coerceAtLeast(points[7])
     }
 
     /**
@@ -365,10 +371,10 @@ internal object BitmapUtils {
         aspectRatioX: Int,
         aspectRatioY: Int,
     ): Rect {
-        val left = Math.round(Math.max(0f, getRectLeft(points)))
-        val top = Math.round(Math.max(0f, getRectTop(points)))
-        val right = Math.round(Math.min(imageWidth.toFloat(), getRectRight(points)))
-        val bottom = Math.round(Math.min(imageHeight.toFloat(), getRectBottom(points)))
+        val left = 0f.coerceAtLeast(getRectLeft(points)).roundToInt()
+        val top = 0f.coerceAtLeast(getRectTop(points)).roundToInt()
+        val right = imageWidth.toFloat().coerceAtMost(getRectRight(points)).roundToInt()
+        val bottom = imageHeight.toFloat().coerceAtMost(getRectBottom(points)).roundToInt()
         val rect = Rect(left, top, right, bottom)
         if (fixAspectRatio) {
             fixRectForAspectRatio(rect, aspectRatioX, aspectRatioY)
@@ -406,7 +412,7 @@ internal object BitmapUtils {
                 uri = Uri.fromFile(
                     File.createTempFile("aic_state_store_temp", ".jpg", context.cacheDir)
                 )
-            } else if (File(uri.path).exists()) {
+            } else if (File(uri.path.toString()).exists()) {
                 needSave = false
             }
             if (needSave) {
@@ -436,7 +442,7 @@ internal object BitmapUtils {
     ) {
         var outputStream: OutputStream? = null
         try {
-            outputStream = context.contentResolver.openOutputStream(uri)
+            outputStream = context.contentResolver.openOutputStream(uri!!)
             bitmap!!.compress(compressFormat, compressQuality, outputStream)
         } finally {
             closeSafe(outputStream)
@@ -453,11 +459,11 @@ internal object BitmapUtils {
             if (reqWidth > 0 && reqHeight > 0 && (options == RequestSizeOptions.RESIZE_FIT || options == RequestSizeOptions.RESIZE_INSIDE || options == RequestSizeOptions.RESIZE_EXACT)) {
                 var resized: Bitmap? = null
                 if (options == RequestSizeOptions.RESIZE_EXACT) {
-                    resized = Bitmap.createScaledBitmap(bitmap, reqWidth, reqHeight, false)
+                    resized = Bitmap.createScaledBitmap(bitmap!!, reqWidth, reqHeight, false)
                 } else {
                     val width = bitmap!!.width
                     val height = bitmap.height
-                    val scale = Math.max(width / reqWidth.toFloat(), height / reqHeight.toFloat())
+                    val scale = (width / reqWidth.toFloat()).coerceAtLeast(height / reqHeight.toFloat())
                     if (scale > 1 || options == RequestSizeOptions.RESIZE_FIT) {
                         resized = Bitmap.createScaledBitmap(
                             bitmap, (width / scale).toInt(), (height / scale).toInt(), false
@@ -466,7 +472,7 @@ internal object BitmapUtils {
                 }
                 if (resized != null) {
                     if (resized != bitmap) {
-                        bitmap!!.recycle()
+                        bitmap.recycle()
                     }
                     return resized
                 }
@@ -673,7 +679,7 @@ internal object BitmapUtils {
             var stream: InputStream? = null
             try {
                 stream = resolver.openInputStream(uri)
-                return BitmapFactory.decodeStream(stream, EMPTY_RECT, options)
+                return BitmapFactory.decodeStream(stream, EMPTY_RECT, options)!!
             } catch (e: OutOfMemoryError) {
                 options.inSampleSize *= 2
             } finally {
@@ -746,17 +752,17 @@ internal object BitmapUtils {
             var height = 0
             val rads = Math.toRadians(degreesRotated.toDouble())
             val compareTo =
-                if (degreesRotated < 90 || degreesRotated > 180 && degreesRotated < 270) rect.left else rect.right
+                if (degreesRotated < 90 || degreesRotated in 181..269) rect.left else rect.right
             var i = 0
             while (i < points.size) {
                 if (points[i] >= compareTo - 1 && points[i] <= compareTo + 1) {
-                    adjLeft = Math.abs(Math.sin(rads) * (rect.bottom - points[i + 1]))
+                    adjLeft = abs(sin(rads) * (rect.bottom - points[i + 1]))
                         .toInt()
-                    adjTop = Math.abs(Math.cos(rads) * (points[i + 1] - rect.top))
+                    adjTop = abs(cos(rads) * (points[i + 1] - rect.top))
                         .toInt()
-                    width = Math.abs((points[i + 1] - rect.top) / Math.sin(rads))
+                    width = abs((points[i + 1] - rect.top) / sin(rads))
                         .toInt()
-                    height = Math.abs((rect.bottom - points[i + 1]) / Math.cos(rads))
+                    height = abs((rect.bottom - points[i + 1]) / cos(rads))
                         .toInt()
                     break
                 }
@@ -767,7 +773,7 @@ internal object BitmapUtils {
                 fixRectForAspectRatio(rect, aspectRatioX, aspectRatioY)
             }
             val bitmapTmp = bitmap
-            bitmap = Bitmap.createBitmap(bitmap, rect.left, rect.top, rect.width(), rect.height())
+            bitmap = Bitmap.createBitmap(bitmap!!, rect.left, rect.top, rect.width(), rect.height())
             if (bitmapTmp != bitmap) {
                 bitmapTmp!!.recycle()
             }
@@ -862,7 +868,7 @@ internal object BitmapUtils {
      * http://stackoverflow.com/questions/7428996/hw-accelerated-activity-how-to-get-opengl-texture-size-limit.
      */
     private val maxTextureSize: Int
-        private get() {
+        get() {
             // Safe minimum default size
             val IMAGE_MAX_BITMAP_DIMENSION = 2048
             return try {
@@ -908,7 +914,7 @@ internal object BitmapUtils {
                 egl.eglTerminate(display)
 
                 // Return largest texture size found, or default
-                Math.max(maximumTextureSize, IMAGE_MAX_BITMAP_DIMENSION)
+                maximumTextureSize.coerceAtLeast(IMAGE_MAX_BITMAP_DIMENSION)
             } catch (e: Exception) {
                 IMAGE_MAX_BITMAP_DIMENSION
             }

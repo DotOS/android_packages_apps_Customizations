@@ -285,16 +285,14 @@ public class VerticalSeekBar extends SeekBar {
                 m = ProgressBar.class.getDeclaredMethod("setProgress", int.class, boolean.class);
                 m.setAccessible(true);
                 mMethodSetProgressFromUser = m;
-            } catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException ignored) {
             }
         }
 
         if (mMethodSetProgressFromUser != null) {
             try {
                 mMethodSetProgressFromUser.invoke(this, progress, fromUser);
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
+            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException ignored) {
             }
         } else {
             super.setProgress(progress);

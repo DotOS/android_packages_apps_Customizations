@@ -1,0 +1,6 @@
+<resources>
+    <string name="selected">Selected %s</string>
+    <string name="next">Next</string>
+    <string name="applock_title">App Lock</string>
+    <string name="select_apps">Select apps</string>
+</resources>

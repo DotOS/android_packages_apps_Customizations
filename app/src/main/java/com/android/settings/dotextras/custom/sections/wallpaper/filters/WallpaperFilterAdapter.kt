@@ -39,7 +39,7 @@ class WallpaperFilterAdapter(private val items: ArrayList<WallpaperFilter>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_wall_filter,
+                R.layout.item_wallpaper_filter,
                 parent,
                 false
             )

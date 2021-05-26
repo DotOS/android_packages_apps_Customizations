@@ -15,6 +15,7 @@
  */
 package com.android.settings.dotextras.custom
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 class DashboardItem(
@@ -24,4 +25,6 @@ class DashboardItem(
     val display_fragment: Fragment,
 ) {
     var longCard: Boolean = false
+    var standalone: Boolean = false
+    var startActivity: AppCompatActivity? = null
 }

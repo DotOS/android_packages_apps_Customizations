@@ -88,10 +88,6 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
         invalidateSelf()
     }
 
-    open var criticalLevel: Int = context.resources.getInteger(
-        com.android.internal.R.integer.config_criticalBatteryWarningLevel
-    )
-
     var charging = false
         set(value) {
             field = value
@@ -274,7 +270,7 @@ open class ThemedBatteryDrawable(private val context: Context, frameColor: Int) 
             textPaint.color = fillColor
             c.drawText(batteryLevel.toString(), pctX, pctY, textPaint)
 
-            textPaint.color = fillColor.toInt().inv() or 0xFF000000.toInt()
+            textPaint.color = fillColor.inv() or 0xFF000000.toInt()
             c.save()
             c.clipRect(
                 fillRect.left,

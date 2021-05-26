@@ -34,6 +34,7 @@ class AccentColorController(context: Context?, attrs: AttributeSet?) :
 
     private val featureManager: FeatureManager
     private val recycler: RecyclerView
+    private val mContext = context!!
 
     init {
         LayoutInflater.from(mContext).inflate(

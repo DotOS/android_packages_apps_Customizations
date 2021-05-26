@@ -58,11 +58,17 @@ class ContextCards(
     @ColorInt
     var defaultColor: Int = 0xFFFFFF
 
+    //List variables
+    var entries: ArrayList<String>? = null
+    var entryValues: ArrayList<Int>? = null
+
     @ColorInt
     var colorInt: Int = defaultColor
     var colorListener: OnColorChangedListener = null
     var fragmentManager: FragmentManager? = null
 
+    var useCustomListener = false
+    var disableCardColor = false
 
     constructor(
         iconID: Int,
@@ -307,6 +313,26 @@ class ContextCards(
         this.summary = summary
         this.title = ResourceHelper.colorToHex(colorInt)
         this.colorListener = colorChangedListener
+    }
+
+    constructor(
+        iconID: Int,
+        title: String,
+        subtitle: String,
+        accentColor: Int,
+        feature: String,
+        featureType: Int,
+        default: Int,
+        summary: String,
+        entries: ArrayList<String>,
+        entryValues: ArrayList<Int>,
+        fragmentManager: FragmentManager
+    ) : this(iconID, title, subtitle, accentColor, feature, featureType) {
+        this.summary = summary
+        this.default = default
+        this.entries = entries
+        this.entryValues = entryValues
+        this.fragmentManager = fragmentManager
     }
 
 }

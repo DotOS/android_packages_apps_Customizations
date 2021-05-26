@@ -55,7 +55,6 @@
     <string name="built_in_wallpapers">خلفيات مدمجة</string>
     <string name="live_wallpapers">خلفيات حية</string>
     <string name="dotos_exclusives">خواص DotOS</string>
-    <string name="papaers_url">https://raw.githubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
     <string name="apply_wallpaper">تطبيق الخلفية</string>
     <string name="apply_wallpaper_summary">هل أنت متأكد من أنك تريد استخدام هذه الخلفية؟</string>
     <string name="apply_both">الشاشة الرئيسية وشاشة القفل</string>

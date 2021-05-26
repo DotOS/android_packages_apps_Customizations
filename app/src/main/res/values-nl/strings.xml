@@ -55,7 +55,7 @@
     <string name="built_in_wallpapers">Ingebouwde achtergronden</string>
     <string name="live_wallpapers">Live Achtergronden</string>
     <string name="dotos_exclusives">DotOS Exclusief</string>
-    <string name="papaers_url">https://raw.thubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
+    <string name="papers_url">https://raw.thubusercontent.com/DotOS/android_packages_apps_DotPapers/dot-n/json/wallpapers.json</string>
     <string name="apply_wallpaper">Achtergrond toepassen</string>
     <string name="apply_wallpaper_summary">Weet u zeker dat u deze achtergrond wilt gebruiken?</string>
     <string name="apply_both">Start- en Vergrendelscherm</string>

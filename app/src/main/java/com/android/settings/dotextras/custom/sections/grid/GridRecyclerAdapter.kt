@@ -125,7 +125,7 @@ class GridRecyclerAdapter(
         val accentColor: Int = ResourceHelper.getAccent(holder.gridLayout.context)
         if (gridOptionCompat.selected) {
             holder.gridLayout.setBackgroundColor(accentColor)
-            holder.gridLayout.invalidate(true)
+            holder.gridLayout.invalidate()
         } else {
             holder.gridLayout.setBackgroundColor(
                 ContextCompat.getColor(
@@ -133,7 +133,7 @@ class GridRecyclerAdapter(
                     android.R.color.transparent
                 )
             )
-            holder.gridLayout.invalidate(true)
+            holder.gridLayout.invalidate()
         }
     }
 
