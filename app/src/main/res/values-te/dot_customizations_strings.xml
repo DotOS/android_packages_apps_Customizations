@@ -7,13 +7,14 @@
     <string name="section_themes_title">అలంకారం</string>
     <string name="section_wallpaper_title">నేపథ్యము</string>
     <string name="section_aod_title">AOD&amp;amp, రక్షక కవచం</string>
-    <string name="section_icons_title">చిహ్న రకము</string>
     <string name="section_fod_icon">వేలిముద్ర అలంకరణ</string>
     <string name="section_fod_anim">వేలిముద్ర విధానం</string>
     <string name="section_fod_color_opt">వేలిముద్ర ఆమరణ</string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">ముకచిత్ర చిహ్నం సంఖ్య</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">అమరికలు</string>
-    <string name="set_wallpaper">వాల్‌పేపర్‌ను సెట్ చేయడం</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">సంజ్ఞలు</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

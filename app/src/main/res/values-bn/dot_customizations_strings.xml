@@ -7,13 +7,14 @@
     <string name="section_themes_title">থিমসমূহ</string>
     <string name="section_wallpaper_title">ওয়ালপেপার</string>
     <string name="section_aod_title">AOD এবং লক স্ক্রীন</string>
-    <string name="section_icons_title">আইকন  আকৃতি </string>
     <string name="section_fod_icon">FOD আইকন্স </string>
     <string name="section_fod_anim">FOD এনিমেশন </string>
     <string name="section_fod_color_opt">FOD অপশনস </string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">লাঞ্চার গ্রিট </string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">সেটিংস</string>
-    <string name="set_wallpaper">ওয়ালপেপার সেট করে</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">ইশারা সমূহ</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

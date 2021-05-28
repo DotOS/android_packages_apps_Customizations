@@ -6,15 +6,16 @@
     <string name="section_system_title">Rendszer</string>
     <string name="section_themes_title">Témák</string>
     <string name="section_wallpaper_title">Háttérképek</string>
-    <string name="section_aod_title">AOD @amp, Záróképernyő</string>
-    <string name="section_icons_title">Ikonok formája</string>
+    <string name="section_aod_title">Mindig bekapcsolva (AOD) &amp; Záróképernyő</string>
     <string name="section_fod_icon">FOD ikonok</string>
     <string name="section_fod_anim">FOD animációk</string>
     <string name="section_fod_color_opt">FOD beállítások</string>
-    <string name="grid_section">Indító rácsmérete</string>
+    <string name="section_hwkeys">Buttons</string>
+    <string name="grid_section">Launcher-rács</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">Beállítások</string>
-    <string name="set_wallpaper">Háttérkép beállítása</string>
-    <string name="system_gestures">Gesztusok</string>
+    <string name="section_clockface2">Clockface</string>
+    <string name="system_gestures">Mozdulatgesztusok</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
     <!--Name of metadata in the main launcher Activity which values contains the authority

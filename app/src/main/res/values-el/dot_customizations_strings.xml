@@ -7,13 +7,14 @@
     <string name="section_themes_title">Θέματα</string>
     <string name="section_wallpaper_title">Ταπετσαρίες</string>
     <string name="section_aod_title">AOD &amp; Οθόνη κλειδώματος</string>
-    <string name="section_icons_title">Σχήμα Εικονιδίων</string>
     <string name="section_fod_icon">FOD εικονίδια</string>
     <string name="section_fod_anim">Εφέ FOD</string>
     <string name="section_fod_color_opt">Επιλογές FOD</string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Πλέγμα Launcher</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">Ρυθμίσεις</string>
-    <string name="set_wallpaper">Ορισμός ταπετσαρίας</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Χειρονομίες αφής</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

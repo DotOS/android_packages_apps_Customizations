@@ -7,13 +7,14 @@
     <string name="section_themes_title">Теме</string>
     <string name="section_wallpaper_title">Позадине</string>
     <string name="section_aod_title">AOD Закључан екран</string>
-    <string name="section_icons_title">Промени облик иконе</string>
     <string name="section_fod_icon">FOD Иконе</string>
     <string name="section_fod_anim">FOD Анимација</string>
     <string name="section_fod_color_opt">FOD Опције</string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Launcher Мрежа</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">Подешавања</string>
-    <string name="set_wallpaper">Постави позадину</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Покрети</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

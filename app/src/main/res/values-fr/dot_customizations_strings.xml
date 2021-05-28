@@ -7,13 +7,14 @@
     <string name="section_themes_title">Thèmes</string>
     <string name="section_wallpaper_title">Fonds d\'écran</string>
     <string name="section_aod_title">AOD &amp; Ecran de verrouillage</string>
-    <string name="section_icons_title">Forme d\'icône</string>
     <string name="section_fod_icon">Icônes FOD</string>
     <string name="section_fod_anim">Animations du capteur d\'empreinte</string>
     <string name="section_fod_color_opt">Options du FOD</string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Grille du Lanceur</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">Paramètres</string>
-    <string name="set_wallpaper">Définir un fond d\'écran</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Gestes</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

@@ -1,38 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Personalizzazioni</string>
     <!-- Common Strings -->
     <string name="apply">Applica</string>
     <string name="apply_for">Applica per</string>
-    <string name="back_behaviour">back_behaviour</string>
-    <string name="button">Pulsante</string>
-    <string name="buttons">Pulsanti</string>
-    <string name="chip">Chip</string>
     <string name="clockface">Orologio</string>
     <string name="disabled">Disabilitato</string>
     <string name="enable">Abilita</string>
     <string name="enabled">Abilitato</string>
     <string name="options">Opzioni</string>
     <string name="picker_title">Scegli un colore</string>
-    <string name="progress">Progresso</string>
     <string name="reset">Ripristina</string>
     <string name="sections">Sezioni</string>
-    <string name="switches">Interruttori</string>
     <string name="manifest_wallpaper">Sfondo</string>
     <string name="style">Stile</string>
     <string name="hide">Nascondi</string>
     <string name="inside">All\'interno</string>
     <string name="outside">All\'esterno</string>
-    <string name="estimate">Stima</string>
-    <string name="percentage">Percentuale</string>
     <string name="default_theme_title">Predefinito</string>
     <string name="icons">Icone</string>
     <string name="miscellaneous">Misto</string>
     <!-- Themes Section -->
     <string name="accent_color">Colore Accent</string>
     <string name="picker_summary">Seleziona quello che fa per te.</string>
-    <string name="built_in_accents">Accents Integrati</string>
-    <string name="material_palette">Palette Material</string>
     <string name="headline_01">Titolo 01</string>
     <string name="body_02">Corpo 02</string>
     <string name="fonts">Caratteri</string>
@@ -50,12 +40,9 @@
     <string name="disable_notification_transparency">Disabilita Trasparenza Notifiche</string>
     <!-- Wallpapers Section -->
     <string name="current_wallpaper">Sfondo Corrente</string>
-    <string name="image_color_s">Colore(i) Immagine</string>
-    <string name="my_photos">Le mie foto</string>
     <string name="built_in_wallpapers">Sfondi Integrati</string>
     <string name="live_wallpapers">Sfondi Animati</string>
     <string name="dotos_exclusives">Esclusive DotOS</string>
-    
     <string name="apply_wallpaper">Applica sfondo</string>
     <string name="apply_wallpaper_summary">Sei sicuro di voler usare questo sfondo?</string>
     <string name="apply_both">Schermata home e Schermata di blocco</string>
@@ -92,7 +79,6 @@
     <string name="no_navbar">Pillola barra di navigazione</string>
     <string name="no_navbar_summary">Personalizza lunghezza</string>
     <string name="security">Sicurezza</string>
-    <string name="navbar">Modalità di navigazione</string>
     <string name="length_size">Lunghezza</string>
     <string name="media_art_title">Copertina sulla schermata di blocco</string>
     <string name="media_art_summary">Blocca schermo fantasioso</string>
@@ -101,16 +87,11 @@
     <string name="rows_amp_columns"><![CDATA[Righe & Colonne]]></string>
     <string name="qs_tiles_accent_v2">Accent Tile V2</string>
     <string name="qs_percentage_style">Stile Percentuale QS</string>
-    <string name="quick_settings">Impostazioni Rapide</string>
     <string name="qs_tiles_accent_v2_summary">Migliore uso dell\'Accent nei QS</string>
     <!-- FOD Section -->
-    <string name="fod_icon_picker_title">Icona dell\'impronta digitale</string>
-    <string name="fod_icon_picker_summary">Scegli l\'icona dell\'impronta digitale preferita</string>
-    <string name="fod_icon_picker_footer">Per aggiungere la tua icona, selezionare l\'icona in alto a sinistra e utilizzare l\'app OnePlus 6T FP Customizer per selezionare l\'icona che vuoi.</string>
     <string name="fod_screenoff_summary">Usa Autenticazione Biometrica mentre lo schermo è spento. </string>
     <string name="fod_screenoff_title">FOD a schermo spento</string>
     <string name="fod_animations">Animazioni</string>
-    <string name="fod_icons">Icone</string>
     <string name="fod_color">Colore di Riconoscimento</string>
     <string name="enable_aod">Abilitare Schermo sempre attivo?</string>
     <!-- Statusbar Section -->
@@ -134,17 +115,6 @@
     <string name="show_batterylight_dnd">Abilita in modalità Non Disturbare</string>
     <string name="blinking">Lampeggio</string>
     <string name="blinking_on_low">Lampeggio a batteria scarica</string>
-    <string name="status_bar_battery_style_title">Stile indicatore batteria</string>
-    <string name="status_bar_battery_style_icon_portrait">Icona verticale</string>
-    <string name="status_bar_battery_style_circle">Cerchio</string>
-    <string name="status_bar_battery_style_dotted_circle">Cerchio tratteggiato</string>
-    <string name="status_bar_battery_style_filled_circle">Cerchio pieno</string>
-    <string name="status_bar_battery_style_text">Testo</string>
-    <string name="status_bar_battery_style_hidden">Nascosta</string>
-    <string name="status_bar_battery_percentage_title">Percentuale della batteria</string>
-    <string name="status_bar_battery_percentage_default">Nascosta</string>
-    <string name="status_bar_battery_percentage_text_inside">All\'interno dell\'icona</string>
-    <string name="status_bar_battery_percentage_text_next">Accanto all\'icona</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Abilita Statistiche Dot</string>
     <string name="enable_dot_stats_summary">Consenti a dotOS di raccogliere dati anonimi come versione, dispositivo e paese dal tuo telefono.</string>
@@ -182,7 +152,6 @@
     <string name="feature_control_not_supported">Controllo funzionalità %s non supportato.</string>
     <string name="stb_brightness_title">Controllo luminosità via barra di stato</string>
     <string name="stb_brightness_summary">Controlla la luminosità usando la barra di stato</string>
-    <string name="dot_data_used"><![CDATA[<font color="%1$s">●&#32;</font>]]>‎‎ ‎%2$s dati usati</string>
     <string name="data_usage_title">Utilizzo Dati</string>
     <string name="data_usage_summary">Controlla rapidamente l\'utilizzo dei dati mobili</string>
     <string name="qs_columns">Colonne QS</string>
@@ -192,4 +161,115 @@
     <string name="portrait">Verticale</string>
     <string name="landscape">Orizzontale</string>
     <string name="disable_qs_transparency">Disabilita trasparenza pannello notifiche</string>
+    <string name="settings">Settings</string>
+    <string name="qs_percentage">Show percentage in quick settings</string>
+    <string name="fod_anim_start">Start Animation</string>
+    <string name="fod_anim_stop">Stop Animation</string>
+    <!-- Buttons -->
+    <string name="button_pref_title">Buttons</string>
+    <string name="hardware_keys_home_key_title">Home button</string>
+    <string name="hardware_keys_back_key_title">Back button</string>
+    <string name="hardware_keys_menu_key_title">Menu button</string>
+    <string name="hardware_keys_assist_key_title">Search button</string>
+    <string name="hardware_keys_appswitch_key_title">Recents button</string>
+    <string name="hardware_keys_camera_key_title">Camera button</string>
+    <string name="hardware_keys_short_press_title">Short press</string>
+    <string name="hardware_keys_long_press_title">Long press</string>
+    <string name="hardware_keys_double_tap_title">Double tap</string>
+    <string name="hardware_keys_action_nothing">No action</string>
+    <string name="hardware_keys_action_menu">Open/close menu</string>
+    <string name="hardware_keys_action_app_switch">Recent apps switcher</string>
+    <string name="hardware_keys_action_search">Search assistant</string>
+    <string name="hardware_keys_action_voice_search">Voice search</string>
+    <string name="hardware_keys_action_in_app_search">In-app search</string>
+    <string name="hardware_keys_action_launch_camera">Launch camera</string>
+    <string name="hardware_keys_action_sleep">Turn screen off</string>
+    <string name="hardware_keys_action_split_screen">Split screen</string>
+    <string name="hardware_keys_swipe_right_key_title">Swipe right</string>
+    <string name="hardware_keys_swipe_left_key_title">Swipe left</string>
+    <string name="hardware_keys_long_tap_key_title">Long tap</string>
+    <string name="hardware_keys_swipe_tap_title">Swipe action</string>
+    <string name="hardware_keys_long_tap_title">Long tap action</string>
+    <string name="button_wake_title">Wake device</string>
+    <string name="camera_sleep_on_release_title">Screen peek</string>
+    <string name="camera_sleep_on_release_summary">A half press will keep the screen on only while the button is held down</string>
+    <string name="camera_launch_title">Launch camera</string>
+    <string name="camera_launch_summary">A longpress and release will launch camera</string>
+    <string name="home_key_press_summary">On home key press</string>
+    <string name="back_key_press_summary">On back key press</string>
+    <string name="menu_key_press_summary">On menu key press</string>
+    <string name="assist_key_press_summary">On assist key press</string>
+    <string name="app_switch_key_press">On app switch key press</string>
+    <string name="camera_key_press_summary">On camera key press</string>
+    <string name="nothing">Nothing</string>
+    <!-- Volume keys customization -->
+    <string name="volbtn_music_controls_title">Control playback</string>
+    <string name="volbtn_music_controls_summary">Seek music tracks by long pressing the volume keys while the display is off</string>
+    <string name="volume_answer_call_title">Answer call</string>
+    <string name="volume_summary">By pressing the volume buttons</string>
+    <string name="volbtn_cursor_control_title">Keyboard cursor control</string>
+    <string name="volbtn_cursor_control_off">Disabled</string>
+    <string name="volbtn_cursor_control_on">Volume up/down moves cursor left/right</string>
+    <string name="volbtn_cursor_control_on_reverse">Volume up/down moves cursor right/left</string>
+    <string name="swap_volume_buttons_title">Reorient</string>
+    <string name="swap_volume_buttons_summary">Swap volume buttons on screen rotate</string>
+    <!-- Key backlight -->
+    <string name="button_backlight_title">Backlight</string>
+    <string name="button_backlight_enabled">Illuminate buttons</string>
+    <string name="button_backlight_only_when_pressed_title">Illuminate buttons only when pressed</string>
+    <string name="keyboard_backlight_enabled">Illuminate keyboard</string>
+    <string name="button_backlight_seekbar_title">Button brightness</string>
+    <string name="keyboard_backlight_seekbar_title">Keyboard brightness</string>
+    <string name="backlight_timeout_title">Illumination timeout</string>
+    <string name="backlight_timeout_unlimited">Don\'t turn off</string>
+    <string name="backlight_summary_disabled">Disabled</string>
+    <string name="backlight_seconds"><xliff:g id="timeout">%s</xliff:g> seconds</string>
+    <string name="backlight_summary_enabled">Enabled</string>
+    <string name="done">Done</string>
+    <!-- Buttons - Enable navbar -->
+    <string name="navkeys_title">Enable on-screen nav bar</string>
+    <string name="navkeys_summary">Enable on-screen navigation bar</string>
+    <string name="nav_hide">Hide</string>
+    <string name="nav_normal">Normal</string>
+    <string name="nav_medium">Medium</string>
+    <string name="nav_large">Large</string>
+    <string name="advanced_reboot_title">Advanced reboot</string>
+    <string name="advanced_reboot_summary">Reboot to system, recovery, bootloader</string>
+    <string name="monetwannabe">MonetWannabe</string>
+    <string name="enable_engine">Enable Engine</string>
+    <string name="amount_of_generated_colors">Amount of generated colors</string>
+    <string name="palette_type">Palette Type</string>
+    <string name="palette_type_summary">Selected color might be applied in a slightly modified version to make sure it fits the light/dark theme</string>
+    <string name="amount_of_generated_colors_summary">More colors = better accuracy</string>
+    <string name="enable_engine_summary">Automatically update your system colors based on the wallpaper applied.</string>
+    <string name="crop_amp_rotate"><![CDATA[Crop & Rotate]]></string>
+    <string name="aspect_ratio">Aspect Ratio</string>
+    <string name="_18_9">18:9</string>
+    <string name="_16_9">16:9</string>
+    <string name="_4_3">4:3</string>
+    <string name="_1_1">1:1</string>
+    <string name="custom">Custom</string>
+    <string name="reflect">Reflect</string>
+    <string name="horizontal">Horizontal</string>
+    <string name="vertical">Vertical</string>
+    <string name="rotate">Rotate</string>
+    <string name="left_90">Left (-90°)</string>
+    <string name="right_90">Right (90°)</string>
+    <string name="backlight_summary">Control button\'s backlight</string>
+    <string name="control">Control</string>
+    <string name="volume_button_title">Volume button</string>
+    <string name="pick_from_gallery">Pick from Gallery</string>
+    <string name="select_wallpaper">Select Wallpaper</string>
+    <string name="default_wallpaper_uri">android.resource://android/drawable/default_wallpaper</string>
+    <string name="no_internet">Internet Unavailable</string>
+    <string name="system_accent">System Accent</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="lockscreen">Lockscreen</string>
+    <string name="approximate">Approximate</string>
+    <string name="crop">Crop</string>
+    <string name="monet_live_wp">MonetWananbe can\'t be used with Live Wallpapers. If you set one, the engine will fall back to the pre-installed wallpaper colors.</string>
+    <string name="music_visualizer_title">Music Visualizer</string>
+    <string name="music_visualizer_summary">Sound bars on lockscreen</string>
+    <string name="lrb_title">Left Right Buttons</string>
+    <string name="lrb_summary">Add them while typing</string>
 </resources>

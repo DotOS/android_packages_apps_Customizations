@@ -7,13 +7,14 @@
     <string name="section_themes_title">主题</string>
     <string name="section_wallpaper_title">壁纸</string>
     <string name="section_aod_title">息屏与锁屏</string>
-    <string name="section_icons_title">图标形状</string>
     <string name="section_fod_icon">屏下指纹图标</string>
     <string name="section_fod_anim">屏下指纹动画</string>
     <string name="section_fod_color_opt">屏下指纹选项</string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">桌面网格</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">设置</string>
-    <string name="set_wallpaper">设置壁纸</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">手势</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

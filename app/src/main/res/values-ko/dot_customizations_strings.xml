@@ -6,14 +6,15 @@
     <string name="section_system_title">시스템</string>
     <string name="section_themes_title">테마</string>
     <string name="section_wallpaper_title">배경화면</string>
-    <string name="section_aod_title">AOD &amp; 잠금화면</string>
-    <string name="section_icons_title">아이콘 모양</string>
-    <string name="section_fod_icon">지문인식 아이콘</string>
-    <string name="section_fod_anim">지문인식 애니메이션</string>
-    <string name="section_fod_color_opt">지문인식 옵션</string>
-    <string name="grid_section">화면 배열</string>
+    <string name="section_aod_title">AOD &amp; 잠금 화면</string>
+    <string name="section_fod_icon">지문 인식 아이콘</string>
+    <string name="section_fod_anim">지문 인식 애니메이션</string>
+    <string name="section_fod_color_opt">지문 인식 설정</string>
+    <string name="section_hwkeys">버튼</string>
+    <string name="grid_section">아이콘 배열</string>
+    <string name="section_lab">실험실</string>
     <string name="section_settings">설정</string>
-    <string name="set_wallpaper">배경화면 설정</string>
+    <string name="section_clockface2">시계 모양</string>
     <string name="system_gestures">제스처</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

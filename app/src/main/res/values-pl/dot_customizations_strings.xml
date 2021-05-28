@@ -7,13 +7,14 @@
     <string name="section_themes_title">Motywy</string>
     <string name="section_wallpaper_title">Tapety</string>
     <string name="section_aod_title">AOD i ekran blokady</string>
-    <string name="section_icons_title">Kształt ikon</string>
     <string name="section_fod_icon">Ikona FOD</string>
     <string name="section_fod_anim">Animacje FOD</string>
     <string name="section_fod_color_opt">Opcje FOD</string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Siatka</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">Ustawienia</string>
-    <string name="set_wallpaper">Ustaw tapetę</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Gesty</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

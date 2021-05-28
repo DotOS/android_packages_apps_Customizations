@@ -7,13 +7,14 @@
     <string name="section_themes_title">Témy</string>
     <string name="section_wallpaper_title">Tapety</string>
     <string name="section_aod_title">AOD a zamykacia obrazovka</string>
-    <string name="section_icons_title">Tvar ikony</string>
     <string name="section_fod_icon">Ikony FOD</string>
     <string name="section_fod_anim">Animácie FOD</string>
     <string name="section_fod_color_opt">Možnosti FOD</string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Mriežka spúšťača</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">Nastavenia</string>
-    <string name="set_wallpaper">Nastaviť tapetu</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Gestá</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

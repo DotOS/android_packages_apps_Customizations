@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sections -->
-    <string name="section_statusbar_title">Bilah status</string>
+    <string name="section_statusbar_title">Bilah Status</string>
     <string name="section_qs_title">Setelan Cepat</string>
     <string name="section_system_title">Sistem</string>
     <string name="section_themes_title">Tema</string>
     <string name="section_wallpaper_title">Wallpaper</string>
     <string name="section_aod_title">Tampilan AOD &amp; Layar Kunci</string>
-    <string name="section_icons_title">Bentuk Ikon</string>
     <string name="section_fod_icon">Ikon FOD</string>
     <string name="section_fod_anim">Animasi FOD</string>
     <string name="section_fod_color_opt">Opsi FOD</string>
+    <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Grid Peluncur</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">Setelan</string>
-    <string name="set_wallpaper">Atur Wallpaper</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Gestur</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

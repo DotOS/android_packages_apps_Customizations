@@ -6,14 +6,15 @@
     <string name="section_system_title">Sistema</string>
     <string name="section_themes_title">Temas</string>
     <string name="section_wallpaper_title">Papéis de parede</string>
-    <string name="section_aod_title">Always On Display &amp; Tela de bloqueio</string>
-    <string name="section_icons_title">Formato dos ícones</string>
-    <string name="section_fod_icon">Icones FOD</string>
+    <string name="section_aod_title">Tela ambiente &amp; Tela de bloqueio</string>
+    <string name="section_fod_icon">Ícones FOD</string>
     <string name="section_fod_anim">Animações FOD</string>
-    <string name="section_fod_color_opt">Opções FOD</string>
-    <string name="grid_section">Grade da Launcher</string>
+    <string name="section_fod_color_opt">Opções de FOD</string>
+    <string name="section_hwkeys">Buttons</string>
+    <string name="grid_section">Grade do Launcher</string>
+    <string name="section_lab">The Lab</string>
     <string name="section_settings">Configurações</string>
-    <string name="set_wallpaper">Definir papel de parede</string>
+    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Gestos</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
