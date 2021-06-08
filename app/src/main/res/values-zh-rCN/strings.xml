@@ -85,6 +85,8 @@
     <string name="threewayss_summary">使用三指截屏</string>
     <string name="biometrics_unlock">重启时开启指纹解锁</string>
     <string name="biometrics_unlock_summary">重启后使用生物测定技术解锁</string>
+    <string name="fp_wake_unlock">指纹唤醒解锁</string>
+    <string name="fp_wake_unlock_summary">允许使用指纹唤醒并解锁设备</string>
     <string name="volume_left">音量面板样式</string>
     <string name="volume_left_summary">对左撇子友好</string>
     <string name="fod_nightlight">屏幕指纹 夜光</string>

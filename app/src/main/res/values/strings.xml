@@ -77,6 +77,8 @@
     <string name="threewayss_summary">Take a screenshot using three fingers</string>
     <string name="biometrics_unlock">FP on reboot</string>
     <string name="biometrics_unlock_summary">Use biometrics to unlock after a reboot</string>
+    <string name="fp_wake_unlock">FP wake unlock</string>
+    <string name="fp_wake_unlock_summary">Use biometrics to unlock after a reboot</string>
     <string name="volume_left">Volume Panel</string>
     <string name="volume_left_summary">Make it left-handed friendly</string>
     <string name="fod_nightlight">FOD Nightlight</string>

@@ -28,6 +28,7 @@ import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SECURE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
+import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.system.OverlayController
 import kotlin.properties.Delegates
 
@@ -226,12 +227,26 @@ open class SystemSection : GenericSection() {
 
         mFingerprintManager =
             requireContext().getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager?
-        if (mFingerprintManager != null) {
+
+        if (mFingerprintManager?.isHardwareDetected == true) {
+            if (!ResourceHelper.hasFodSupport(requireContext())) {
+                buildSwitch(
+                    securityCardList,
+                    iconID = R.drawable.fod_icon_default_aosp,
+                    title = getString(R.string.enabled),
+                    subtitle = getString(R.string.fp_wake_unlock),
+                    accentColor = R.color.deep_orange_800,
+                    feature = featureManager.System().FP_WAKE_UNLOCK,
+                    featureType = SYSTEM,
+                    summary = getString(R.string.fp_wake_unlock_summary),
+                    enabled = true
+                )
+            }
+
             mDevicePolicyManager =
                 requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
             mEncryptionStatus = mDevicePolicyManager.storageEncryptionStatus
-            if (mFingerprintManager!!.isHardwareDetected
-                && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE
+            if (mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE
                 && mEncryptionStatus != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE_PER_USER
             ) {
                 buildSwitch(

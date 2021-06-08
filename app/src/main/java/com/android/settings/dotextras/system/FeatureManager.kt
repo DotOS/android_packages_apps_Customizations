@@ -309,6 +309,11 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         val FOD_NIGHT_LIGHT = "fod_night_light"
 
         /**
+         * fingerprint wake-and-unlock
+         */
+        val FP_WAKE_UNLOCK = "fp_wake_unlock"
+
+        /**
          * Unlock keystore with fingerprint after reboot
          */
         val FP_UNLOCK_KEYSTORE = "fp_unlock_keystore"
