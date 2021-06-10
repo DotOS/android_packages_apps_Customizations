@@ -168,6 +168,8 @@ class FeatureManager(private val contentResolver: ContentResolver) {
          */
         val LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer_enabled"
 
+        val SYSUI_NAV_BAR_INVERSE = "sysui_nav_bar_inverse"
+
         fun disableAOD() {
             setInt(DOZE_ALWAYS_ON, 0)
         }

@@ -111,7 +111,6 @@
     <string name="traffic_meter_treshold_subtitle">Activity threshold</string>
     <string name="traffic_meter_treshold_summary">Auto-hide traffic meter</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
-
     <string name="status_bar">Status Bar</string>
     <string name="led_color">Led Color</string>
     <string name="light_charged">When battery is charged</string>
@@ -305,5 +304,9 @@
     <string name="screen_off_animation_default">Default</string>
     <string name="screen_off_animation_crt">CRT</string>
     <string name="screen_off_animation_scale">Scale</string>
+
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Invert layout</string>
+    <string name="navbar_invert_layout_summary">Invert navigation bar layout</string>
 
 </resources>

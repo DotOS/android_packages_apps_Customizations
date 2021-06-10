@@ -25,6 +25,7 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.BacklightBottomSheet
+import com.android.settings.dotextras.system.FeatureManager
 import kotlin.collections.ArrayList
 
 class HardwareKeysSection : GenericSection() {
@@ -98,6 +99,17 @@ class HardwareKeysSection : GenericSection() {
                 disableColor = true
             ) { BacklightBottomSheet().show(parentFragmentManager, "backlight") }
         }
+        buildSwitch(
+            hwkeys0List,
+            iconID = R.drawable.ic_menu,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.navbar_invert_layout_title),
+            accentColor = R.color.dot_green,
+            feature = featureManager.Secure().SYSUI_NAV_BAR_INVERSE,
+            featureType = ContextCardsAdapter.Type.SECURE,
+            summary = getString(R.string.navbar_invert_layout_summary),
+            enabled = false
+        )
         setupLayout(hwkeys0List, R.id.hwkeys0)
         if (ResourceHelper.canWakeUsingHomeKey(requireContext()))
         buildSwitch(
