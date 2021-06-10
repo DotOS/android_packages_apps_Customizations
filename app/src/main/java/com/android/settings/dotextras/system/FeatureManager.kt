@@ -498,6 +498,7 @@ class FeatureManager(private val contentResolver: ContentResolver) {
 
         val NAVIGATION_BAR_MENU_ARROW_KEYS = "navigation_bar_menu_arrow_keys"
 
+        val SCREEN_OFF_ANIMATION = "screen_off_animation"
 
         fun setInt(feature: String, value: Int) {
             Settings.System.putInt(contentResolver, feature, value)

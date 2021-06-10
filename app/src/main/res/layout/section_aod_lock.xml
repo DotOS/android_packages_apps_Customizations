@@ -12,9 +12,7 @@
         android:id="@+id/aodlockContextSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:sectionTitle="@string/options">
-
-    </com.android.settings.dotextras.custom.views.ContextSectionLayout>
+        app:sectionTitle="@string/options" />
 
     <com.android.settings.dotextras.custom.views.NotSupportedView
         android:id="@+id/aodNS"
@@ -23,5 +21,10 @@
         android:visibility="gone"
         app:featureTitle="Always on Display"
         tools:visibility="visible" />
+
+    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+        android:id="@+id/aodlock2ContextSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

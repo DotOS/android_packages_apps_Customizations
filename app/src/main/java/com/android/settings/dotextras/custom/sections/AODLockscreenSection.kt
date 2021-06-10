@@ -41,6 +41,7 @@ class AODLockscreenSection : GenericSection() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as FeatureActivityBase).setTitle(getString(R.string.section_aod_title))
         val optionsList = ArrayList<ContextCards>()
+        val options2List = ArrayList<ContextCards>()
         if (ResourceHelper.hasAmbient(requireContext())) {
             featureManager.Secure().enableDozeIfNeeded(requireContext())
             buildSwitch(
@@ -100,6 +101,30 @@ class AODLockscreenSection : GenericSection() {
         } else {
             view.findViewById<NotSupportedView>(R.id.aodNS).visibility = View.VISIBLE
         }
+        buildSwipeable(
+            options2List,
+            iconID = R.drawable.ic_screenoff,
+            subtitle = getString(R.string.screen_off_animation_title),
+            accentColor = R.color.purple_500,
+            feature = featureManager.System().SCREEN_OFF_ANIMATION,
+            featureType = SYSTEM,
+            min = 0,
+            max = 2,
+            default = 0,
+            summary = getString(R.string.screen_off_animation_summary),
+            extraTitle = ""
+        ) { position, title ->
+            run {
+                var newTitle = ""
+                when (position) {
+                    0 -> newTitle = getString(R.string.screen_off_animation_default)
+                    1 -> newTitle = getString(R.string.screen_off_animation_crt)
+                    2 -> newTitle = getString(R.string.screen_off_animation_scale)
+                }
+                title.text = newTitle
+            }
+        }
+        setupLayout(options2List, R.id.aodlock2ContextSection)
     }
 
 }
