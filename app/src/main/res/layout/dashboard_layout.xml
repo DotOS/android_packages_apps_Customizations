@@ -27,7 +27,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:maxLines="2"
             app:statusBarScrim="?android:attr/colorPrimary"
-            app:toolbarId="@+id/action_bar">
+            app:toolbarId="@+id/appTitle">
 
             <Toolbar
                 android:id="@+id/appTitle"
