@@ -2,6 +2,7 @@ package com.android.settings.dotextras.custom.sections.wallpaper
 
 import android.app.WallpaperManager
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -12,6 +13,7 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.settings.dotextras.R
@@ -121,25 +123,28 @@ class WallpaperApplyActivity : AppCompatActivity(R.layout.activity_wallpaper_app
             if (wallpaperPreviewImage.drawable != null)
                 ApplyForDialogFragment(wallpaper!!).show(supportFragmentManager, "applyWallpaper")
         }
-        wallTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                if (tab.isSelected && tab.text == getString(R.string.homescreen)) {
-                    ObjectToolsAnimator.hide(lockscreenOverlay, 500)
-                    ObjectToolsAnimator.show(homescreenOverlay, 500)
-                }
-                if (tab.isSelected && tab.text == getString(R.string.lockscreen)) {
-                    ObjectToolsAnimator.show(lockscreenOverlay, 500)
-                    ObjectToolsAnimator.hide(homescreenOverlay, 500)
+
+        wallTabs {
+            orientation = LinearLayout.HORIZONTAL
+            initialCheckedIndex = 0
+            initWithItems {
+                listOf(getString(R.string.homescreen), getString(R.string.lockscreen))
+            }
+            onSegmentChecked {
+                when (it.text) {
+                    getString(R.string.homescreen) -> {
+                        ObjectToolsAnimator.hide(lockscreenOverlay, 500)
+                        ObjectToolsAnimator.show(homescreenOverlay, 500)
+                    }
+                    getString(R.string.lockscreen) -> {
+                        ObjectToolsAnimator.show(lockscreenOverlay, 500)
+                        ObjectToolsAnimator.hide(homescreenOverlay, 500)
+                    }
                 }
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) = Unit
-            override fun onTabReselected(tab: TabLayout.Tab) = Unit
-        })
+        }
         val monetColor = MonetManager(this).getSwatchFromTarget(targetWall)
-        monetColorCard.setCardBackgroundColor(monetColor.rgb)
-        paletteTitle.setTextColor(monetColor.titleTextColor)
-        paletteType.setTextColor(monetColor.bodyTextColor)
+        monetColorCard.imageTintList = ColorStateList.valueOf(monetColor.rgb)
     }
 
     private fun uriToDrawable(uri: Uri): Drawable {
@@ -163,9 +168,7 @@ class WallpaperApplyActivity : AppCompatActivity(R.layout.activity_wallpaper_app
                 .thumbnail(0.1f)
                 .into(wallpaperPreviewImage)
             val monetColor = MonetManager(this).getSwatchFromTarget(targetWall)
-            monetColorCard.setCardBackgroundColor(monetColor.rgb)
-            paletteTitle.setTextColor(monetColor.titleTextColor)
-            paletteType.setTextColor(monetColor.bodyTextColor)
+            monetColorCard.imageTintList = ColorStateList.valueOf(monetColor.rgb)
         }
     }
 

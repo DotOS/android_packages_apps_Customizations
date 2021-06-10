@@ -16,57 +16,164 @@
 package com.android.settings.dotextras.custom.sections.wallpaper.provider
 
 import android.Manifest
-import android.animation.LayoutTransition
+import android.app.WallpaperManager
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Binder
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.sections.WallpaperSection
 import com.android.settings.dotextras.custom.sections.wallpaper.Wallpaper
-import com.google.android.material.appbar.AppBarLayout
+import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
+import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
+import com.android.settings.dotextras.custom.sections.wallpaper.fragments.ApplyForDialogFragment
+import com.android.settings.dotextras.custom.utils.ObjectToolsAnimator
+import com.android.settings.dotextras.system.MonetManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import kotlinx.android.synthetic.main.activity_wallpaper_apply.*
+import kotlinx.android.synthetic.main.item_wallpaper_preview_card_big.*
 import java.io.File
 
-class StandalonePreviewActivity : AppCompatActivity() {
+class StandalonePreviewActivity : AppCompatActivity(R.layout.activity_wallpaper_apply) {
 
-    private var standalone = false
-    lateinit var toolbar: Toolbar
-    lateinit var appBar: AppBarLayout
+    private lateinit var wallpaper: Wallpaper
+    private lateinit var wallpaperManager: WallpaperManager
+    private lateinit var targetWall: Drawable
+    private val glideListener = object : RequestListener<Drawable> {
+        override fun onLoadFailed(
+            e: GlideException?,
+            model: Any?,
+            target: Target<Drawable>?,
+            isFirstResource: Boolean
+        ): Boolean {
+            imgLoading.visibility = View.GONE
+            Toast.makeText(
+                this@StandalonePreviewActivity,
+                "Error loading wallpaper",
+                Toast.LENGTH_SHORT
+            ).show()
+            if (e != null) Log.e("GlideException", e.stackTrace.toString())
+            return false
+        }
+
+        override fun onResourceReady(
+            resource: Drawable?,
+            model: Any?,
+            target: Target<Drawable>?,
+            dataSource: DataSource?,
+            isFirstResource: Boolean
+        ): Boolean {
+            imgLoading.visibility = View.GONE
+            return false
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_feature)
-        toolbar = findViewById(R.id.appTitle)
-        appBar = findViewById(R.id.dashboardAppBar)
-        toolbar.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        val cropAndSetWallpaperIntent = intent
-        val imageUri = cropAndSetWallpaperIntent.data
-        if (imageUri == null) {
-            Log.e(TAG, "No URI passed in intent; moving to StandaloneSection")
-            standalone = true
-        } else {
+        val imageUri = intent.data
+        if (imageUri != null) {
             val isReadPermissionGrantedForImageUri = isReadPermissionGrantedForImageUri(imageUri)
             if (!isReadPermissionGrantedForImageUri && !isReadExternalStoragePermissionGrantedForApp) {
                 requestPermissions(
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                     READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE
                 )
+            } else {
+                loadUI()
+            }
+        } else finish()
+    }
+
+    private fun loadUI() {
+        wallpaper = Wallpaper()
+        wallpaper.uri = intent.data.toString()
+        wallpaperManager = WallpaperManager.getInstance(this)
+        homescreenOverlay.visibility = View.VISIBLE
+        targetWall = uriToDrawable(Uri.parse(wallpaper.uri!!))
+        val uriB = Uri.parse(wallpaper.uri!!)
+        ap_crop.setOnClickListener {
+            CropImage.activity(uriB)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAllowFlipping(true)
+                .setAllowCounterRotation(true)
+                .setAllowRotation(true)
+                .setAspectRatio(9, 18)
+                .setOutputUri(Uri.EMPTY)
+                .setOutputCompressFormat(Bitmap.CompressFormat.JPEG)
+                .start(this)
+        }
+        imgLoading.visibility = View.VISIBLE
+
+        Glide.with(this)
+            .load(Uri.parse(wallpaper.uri!!))
+            .listener(glideListener)
+            .into(wallpaperPreviewImage)
+        ap_apply.setOnClickListener {
+            if (wallpaperPreviewImage.drawable != null)
+                ApplyForDialogFragment(wallpaper).show(supportFragmentManager, "applyWallpaper")
+        }
+
+        wallTabs {
+            orientation = LinearLayout.HORIZONTAL
+            initialCheckedIndex = 0
+            initWithItems {
+                listOf(getString(R.string.homescreen), getString(R.string.lockscreen))
+            }
+            onSegmentChecked {
+                when (it.text) {
+                    getString(R.string.homescreen) -> {
+                        ObjectToolsAnimator.hide(lockscreenOverlay, 500)
+                        ObjectToolsAnimator.show(homescreenOverlay, 500)
+                    }
+                    getString(R.string.lockscreen) -> {
+                        ObjectToolsAnimator.show(lockscreenOverlay, 500)
+                        ObjectToolsAnimator.hide(homescreenOverlay, 500)
+                    }
+                }
             }
         }
-        val lp2 = toolbar.layoutParams as AppBarLayout.LayoutParams
-        lp2.scrollFlags = 0
-        setTitle(getString(R.string.section_wallpaper_title))
+        val monetColor = MonetManager(this).getSwatchFromTarget(targetWall)
+        monetColorCard.imageTintList = ColorStateList.valueOf(monetColor.rgb)
     }
 
-    fun setTitle(title: String?) {
-        toolbar.title = title ?: getString(R.string.app_name)
+
+    private fun uriToDrawable(uri: Uri): Drawable {
+        return Drawable.createFromStream(contentResolver.openInputStream(uri), uri.toString())
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            val result = CropImage.getActivityResult(data)
+            val resultUri: Uri? = result!!.uri
+            val drawable = Drawable.createFromStream(
+                contentResolver.openInputStream(resultUri!!),
+                resultUri.toString()
+            )
+            wallpaper.uri = resultUri.toString()
+            targetWall = drawable
+            Glide.with(this)
+                .load(Uri.parse(wallpaper.uri!!))
+                .listener(glideListener)
+                .thumbnail(0.1f)
+                .into(wallpaperPreviewImage)
+            val monetColor = MonetManager(this).getSwatchFromTarget(targetWall)
+            monetColorCard.imageTintList = ColorStateList.valueOf(monetColor.rgb)
+        }
+    }
 
     override fun onDestroy() {
         val dir = applicationContext.cacheDir
@@ -79,15 +186,6 @@ class StandalonePreviewActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        val fragmentManager = supportFragmentManager
-        val fragment = fragmentManager.findFragmentById(R.id.featureCoordinator)
-        if (fragment == null) {
-            loadPreviewFragment()
-        }
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>,
         grantResults: IntArray,
@@ -96,26 +194,12 @@ class StandalonePreviewActivity : AppCompatActivity() {
         if (requestCode == READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE) {
             val isGranted =
                 permissions.isNotEmpty() && permissions[0] == Manifest.permission.READ_EXTERNAL_STORAGE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
-            if (!isGranted) {
+            if (isGranted) {
+                loadUI()
+            } else {
                 finish()
             }
-            loadPreviewFragment()
         }
-    }
-
-    private fun loadPreviewFragment() {
-        if (!standalone) {
-            val uri: Uri? = intent.data
-            if (uri != null) {
-                val wallpaperBase = Wallpaper()
-                wallpaperBase.uri = uri.toString()
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.featureCoordinator, ApplyStandaloneFragment(wallpaperBase))
-                    .commit()
-            }
-        } else supportFragmentManager.beginTransaction()
-            .add(R.id.featureCoordinator, WallpaperSection(standalone))
-            .commit()
     }
 
     private val isReadExternalStoragePermissionGrantedForApp: Boolean
@@ -134,7 +218,6 @@ class StandalonePreviewActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "StandalonePreview"
         private const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1
     }
 }

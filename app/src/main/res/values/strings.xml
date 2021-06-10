@@ -111,6 +111,7 @@
     <string name="traffic_meter_treshold_subtitle">Activity threshold</string>
     <string name="traffic_meter_treshold_summary">Auto-hide traffic meter</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+
     <string name="status_bar">Status Bar</string>
     <string name="led_color">Led Color</string>
     <string name="light_charged">When battery is charged</string>
@@ -294,5 +295,8 @@
     <string name="music_visualizer_summary">Sound bars on lockscreen</string>
     <string name="lrb_title">Left Right Buttons</string>
     <string name="lrb_summary">Add them while typing</string>
+
+    <string name="download">Download</string>
+    <string name="crop_image">Crop Image</string>
 
 </resources>
