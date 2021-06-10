@@ -115,9 +115,30 @@
         <item>@string/volbtn_cursor_control_on_reverse</item>
     </string-array>
 
-    <string-array name="volbtn_cursor_control_values" translatable="false">
+    <integer-array name="volbtn_cursor_control_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+    </integer-array>
+
+    <!-- Network Traffic -->
+    <string-array name="network_traffic_mode_entries" translatable="false">
+        <item>@string/network_traffic_mode_disable</item>
+        <item>@string/network_traffic_mode_status_bar</item>
     </string-array>
+
+    <integer-array name="network_traffic_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+
+    <string-array name="network_traffic_units_entries" translatable="false">
+        <item>@string/network_traffic_units_bytes</item>
+        <item>@string/network_traffic_units_bits</item>
+    </string-array>
+
+    <integer-array name="network_traffic_units_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
 </resources>

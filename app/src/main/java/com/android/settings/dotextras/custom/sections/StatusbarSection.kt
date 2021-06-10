@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
+import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
 import com.android.settings.dotextras.custom.utils.ResourceHelper
 import com.android.settings.dotextras.custom.utils.SettingsConstants
@@ -103,28 +104,61 @@ class StatusbarSection : GenericSection() {
         )
         setupLayout(perclist, R.id.sectionPercentage)
         createBalloon(R.string.swipe_to_change, 0, R.id.sectionPercentage)
+        val trafficModeEntries = resources.getStringArray(R.array.network_traffic_mode_entries)
+        val trafficModeEntriesArrayList = ArrayList<String>()
+        for (entry in trafficModeEntries) {
+            trafficModeEntriesArrayList.add(entry)
+        }
+        val trafficModeValues = resources.getIntArray(R.array.network_traffic_mode_values)
+        val trafficModeValuesArrayList = ArrayList<Int>()
+        for (entry in trafficModeValues) {
+            trafficModeValuesArrayList.add(entry)
+        }
+        val trafficUnitsEntries = resources.getStringArray(R.array.network_traffic_units_entries)
+        val trafficUnitsEntriesArrayList = ArrayList<String>()
+        for (entry in trafficUnitsEntries) {
+            trafficUnitsEntriesArrayList.add(entry)
+        }
+        val trafficUnitsValues = resources.getIntArray(R.array.network_traffic_units_values)
+        val trafficUnitsValuesArrayList = ArrayList<Int>()
+        for (entry in trafficUnitsValues) {
+            trafficUnitsValuesArrayList.add(entry)
+        }
+        buildListSheet(
+            trafficList,
+            iconID = R.drawable.ic_traffic,
+            title = getString(R.string.nothing),
+            subtitle = getString(R.string.traffic_meter_title),
+            accentColor = R.color.cyan_700,
+            feature = "network_traffic_location",
+            featureType = SYSTEM,
+            default = 0,
+            summary = getString(R.string.network_traffic_mode_title),
+            entries = trafficModeEntriesArrayList,
+            entryValues = trafficModeValuesArrayList
+        )
         buildSwitch(
             trafficList,
             iconID = R.drawable.ic_traffic,
-            title = getString(R.string.disabled),
             subtitle = getString(R.string.traffic_meter_title),
-            accentColor = R.color.cyan_700,
-            feature = featureManager.System().NETWORK_TRAFFIC_STATE,
+            accentColor = R.color.blue_800,
+            feature = "network_traffic_autohide",
             featureType = SYSTEM,
-            summary = getString(R.string.traffic_meter_summary)
+            summary = getString(R.string.traffic_meter_treshold_summary),
+            enabled = false
         )
-        buildSwipeable(
+        buildListSheet(
             trafficList,
             iconID = R.drawable.ic_traffic,
-            subtitle = getString(R.string.traffic_meter_treshold_subtitle),
+            title = getString(R.string.nothing),
+            subtitle = getString(R.string.traffic_meter_title),
             accentColor = R.color.blue_800,
-            feature = featureManager.System().NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD,
+            feature = "network_traffic_unit_type",
             featureType = SYSTEM,
-            min = 0,
-            max = 10,
             default = 0,
-            summary = getString(R.string.traffic_meter_treshold_summary),
-            extraTitle = getString(R.string.traffic_meter_treshold_extra)
+            summary = getString(R.string.network_traffic_units_title),
+            entries = trafficUnitsEntriesArrayList,
+            entryValues = trafficUnitsValuesArrayList
         )
         setupLayout(trafficList, R.id.sectionTraffic)
         buildSwitch(

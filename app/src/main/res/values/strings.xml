@@ -111,6 +111,16 @@
     <string name="traffic_meter_treshold_subtitle">Activity threshold</string>
     <string name="traffic_meter_treshold_summary">Auto-hide traffic meter</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Display mode</string>
+    <string name="network_traffic_mode_disable">Disabled</string>
+    <string name="network_traffic_mode_status_bar">Status bar</string>
+    <string name="network_traffic_mode_qs">Quick settings</string>
+    <string name="network_traffic_autohide">Auto hide</string>
+    <string name="network_traffic_autohide_summary">Hide the traffic monitor when there is no activity</string>
+    <string name="network_traffic_units_title">Traffic measurement units</string>
+    <string name="network_traffic_units_bits" translatable="false">kbps, Mbps, Gbps</string>
+    <string name="network_traffic_units_bytes" translatable="false">kB/s, MB/s, GB/s</string>
+
     <string name="status_bar">Status Bar</string>
     <string name="led_color">Led Color</string>
     <string name="light_charged">When battery is charged</string>
