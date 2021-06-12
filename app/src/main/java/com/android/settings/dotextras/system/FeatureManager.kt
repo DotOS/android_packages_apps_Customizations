@@ -166,7 +166,7 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         /**
          * Enable and disable Lockscreen visualizer
          */
-        val LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer_enabled"
+        val LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer"
 
         val SYSUI_NAV_BAR_INVERSE = "sysui_nav_bar_inverse"
 
