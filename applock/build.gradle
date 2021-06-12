@@ -18,7 +18,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    lintOptions {
+        abortOnError false
+    }
     signingConfigs {
         defaultConfig {
             storeFile file('../platform.keystore')
