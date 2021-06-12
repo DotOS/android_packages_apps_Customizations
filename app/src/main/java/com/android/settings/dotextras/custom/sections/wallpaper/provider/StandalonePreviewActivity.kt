@@ -31,6 +31,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.sections.WallpaperSection
 import com.android.settings.dotextras.custom.sections.wallpaper.Wallpaper
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
@@ -94,7 +95,14 @@ class StandalonePreviewActivity : AppCompatActivity(R.layout.activity_wallpaper_
             } else {
                 loadUI()
             }
-        } else finish()
+        } else loadStandalone()
+    }
+
+    private fun loadStandalone() {
+        applyContainer.removeAllViews()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.applyContainer, WallpaperSection(true))
+            .commit()
     }
 
     private fun loadUI() {
