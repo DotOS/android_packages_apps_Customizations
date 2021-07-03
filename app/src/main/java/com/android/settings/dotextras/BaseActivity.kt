@@ -55,6 +55,7 @@ class BaseActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
         binding = DashboardLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         lifecycleScope.launchWhenCreated {
