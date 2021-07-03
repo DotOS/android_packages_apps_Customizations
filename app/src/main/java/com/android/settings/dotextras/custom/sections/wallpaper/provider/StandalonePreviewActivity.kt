@@ -131,7 +131,7 @@ class StandalonePreviewActivity : AppCompatActivity(R.layout.activity_wallpaper_
             .into(wallpaperPreviewImage)
         ap_apply.setOnClickListener {
             if (wallpaperPreviewImage.drawable != null)
-                ApplyForDialogFragment(wallpaper).show(supportFragmentManager, "applyWallpaper")
+                ApplyForDialogFragment.newInstance(wallpaper).show(supportFragmentManager, "applyWallpaper")
         }
 
         wallTabs {

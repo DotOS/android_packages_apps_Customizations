@@ -43,7 +43,9 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.URL
 
-class ApplyForDialogFragment(val wallpaper: Wallpaper) : DialogFragment() {
+class ApplyForDialogFragment : DialogFragment() {
+
+    var wallpaper: Wallpaper? = null
 
     private lateinit var wallpaperManager: WallpaperManager
 
@@ -52,12 +54,23 @@ class ApplyForDialogFragment(val wallpaper: Wallpaper) : DialogFragment() {
     private lateinit var forBoth: LinearLayout
     private lateinit var expandable: ExpandableLayout
 
+    companion object {
+        fun newInstance(wallpaper: Wallpaper): ApplyForDialogFragment {
+            val fragment = ApplyForDialogFragment()
+            val bundle = Bundle()
+            bundle.putSerializable("wallpaper", wallpaper)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         requireDialog().requestWindowFeature(Window.FEATURE_NO_TITLE)
+        wallpaper = arguments?.getSerializable("wallpaper") as Wallpaper
         return inflater.inflate(R.layout.item_wallpaper_for, container, false)
     }
 
@@ -68,11 +81,12 @@ class ApplyForDialogFragment(val wallpaper: Wallpaper) : DialogFragment() {
         forBoth = view.findViewById(R.id.wp_apply_both)
         expandable = view.findViewById(R.id.wp_choice)
         wallpaperManager = WallpaperManager.getInstance(requireContext())
-        val isSystem = wallpaper.uri != null
+        if (wallpaper == null) return
+        val isSystem = wallpaper!!.uri != null
         val drawable: Drawable = if (isSystem) {
-            uriToDrawable(Uri.parse(wallpaper.uri))
+            uriToDrawable(Uri.parse(wallpaper!!.uri))
         } else {
-            urlToDrawable(wallpaper.url!!)
+            urlToDrawable(wallpaper!!.url!!)
         }
         forHome.setOnClickListener { setWallpaper(drawable, WallpaperManager.FLAG_SYSTEM) }
         forLockscreen.setOnClickListener { setWallpaper(drawable, WallpaperManager.FLAG_LOCK) }

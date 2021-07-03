@@ -121,7 +121,7 @@ class WallpaperApplyActivity : AppCompatActivity(R.layout.activity_wallpaper_app
         }
         ap_apply.setOnClickListener {
             if (wallpaperPreviewImage.drawable != null)
-                ApplyForDialogFragment(wallpaper!!).show(supportFragmentManager, "applyWallpaper")
+                ApplyForDialogFragment.newInstance(wallpaper!!).show(supportFragmentManager, "applyWallpaper")
         }
 
         wallTabs {
