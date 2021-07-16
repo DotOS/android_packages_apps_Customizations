@@ -35,4 +35,10 @@
         android:layout_height="wrap_content"
         app:sectionTitle="@string/battery_light_title" />
 
+    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+        android:id="@+id/sectionStatusBarExtras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:sectionTitle="@string/extras_title" />
+
 </LinearLayout>

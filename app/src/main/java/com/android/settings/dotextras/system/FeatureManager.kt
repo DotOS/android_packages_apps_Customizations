@@ -483,6 +483,11 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         val STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control"
 
         /**
+         *  Statusbar Color icons
+         */
+        val STATUS_BAR_COLORED_ICONS_STYLES = "statusbar_icons_style"
+
+        /**
          * Show current active data sim data usage
          */
         val QS_SHOW_DATA_USAGE = "qs_show_data_usage"
