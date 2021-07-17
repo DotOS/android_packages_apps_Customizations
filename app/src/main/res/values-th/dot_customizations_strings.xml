@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sections -->
-    <string name="section_statusbar_title">Status Bar</string>
+    <string name="section_statusbar_title">แถบสถานะ</string>
     <string name="section_qs_title">Quick Settings</string>
-    <string name="section_system_title">System</string>
+    <string name="section_system_title">ระบบ</string>
     <string name="section_themes_title">Themes</string>
     <string name="section_wallpaper_title">Wallpapers</string>
     <string name="section_aod_title">AOD &amp; Lockscreen</string>
@@ -13,7 +13,7 @@
     <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Launcher Grid</string>
     <string name="section_lab">The Lab</string>
-    <string name="section_settings">Settings</string>
+    <string name="section_settings">การตั้งค่า</string>
     <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Gestures</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->

@@ -14,7 +14,7 @@
     <string name="grid_section">Griglia Launcher</string>
     <string name="section_lab">The Lab</string>
     <string name="section_settings">Impostazioni</string>
-    <string name="section_clockface2">Clockface</string>
+    <string name="section_clockface2">Orologio</string>
     <string name="system_gestures">Gesti</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

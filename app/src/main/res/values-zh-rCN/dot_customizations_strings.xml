@@ -2,7 +2,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sections -->
     <string name="section_statusbar_title">状态栏​​​​​​​</string>
-    <string name="section_qs_title">通知面板</string>
+    <string name="section_qs_title">快捷设置</string>
     <string name="section_system_title">系统</string>
     <string name="section_themes_title">主题</string>
     <string name="section_wallpaper_title">壁纸</string>
@@ -10,11 +10,11 @@
     <string name="section_fod_icon">屏下指纹图标</string>
     <string name="section_fod_anim">屏下指纹动画</string>
     <string name="section_fod_color_opt">屏下指纹选项</string>
-    <string name="section_hwkeys">Buttons</string>
+    <string name="section_hwkeys">按键</string>
     <string name="grid_section">桌面网格</string>
-    <string name="section_lab">The Lab</string>
+    <string name="section_lab">实验功能</string>
     <string name="section_settings">设置</string>
-    <string name="section_clockface2">Clockface</string>
+    <string name="section_clockface2">锁屏界面</string>
     <string name="system_gestures">手势</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

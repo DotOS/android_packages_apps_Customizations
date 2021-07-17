@@ -29,7 +29,7 @@
     <string name="icon_pack">আইকন প্যাক</string>
     <string name="icon_shapes">আইকন আকৃতি</string>
     <string name="device_default">ডিভাইস ডিফল্ট</string>
-    <string name="device_default_font">Device\nDefault Font</string>
+    <string name="device_default_font">ডিভাইস\nডিফল্ট ফন্ট</string>
     <string name="light_shade">লাইট থিম</string>
     <string name="dark_shade">ডার্ক থিম</string>
     <string name="twotone_accent_summary">Apply a shade of Accent for Light and Dark Theme. You can also choose two different accents for each style.\n
@@ -67,7 +67,7 @@
     <string name="statusbar_dt2s">DT2S স্ট্যাটাস বার</string>
     <string name="statusbar_dt2s_summary">ডাবল ট্যাপ টু স্লিপ</string>
     <string name="lockscreen_dt2s">DT2S লকস্ক্রিন</string>
-    <string name="lockscreen_dt2s_summary">Double tap to sleep</string>
+    <string name="lockscreen_dt2s_summary">স্লিপ এর জন্যে দুইবার টেপ করুন</string>
     <string name="threewayss">Quick Screenshot</string>
     <string name="threewayss_summary">Take a screenshot using three fingers</string>
     <string name="biometrics_unlock">FP on reboot</string>

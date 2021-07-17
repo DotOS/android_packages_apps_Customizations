@@ -10,11 +10,11 @@
     <string name="section_fod_icon">指紋認証のアイコン</string>
     <string name="section_fod_anim">指紋認証のアニメーション</string>
     <string name="section_fod_color_opt">指紋認証のオプション</string>
-    <string name="section_hwkeys">Buttons</string>
+    <string name="section_hwkeys">ボタン</string>
     <string name="grid_section">ランチャーのグリッド</string>
     <string name="section_lab">The Lab</string>
     <string name="section_settings">設定</string>
-    <string name="section_clockface2">Clockface</string>
+    <string name="section_clockface2">時計の面</string>
     <string name="system_gestures">ジェスチャー</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

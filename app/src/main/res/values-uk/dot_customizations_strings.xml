@@ -10,11 +10,11 @@
     <string name="section_fod_icon">Іконки FOD</string>
     <string name="section_fod_anim">Анімації FOD</string>
     <string name="section_fod_color_opt">Параметри FOD</string>
-    <string name="section_hwkeys">Buttons</string>
+    <string name="section_hwkeys">Кнопки</string>
     <string name="grid_section">Сітка робочого столу</string>
-    <string name="section_lab">The Lab</string>
+    <string name="section_lab">Лабораторія</string>
     <string name="section_settings">Параметри</string>
-    <string name="section_clockface2">Clockface</string>
+    <string name="section_clockface2">Циферблат</string>
     <string name="system_gestures">Жести</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

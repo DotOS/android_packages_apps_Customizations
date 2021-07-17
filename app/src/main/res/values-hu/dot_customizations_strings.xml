@@ -10,11 +10,11 @@
     <string name="section_fod_icon">FOD ikonok</string>
     <string name="section_fod_anim">FOD animációk</string>
     <string name="section_fod_color_opt">FOD beállítások</string>
-    <string name="section_hwkeys">Buttons</string>
+    <string name="section_hwkeys">Gombok</string>
     <string name="grid_section">Launcher-rács</string>
-    <string name="section_lab">The Lab</string>
+    <string name="section_lab">A Műhely</string>
     <string name="section_settings">Beállítások</string>
-    <string name="section_clockface2">Clockface</string>
+    <string name="section_clockface2">Óralap</string>
     <string name="system_gestures">Mozdulatgesztusok</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
