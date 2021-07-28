@@ -6,15 +6,10 @@ import android.telephony.TelephonyManager
 import android.text.TextUtils
 
 class StatsData {
-    var device: String? = null
+    var codeName: String? = null
         get() = SystemProperties.get(Constants.KEY_DEVICE)
         set(device) {
             field = if (TextUtils.isEmpty(device)) "unknown" else device
-        }
-    var model: String? = null
-        get() = SystemProperties.get(Constants.KEY_MODEL)
-        set(model) {
-            field = if (TextUtils.isEmpty(model)) "unknown" else model
         }
     private var version: String? = null
     var buildType: String? = null

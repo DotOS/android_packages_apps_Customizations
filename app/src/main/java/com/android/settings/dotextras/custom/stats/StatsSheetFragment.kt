@@ -19,6 +19,8 @@ class StatsSheetFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private var isChecked = false
 
+    private var sharedprefStats: SharedPreferences? = null
+
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
     }
@@ -36,12 +38,12 @@ class StatsSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenCreated {
             with(binding) {
-                val sharedprefStats =
-                    requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
-                pref_stats.setChecked(sharedprefStats.getBoolean(Constants.ALLOW_STATS, true))
+                sharedprefStats = requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
+                pref_stats.setChecked(sharedprefStats!!.getBoolean(Constants.ALLOW_STATS, true))
+                this@StatsSheetFragment.isChecked = sharedprefStats!!.getBoolean(Constants.ALLOW_STATS, true)
                 pref_stats.setOnCheckListener { _, isChecked ->
                     run {
-                        val editor: SharedPreferences.Editor = sharedprefStats.edit()
+                        val editor: SharedPreferences.Editor = sharedprefStats!!.edit()
                         editor.putBoolean(Constants.ALLOW_STATS, isChecked)
                         editor.apply()
                         this@StatsSheetFragment.isChecked = isChecked
@@ -55,13 +57,7 @@ class StatsSheetFragment : BottomSheetDialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
+        if (isChecked) StatsBuilder(requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)).push(requireActivity())
         super.onDismiss(dialog)
-        if (isChecked)
-            StatsBuilder(
-                requireActivity().getSharedPreferences(
-                    "dotStatsPrefs",
-                    Context.MODE_PRIVATE
-                )
-            ).push(requireActivity())
     }
 }

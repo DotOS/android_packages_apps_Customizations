@@ -1,6 +1,6 @@
 package com.android.settings.dotextras.custom.stats
 
 class ServerResponse {
-    val result: String? = null
+    val success: Boolean? = null
     val message: String? = null
 }

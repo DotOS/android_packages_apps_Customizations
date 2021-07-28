@@ -31,14 +31,12 @@ class StatsBuilder(private val pref: SharedPreferences) {
                     )
                     .build().create(RequestInterface::class.java)
                 val stats = StatsData()
-                stats.device = stats.device
-                stats.model = stats.model
+                stats.codeName = stats.codeName
                 stats.setVersion(stats.getVersion())
                 stats.buildType = stats.buildType
                 stats.setCountryCode(stats.getCountryCode(activity))
                 stats.buildDate = stats.buildDate
                 val request = ServerRequest()
-                request.setOperation(Constants.PUSH_OPERATION)
                 request.setStats(stats)
                 mCompositeDisposable.add(
                     requestInterface.operation(request)
@@ -57,7 +55,7 @@ class StatsBuilder(private val pref: SharedPreferences) {
     }
 
     private fun handleResponse(resp: ServerResponse) {
-        if (resp.result == Constants.SUCCESS) {
+        if (resp.success!!) {
             val editor: SharedPreferences.Editor = pref.edit()
             editor.putBoolean(Constants.IS_FIRST_LAUNCH, false)
             editor.putString(
