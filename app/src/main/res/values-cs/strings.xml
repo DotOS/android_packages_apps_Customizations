@@ -163,8 +163,8 @@
     <string name="disable_qs_transparency">Zakázat průhlednost panelu QS</string>
     <string name="settings">Nastavení</string>
     <string name="qs_percentage">Zobrazit procenta v Rychlém nastavení</string>
-    <string name="fod_anim_start">Spustit animaci</string>
-    <string name="fod_anim_stop">Ukončit animaci</string>
+    <string name="fod_anim_start">Počáteční animace</string>
+    <string name="fod_anim_stop">Koncová animace</string>
     <!-- Buttons -->
     <string name="button_pref_title">Tlačítka</string>
     <string name="hardware_keys_home_key_title">Tlačítko Domů</string>

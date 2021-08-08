@@ -109,16 +109,16 @@
     <string name="light_full">When battery is full</string>
     <string name="light_low">When battery is low</string>
     <string name="light_medium">When battery is medium charged</string>
-    <string name="battery_light_title">Battery Light</string>
+    <string name="battery_light_title">Battery light</string>
     <string name="battery_light_dnd">Battery Light on DND</string>
     <string name="show_batterylight">Show the light</string>
     <string name="show_batterylight_dnd">Enable it in Do-Not-Disturb mode</string>
     <string name="blinking">Blinking</string>
-    <string name="blinking_on_low">Light Blinking on low battery</string>
+    <string name="blinking_on_low">Light blinking on low battery</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Enable Dot Stats</string>
     <string name="enable_dot_stats_summary">Allow dotOS to collect anonymous data like version, device and country from your phone.</string>
-    <string name="rgb_battery_light">RGB Battery Light</string>
+    <string name="rgb_battery_light">Battery light</string>
     <string name="rgb_battery_light_summary">Show RGB Picker for battery light states</string>
     <string name="enable_balloons">Enable Balloons</string>
     <string name="enable_balloons_summary">Show tooltips around the app</string>
@@ -126,7 +126,7 @@
     <string name="traffic_indicator">Traffic Indicator</string>
     <string name="swipe_to_change">Swipe to change it!</string>
     <string name="click_to_toggle">Click to toggle</string>
-    <string name="clock_customization">Clock Customization</string>
+    <string name="clock_customization">Clock customizations</string>
     <string name="show_clock_tile">Show clock</string>
     <string name="show_clock_summary">Show time in your statusbar</string>
     <string name="clock_position_title">Clock Position</string>

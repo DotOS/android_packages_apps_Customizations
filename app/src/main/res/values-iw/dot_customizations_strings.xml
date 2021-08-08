@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sections -->
-    <string name="section_statusbar_title">Status Bar</string>
-    <string name="section_qs_title">Quick Settings</string>
-    <string name="section_system_title">System</string>
-    <string name="section_themes_title">Themes</string>
-    <string name="section_wallpaper_title">Wallpapers</string>
-    <string name="section_aod_title">AOD &amp; Lockscreen</string>
-    <string name="section_fod_icon">FOD Icons</string>
-    <string name="section_fod_anim">FOD Animations</string>
-    <string name="section_fod_color_opt">FOD Options</string>
-    <string name="section_hwkeys">Buttons</string>
-    <string name="grid_section">Launcher Grid</string>
-    <string name="section_lab">The Lab</string>
-    <string name="section_settings">Settings</string>
-    <string name="section_clockface2">Clockface</string>
-    <string name="system_gestures">Gestures</string>
+    <string name="section_statusbar_title">שורת המצב</string>
+    <string name="section_qs_title">לחצני וילון הגדרות</string>
+    <string name="section_system_title">מערכת</string>
+    <string name="section_themes_title">ערכות נושא</string>
+    <string name="section_wallpaper_title">טפטים</string>
+    <string name="section_aod_title">AOD ומסך הנעילה</string>
+    <string name="section_fod_icon">אייקוני טביעת אצבע</string>
+    <string name="section_fod_anim">הנפשות סורק טביעות האצבע</string>
+    <string name="section_fod_color_opt">אפשרויות טביעת אצבע</string>
+    <string name="section_hwkeys">כפתורים</string>
+    <string name="grid_section">פריסת מסך הבית</string>
+    <string name="section_lab">המעבדה</string>
+    <string name="section_settings">הגדרות</string>
+    <string name="section_clockface2">תצוגת השעון</string>
+    <string name="system_gestures">מחוות</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
     <!--Name of metadata in the main launcher Activity which values contains the authority

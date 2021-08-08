@@ -67,7 +67,7 @@
     <string name="statusbar_dt2s">Toque duplo na barra de status </string>
     <string name="statusbar_dt2s_summary">Toque duplo para desligar a tela</string>
     <string name="lockscreen_dt2s">Toque duplo na tela de bloqueio</string>
-    <string name="lockscreen_dt2s_summary">Toque duas vszes para desligar a tela</string>
+    <string name="lockscreen_dt2s_summary">Toque duas vezes para desligar a tela</string>
     <string name="threewayss">Captura de tela rápida</string>
     <string name="threewayss_summary">Tire uma captura de tela usando três dedos</string>
     <string name="biometrics_unlock">Digital ao reiniciar</string>
