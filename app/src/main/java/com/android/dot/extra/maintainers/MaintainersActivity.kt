@@ -16,7 +16,7 @@ import java.io.IOException
 
 class MaintainersActivity : AppCompatActivity() {
 
-    val jsonUrl = "https://raw.githubusercontent.com/DotOS/services_apps_ota/dot11/maintainers.json"
+    val jsonUrl = "https://raw.githubusercontent.com/DotOS/official_devices/master/maintainers.json"
 
     val client = OkHttpClient()
     var maintainers: ArrayList<Maintainers> = ArrayList()
