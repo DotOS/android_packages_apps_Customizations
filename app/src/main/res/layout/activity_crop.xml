@@ -1,47 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/bottom_sheet_behavior"
-    tools:context=".BaseActivity">
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
+    app:layout_behavior="@string/bottom_sheet_behavior">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
         app:elevation="0dp">
 
-        <LinearLayout
-            android:id="@+id/appblayout"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/appTitle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
-            android:background="@android:color/transparent"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            app:layout_scrollFlags="noScroll">
+            android:theme="?attr/actionBarTheme"
+            app:buttonGravity="center_vertical"
+            app:title="@string/crop_amp_rotate" />
 
-            <TextView
-                android:id="@+id/appTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="32dp"
-                android:paddingTop="16dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="16dp"
-                android:text="@string/crop_amp_rotate"
-                android:textAppearance="?android:attr/textAppearanceListItem"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="128dp"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
+        android:layout_marginTop="@dimen/recyclerSpacer"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+        android:layout_marginBottom="212dp"
         app:cardBackgroundColor="@color/cardBackground"
         app:cardCornerRadius="@dimen/default_dialog_radius_round"
         app:cardElevation="0dp"
@@ -51,197 +40,136 @@
             android:id="@+id/cropImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            app:cropShowProgressBar="true">
-
-        </com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView>
-
-    </com.google.android.material.card.MaterialCardView>
+            app:cropShowProgressBar="true" />
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:id="@+id/cropSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/sheet_background"
-        android:backgroundTint="@color/cardBackground"
+        android:layout_gravity="bottom"
         android:orientation="vertical"
-        app:behavior_hideable="false"
-        app:behavior_peekHeight="122dp"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        android:paddingTop="@dimen/recyclerSpacer">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/pin" />
-
-        <RelativeLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp">
+            android:layout_gravity="bottom">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/cardApplyCrop"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="@string/apply"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textColor="?android:textColorPrimary"
-                app:backgroundTint="@color/colorPrimary"
-                app:cornerRadius="@dimen/default_dialog_radius_round" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/cardApplyCrop"
-                android:layout_alignBottom="@id/cardApplyCrop"
-                android:gravity="center_vertical"
-                android:text="@string/options"
-                android:textAppearance="?android:attr/textAppearanceListItem"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/aspectRatio"
+                    android:layout_width="92dp"
+                    android:layout_height="92dp"
+                    android:layout_marginStart="@dimen/recyclerSpacer"
+                    android:background="@drawable/rounded_ripple"
+                    android:clickable="true"
+                    android:orientation="vertical">
 
-        <LinearLayout
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:padding="12dp"
+                        app:srcCompat="@drawable/ic_ratio"
+                        app:tint="?android:attr/textColorPrimary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:text="@string/aspect_ratio"
+                        android:textAlignment="center"
+                        android:textColor="?android:attr/textColorPrimary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/reflect"
+                    android:layout_width="92dp"
+                    android:layout_height="92dp"
+                    android:layout_marginStart="@dimen/recyclerSpacer"
+                    android:background="@drawable/rounded_ripple"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:padding="12dp"
+                        app:srcCompat="@drawable/ic_reflect"
+                        app:tint="?android:attr/textColorPrimary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:text="@string/reflect"
+                        android:textAlignment="center"
+                        android:textColor="?android:attr/textColorPrimary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rotate"
+                    android:layout_width="92dp"
+                    android:layout_height="92dp"
+                    android:layout_marginStart="@dimen/recyclerSpacer"
+                    android:layout_marginEnd="@dimen/recyclerSpacer"
+                    android:background="@drawable/rounded_ripple"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:padding="12dp"
+                        app:srcCompat="@drawable/ic_rotate"
+                        app:tint="?android:attr/textColorPrimary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:text="@string/rotate"
+                        android:textAlignment="center"
+                        android:textColor="?android:attr/textColorPrimary" />
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cardApplyCrop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:gravity="center_vertical"
-                android:text="@string/aspect_ratio"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="18sp" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                app:checkedChip="@id/ratio189"
-                app:singleLine="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/ratio189"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:checkable="true"
-                    android:checked="true"
-                    android:text="@string/_18_9" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/ratio169"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:checkable="true"
-                    android:checked="false"
-                    android:text="@string/_16_9" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/ratio43"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:checkable="true"
-                    android:checked="false"
-                    android:text="@string/_4_3" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/ratio11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:checkable="true"
-                    android:checked="false"
-                    android:text="@string/_1_1" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/ratiocustom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:checkable="true"
-                    android:checked="false"
-                    android:text="@string/custom" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:gravity="center_vertical"
-                android:text="@string/reflect"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="18sp" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/reflectHorizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:text="@string/horizontal" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/reflectVertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="@string/vertical" />
-
-            </com.google.android.material.chip.ChipGroup>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:gravity="center_vertical"
-                android:text="@string/rotate"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="18sp" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="16dp">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/rotateLeft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:text="@string/left_90" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/rotateRight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="@string/right_90" />
-
-            </com.google.android.material.chip.ChipGroup>
-        </LinearLayout>
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/recyclerSpacerBig"
+            android:layout_marginTop="@dimen/recyclerSpacer"
+            android:layout_marginEnd="@dimen/recyclerSpacerBig"
+            android:layout_marginBottom="@dimen/recyclerSpacerBig"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="300dp"
+            app:elevation="0dp"
+            app:rippleColor="@color/colorAccent" />
 
     </LinearLayout>
 

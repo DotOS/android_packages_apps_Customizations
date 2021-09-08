@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/aodlockContextSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,9 +22,9 @@
         app:featureTitle="Always on Display"
         tools:visibility="visible" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/aodlock2ContextSection"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -5,31 +5,31 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/sectionBS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/battery_styles" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/sectionPercentage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/percentage_style" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/sectionClock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/clock_customization" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/sectionTraffic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/traffic_indicator" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/sectionBatteryLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

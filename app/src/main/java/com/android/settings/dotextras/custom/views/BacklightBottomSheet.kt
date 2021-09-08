@@ -23,8 +23,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.system.FeatureManager
+import com.dot.ui.utils.ResourceHelper
+import com.dot.ui.system.FeatureManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.hwkeys_light_bottomsheet.*
@@ -51,7 +51,8 @@ class BacklightBottomSheet : BottomSheetDialogFragment(), SeekBar.OnSeekBarChang
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fm = FeatureManager(requireContext().contentResolver)
-        illuminate_buttons.switchView!!.isChecked = fm.Secure().getFloat(BUTTON_BRIGHTNESS, 0.0f) != 0.0f
+        illuminate_buttons.switchView!!.isChecked =
+            fm.Secure().getFloat(BUTTON_BRIGHTNESS, 0.0f) != 0.0f
         illuminate_buttons.setOnClickPreference {
             illuminate_buttons.switchView!!.isChecked = !illuminate_buttons.switchView!!.isChecked
             illuminate_buttons_pressed.isEnabled = illuminate_buttons.switchView!!.isChecked
@@ -63,7 +64,8 @@ class BacklightBottomSheet : BottomSheetDialogFragment(), SeekBar.OnSeekBarChang
             backlight_brightness.progress = (getBrightness() * 100f).roundToInt()
         }
 
-        backlight_brightness_layout.visibility = if (ResourceHelper.hasButtonBacklightSupport(requireContext())) View.VISIBLE else View.GONE
+        backlight_brightness_layout.visibility =
+            if (ResourceHelper.hasButtonBacklightSupport(requireContext())) View.VISIBLE else View.GONE
 
         backlight_brightness.isEnabled = illuminate_buttons.switchView!!.isChecked
         backlight_brightness.progress = (getBrightness() * 100f).roundToInt()
@@ -75,31 +77,41 @@ class BacklightBottomSheet : BottomSheetDialogFragment(), SeekBar.OnSeekBarChang
         backlight_timeout.isEnabled = illuminate_buttons_pressed.switchView!!.isChecked
 
         illuminate_buttons_pressed.isEnabled = illuminate_buttons.switchView!!.isChecked
-        illuminate_buttons_pressed.switchView!!.isChecked = fm.System().getInt(fm.System().BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED, 0) == 1
+        illuminate_buttons_pressed.switchView!!.isChecked =
+            fm.System().getInt(fm.System().BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED, 0) == 1
         illuminate_buttons_pressed.setOnClickPreference {
             if (illuminate_buttons.switchView!!.isChecked) {
-                illuminate_buttons_pressed.switchView!!.isChecked = !illuminate_buttons_pressed.switchView!!.isChecked
+                illuminate_buttons_pressed.switchView!!.isChecked =
+                    !illuminate_buttons_pressed.switchView!!.isChecked
                 backlight_timeout.isEnabled = illuminate_buttons_pressed.switchView!!.isChecked
                 backlight_timeout.progress = getTimeout()
                 if (backlight_timeout.progress == 0)
                     backlight_timeout.progress = DEFAULT_BUTTON_TIMEOUT
             }
         }
-        backlight_timeout_seconds.text = getString(R.string.backlight_seconds, getTimeout().toString())
+        backlight_timeout_seconds.text =
+            getString(R.string.backlight_seconds, getTimeout().toString())
 
         list_reset.setOnClickListener {
             backlight_timeout.progress = 1
             backlight_brightness.progress = (getDefaultBrightness() * 100f).roundToInt()
             setTimeout(backlight_timeout.progress)
-            if (ResourceHelper.hasButtonBacklightSupport(requireContext())) applyBrightness(backlight_brightness.progress / 100f)
+            if (ResourceHelper.hasButtonBacklightSupport(requireContext())) applyBrightness(
+                backlight_brightness.progress / 100f
+            )
             illuminate_buttons_pressed.switchView!!.isChecked = false
             fm.System().setInt(fm.System().BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED, 0)
         }
 
         list_apply.setOnClickListener {
             setTimeout(backlight_timeout.progress)
-            if (ResourceHelper.hasButtonBacklightSupport(requireContext())) applyBrightness(backlight_brightness.progress / 100f)
-            fm.System().setInt(fm.System().BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED, if (illuminate_buttons_pressed.switchView!!.isChecked) 1 else 0)
+            if (ResourceHelper.hasButtonBacklightSupport(requireContext())) applyBrightness(
+                backlight_brightness.progress / 100f
+            )
+            fm.System().setInt(
+                fm.System().BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED,
+                if (illuminate_buttons_pressed.switchView!!.isChecked) 1 else 0
+            )
             dismiss()
         }
 
@@ -113,7 +125,10 @@ class BacklightBottomSheet : BottomSheetDialogFragment(), SeekBar.OnSeekBarChang
         return fm.Secure().getFloat(BUTTON_BRIGHTNESS, getDefaultBrightness())
     }
 
-    private fun getDefaultBrightness(): Float = ResourceHelper.getInternalFloat("config_buttonBrightnessSettingDefaultFloat", requireContext()) / 100f
+    private fun getDefaultBrightness(): Float = ResourceHelper.getInternalFloat(
+        "config_buttonBrightnessSettingDefaultFloat",
+        requireContext()
+    ) / 100f
 
     private fun applyBrightness(brightness: Float) {
         fm.Secure().setFloat(BUTTON_BRIGHTNESS, brightness)
@@ -141,7 +156,8 @@ class BacklightBottomSheet : BottomSheetDialogFragment(), SeekBar.OnSeekBarChang
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         backlight_brightness_value.text = "${backlight_brightness.progress}%"
-        backlight_timeout_seconds.text = getString(R.string.backlight_seconds, backlight_timeout.progress.toString())
+        backlight_timeout_seconds.text =
+            getString(R.string.backlight_seconds, backlight_timeout.progress.toString())
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit

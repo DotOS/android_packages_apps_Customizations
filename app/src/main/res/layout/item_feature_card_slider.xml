@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:scaleX="1"
         android:scaleY="1"
-        app:cardBackgroundColor="@color/colorPrimaryBackground"
-        app:cardCornerRadius="@dimen/default_dialog_radius"
+        app:cardBackgroundColor="@color/cardBackground"
+        app:cardCornerRadius="@dimen/default_dialog_radius_round"
         app:cardElevation="0dp">
 
         <RelativeLayout
@@ -96,7 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:alpha="0.9"
-                        android:lines="2"
+                        android:lines="3"
                         android:textSize="12sp"
                         tools:text="Summary" />
                 </LinearLayout>

@@ -20,6 +20,7 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.PixelFormat
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -35,7 +36,7 @@ internal class GridOptionPreviewer(
     private val mGridManager: GridOptionsManager,
     private val mPreviewContainer: ViewGroup,
 ) {
-    private var mGridOptionSurface: SurfaceView? = null
+    var mGridOptionSurface: SurfaceView? = null
     private var mGridOption: GridOption? = null
     private var mSurfaceCallback: GridOptionSurfaceHolderCallback? = null
 
@@ -92,10 +93,13 @@ internal class GridOptionPreviewer(
                 mGridOptionSurface!!.context
             )
             mGridOptionSurface!!.holder.addCallback(mSurfaceCallback)
-            mGridOptionSurface!!.holder.setFormat(PixelFormat.TRANSPARENT)
+            mGridOptionSurface!!.holder.setFormat(PixelFormat.TRANSLUCENT)
+
+            mGridOptionSurface!!.z = 2f
+            mPreviewContainer.addView(mGridOptionSurface)
         }
+        wallpaperPreview.z = 1f
         mPreviewContainer.addView(wallpaperPreview)
-        mPreviewContainer.addView(mGridOptionSurface)
     }
 
     private inner class GridOptionSurfaceHolderCallback(

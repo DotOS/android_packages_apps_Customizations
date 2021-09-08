@@ -4,17 +4,10 @@
     <string name="section_statusbar_title">Statusbalk</string>
     <string name="section_qs_title">Snelle Instellingen</string>
     <string name="section_system_title">Systeem</string>
-    <string name="section_themes_title">Thema\'s</string>
-    <string name="section_wallpaper_title">Achtergronden</string>
     <string name="section_aod_title">Altijd Aan Scherm &amp; Vergrendelscherm</string>
-    <string name="section_fod_icon">VOD Iconen</string>
-    <string name="section_fod_anim">VOD Animaties</string>
-    <string name="section_fod_color_opt">VOD Opties</string>
     <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Starter Raster</string>
-    <string name="section_lab">The Lab</string>
     <string name="section_settings">Instellingen</string>
-    <string name="section_clockface2">Clockface</string>
     <string name="system_gestures">Gebaren</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

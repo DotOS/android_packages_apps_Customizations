@@ -34,7 +34,7 @@ class PreviewUtils(private val mContext: Context, authorityMetadataKey: String?)
         return mContext.contentResolver.call(
             getUri(PREVIEW), METHOD_GET_PREVIEW, null,
             bundle
-        )
+        )!!
     }
 
     /** Easy way to generate a Uri with the provider info from this class.  */
@@ -68,10 +68,9 @@ class PreviewUtils(private val mContext: Context, authorityMetadataKey: String?)
             } else {
                 null
             }
-        // TODO: check permissions if needed
         mProviderInfo =
             if (TextUtils.isEmpty(mProviderAuthority)) null else mContext.packageManager.resolveContentProvider(
-                mProviderAuthority,
+                mProviderAuthority.toString(),
                 0
             )
     }

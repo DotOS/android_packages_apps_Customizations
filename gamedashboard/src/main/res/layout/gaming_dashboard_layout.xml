@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary">
+
+    <com.dot.ui.DotToolbar
+        android:id="@+id/gameToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="@string/game_dashboard" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:summary="Keeps you focused on the game."
+                android:title="@string/enable_gaming_mode"
+                app:feature="gaming_mode_enabled"
+                app:featureDefault="false"
+                app:featureType="system"
+                app:newStyle="true">
+
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/qcPref"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:summary="Show a floating pill while you're in game so you can quickly screenshot, record or disable dnd."
+                android:title="@string/quick_controls"
+                app:feature="flag_quick_control"
+                app:featureDefault="false"
+                app:featureType="system"
+                app:newStyle="true">
+
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:title="@string/in_game_controls"
+                app:newStyle="true" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/qc_action_screenshot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_ripple"
+                        android:clickable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/qc_screenshot_img"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/ic_circle"
+                            android:backgroundTint="@color/big_btn_img_bg_state"
+                            android:padding="16dp"
+                            android:src="@drawable/ic_screenshot"
+                            app:tint="@color/big_btn_img_tint_state" />
+
+                        <TextView
+                            android:id="@+id/qc_screenshot_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/screenshot"
+                            android:textAlignment="center"
+                            android:textColor="@color/big_btn_text_state" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/qc_action_record"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_ripple"
+                        android:clickable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/qc_record_img"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/ic_circle"
+                            android:backgroundTint="@color/big_btn_img_bg_state"
+                            android:padding="16dp"
+                            android:src="@drawable/ic_screenrecord"
+                            app:tint="@color/big_btn_img_tint_state" />
+
+                        <TextView
+                            android:id="@+id/qc_record_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/screenrecord"
+                            android:textAlignment="center"
+                            android:textColor="@color/big_btn_text_state" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/qc_action_dnd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_ripple"
+                        android:clickable="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/qc_dnd_img"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/ic_circle"
+                            android:backgroundTint="@color/big_btn_img_bg_state"
+                            android:padding="16dp"
+                            android:src="@drawable/ic_dnd_on"
+                            app:tint="@color/big_btn_img_tint_state" />
+
+                        <TextView
+                            android:id="@+id/qc_dnd_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/do_not_disturb"
+                            android:textAlignment="center"
+                            android:textColor="@color/big_btn_text_state" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <include
+                layout="@layout/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:title="@string/options"
+                app:categoryLayout="true" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:summary="@string/gaming_mode_headsup_summary"
+                android:title="@string/gaming_mode_headsup_title"
+                app:feature="gaming_mode_headsup_toggle"
+                app:featureDefault="true"
+                app:featureType="system"
+                app:newStyle="true" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:title="@string/gaming_mode_ringer_title"
+                app:newStyle="true">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/ringerModeSelector"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_margin="@dimen/recyclerSpacer"
+                    android:background="@drawable/circle_bg"
+                    android:backgroundTint="@color/cardBackground"
+                    app:tabIndicator="@drawable/circle_bg"
+                    app:tabIndicatorColor="@color/colorAccent"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorHeight="56dp"
+                    app:tabTextAppearance="@style/DashboardV2.TabLayout.Item">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/off" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gaming_mode_ringer_vibrate_title" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gaming_mode_ringer_dnd_title" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gaming_mode_ringer_silent_title" />
+                </com.google.android.material.tabs.TabLayout>
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:title="@string/gaming_mode_notifications_title"
+                app:newStyle="true">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/notificationModeSelector"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_margin="@dimen/recyclerSpacer"
+                    android:background="@drawable/circle_bg"
+                    android:backgroundTint="@color/cardBackground"
+                    app:tabIndicator="@drawable/circle_bg"
+                    app:tabIndicatorColor="@color/colorAccent"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorHeight="56dp"
+                    app:tabTextAppearance="@style/DashboardV2.TabLayout.Item">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/off" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notification" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/toast" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/both" />
+                </com.google.android.material.tabs.TabLayout>
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/gHardwareKeys"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:summary="@string/gaming_mode_hardware_keys_summary"
+                android:title="@string/gaming_mode_hardware_keys_title"
+                app:feature="gaming_mode_hw_keys_toggle"
+                app:featureDefault="false"
+                app:featureType="system"
+                app:newStyle="true" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:summary="@string/gaming_mode_brightness_summary"
+                android:title="@string/gaming_mode_brightness_title"
+                app:feature="gaming_mode_manual_brightness_toggle"
+                app:featureDefault="true"
+                app:featureType="system"
+                app:newStyle="true" >
+
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="true"
+                android:summary="@string/gaming_mode_dynamic_summary"
+                android:title="@string/gaming_mode_dynamic_title"
+                app:feature="gaming_mode_dynamic_state"
+                app:featureDefault="false"
+                app:featureType="system"
+                app:newStyle="true" />
+
+            <include
+                layout="@layout/divider"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:summary="@string/gaming_mode_app_picker_title"
+                android:title="@string/games"
+                app:categoryLayout="false"
+                app:newStyle="true"
+                app:showDivider="false">
+
+            </com.dot.ui.DotMaterialPreference>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gamesRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/gamesPicker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/ic_add"
+                android:tint="?android:attr/textColorPrimary"
+                android:title="@string/add_game"
+                app:newStyle="true" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/ic_error_round"
+                android:tint="@color/colorAccent"
+                android:title="@string/dynamic_mode_info"
+                app:footerLayout="true"
+                app:showDivider="true" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

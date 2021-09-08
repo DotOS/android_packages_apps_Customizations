@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/default_card_width">
+    android:layout_width="@dimen/section_fragment_size"
+    android:layout_height="@dimen/section_fragment_size">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,64 +15,64 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="@dimen/default_size_icon"
-                android:layout_height="@dimen/default_size_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:background="@drawable/circle_bg"
-                android:backgroundTint="?android:attr/textColorSecondaryInverse"
+                android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@null"
-                android:padding="12dp"
+                android:padding="4dp"
                 app:srcCompat="@drawable/statusbar_icon0"
-                app:tint="?android:attr/textColorPrimary" />
+                app:tint="@color/colorAccent" />
 
             <ImageView
-                android:layout_width="@dimen/default_size_icon"
-                android:layout_height="@dimen/default_size_icon"
-                android:layout_marginStart="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/circle_bg"
-                android:backgroundTint="?android:attr/textColorSecondaryInverse"
+                android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@null"
-                android:padding="12dp"
+                android:padding="4dp"
                 app:srcCompat="@drawable/statusbar_icon1"
-                app:tint="?android:attr/textColorPrimary" />
+                app:tint="@color/colorAccent" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:fitsSystemWindows="true"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="@dimen/default_size_icon"
-                android:layout_height="@dimen/default_size_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:background="@drawable/circle_bg"
-                android:backgroundTint="?android:attr/textColorSecondaryInverse"
+                android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@null"
-                android:padding="12dp"
+                android:padding="4dp"
                 app:srcCompat="@drawable/qs_icon0"
-                app:tint="?android:attr/textColorPrimary" />
+                app:tint="@color/colorAccent" />
 
             <ImageView
-                android:layout_width="@dimen/default_size_icon"
-                android:layout_height="@dimen/default_size_icon"
-                android:layout_marginStart="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/circle_bg"
-                android:backgroundTint="?android:attr/textColorSecondaryInverse"
+                android:backgroundTint="@color/colorPrimary"
                 android:contentDescription="@null"
-                android:padding="12dp"
+                android:padding="4dp"
                 app:srcCompat="@drawable/qs_icon1"
-                app:tint="?android:attr/textColorPrimary" />
+                app:tint="@color/colorAccent" />
 
         </LinearLayout>
 

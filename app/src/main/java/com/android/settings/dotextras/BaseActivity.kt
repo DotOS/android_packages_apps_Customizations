@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,125 +16,141 @@
 package com.android.settings.dotextras
 
 import android.animation.LayoutTransition
-import android.animation.ValueAnimator
+import android.app.WallpaperManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.*
 import android.os.Bundle
 import android.view.View
-import android.view.animation.DecelerateInterpolator
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.widget.NestedScrollView
-import com.android.settings.dotextras.custom.SectionFragment
-import com.android.settings.dotextras.custom.sections.SettingsSection
-import com.android.settings.dotextras.custom.stats.StatsBuilder
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.settings.dotextras.custom.sections.SettingsFragmentSheet
+import com.android.settings.dotextras.custom.sections.clock.*
+import com.android.settings.dotextras.custom.sections.grid.*
+import com.dot.ui.system.items.AccentColor
+import com.dot.ui.system.adapters.AccentPickerV2Adapter
+import com.android.settings.dotextras.custom.sections.fragments.FragmentThemeSettings
+import com.android.settings.dotextras.custom.sections.wallpaper.WallpapersActivity
+import com.android.settings.dotextras.custom.utils.ItemRecyclerSpacer
+import com.android.settings.dotextras.custom.views.WallpaperPreviewSystem
+import com.android.settings.dotextras.databinding.DashboardLayoutBinding
+import com.dot.ui.system.MonetManager
+import com.dot.ui.system.OverlayController
+import com.dot.ui.utils.overlayController
+import com.google.android.material.tabs.TabLayout
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+import com.android.settings.dotextras.custom.stats.Constants
+import com.android.settings.dotextras.custom.stats.StatsSheetFragment
 import com.android.settings.dotextras.custom.utils.MaidService
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
 
-class BaseActivity : AppCompatActivity() {
+class BaseActivity : AppCompatActivity(),
+    TabLayout.OnTabSelectedListener {
 
-    private var collapsingToolbar: CollapsingToolbarLayout? = null
-    private var appBarLayout: LinearLayout? = null
-    private var launchSettings: ImageButton? = null
-    lateinit var appBar: AppBarLayout
+    lateinit var binding: DashboardLayoutBinding
 
-    private lateinit var statsBuilder: StatsBuilder
+    private lateinit var monetManager: MonetManager
+    private var systemItems = ArrayList<AccentColor>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dashboard_layout)
-        statsBuilder = StatsBuilder(getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE))
-        startService(Intent(this, MaidService::class.java))
-        appBar = findViewById(R.id.dashboardAppBar)
-        collapsingToolbar = findViewById(R.id.collapsing_toolbar)
-        appBarLayout = findViewById(R.id.appblayout)
-        launchSettings = findViewById(R.id.launchSettings)
-        launchSettings!!.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.slide_out
-                )
-                .replace(R.id.frameContent, SettingsSection(), "Settings")
-                .addToBackStack("Settings")
-                .commit()
-            setTitle(getString(R.string.settings))
-        }
-        val toolbar: Toolbar = findViewById(R.id.appTitle)
-        toolbar.layoutTransition
-            .enableTransitionType(LayoutTransition.CHANGING)
-        appBarLayout!!.layoutTransition
-            .enableTransitionType(LayoutTransition.CHANGING)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frameContent, SectionFragment(), "section_fragment")
-                .commit()
-        }
-        statsBuilder.push(this)
-    }
-
-    fun expandToolbar() {
-        val params: CoordinatorLayout.LayoutParams =
-            appBar.layoutParams as CoordinatorLayout.LayoutParams
-        val behavior = params.behavior as AppBarLayout.Behavior?
-        if (behavior != null) {
-            val valueAnimator = ValueAnimator.ofInt()
-            valueAnimator.interpolator = DecelerateInterpolator()
-            valueAnimator.addUpdateListener { animation ->
-                behavior.topAndBottomOffset = (animation.animatedValue as Int)
-                appBar.requestLayout()
+        binding = DashboardLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        lifecycleScope.launchWhenCreated {
+            with(binding) {
+                val context = this@BaseActivity
+                val sharedprefStats = getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
+                if (sharedprefStats.getBoolean(Constants.IS_FIRST_LAUNCH, true)) {
+                    StatsSheetFragment().show(supportFragmentManager, "statsSheet")
+                }
+                startService(Intent(context, MaidService::class.java))
+                monetManager = MonetManager(context)
+                appblayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+                dashboardToolbar.canGoBack(context)
+                themeSelector.addOnTabSelectedListener(context)
+                updatePreviews()
+                launchSettings.setOnClickListener {
+                    SettingsFragmentSheet().show(supportFragmentManager, "settings")
+                }
+                changeWallpaper.isEnabled = isWallpapersSupported()
+                changeWallpaper.setOnClickListener {
+                    val p1 = Pair.create(topCard as View?, "topCard")
+                    val p2 = Pair.create(dashboardToolbar as View?, "toolbar")
+                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context, p1, p2)
+                    startActivity(Intent(context, WallpapersActivity::class.java), options.toBundle())
+                }
+                val overlayController = packageManager.overlayController(OverlayController.Categories.ACCENT_CATEGORY)
+                systemItems.addAll(overlayController.AccentColors().getAccentColorsV2())
+                val monetTab = themeSelector.getTabAt(0)
+                val systemTab = themeSelector.getTabAt(1)
+                themeSelector.selectTab(if (monetManager.isEnabled()) monetTab else systemTab)
+                updateRecycler(themeSelector.selectedTabPosition)
             }
-            valueAnimator.setIntValues(behavior.topAndBottomOffset, 0)
-            valueAnimator.duration = 400
-            valueAnimator.start()
         }
     }
 
-    fun getNestedScroll(): NestedScrollView = findViewById(R.id.nestedContainer)
-
-    fun enableSettingsLauncher(enable: Boolean) {
-        launchSettings!!.visibility = if (enable) View.VISIBLE else View.GONE
+    fun updatePreviews() {
+        WallpaperPreviewSystem(this,
+            binding.previewContainerLauncher,
+            binding.previewSurfaceLockscreen,
+            binding.previewImageLockscreen)
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment is FragmentThemeSettings && fragment.view != null) {
+                fragment.updateSummaries()
+            }
+        }
     }
 
-    override fun onDestroy() {
-        statsBuilder.clearComposite()
-        super.onDestroy()
+    private fun isWallpapersSupported(): Boolean {
+        return WallpaperManager.getInstance(this).isSetWallpaperAllowed && WallpaperManager.getInstance(this).isWallpaperSupported
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        resetUI()
+    private fun updateDecorations() {
+        while (binding.themeAccentPicker.itemDecorationCount > 0) {
+            binding.themeAccentPicker.removeItemDecorationAt(0)
+        }
+        binding.themeAccentPicker.addItemDecoration(
+            ItemRecyclerSpacer(
+                resources.getDimension(R.dimen.recyclerSpacer),
+                0,
+                false
+            )
+        )
+        binding.themeAccentPicker.addItemDecoration(
+            ItemRecyclerSpacer(
+                resources.getDimension(R.dimen.recyclerSpacerBig),
+                binding.themeAccentPicker.adapter!!.itemCount - 1,
+                true
+            )
+        )
     }
 
-    fun setTitle(title: String?) = if (title == null) {
-        collapsingToolbar!!.title = getString(R.string.app_name)
-    } else {
-        collapsingToolbar!!.title = title
+    override fun onTabSelected(tab: TabLayout.Tab) {
+        monetManager.enableMonet(tab.position == 0)
+        updateRecycler(tab.position)
     }
 
-    private fun resetUI() {
-        if (appBar.layoutParams.height == 0)
-            toggleAppBar(false)
-        setTitle(null)
-        enableSettingsLauncher(true)
-        expandToolbar()
-    }
+    override fun onTabUnselected(tab: TabLayout.Tab) {}
 
-    fun scrollTo(x: Int, y: Int) {
-        findViewById<NestedScrollView>(R.id.nestedContainer).scrollTo(x, y)
-    }
+    override fun onTabReselected(tab: TabLayout.Tab) {}
 
-    fun toggleAppBar(hide: Boolean) {
-        val lp = appBar.layoutParams as CoordinatorLayout.LayoutParams
-        val actionBarHeight = resources.getDimension(R.dimen.colltoolbar_height).toInt()
-        lp.height = if (hide) 0 else actionBarHeight
-        appBar.layoutParams = lp
+    private fun updateRecycler(position: Int) {
+        when (position) {
+            0 -> {
+                binding.systemColorsSettings.visibility = View.GONE
+                binding.wallpaperColorsSettings.visibility = View.VISIBLE
+            }
+            1 -> {
+                binding.systemColorsSettings.visibility = View.VISIBLE
+                binding.wallpaperColorsSettings.visibility = View.GONE
+                binding.themeAccentPicker.adapter = AccentPickerV2Adapter(systemItems)
+                binding.themeAccentPicker.layoutManager =
+                    LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+                updateDecorations()
+            }
+        }
     }
 
 }

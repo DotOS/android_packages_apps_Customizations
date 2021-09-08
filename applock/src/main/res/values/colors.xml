@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#FFF</color>
-    <color name="colorPrimaryDark">#FFF</color>
-    <color name="colorAccent">@*android:color/accent_device_default_light</color>
-    <color name="colorPrimaryBackground">#EFEFEF</color>
-
-    <color name="dot_blue">#3C85ED</color>
-</resources>

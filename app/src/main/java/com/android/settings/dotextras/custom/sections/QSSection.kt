@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,9 @@ import android.widget.ImageView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.dot.ui.utils.ResourceHelper
 import com.android.settings.dotextras.custom.utils.TelephonyUtils
-import com.android.settings.dotextras.system.FeatureManager
-import com.android.settings.dotextras.system.MonetManager
+import com.dot.ui.system.FeatureManager
 
 open class QSSection : GenericSection() {
 
@@ -85,17 +84,17 @@ open class QSSection : GenericSection() {
             enabled = true
         )
         if (!MonetWannabe.isMonetEnabled(context))
-        buildSwitch(
-            qsList,
-            iconID = R.drawable.ic_settings_aosp,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.qs_tiles_accent_v2),
-            accentColor = R.color.blue_800,
-            feature = featureManager.System().QS_PANEL_BG_USE_NEW_TINT,
-            featureType = SYSTEM,
-            summary = getString(R.string.qs_tiles_accent_v2_summary),
-            enabled = true
-        )
+            buildSwitch(
+                qsList,
+                iconID = R.drawable.ic_settings_aosp,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.qs_tiles_accent_v2),
+                accentColor = R.color.blue_800,
+                feature = featureManager.System().QS_PANEL_BG_USE_NEW_TINT,
+                featureType = SYSTEM,
+                summary = getString(R.string.qs_tiles_accent_v2_summary),
+                enabled = true
+            )
         setupLayout(qsList, R.id.sectionQS)
         createBalloon(R.string.click_to_toggle, 0, R.id.sectionQS)
         /**

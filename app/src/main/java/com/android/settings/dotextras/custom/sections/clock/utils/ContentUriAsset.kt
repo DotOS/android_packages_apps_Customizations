@@ -16,15 +16,19 @@
 package com.android.settings.dotextras.custom.sections.clock.utils
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Point
-import android.graphics.Rect
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
+import coil.imageLoader
+import coil.load
+import coil.request.ImageRequest
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -220,7 +224,7 @@ class ContentUriAsset @JvmOverloads constructor(
                     target: Target<Drawable?>, dataSource: DataSource,
                     isFirstResource: Boolean,
                 ): Boolean {
-                    drawableLoadedListener?.onDrawableLoaded()
+                    drawableLoadedListener?.onDrawableLoaded((resource as BitmapDrawable).bitmap)
                     return false
                 }
             })

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/monetPackRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/recyclerSpacer"
+        android:paddingTop="@dimen/recyclerSpacerBig"
+        android:paddingBottom="@dimen/recyclerSpacer"
+        android:scrollbars="none"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_monet_color_pack" />
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/monetChroma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="200"
+        android:min="50"
+        android:progress="100"
+        android:title="@string/theme_colourfulness"
+        app:newStyle="true"
+        app:seekable="true" />
+</LinearLayout>

@@ -45,7 +45,7 @@ open class WorkspaceSurfaceHolderCallback(
             val result = renderPreview(mWorkspaceSurface)
             if (result != null) {
                 mWorkspaceSurface.setChildSurfacePackage(
-                    getSurfacePackage(result)
+                    getSurfacePackage(result)!!
                 )
                 mCallback = getCallback(result)
                 if (mNeedsToCleanUp) {

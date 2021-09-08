@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:clickable="false"
+    android:focusable="false">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:cardBackgroundColor="@color/cardBackground"
+        app:cardCornerRadius="@dimen/default_dialog_radius_round"
+        app:cardElevation="0dp">
+
+        <TextClock
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:format12Hour="hh\nmm"
+            android:format24Hour="hh\nmm"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="18sp"
+            tools:text="12\n00" />
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

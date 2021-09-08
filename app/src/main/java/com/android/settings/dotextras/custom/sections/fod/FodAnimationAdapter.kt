@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +28,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.request.CachePolicy
+import coil.size.Scale
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.system.FeatureManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.dot.ui.utils.ResourceHelper
+import com.dot.ui.system.FeatureManager
 import com.google.android.material.card.MaterialCardView
 
 class FodAnimationAdapter(
@@ -85,10 +86,13 @@ class FodAnimationAdapter(
         val fodIcon: FodResource = items[position]
         fodIcon.selected =
             featureManager.System().getInt(featureManager.System().FOD_ANIM, 0) == fodIcon.id
-        Glide.with(holder.fodIcon)
-            .load(getAnimationPreview(holder.fodIcon.context, fodIcon.resource))
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.fodIcon)
+        holder.fodIcon.load(getAnimationPreview(holder.fodIcon.context, fodIcon.resource)) {
+            scale(Scale.FIT)
+            memoryCachePolicy(CachePolicy.ENABLED)
+            diskCachePolicy(CachePolicy.ENABLED)
+            crossfade(true)
+            placeholder(android.R.color.transparent)
+        }
         holder.fodLayout.setOnClickListener {
             featureManager.System().setInt(featureManager.System().FOD_ANIM, fodIcon.id)
             select(position)
@@ -154,7 +158,9 @@ class FodAnimationAdapter(
                 ) as AnimationDrawable?
             )
         } else {
-            holder.fodCard.strokeColor = ResourceHelper.getSecondaryTextColor(holder.fodCard.context)
+            holder.fodCard.strokeColor = holder.itemView.resources.getColor(
+                com.android.internal.R.color.monet_background_secondary_device_default,
+                holder.itemView.context.theme)
         }
     }
 
@@ -168,8 +174,9 @@ class FodAnimationAdapter(
 
     private fun select(pos: Int) {
         for (i in items.indices) {
+            val selected = items[i].selected
             items[i].selected = pos == i
-            notifyItemChanged(i)
+            if (selected != items[i].selected) notifyItemChanged(i)
         }
     }
 

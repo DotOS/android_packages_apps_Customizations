@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Only for visualization purposes -->
+    <color name="monet_background_device_default">#fff</color>
+    <color name="monet_background_secondary_device_default">#efefef</color>
+
+    <color name="colorPrimary">@color/monet_background_device_default</color>
+    <color name="colorPrimaryDark">@color/monet_background_device_default</color>
+    <color name="colorAccent">@*android:color/accent_device_default_light</color>
+    <color name="colorPrimaryBackground">@color/monet_background_secondary_device_default</color>
+    <color name="colorPrimaryTranslucent">#B3EFEFEF</color>
+    <color name="colorPrimaryScrim">#59EFEFEF</color>
+    <color name="colorError">#66F44336</color>
+    <color name="pillColor">@color/monet_background_secondary_device_default</color>
+
+    <color name="preview_lockscreen_scrim">#26000000</color>
+
+    <color name="ic_launcher_background">@color/colorPrimary</color>
+
+    <color name="cardBackground">@color/monet_background_secondary_device_default</color>
+
+    <!-- QS Custom Colors -->
+    <!-- 75% Alpha -->
+    <!-- 20% Alpha -->
+    <!-- FOD icon picker -->
+    <color name="fod_item_background_stroke_color">#D6D6D6</color>
+
+    <color name="defaultEdgeLightningColor">#3980FF</color>
+
+    <color name="contextual_card_color">@color/monet_background_device_default</color>
+    <color name="contextual_card_stroke_color">#1f000000</color>
+
+</resources>

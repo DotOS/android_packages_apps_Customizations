@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.dot.applock.AppLockActivity
-import com.dot.applock.ObjectSerializer
+import com.dot.ui.utils.ObjectSerializer
 import com.dot.applock.R
-import com.dot.applock.ResourceHelper
 import com.dot.applock.ui.CustomTextView
+import com.dot.ui.utils.ResourceHelper
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.button.MaterialButton
 

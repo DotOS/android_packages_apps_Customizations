@@ -39,18 +39,69 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.android.settings.dotextras.custom.views.DotMaterialPreference
+            <com.dot.ui.DotMaterialPreference
                 android:id="@+id/illuminate_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:checkable="true"
-                android:title="@string/button_backlight_enabled" />
+                android:title="@string/button_backlight_enabled" >
 
-            <LinearLayout
-                android:id="@+id/backlight_brightness_layout"
+                <LinearLayout
+                    android:id="@+id/backlight_brightness_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/recyclerSpacerBig"
+                        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/button_backlight_seekbar_title"
+                            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+                            android:textColor="?android:attr/textColorSecondary" />
+
+                        <TextView
+                            android:id="@+id/backlight_brightness_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAlignment="viewEnd"
+                            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+                            android:textColor="?android:attr/textColorSecondary"
+                            tools:text="10%" />
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/backlight_brightness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/recyclerSpacerBig"
+                        android:layout_marginTop="@dimen/recyclerSpacer"
+                        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+                        android:layout_marginBottom="@dimen/recyclerSpacer"
+                        android:max="100"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:progress="10"
+                        android:progressDrawable="@drawable/progress_bg"
+                        android:thumb="@null" />
+
+                </LinearLayout>
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/illuminate_buttons_pressed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:checkable="true"
+                android:title="@string/button_backlight_only_when_pressed_title" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -63,85 +114,38 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:text="@string/button_backlight_seekbar_title"
+                        android:text="@string/backlight_timeout_title"
                         android:textAppearance="?android:attr/textAppearanceListItemSecondary"
                         android:textColor="?android:attr/textColorSecondary" />
 
                     <TextView
-                        android:id="@+id/backlight_brightness_value"
+                        android:id="@+id/backlight_timeout_seconds"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="viewEnd"
                         android:textAppearance="?android:attr/textAppearanceListItemSecondary"
                         android:textColor="?android:attr/textColorSecondary"
-                        tools:text="10%" />
+                        tools:text="5 seconds" />
                 </LinearLayout>
 
                 <SeekBar
-                    android:id="@+id/backlight_brightness"
+                    android:id="@+id/backlight_timeout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/recyclerSpacerBig"
                     android:layout_marginTop="@dimen/recyclerSpacer"
                     android:layout_marginEnd="@dimen/recyclerSpacerBig"
-                    android:layout_marginBottom="@dimen/recyclerSpacer"
-                    android:max="100"
+                    android:max="30"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:progress="10"
+                    android:progress="5"
                     android:progressDrawable="@drawable/progress_bg"
-                    android:thumb="@null" />
+                    android:thumb="@null"
+                    android:tickMark="@drawable/tick_mark" />
 
-            </LinearLayout>
+            </com.dot.ui.DotMaterialPreference>
 
-            <com.android.settings.dotextras.custom.views.DotMaterialPreference
-                android:id="@+id/illuminate_buttons_pressed"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:checkable="true"
-                android:title="@string/button_backlight_only_when_pressed_title" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/recyclerSpacerBig"
-                android:layout_marginEnd="@dimen/recyclerSpacerBig"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/backlight_timeout_title"
-                    android:textAppearance="?android:attr/textAppearanceListItemSecondary"
-                    android:textColor="?android:attr/textColorSecondary" />
-
-                <TextView
-                    android:id="@+id/backlight_timeout_seconds"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAlignment="viewEnd"
-                    android:textAppearance="?android:attr/textAppearanceListItemSecondary"
-                    android:textColor="?android:attr/textColorSecondary"
-                    tools:text="5 seconds" />
-            </LinearLayout>
-
-            <SeekBar
-                android:id="@+id/backlight_timeout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:tickMark="@drawable/tick_mark"
-                android:layout_marginStart="@dimen/recyclerSpacerBig"
-                android:layout_marginTop="@dimen/recyclerSpacer"
-                android:layout_marginEnd="@dimen/recyclerSpacerBig"
-                android:max="30"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                android:progress="5"
-                android:progressDrawable="@drawable/progress_bg"
-                android:thumb="@null" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

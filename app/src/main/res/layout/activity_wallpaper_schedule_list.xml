@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary">
+
+    <com.dot.ui.DotToolbar
+        android:id="@+id/schedWallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="Wallpaper Scheduling" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/schedNewLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="@dimen/recyclerSpacer"
+                    android:layout_marginBottom="@dimen/recyclerSpacer"
+                    app:srcCompat="@drawable/ic_wallpaper"
+                    app:tint="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/recyclerSpacerBig"
+                    android:paddingEnd="@dimen/recyclerSpacerBig"
+                    android:text="Schedule Wallpaper changes"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/recyclerSpacer"
+                    android:paddingStart="@dimen/recyclerSpacerBig"
+                    android:paddingEnd="@dimen/recyclerSpacerBig"
+                    android:text="Switch between wallpapers automatically"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/schedNew"
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/recyclerSpacer"
+                    android:layout_marginEnd="@dimen/recyclerSpacer"
+                    android:elevation="0dp"
+                    android:stateListAnimator="@null"
+                    android:text="Create"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/DashboardV2.TabLayout.Item"
+                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    app:backgroundTint="@color/colorAccent"
+                    app:cornerRadius="300dp"
+                    app:elevation="0dp"
+                    app:rippleColor="@color/colorAccent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.dot.ui.DotMaterialPreference
+                    android:id="@+id/schedRoot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:title="Schedules"
+                    app:categoryLayout="true"
+                    app:newStyle="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.dot.ui.DotMaterialPreference
+                            android:id="@+id/schedInfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:summary="test"
+                            android:title="test"
+                            app:newStyle="true">
+
+                        </com.dot.ui.DotMaterialPreference>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/schedPreviewRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/schedCancel"
+                            android:layout_width="match_parent"
+                            android:layout_height="66dp"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="@dimen/recyclerSpacer"
+                            android:layout_marginTop="@dimen/recyclerSpacer"
+                            android:layout_marginEnd="@dimen/recyclerSpacer"
+                            android:elevation="0dp"
+                            android:stateListAnimator="@null"
+                            android:text="Cancel"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/DashboardV2.TabLayout.Item"
+                            android:textColor="@color/batterymeter_plus_color"
+                            app:cornerRadius="300dp"
+                            app:elevation="0dp"
+                            app:rippleColor="@color/batterymeter_plus_color" />
+
+                    </LinearLayout>
+                </com.dot.ui.DotMaterialPreference>
+
+                <com.dot.ui.DotMaterialPreference
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:icon="@drawable/ic_error_round"
+                    android:tint="@color/colorAccent"
+                    android:title="(Beta) You can only create one wallpaper schedule. You may select one or more wallpapers to be applied on schedule."
+                    app:footerLayout="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabSchedNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/recyclerSpacerBig"
+        android:gravity="center"
+        android:text="Create"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorAccent"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@color/colorPrimary"
+        app:layout_behavior="@string/fab_transformation_scrim_behavior"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

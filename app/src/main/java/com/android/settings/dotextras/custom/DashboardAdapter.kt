@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.settings.dotextras.BaseActivity
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.activities.FeatureActivityBase
+import com.dot.ui.utils.BiometricVerification
 import com.google.android.material.card.MaterialCardView
 import java.util.*
 import kotlin.math.roundToInt
@@ -36,7 +38,7 @@ import kotlin.math.roundToInt
 class DashboardAdapter(
     private val items: ArrayList<DashboardItem>,
     private val fragmentManager: FragmentManager,
-    private val activity: BaseActivity,
+    private val activity: AppCompatActivity,
 ) : RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -63,10 +65,16 @@ class DashboardAdapter(
             dashboardItem.display_fragment
         ).commitAllowingStateLoss()
         holder.fragmentlayout.setOnClickListener {
-            if (dashboardItem.startActivity != null)
+            if (dashboardItem.startActivity != null && !dashboardItem.secured)
                 activity.startActivity(Intent(activity, dashboardItem.startActivity!!::class.java))
+            else if (dashboardItem.startActivity != null && dashboardItem.secured)
+                launchSecuredSection(dashboardItem.startActivity!!)
             else
-                launchSection(dashboardItem.target_fragment.javaClass.name, dashboardItem.card_title, dashboardItem.standalone)
+                launchSection(
+                    dashboardItem.target_fragment.javaClass.name,
+                    dashboardItem.card_title,
+                    dashboardItem.standalone
+                )
         }
         holder.fragmentlayout.setOnTouchListener { _, event ->
             when (event.action) {
@@ -115,10 +123,28 @@ class DashboardAdapter(
             false
         }
         if (dashboardItem.longCard) {
-            holder.fragmentlayout.minimumHeight = holder.fragmentlayout.resources.getDimension(R.dimen.large_card_height).roundToInt()
+            holder.fragmentlayout.minimumHeight =
+                holder.fragmentlayout.resources.getDimension(R.dimen.large_card_height).roundToInt()
         } else {
-            holder.fragmentlayout.minimumHeight = holder.fragmentlayout.resources.getDimension(R.dimen.default_card_height).roundToInt()
+            holder.fragmentlayout.minimumHeight =
+                holder.fragmentlayout.resources.getDimension(R.dimen.default_card_height)
+                    .roundToInt()
         }
+    }
+
+    private fun launchSecuredSection(startActivity: AppCompatActivity) {
+        val bioV = BiometricVerification(activity)
+        bioV.setCallback(object : BiometricVerification.Callback {
+            override fun onSuccess() {
+                activity.startActivity(Intent(activity, startActivity::class.java))
+            }
+
+            override fun onError(errString: CharSequence) {
+            }
+
+            override fun onFail() {
+            }
+        }).setTitle("AppLock").setSubtitle("Lock/Unlock your apps").authneticate()
     }
 
     private fun launchSection(fragment: String, cardTitle: String, standalone: Boolean) {

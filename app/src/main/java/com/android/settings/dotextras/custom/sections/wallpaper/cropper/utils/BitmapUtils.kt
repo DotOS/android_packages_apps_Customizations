@@ -463,7 +463,8 @@ internal object BitmapUtils {
                 } else {
                     val width = bitmap!!.width
                     val height = bitmap.height
-                    val scale = (width / reqWidth.toFloat()).coerceAtLeast(height / reqHeight.toFloat())
+                    val scale =
+                        (width / reqWidth.toFloat()).coerceAtLeast(height / reqHeight.toFloat())
                     if (scale > 1 || options == RequestSizeOptions.RESIZE_FIT) {
                         resized = Bitmap.createScaledBitmap(
                             bitmap, (width / scale).toInt(), (height / scale).toInt(), false

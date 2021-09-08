@@ -29,9 +29,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.utils.isColorDark
-import com.android.settings.dotextras.custom.utils.resolveColor
-import com.android.settings.dotextras.custom.utils.resolveColorAttr
+import com.dot.ui.utils.isColorDark
+import com.dot.ui.utils.resolveColor
+import com.dot.ui.utils.resolveColorAttr
 
 internal class ColorAdapter(
     private val dialog: ColorSheet?,

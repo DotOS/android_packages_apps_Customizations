@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/btnLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@drawable/rounded_ripple"
+    android:clickable="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/btnImage"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/ic_circle"
+        android:backgroundTint="@color/big_btn_img_bg_state"
+        android:padding="16dp"
+        app:tint="@color/big_btn_img_tint_state"
+        tools:srcCompat="@drawable/ic_download" />
+
+    <TextView
+        android:id="@+id/btnTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textColor="@color/big_btn_text_state"
+        tools:text="Screenshot" />
+</LinearLayout>

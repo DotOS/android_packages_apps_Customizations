@@ -1,0 +1,81 @@
+/*
+ * Copyright (C) 2021 The dotOS Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.dot.ui
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+
+class ContextSectionLayout(
+    context: Context?,
+    attrs: AttributeSet?,
+) : LinearLayout(context, attrs) {
+
+    private var title: TextView
+    private var recylcer: RecyclerView
+    var expandable: Boolean = true
+
+    init {
+        val layout = inflate(context, R.layout.layout_context_section, this)
+        title = layout.findViewById(R.id.contextTitle)
+        recylcer = layout.findViewById(R.id.contextRecycler)
+        recylcer.isNestedScrollingEnabled = false
+        val expandableLayout: ExpandableLayout = layout.findViewById(R.id.contextExpandable)
+        if (attrs != null) {
+            val a = getContext().obtainStyledAttributes(attrs, R.styleable.ContextSectionLayout)
+            val title = a.getString(R.styleable.ContextSectionLayout_sectionTitle)
+            if (title != null) setTitle(title)
+            else this.title.visibility = GONE
+            a.recycle()
+        }
+        if (expandable) {
+            title.isClickable = true
+            title.setOnClickListener { expandableLayout.toggle(true) }
+        } else title.isClickable = false
+        if (recylcer.adapter != null && recylcer.adapter!!.itemCount == 0) visibility = GONE
+    }
+
+    fun getViewByPos(pos: Int): View {
+        return recylcer.findViewHolderForLayoutPosition(pos)!!.itemView
+    }
+
+    fun hideTitle(hide: Boolean) {
+        title.visibility = if (hide) View.GONE else View.VISIBLE
+    }
+
+    fun setTitle(string: String) {
+        title.text = string
+    }
+
+    fun setTitle(resId: Int) {
+        title.text = context.getString(resId)
+    }
+
+    fun addDecoration(decor: RecyclerView.ItemDecoration) {
+        recylcer.addItemDecoration(decor)
+    }
+
+    fun setupAdapter(adapter: RecyclerView.Adapter<*>) {
+        recylcer.adapter = adapter
+    }
+
+    fun setLayoutManger(lm: RecyclerView.LayoutManager) {
+        recylcer.layoutManager = lm
+    }
+}

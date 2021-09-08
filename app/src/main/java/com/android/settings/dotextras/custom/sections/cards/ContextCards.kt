@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type
-import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.dot.ui.utils.ResourceHelper
 
 typealias ContextCardsListener = ((value: Int) -> Unit)?
 typealias OnColorChangedListener = ((colorInt: Int) -> Unit)?

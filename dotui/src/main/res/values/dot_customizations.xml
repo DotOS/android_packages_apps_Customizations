@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
+    <string name="clocks_provider_authority" translatable="false">com.android.keyguard.clock</string>
+
+    <string name="systemui_package" translatable="false">com.android.systemui</string>
+
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to provide available grids and
+    allow for changing them -->
+    <string name="grid_control_metadata_name" translatable="false">com.android.launcher3.grid.control</string>
+
+    <string name="dot_wallpapers_packagename" translatable="false">com.dot.extra.wallpapers</string>
+</resources>

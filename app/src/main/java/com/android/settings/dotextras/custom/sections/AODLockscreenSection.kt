@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.FeatureActivityBase
+import com.android.settings.dotextras.custom.activities.FeatureActivityBase
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SECURE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.dot.ui.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.NotSupportedView
 
 class AODLockscreenSection : GenericSection() {

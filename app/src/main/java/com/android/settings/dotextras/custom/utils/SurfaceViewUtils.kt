@@ -40,12 +40,12 @@ object SurfaceViewUtils {
     }
 
     /** Return the surface package.  */
-    fun getSurfacePackage(bundle: Bundle): SurfaceControlViewHost.SurfacePackage {
+    fun getSurfacePackage(bundle: Bundle): SurfaceControlViewHost.SurfacePackage? {
         return bundle.getParcelable(KEY_SURFACE_PACKAGE)
     }
 
     /** Return the message callback.  */
-    fun getCallback(bundle: Bundle): Message {
+    fun getCallback(bundle: Bundle): Message? {
         return bundle.getParcelable(KEY_CALLBACK)
     }
 }

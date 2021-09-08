@@ -18,7 +18,7 @@ package com.android.settings.dotextras.custom.sections.clock
 import android.content.ContentResolver
 import android.text.TextUtils
 import android.util.Log
-import com.android.settings.dotextras.system.FeatureManager
+import com.dot.ui.system.FeatureManager
 import org.json.JSONException
 import org.json.JSONObject
 

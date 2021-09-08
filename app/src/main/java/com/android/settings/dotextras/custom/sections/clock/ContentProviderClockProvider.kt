@@ -54,7 +54,8 @@ class ContentProviderClockProvider(private val mContext: Context) : ClockProvide
         }
     }
 
-    private class ClocksFetchTask(private val mContext: Context, private val mProviderInfo: ProviderInfo?,
+    private class ClocksFetchTask(
+        private val mContext: Context, private val mProviderInfo: ProviderInfo?,
         callback: OptionsFetchedListener,
     ) : AsyncTask<Void?, Void?, ArrayList<Clockface>?>() {
         private val mCallback: OptionsFetchedListener = callback

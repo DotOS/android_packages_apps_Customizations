@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sheet_background_inset"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="pill"
+        android:src="@drawable/pin" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
+        android:text="@string/pick_a_time"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.michaldrabik.classicmaterialtimepicker.CmtpTimePickerView
+                android:id="@+id/timePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:outlineProvider="background"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/timeCancel"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/recyclerSpacerBig"
+            android:layout_marginTop="@dimen/recyclerSpacer"
+            android:layout_marginBottom="@dimen/recyclerSpacer"
+            android:layout_weight="2"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="@android:string/cancel"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorPrimary"
+            app:backgroundTint="@color/colorPrimaryBackground"
+            app:cornerRadius="300dp"
+            app:elevation="0dp"
+            app:rippleColor="@color/colorAccent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/timeApply"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/recyclerSpacer"
+            android:layout_marginTop="@dimen/recyclerSpacer"
+            android:layout_marginEnd="@dimen/recyclerSpacerBig"
+            android:layout_marginBottom="@dimen/recyclerSpacer"
+            android:layout_weight="1"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="300dp"
+            app:elevation="0dp"
+            app:rippleColor="@color/colorAccent" />
+    </LinearLayout>
+
+</LinearLayout>

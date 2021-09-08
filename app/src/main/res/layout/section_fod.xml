@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="258dp"
+        android:layout_height="516dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
+        android:layout_marginTop="@dimen/recyclerSpacerBigger"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+        android:layout_marginBottom="@dimen/recyclerSpacer"
+        app:cardBackgroundColor="@color/cardBackground"
+        app:cardCornerRadius="@dimen/default_dialog_radius_round"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:id="@+id/preview_container_lockscreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/preview_image_lockscreen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/preview_surface_lockscreen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/preview_lockscreen_scrim"
+                android:clickable="false"
+                android:focusable="false" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/fodAnimPreviewSrc"
+                android:layout_width="198dp"
+                android:layout_height="198dp"
+                android:layout_alignBottom="@+id/fodPreviewSrc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-72dp"
+                android:padding="8dp"
+                android:scaleType="fitCenter" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/fodPreviewSrc"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_alignBottom="@id/preview_surface_lockscreen"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="64dp"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/fod_icon_default_aosp" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fodAnimStart"
+        android:layout_width="258dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+        android:layout_marginBottom="@dimen/recyclerSpacer"
+        android:backgroundTint="@color/colorPrimaryBackground"
+        android:elevation="0dp"
+        android:stateListAnimator="@null"
+        android:text="@string/fod_anim_start"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        app:cornerRadius="300dp"
+        app:elevation="0dp"
+        app:rippleColor="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
+        android:text="Style"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/icon_selector"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/recyclerSpacerBig"
+        android:layout_marginTop="@dimen/recyclerSpacer"
+        android:layout_marginBottom="@dimen/recyclerSpacer"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
+        android:background="@drawable/circle_bg"
+        android:backgroundTint="@color/cardBackground"
+        app:tabIndicator="@drawable/circle_bg"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="56dp"
+        app:tabTextAppearance="@style/DashboardV2.TabLayout.Item">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Static Icon" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animated Icon" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <com.dot.ui.ExpandableLayout
+        android:id="@+id/fodIconContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:el_expanded="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="32dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="16dp"
+                android:text="Fingerprint icon"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fodIconRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingStart="@dimen/recyclerSpacer"
+                android:paddingEnd="@dimen/recyclerSpacer"
+                android:persistentDrawingCache="all" />
+        </LinearLayout>
+    </com.dot.ui.ExpandableLayout>
+
+    <Switch
+        android:id="@+id/fodAnimSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
+        android:text="Recognising Animation"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <com.dot.ui.ExpandableLayout
+        android:id="@+id/fodAnimLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:el_expanded="false">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fodAnimRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="false"
+            android:nestedScrollingEnabled="false"
+            android:paddingStart="@dimen/recyclerSpacer"
+            android:paddingEnd="@dimen/recyclerSpacer"
+            android:persistentDrawingCache="all" />
+
+    </com.dot.ui.ExpandableLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
+        android:text="@string/fod_color"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fodRecRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:isScrollContainer="false"
+        android:paddingStart="@dimen/recyclerSpacer"
+        android:paddingEnd="@dimen/recyclerSpacer"
+        android:persistentDrawingCache="all" />
+
+    <com.dot.ui.ContextSectionLayout
+        android:id="@+id/fodOptSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        app:sectionTitle="@string/options" />
+
+</LinearLayout>

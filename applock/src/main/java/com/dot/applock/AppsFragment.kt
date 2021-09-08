@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SortedList
 import com.dot.applock.adapter.AppLockAdapter
+import com.dot.applock.databinding.FragmentAppsBinding
 import com.dot.applock.model.AppModel
-import kotlinx.android.synthetic.main.fragment_apps.*
+import com.dot.ui.utils.ObjectToolsAnimator
+import com.dot.ui.utils.ResourceHelper
 import nl.komponents.kovenant.task
 import nl.komponents.kovenant.ui.successUi
 
@@ -21,35 +23,8 @@ class AppsFragment : Fragment() {
     private lateinit var appLockManager: AppLockManager
     private lateinit var adapter: AppLockAdapter
 
-    private val mCallback = object : SortedList.Callback<AppModel>() {
-        override fun onInserted(position: Int, count: Int) {
-            adapter.notifyItemRangeInserted(position, count)
-        }
-
-        override fun onRemoved(position: Int, count: Int) {
-            adapter.notifyItemRangeRemoved(position, count)
-        }
-
-        override fun onMoved(fromPosition: Int, toPosition: Int) {
-            adapter.notifyItemMoved(fromPosition, toPosition)
-        }
-
-        override fun onChanged(position: Int, count: Int) {
-            adapter.notifyItemRangeChanged(position, count)
-        }
-
-        override fun compare(a: AppModel, b: AppModel): Int {
-            return mComparator.compare(a, b)
-        }
-
-        override fun areContentsTheSame(oldItem: AppModel, newItem: AppModel): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areItemsTheSame(item1: AppModel, item2: AppModel): Boolean {
-            return item1.mPackageName == item2.mPackageName
-        }
-    }
+    private var _binding: FragmentAppsBinding? = null
+    private val binding get() = _binding!!
 
     private val mComparator: Comparator<AppModel> =
         Comparator { a, b -> a.mLabel.toString().compareTo(b.mLabel.toString()) }
@@ -63,37 +38,42 @@ class AppsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_apps, container, false)
+    ): View {
+        _binding = FragmentAppsBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appLockManager = ResourceHelper.getAppLockManager(requireContext())
-        val apps: ArrayList<AppModel> = ArrayList()
-        task {
-            try {
-                val intent = Intent(Intent.ACTION_MAIN, null)
-                intent.addCategory(Intent.CATEGORY_LAUNCHER)
-                val resolveInfoList: List<ResolveInfo> =
-                    requireActivity().packageManager.queryIntentActivities(intent,
-                        0)
-                for (resolveInfo in resolveInfoList) apps.add(AppModel(resolveInfo,
-                    requireActivity().packageManager,
-                    appLockManager))
-                apps.sortBy { it.mLabel }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        } successUi {
-            requireActivity().runOnUiThread {
-                adapter = AppLockAdapter(apps, appLockManager)
-                applockRecycler.adapter = adapter
-                applockRecycler.setHasFixedSize(true)
+        lifecycleScope.launchWhenCreated {
+            with(binding) {
+                appLockManager = ResourceHelper.getAppLockManager(requireContext())
                 applockRecycler.layoutManager = LinearLayoutManager(requireContext())
-                applockRecycler.postDelayed({
-                    ObjectToolsAnimator.gone(appLockLoading, 500)
-                }, 100)
+                val apps: ArrayList<AppModel> = ArrayList()
+                task {
+                    try {
+                        val intent = Intent(Intent.ACTION_MAIN, null)
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER)
+                        val resolveInfoList: List<ResolveInfo> =
+                            requireActivity().packageManager.queryIntentActivities(intent,
+                                0)
+                        for (resolveInfo in resolveInfoList) apps.add(AppModel(resolveInfo,
+                            requireActivity().packageManager,
+                            appLockManager))
+                        apps.sortWith(mComparator)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                } successUi {
+                    requireActivity().runOnUiThread {
+                        adapter = AppLockAdapter(apps, appLockManager, requireActivity())
+                        applockRecycler.adapter = adapter
+                        applockRecycler.setHasFixedSize(true)
+                        applockRecycler.postDelayed({
+                            ObjectToolsAnimator.gone(appLockLoading, 500)
+                        }, 100)
+                    }
+                }
             }
         }
     }

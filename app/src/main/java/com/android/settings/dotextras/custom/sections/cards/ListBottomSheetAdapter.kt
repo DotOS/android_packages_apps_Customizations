@@ -24,7 +24,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type
-import com.android.settings.dotextras.system.FeatureManager
+import com.dot.ui.system.FeatureManager
 
 class ListBottomSheetAdapter(
     val featureType: Int,
@@ -34,17 +34,25 @@ class ListBottomSheetAdapter(
     private val callback: ListBottomSheet.Callback
 ) : RecyclerView.Adapter<ListBottomSheetAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListBottomSheetAdapter.ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list_object, parent, false))
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ListBottomSheetAdapter.ViewHolder {
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_object, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ListBottomSheetAdapter.ViewHolder, position: Int) {
         val option: Option = items[position]
         val featureManager = FeatureManager(holder.itemView.context.contentResolver)
         when (featureType) {
-            Type.SYSTEM -> option.selected = featureManager.System().getInt(feature, default) == option.value
-            Type.SECURE -> option.selected = featureManager.Secure().getInt(feature, default) == option.value
-            Type.GLOBAL -> option.selected = featureManager.Global().getInt(feature, default) == option.value
+            Type.SYSTEM -> option.selected =
+                featureManager.System().getInt(feature, default) == option.value
+            Type.SECURE -> option.selected =
+                featureManager.Secure().getInt(feature, default) == option.value
+            Type.GLOBAL -> option.selected =
+                featureManager.Global().getInt(feature, default) == option.value
         }
         holder.itemEntry.text = option.entry
         holder.itemRadio.isChecked = option.selected

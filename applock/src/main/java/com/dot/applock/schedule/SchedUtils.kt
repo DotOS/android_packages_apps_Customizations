@@ -2,7 +2,7 @@ package com.dot.applock.schedule
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.dot.applock.ObjectSerializer
+import com.dot.ui.utils.ObjectSerializer
 
 class SchedUtils(val context: Context) {
 

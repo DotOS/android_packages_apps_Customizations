@@ -9,10 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.dot.applock.ObjectToolsAnimator
 import com.dot.applock.R
 import com.dot.applock.model.AppModel
 import com.dot.applock.ui.CustomTextView
+import com.dot.ui.utils.ObjectToolsAnimator
 
 class SchedWizardAppAdapter(private var items: ArrayList<AppModel>, private val statusText: CustomTextView) :
     RecyclerView.Adapter<SchedWizardAppAdapter.ViewHolder>() {

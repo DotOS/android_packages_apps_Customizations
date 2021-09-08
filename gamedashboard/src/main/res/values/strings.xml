@@ -1,0 +1,37 @@
+<resources>
+  <string name="gaming_mode_app_picker_title">Automatically turn on for these apps</string>
+  <string name="add_gaming_mode_package_title">Add apps for Gaming mode</string>
+  <string name="add_gaming_mode_package_summary">Gaming mode will turn on automatically when these apps are opened and turn off when they are closed</string>
+  <string name="gaming_mode_headsup_title">Block notifications</string>
+  <string name="gaming_mode_headsup_summary">Block all headsup messages except calls</string>
+  <string name="gaming_mode_hardware_keys_title">Lock buttons</string>
+  <string name="gaming_mode_hardware_keys_summary">Disable hardware buttons when Gaming mode is turned on</string>
+  <string name="gaming_mode_brightness_title">Disable automatic brightness</string>
+  <string name="gaming_mode_brightness_summary">Lock screen brightness when Gaming mode is turned on</string>
+  <string name="gaming_mode_ringer_title">Ringer in gaming mode</string>
+  <string name="gaming_mode_ringer_off_title">Do not change</string>
+  <string name="gaming_mode_ringer_vibrate_title">Vibrate</string>
+  <string name="gaming_mode_ringer_dnd_title">Do Not Disturb</string>
+  <string name="gaming_mode_ringer_silent_title">Silent</string>
+  <string name="gaming_mode_notifications_title">Gaming mode indication</string>
+  <string name="gaming_mode_notifications_off_title">Disabled</string>
+  <string name="gaming_mode_notifications_notif_title">Show notification</string>
+  <string name="gaming_mode_notifications_toast_title">Show toasts</string>
+  <string name="gaming_mode_notifications_all_title">Show toasts and notification</string>
+  <string name="gaming_mode_dynamic_title">Dynamic mode</string>
+  <string name="gaming_mode_dynamic_summary">Try detecting and adding gaming apps automatically</string>
+  <string name="game_dashboard">Game Dashboard</string>
+  <string name="enable_gaming_mode">Enable Gaming Mode</string>
+  <string name="quick_controls">Quick Controls</string>
+  <string name="in_game_controls">In-Game Controls</string>
+  <string name="screenshot">Screenshot</string>
+  <string name="screenrecord">Screenrecord</string>
+  <string name="do_not_disturb">Do not Disturb</string>
+  <string name="games">Games</string>
+  <string name="add_game">Add game</string>
+  <string name="dynamic_mode_info">You can add games manually or enable Dynamic Mode to automatically add them on launch.</string>
+    <string name="off">Off</string>
+  <string name="notification">Notification</string>
+  <string name="toast">Toast</string>
+  <string name="both">Both</string>
+</resources>

@@ -1223,7 +1223,8 @@ class CropImageView @JvmOverloads constructor(context: Context, attrs: Attribute
                 if (cropWindowRect != null && (cropWindowRect.width() > 0 || cropWindowRect.height() > 0)) {
                     mRestoreCropWindowRect = cropWindowRect
                 }
-                mCropOverlayView!!.cropShape = CropShape.valueOf(bundle.getString("CROP_SHAPE").toString())
+                mCropOverlayView!!.cropShape =
+                    CropShape.valueOf(bundle.getString("CROP_SHAPE").toString())
                 mAutoZoomEnabled = bundle.getBoolean("CROP_AUTO_ZOOM_ENABLED")
                 mMaxZoom = bundle.getInt("CROP_MAX_ZOOM")
                 mFlipHorizontally = bundle.getBoolean("CROP_FLIP_HORIZONTALLY")

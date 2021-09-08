@@ -2,7 +2,10 @@ package com.android.settings.dotextras.custom.sections.wallpaper
 
 import androidx.recyclerview.widget.DiffUtil
 
-class WallpaperDiff(private val oldWalls: ArrayList<Wallpaper>, private val newWalls: ArrayList<Wallpaper>) : DiffUtil.Callback() {
+class WallpaperDiff(
+    private val oldWalls: ArrayList<Wallpaper>,
+    private val newWalls: ArrayList<Wallpaper>
+) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldWalls.size
 

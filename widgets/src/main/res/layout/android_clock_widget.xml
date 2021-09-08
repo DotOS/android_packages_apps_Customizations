@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="#00000000"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    android:padding="@dimen/widget_margin"
+    app:layout_anchorGravity="center">
+
+    <AnalogClock
+        android:id="@+id/analog_clock_dial_default_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_gravity="center"
+        android:alpha="1"
+        android:background="@drawable/clock_face_adaptive"
+        android:dial="@drawable/clock_face_adaptive"
+        android:hand_hour="@drawable/hour_face_adaptive"
+        android:hand_minute="@drawable/minute_face_adaptive" />
+
+    <TextClock
+        android:id="@+id/week_text"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/analog_clock_dial_default_black"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="top|center_vertical|center_horizontal|center"
+        android:layout_marginTop="24dp"
+        android:allowUndo="false"
+        android:alpha="5"
+        android:format12Hour="EE d"
+        android:format24Hour="EE d"
+        android:rotationX="10"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp" />
+</RelativeLayout>

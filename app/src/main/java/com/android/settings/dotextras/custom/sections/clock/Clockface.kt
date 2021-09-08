@@ -15,47 +15,78 @@
  */
 package com.android.settings.dotextras.custom.sections.clock
 
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
+import android.os.Handler
 import android.text.TextUtils
-import android.view.View
 import android.widget.ImageView
-import com.android.settings.dotextras.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
 import com.android.settings.dotextras.custom.sections.clock.utils.Asset
+import com.bumptech.glide.Glide
 
 class Clockface private constructor(
     private val mTitle: String?,
     val id: String?,
-    val previewAsset: Asset?,
+    private val previewAsset: Asset?,
     private val mThumbnail: Asset?,
 ) {
 
-    fun bindThumbnailTile(view: View) {
-        val thumbView = view.findViewById<ImageView>(R.id.defaultClockPreview)
-        mThumbnail!!.loadDrawableWithTransition(
-            thumbView.context, thumbView, 50, null,
-            thumbView.resources.getColor(android.R.color.transparent, null)
-        )
-    }
-
-    fun bindThumbnailTile2(view: ImageView) {
+    fun bindThumbnailTile(view: ImageView) {
         mThumbnail!!.loadDrawableWithTransition(
             view.context, view, 50, null,
             view.resources.getColor(android.R.color.transparent, null)
         )
     }
 
-    fun bindPreviewTile(view: View) {
-        val thumbView = view.findViewById<ImageView>(R.id.defaultClockPreview)
+    fun bindPreviewTile(activity: AppCompatActivity, view: ImageView) {
         previewAsset!!.loadDrawableWithTransition(
-            thumbView.context, thumbView, 50, null,
-            thumbView.resources.getColor(android.R.color.transparent, null)
+            view.context, view, 500, object : Asset.DrawableLoadedListener {
+                override fun onDrawableLoaded(bitmap: Bitmap) {
+                    if (activity.lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                        val handler = Handler(activity.mainLooper)
+                        handler.post {
+                            if (activity.lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                Glide.with(activity).clear(view)
+                                view.setImageDrawable(BitmapDrawable(view.resources, replaceColor(bitmap)))
+                            }
+                        }
+                    }
+                }
+            },
+            view.resources.getColor(android.R.color.transparent, null)
         )
     }
 
-    fun bindPreviewTile2(view: ImageView) {
+    fun bindPreviewTile(activity: FragmentActivity, view: ImageView) {
         previewAsset!!.loadDrawableWithTransition(
-            view.context, view, 50, null,
+            view.context, view, 500, object : Asset.DrawableLoadedListener {
+                override fun onDrawableLoaded(bitmap: Bitmap) {
+                    if (activity.lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                        val handler = Handler(activity.mainLooper)
+                        handler.post {
+                            if (activity.lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                Glide.with(activity).clear(view)
+                                view.setImageDrawable(BitmapDrawable(view.resources, replaceColor(bitmap)))
+                            }
+                        }
+                    }
+                }
+            },
             view.resources.getColor(android.R.color.transparent, null)
         )
+    }
+
+    private fun replaceColor(src: Bitmap): Bitmap {
+        val width = src.width
+        val height = src.height
+        val pixels = IntArray(width * height)
+        src.getPixels(pixels, 0, 1 * width, 0, 0, width, height)
+        for (x in pixels.indices) {
+            if (pixels[x] == Color.BLACK) pixels[x] = 0
+        }
+        return Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
     }
 
     fun getTitle(): String? = mTitle

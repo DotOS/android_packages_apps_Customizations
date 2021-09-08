@@ -4,32 +4,14 @@
     <string name="section_statusbar_title">Status Bar</string>
     <string name="section_qs_title">Quick Settings</string>
     <string name="section_system_title">System</string>
-    <string name="section_themes_title">Themes</string>
-    <string name="section_wallpaper_title">Wallpapers</string>
     <string name="section_aod_title">AOD &amp; Lockscreen</string>
-    <string name="section_fod_icon">FOD Icons</string>
-    <string name="section_fod_anim">FOD Animations</string>
-    <string name="section_fod_color_opt">FOD Options</string>
+    <string name="section_fod">In-Screen Fingerprint</string>
     <string name="section_hwkeys">Buttons</string>
     <string name="grid_section">Launcher Grid</string>
-    <string name="section_lab">The Lab</string>
     <string name="section_settings">Settings</string>
-    <string name="section_clockface2">Clockface</string>
 
     <string name="system_gestures">Gestures</string>
 
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <string name="grid_title_pattern" translatable="false"><xliff:g name="num_cols" example="1">%1$d</xliff:g>x<xliff:g name="num_rows" example="1">%2$d</xliff:g></string>
-
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <string name="clocks_provider_authority" translatable="false">com.android.keyguard.clock</string>
-
-    <string name="systemui_package" translatable="false">com.android.systemui</string>
-
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
-    <string name="grid_control_metadata_name" translatable="false">com.android.launcher3.grid.control</string>
-
-    <string name="dot_wallpapers_packagename" translatable="false">com.dot.extra.wallpapers</string>
 </resources>

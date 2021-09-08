@@ -1,0 +1,46 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Common Strings -->
+    <string name="apply">Apply</string>
+    <string name="apply_for">Apply for</string>
+    <string name="disabled">Disabled</string>
+    <string name="enable">Enable</string>
+    <string name="enabled">Enabled</string>
+    <string name="lockscreen_date_pattern" translatable="false">EEE, MMM d</string>
+    <string name="options">Options</string>
+    <string name="reset">Reset</string>
+    <string name="manifest_wallpaper">Wallpaper</string>
+    <string name="style">Style</string>
+    <string name="hide">Hide</string>
+    <string name="inside">Inside</string>
+    <string name="outside">Outside</string>
+    <string name="default_theme_title">Default</string>
+    <string name="icons">Icons</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="no_internet">Internet Unavailable</string>
+    <string name="system_accent">System Accent</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="lockscreen">Lockscreen</string>
+    <string name="approximate">Approximate</string>
+    <string name="crop">Crop</string>
+    <string name="download">Download</string>
+
+    <string name="accent_color">Accent Color</string>
+    <string name="picker_summary">Select the one that fits you.</string>
+    <string name="headline_01">Headline 01</string>
+    <string name="body_02">Body 02</string>
+    <string name="fonts">Fonts</string>
+    <string name="icon_pack">Icon Pack</string>
+    <string name="icon_shapes">Icon Shapes</string>
+    <string name="device_default">Device default</string>
+    <string name="device_default_font">Device\nDefault Font</string>
+    <string name="light_shade">Light Theme</string>
+    <string name="dark_shade">Dark Theme</string>
+    <string name="twotone_accent_summary">Apply a shade of Accent for Light and Dark Theme. You can also choose two different accents for each style.\n
+        \nExample : White Theme with Cyan Accent and Dark Theme with Yellow Accent.\n
+        \nIn order to use on-device accent packages, reset custom accent using the top-right button from color picker.</string>
+    <string name="ballon_twotone">Long press to pick\na new accent color</string>
+    <string name="smart_accent_picker">Smart Accent Picker</string>
+
+    <string name="feature_control_not_supported">%s feature control not supported.</string>
+
+</resources>

@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
@@ -18,11 +18,11 @@
         android:id="@+id/list_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
         android:paddingStart="32dp"
         android:paddingTop="16dp"
         android:paddingEnd="32dp"
         android:paddingBottom="16dp"
-        android:background="?attr/selectableItemBackground"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
@@ -56,8 +56,8 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginStart="@dimen/recyclerSpacerBig"
-        android:layout_marginEnd="@dimen/recyclerSpacerBig"
         android:layout_marginTop="@dimen/recyclerSpacer"
+        android:layout_marginEnd="@dimen/recyclerSpacerBig"
         android:layout_marginBottom="@dimen/recyclerSpacer"
         android:elevation="0dp"
         android:stateListAnimator="@null"

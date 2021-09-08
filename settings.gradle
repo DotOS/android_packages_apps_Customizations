@@ -1,2 +1,5 @@
 include ':app', ':applock'
 rootProject.name = "Customizations"
+include ':widgets'
+include ':gamedashboard'
+include ':dotui'

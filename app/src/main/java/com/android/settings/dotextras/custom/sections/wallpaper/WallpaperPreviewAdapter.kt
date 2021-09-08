@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,61 +15,33 @@
  */
 package com.android.settings.dotextras.custom.sections.wallpaper
 
-import android.content.ContentResolver
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.android.settings.dotextras.R
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
-import kotlinx.android.synthetic.main.item_wallpaper_preview_card_big.*
+import coil.load
+import coil.request.CachePolicy
+import com.android.settings.dotextras.databinding.ItemWallpaperPreviewBinding
 
-class WallpaperPreviewAdapter(private var items: ArrayList<Wallpaper>, private val activity: AppCompatActivity) : RecyclerView.Adapter<WallpaperPreviewAdapter.ViewHolder>() {
+class WallpaperPreviewAdapter(
+    private var items: ArrayList<Wallpaper>,
+    private val activity: AppCompatActivity
+) : RecyclerView.Adapter<WallpaperPreviewAdapter.ViewHolder>() {
 
-    private lateinit var contentResolver: ContentResolver
+    private val layoutInflater by lazy {
+        activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    }
 
     private lateinit var wallpaperBase: Wallpaper
 
-    fun glideListener(holder: ViewHolder) = object: RequestListener<Drawable> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any?,
-            target: Target<Drawable>?,
-            isFirstResource: Boolean
-        ): Boolean {
-            holder.loader.visibility = View.GONE
-            Toast.makeText(holder.loader.context, "Error loading wallpaper", Toast.LENGTH_SHORT).show()
-            if (e != null) Log.e("GlideException", e.stackTrace.toString())
-            return false
-        }
-
-        override fun onResourceReady(
-            resource: Drawable?,
-            model: Any?,
-            target: Target<Drawable>?,
-            dataSource: DataSource?,
-            isFirstResource: Boolean
-        ): Boolean {
-            holder.loader.visibility = View.GONE
-            return false
-        }
-
-    }
-
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(list: ArrayList<Wallpaper>) {
         if (items.isEmpty()) {
             items = list
@@ -85,36 +57,52 @@ class WallpaperPreviewAdapter(private var items: ArrayList<Wallpaper>, private v
     override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wallpaper_preview, parent, false))
+        return ViewHolder(
+            ItemWallpaperPreviewBinding.inflate(layoutInflater, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val wallpaper: Wallpaper = items[position]
         wallpaperBase = wallpaper
-        holder.loader.visibility = View.VISIBLE
-        if (wallpaper.uri != null) {
-            Glide.with(activity)
-                .load(Uri.parse(wallpaper.uri))
-                .listener(glideListener(holder))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.wallpaperPreview)
-        } else if (wallpaper.url != null) {
-            Glide.with(holder.wallpaperPreview)
-                .load(Uri.parse(wallpaper.url))
-                .listener(glideListener(holder))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.wallpaperPreview)
-        }
-        holder.wallpaperPreview.setOnClickListener {
-            val intent = Intent(activity, WallpaperApplyActivity::class.java)
-            intent.putExtra("wallpaperObject", wallpaper)
-            activity.startActivity(intent)
+        with(holder.binding) {
+            imgLoading.visibility = View.VISIBLE
+            if (wallpaper.uri != null) {
+                wallpaperPreview.load(Uri.parse(wallpaper.uri)) {
+                    diskCachePolicy(CachePolicy.ENABLED)
+                    memoryCachePolicy(CachePolicy.ENABLED)
+                    crossfade(300)
+                    listener(onError = { _, _ ->
+                        imgLoading.visibility = View.GONE
+                        Toast.makeText(activity, "Error loading wallpaper $position", Toast.LENGTH_SHORT)
+                            .show()
+                    }, onSuccess = { _, _ ->
+                        imgLoading.visibility = View.GONE
+                    })
+                }
+            } else if (wallpaper.url != null) {
+                wallpaperPreview.load(wallpaper.url) {
+                    diskCachePolicy(CachePolicy.ENABLED)
+                    memoryCachePolicy(CachePolicy.ENABLED)
+                    crossfade(300)
+                    listener(onError = { _, _ ->
+                        imgLoading.visibility = View.GONE
+                        Toast.makeText(activity, "Error loading wallpaper $position", Toast.LENGTH_SHORT)
+                            .show()
+                    }, onSuccess = { _, _ ->
+                        imgLoading.visibility = View.GONE
+                    })
+                }
+            }
+            wallpaperPreview.setOnClickListener {
+                val intent = Intent(activity, WallpaperApplyActivity::class.java)
+                intent.putExtra("wallpaperObject", wallpaper)
+                activity.startActivity(intent)
+            }
         }
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val wallpaperPreview: ImageButton = view.findViewById(R.id.wallpaper_preview)
-        val loader: ProgressBar = view.findViewById(R.id.imgLoading)
-    }
+    data class ViewHolder(val binding: ItemWallpaperPreviewBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }

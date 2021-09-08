@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.CollapsingToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dotCollapsingToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/colltoolbar_height"
+    android:animateLayoutChanges="true"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
+    app:collapsedTitleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
+    app:contentScrim="@color/colorPrimaryBackground"
+    app:expandedTitleMarginStart="@dimen/recyclerSpacerBig"
+    app:expandedTitleTextAppearance="@style/Dashboard.Toolbar.Expanded"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+    app:maxLines="2"
+    app:scrimAnimationDuration="400"
+    app:scrimVisibleHeightTrigger="120dp"
+    app:statusBarScrim="@color/colorPrimaryBackground"
+    app:titleCollapseMode="fade"
+    app:toolbarId="@+id/dotToolbar">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/dotToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:animateLayoutChanges="true"
+        android:titleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
+        app:buttonGravity="center_vertical"
+        app:layout_collapseMode="pin"
+        app:title="Title" />
+
+</com.google.android.material.appbar.CollapsingToolbarLayout>

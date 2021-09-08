@@ -23,10 +23,8 @@ import android.view.ViewGroup
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
-import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.dot.ui.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.BacklightBottomSheet
-import com.android.settings.dotextras.system.FeatureManager
-import kotlin.collections.ArrayList
 
 class HardwareKeysSection : GenericSection() {
 
@@ -39,7 +37,11 @@ class HardwareKeysSection : GenericSection() {
     private var hwkeys6List: ArrayList<ContextCards> = ArrayList()
     private var hwkeys7List: ArrayList<ContextCards> = ArrayList()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.section_hwkeys, container, false)
     }
 
@@ -112,17 +114,17 @@ class HardwareKeysSection : GenericSection() {
         )
         setupLayout(hwkeys0List, R.id.hwkeys0)
         if (ResourceHelper.canWakeUsingHomeKey(requireContext()))
-        buildSwitch(
-            hwkeys1List,
-            iconID = R.drawable.ic_homehw,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.button_wake_title),
-            accentColor = R.color.red_600,
-            feature = "home_wake_screen",
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.home_key_press_summary),
-            enabled = true
-        )
+            buildSwitch(
+                hwkeys1List,
+                iconID = R.drawable.ic_homehw,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.button_wake_title),
+                accentColor = R.color.red_600,
+                feature = "home_wake_screen",
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.home_key_press_summary),
+                enabled = true
+            )
         buildListSheet(
             hwkeys1List,
             iconID = R.drawable.ic_homehw,
@@ -149,32 +151,40 @@ class HardwareKeysSection : GenericSection() {
             entries = if (ResourceHelper.isAndroidGo()) actionEntriesArrayListGo else actionEntriesArrayList,
             entryValues = if (ResourceHelper.isAndroidGo()) actionValuesArrayListGo else actionValuesArrayList
         )
-        setupLayoutWithCondition(hwkeys1List, R.id.hwkeys1, ResourceHelper.hasHomeKey(requireContext()))
+        setupLayoutWithCondition(
+            hwkeys1List,
+            R.id.hwkeys1,
+            ResourceHelper.hasHomeKey(requireContext())
+        )
         if (ResourceHelper.canWakeUsingBackKey(requireContext()))
-        buildSwitch(
+            buildSwitch(
+                hwkeys2List,
+                iconID = R.drawable.ic_arrow_back,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.button_wake_title),
+                accentColor = R.color.orange_500,
+                feature = "back_wake_screen",
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.back_key_press_summary),
+                enabled = false
+            )
+        setupLayoutWithCondition(
             hwkeys2List,
-            iconID = R.drawable.ic_arrow_back,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.button_wake_title),
-            accentColor = R.color.orange_500,
-            feature = "back_wake_screen",
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.back_key_press_summary),
-            enabled = false
+            R.id.hwkeys2,
+            ResourceHelper.hasBackKey(requireContext())
         )
-        setupLayoutWithCondition(hwkeys2List, R.id.hwkeys2, ResourceHelper.hasBackKey(requireContext()))
         if (ResourceHelper.canWakeUsingMenuKey(requireContext()))
-        buildSwitch(
-            hwkeys3List,
-            iconID = R.drawable.ic_menu,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.button_wake_title),
-            accentColor = R.color.green_500,
-            feature = "menu_wake_screen",
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.menu_key_press_summary),
-            enabled = false
-        )
+            buildSwitch(
+                hwkeys3List,
+                iconID = R.drawable.ic_menu,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.button_wake_title),
+                accentColor = R.color.green_500,
+                feature = "menu_wake_screen",
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.menu_key_press_summary),
+                enabled = false
+            )
         buildListSheet(
             hwkeys3List,
             iconID = R.drawable.ic_menu,
@@ -201,19 +211,23 @@ class HardwareKeysSection : GenericSection() {
             entries = if (ResourceHelper.isAndroidGo()) actionEntriesArrayListGo else actionEntriesArrayList,
             entryValues = if (ResourceHelper.isAndroidGo()) actionValuesArrayListGo else actionValuesArrayList
         )
-        setupLayoutWithCondition(hwkeys3List, R.id.hwkeys3, ResourceHelper.hasMenuKey(requireContext()))
-        if (ResourceHelper.canWakeUsingAssistKey(requireContext()))
-        buildSwitch(
-            hwkeys4List,
-            iconID = R.drawable.ic_search,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.button_wake_title),
-            accentColor = R.color.cyan_500,
-            feature = "assist_wake_screen",
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.assist_key_press_summary),
-            enabled = false
+        setupLayoutWithCondition(
+            hwkeys3List,
+            R.id.hwkeys3,
+            ResourceHelper.hasMenuKey(requireContext())
         )
+        if (ResourceHelper.canWakeUsingAssistKey(requireContext()))
+            buildSwitch(
+                hwkeys4List,
+                iconID = R.drawable.ic_search,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.button_wake_title),
+                accentColor = R.color.cyan_500,
+                feature = "assist_wake_screen",
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.assist_key_press_summary),
+                enabled = false
+            )
         buildListSheet(
             hwkeys4List,
             iconID = R.drawable.ic_search,
@@ -240,19 +254,23 @@ class HardwareKeysSection : GenericSection() {
             entries = if (ResourceHelper.isAndroidGo()) actionEntriesArrayListGo else actionEntriesArrayList,
             entryValues = if (ResourceHelper.isAndroidGo()) actionValuesArrayListGo else actionValuesArrayList
         )
-        setupLayoutWithCondition(hwkeys4List, R.id.hwkeys4, ResourceHelper.hasAssistKey(requireContext()))
-        if (ResourceHelper.canWakeUsingAppSwitchKey(requireContext()))
-        buildSwitch(
-            hwkeys5List,
-            iconID = R.drawable.ic_menu,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.button_wake_title),
-            accentColor = R.color.purple_500,
-            feature = "app_switch_wake_screen",
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.app_switch_key_press),
-            enabled = false
+        setupLayoutWithCondition(
+            hwkeys4List,
+            R.id.hwkeys4,
+            ResourceHelper.hasAssistKey(requireContext())
         )
+        if (ResourceHelper.canWakeUsingAppSwitchKey(requireContext()))
+            buildSwitch(
+                hwkeys5List,
+                iconID = R.drawable.ic_menu,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.button_wake_title),
+                accentColor = R.color.purple_500,
+                feature = "app_switch_wake_screen",
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.app_switch_key_press),
+                enabled = false
+            )
         buildListSheet(
             hwkeys5List,
             iconID = R.drawable.ic_menu,
@@ -279,19 +297,23 @@ class HardwareKeysSection : GenericSection() {
             entries = if (ResourceHelper.isAndroidGo()) actionEntriesArrayListGo else actionEntriesArrayList,
             entryValues = if (ResourceHelper.isAndroidGo()) actionValuesArrayListGo else actionValuesArrayList
         )
-        setupLayoutWithCondition(hwkeys5List, R.id.hwkeys5, ResourceHelper.hasAppSwitchKey(requireContext()))
-        if (ResourceHelper.canWakeUsingCameraKey(requireContext()))
-        buildSwitch(
-            hwkeys6List,
-            iconID = R.drawable.ic_camera,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.button_wake_title),
-            accentColor = R.color.dot_teal,
-            feature = "camera_wake_screen",
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.camera_key_press_summary),
-            enabled = false
+        setupLayoutWithCondition(
+            hwkeys5List,
+            R.id.hwkeys5,
+            ResourceHelper.hasAppSwitchKey(requireContext())
         )
+        if (ResourceHelper.canWakeUsingCameraKey(requireContext()))
+            buildSwitch(
+                hwkeys6List,
+                iconID = R.drawable.ic_camera,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.button_wake_title),
+                accentColor = R.color.dot_teal,
+                feature = "camera_wake_screen",
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.camera_key_press_summary),
+                enabled = false
+            )
         buildListSheet(
             hwkeys6List,
             iconID = R.drawable.ic_camera,
@@ -318,19 +340,23 @@ class HardwareKeysSection : GenericSection() {
             entries = if (ResourceHelper.isAndroidGo()) actionEntriesArrayListGo else actionEntriesArrayList,
             entryValues = if (ResourceHelper.isAndroidGo()) actionValuesArrayListGo else actionValuesArrayList
         )
-        setupLayoutWithCondition(hwkeys6List, R.id.hwkeys6, ResourceHelper.hasCameraKey(requireContext()))
-        if (ResourceHelper.canWakeUsingVolumeKeys(requireContext()))
-        buildSwitch(
-            hwkeys7List,
-            iconID = R.drawable.ic_menu,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.button_wake_title),
-            accentColor = R.color.purple_500,
-            feature = "volume_wake_screen",
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.volume_summary),
-            enabled = false
+        setupLayoutWithCondition(
+            hwkeys6List,
+            R.id.hwkeys6,
+            ResourceHelper.hasCameraKey(requireContext())
         )
+        if (ResourceHelper.canWakeUsingVolumeKeys(requireContext()))
+            buildSwitch(
+                hwkeys7List,
+                iconID = R.drawable.ic_menu,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.button_wake_title),
+                accentColor = R.color.purple_500,
+                feature = "volume_wake_screen",
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.volume_summary),
+                enabled = false
+            )
         buildSwitch(
             hwkeys7List,
             iconID = R.drawable.ic_menu,
@@ -377,9 +403,14 @@ class HardwareKeysSection : GenericSection() {
             subtitle = getString(R.string.swap_volume_buttons_title),
             accentColor = R.color.purple_500,
             summary = getString(R.string.swap_volume_buttons_summary),
-            default = if (featureManager.System().getInt("swap_volume_keys_on_rotation", 0) != 0) 1 else 0
+            default = if (featureManager.System()
+                    .getInt("swap_volume_keys_on_rotation", 0) != 0
+            ) 1 else 0
         ) { value ->
-            featureManager.System().setInt("swap_volume_keys_on_rotation", if (value == 1) if (volRockerSwapValue != -1) volRockerSwapValue else 1 else 0)
+            featureManager.System().setInt(
+                "swap_volume_keys_on_rotation",
+                if (value == 1) if (volRockerSwapValue != -1) volRockerSwapValue else 1 else 0
+            )
         }
 
         setupLayout(hwkeys7List, R.id.hwkeys7)

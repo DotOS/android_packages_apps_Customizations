@@ -207,7 +207,7 @@ abstract class Asset {
                             transitionDrawable.isCrossFadeEnabled = true
                             imageView.setImageDrawable(transitionDrawable)
                             transitionDrawable.startTransition(transitionDurationMillis)
-                            drawableLoadedListener?.onDrawableLoaded()
+                            drawableLoadedListener?.onDrawableLoaded(bitmap!!)
                         }
                     }).execute()
                 }
@@ -242,14 +242,14 @@ abstract class Asset {
      * Interface for being notified when a drawable has been loaded.
      */
     interface DrawableLoadedListener {
-        fun onDrawableLoaded()
+        fun onDrawableLoaded(bitmap: Bitmap)
     }
 
     /**
      * Custom AsyncTask which returns a copy of the given bitmap which is center cropped and scaled
      * to fit in the given ImageView.
      */
-    class CenterCropBitmapTask(
+    inner class CenterCropBitmapTask(
         private val mBitmap: Bitmap, view: View,
         private val mBitmapReceiver: BitmapReceiver,
     ) : AsyncTask<Void?, Void?, Bitmap>() {
@@ -266,6 +266,7 @@ abstract class Asset {
                 mBitmap, (bitmapWidth / scale).roundToInt(), (bitmapHeight / scale).roundToInt(),
                 true
             )
+            scaledBitmap.setHasAlpha(true)
             val horizontalGutterPx = 0.coerceAtLeast((scaledBitmap.width - measuredWidth) / 2)
             val verticalGutterPx = 0.coerceAtLeast((scaledBitmap.height - measuredHeight) / 2)
             return Bitmap.createBitmap(

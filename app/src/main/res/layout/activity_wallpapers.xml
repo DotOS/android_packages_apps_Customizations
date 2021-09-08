@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:transitionName="root"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary">
+
+    <com.dot.ui.DotToolbar
+        android:id="@+id/wallToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transitionName="toolbar"
+        android:title="Wallpapers" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/topCard"
+                android:transitionName="topCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/recyclerSpacerBig"
+                android:layout_marginTop="@dimen/recyclerSpacerBigger"
+                android:layout_marginEnd="@dimen/recyclerSpacerBig"
+                android:layout_marginBottom="@dimen/recyclerSpacer"
+                app:cardBackgroundColor="@color/cardBackground"
+                app:cardCornerRadius="@dimen/default_dialog_radius_round"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/recyclerSpacerBig">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardBackgroundColor="@color/cardBackground"
+                            app:cardCornerRadius="@dimen/default_dialog_radius_round"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/contextual_card_stroke_color"
+                            app:strokeWidth="1dp">
+
+                            <RelativeLayout
+                                android:id="@+id/preview_container_lockscreen"
+                                android:layout_width="match_parent"
+                                android:layout_height="258dp">
+
+                                <ImageView
+                                    android:id="@+id/preview_image_lockscreen"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="centerCrop" />
+
+                                <ImageView
+                                    android:id="@+id/preview_surface_lockscreen"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/preview_lockscreen_scrim"
+                                    android:clickable="false"
+                                    android:focusable="false" />
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:paddingStart="8dp"
+                            android:paddingTop="32dp"
+                            android:paddingEnd="8dp"
+                            android:text="@string/lockscreen"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="290dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/cardBackground"
+                            app:cardCornerRadius="@dimen/default_dialog_radius_round"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/contextual_card_stroke_color"
+                            app:strokeWidth="1dp">
+
+                            <RelativeLayout
+                                android:id="@+id/preview_container_launcher"
+                                android:layout_width="match_parent"
+                                android:layout_height="258dp">
+
+                                <SurfaceView
+                                    android:id="@+id/preview_surface_launcher"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+
+                                <ImageView
+                                    android:id="@+id/preview_image_launcher"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/preview_surface_launcher"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:adjustViewBounds="true"
+                                    android:focusable="false"
+                                    android:scaleType="fitCenter" />
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:paddingStart="8dp"
+                            android:paddingTop="32dp"
+                            android:paddingEnd="8dp"
+                            android:text="@string/homescreen"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/schedulingLaunch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:summary="Change wallpapers periodically"
+                android:title="Schedule Wallpapers"
+                android:widgetLayout="@layout/preference_widget_beta"
+                app:newStyle="true" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/wp_builtin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:summary="Pick one of our included walls. Those may vary in future updates."
+                android:title="@string/built_in_wallpapers"
+                android:widgetLayout="@layout/preference_widget_more"
+                app:cardStyle="false"
+                app:newStyle="true" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/wp_dot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:summary="Try our sets of wallpapers."
+                android:title="@string/dotos_exclusives"
+                android:widgetLayout="@layout/preference_widget_more"
+                app:newStyle="true" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/wp_live"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:title="@string/live_wallpapers"
+                android:widgetLayout="@layout/preference_widget_more"
+                app:newStyle="true" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/wp_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checkable="false"
+                android:tint="@color/colorAccent"
+                android:title="@string/pick_from_gallery"
+                android:widgetLayout="@layout/preference_widget_more"
+                app:newStyle="true">
+
+            </com.dot.ui.DotMaterialPreference>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,51 +1,59 @@
 package com.dot.applock.adapter
 
+import android.app.Activity
 import android.app.AppLockManager
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.dot.applock.ObjectToolsAnimator
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.dot.applock.R
+import com.dot.applock.databinding.ItemApplockBinding
 import com.dot.applock.model.AppModel
+import com.dot.ui.utils.ObjectToolsAnimator
+import kotlin.collections.ArrayList
 
-class AppLockAdapter(private var items: ArrayList<AppModel>, private val am: AppLockManager) :
+class AppLockAdapter(
+    var items: ArrayList<AppModel>,
+    private val am: AppLockManager,
+    activity: Activity
+) :
     RecyclerView.Adapter<AppLockAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppLockAdapter.ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_applock, parent, false))
+    private val layoutInflater by lazy {
+        activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
-    override fun onBindViewHolder(holder: AppLockAdapter.ViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(ItemApplockBinding.inflate(layoutInflater, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val app: AppModel = items[position]
-        holder.appName.text = app.mLabel
-        holder.appPackageName.text = app.mPackageName
-        Glide.with(holder.appIcon)
-            .load(app.mIcon)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(android.R.color.transparent)
-            .into(holder.appIcon)
-        holder.appAction.setOnClickListener {
-            if (!am.lockedPackages.contains(app.mPackageName)) am.addAppToList(app.mPackageName)
-            else am.removeAppFromList(app.mPackageName)
+        with(holder.binding) {
+            title.text = app.mLabel
+            summary.text = app.mPackageName
+            icon.load(app.mIcon) {
+                crossfade(200)
+                placeholder(android.R.color.transparent)
+                transformations(CircleCropTransformation())
+            }
+            appLockAction.setOnClickListener {
+                if (!am.lockedPackages.contains(app.mPackageName)) am.addAppToList(app.mPackageName)
+                else am.removeAppFromList(app.mPackageName)
+                updateActionIcon(app.mPackageName!!, holder)
+            }
             updateActionIcon(app.mPackageName!!, holder)
+            ObjectToolsAnimator.show(root, 300)
         }
-        updateActionIcon(app.mPackageName!!, holder)
-        ObjectToolsAnimator.show(holder.itemView, 300)
     }
 
-    private fun updateActionIcon(pckg: String, holder: AppLockAdapter.ViewHolder) {
+    private fun updateActionIcon(pckg: String, holder: ViewHolder) {
         if (!am.lockedPackages.contains(pckg))
-            holder.appAction.setImageResource(R.drawable.ic_unlock)
+            holder.binding.appLockAction.setImageResource(R.drawable.ic_unlock)
         else
-            holder.appAction.setImageResource(R.drawable.ic_locked)
+            holder.binding.appLockAction.setImageResource(R.drawable.ic_locked)
     }
 
     fun updateList(newItems: ArrayList<AppModel>) {
@@ -76,11 +84,6 @@ class AppLockAdapter(private var items: ArrayList<AppModel>, private val am: App
 
     override fun getItemCount(): Int = items.size
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val appLayout: LinearLayout = view.findViewById(R.id.preference_layout)
-        val appName: TextView = view.findViewById(android.R.id.title)
-        val appPackageName: TextView = view.findViewById(android.R.id.summary)
-        val appIcon: ImageView = view.findViewById(android.R.id.icon)
-        val appAction: ImageButton = view.findViewById(R.id.appLockAction)
-    }
+    data class ViewHolder(val binding: ItemApplockBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

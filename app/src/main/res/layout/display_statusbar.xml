@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/default_card_width">
+    android:layout_width="@dimen/section_fragment_size"
+    android:layout_height="@dimen/section_fragment_size">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_weight="1"
             android:contentDescription="@null"
             app:srcCompat="@drawable/statusbar_icon0"
-            app:tint="?android:attr/textColorPrimary" />
+            app:tint="@color/colorAccent" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:contentDescription="@null"
             app:srcCompat="@drawable/statusbar_icon1"
-            app:tint="?android:attr/textColorPrimary" />
+            app:tint="@color/colorAccent" />
 
     </LinearLayout>
 

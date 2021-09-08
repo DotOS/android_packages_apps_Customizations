@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary">
+
+    <com.dot.ui.DotToolbar
+        android:id="@+id/schedWallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="@string/create" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:title="@string/pick_your_wallpapers"
+                app:categoryLayout="true"
+                app:newStyle="true" >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/schedPickedRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/recyclerSpacer"
+                    android:layout_marginBottom="@dimen/recyclerSpacer"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_sched_pick" />
+
+                <com.dot.ui.DotMaterialPreference
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:icon="@drawable/ic_error_round"
+                    android:tint="@color/colorAccent"
+                    android:title="@string/schedule_info"
+                    app:footerLayout="true" />
+
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:summary="Selecting once, the wallpaper will be changed at the time set."
+                android:title="@string/schedule_period"
+                app:newStyle="true" >
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/schedRoutine"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="@dimen/recyclerSpacer"
+                    android:layout_marginTop="@dimen/recyclerSpacer"
+                    android:layout_marginEnd="@dimen/recyclerSpacer"
+                    android:layout_marginBottom="@dimen/recyclerSpacerBig"
+                    android:background="@drawable/circle_bg"
+                    android:backgroundTint="@color/cardBackground"
+                    app:tabIndicator="@drawable/circle_bg"
+                    app:tabIndicatorColor="@color/colorAccent"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorHeight="56dp"
+                    app:tabTextAppearance="@style/DashboardV2.TabLayout.Item">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/once" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/weekly" />
+                </com.google.android.material.tabs.TabLayout>
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/schedTimePref"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:summary="Set hour and minute when should trigger a wallpaper change."
+                android:title="@string/set_trigger_time"
+                android:widgetLayout="@layout/preference_widget_date"
+                app:newStyle="true">
+
+            </com.dot.ui.DotMaterialPreference>
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/schedDelayInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="102dp"
+                android:icon="@drawable/ic_error_round"
+                android:tint="@color/colorAccent"
+                android:title="@string/schedule_min_delay"
+                app:footerLayout="true" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/footer_gradient_big"
+        android:backgroundTint="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:padding="@dimen/recyclerSpacerBig">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/schedStart"
+            android:layout_width="0dp"
+            android:layout_height="66dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="@string/schedule"
+            android:textAllCaps="false"
+            android:textAppearance="@style/DashboardV2.TabLayout.Item"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="300dp"
+            app:elevation="0dp"
+            app:rippleColor="@color/colorAccent" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

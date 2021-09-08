@@ -42,7 +42,7 @@
             app:srcCompat="@drawable/ic_qs_frame_elements" />
     </FrameLayout>
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/sectionQS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="12dp" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/sectionRows"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

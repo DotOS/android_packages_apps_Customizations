@@ -5,13 +5,15 @@
     android:id="@+id/applyContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:background="@android:color/transparent"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
         app:elevation="0dp">
 
         <LinearLayout
@@ -19,45 +21,118 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.creageek.segmentedbutton.SegmentedButton
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/wallTabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginStart="@dimen/recyclerSpacerBig"
-                android:layout_marginTop="@dimen/recyclerSpacerBigger"
+                android:layout_marginTop="@dimen/recyclerSpacer"
                 android:layout_marginEnd="@dimen/recyclerSpacerBig"
-                app:borderColor="@color/colorPrimaryBackground"
-                app:borderWidth="1dp"
-                app:cornerRadius="@dimen/default_dialog_radius_round"
-                app:rippleColorChecked="@color/colorAccent"
-                app:segmentColor="@color/colorPrimaryScrim"
-                app:segmentColorChecked="?android:attr/textColorHighlight"
-                app:spreadType="evenly"
-                app:textColor="?android:attr/textColorSecondary"
-                app:textColorChecked="@color/colorAccent" />
+                android:background="@drawable/circle_bg"
+                android:backgroundTint="@color/cardBackground"
+                app:tabIndicator="@drawable/circle_bg"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorHeight="56dp"
+                app:tabTextAppearance="@style/DashboardV2.TabLayout.Item">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lockscreen" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/homescreen" />
+            </com.google.android.material.tabs.TabLayout>
+
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="64dp"
         android:layout_marginBottom="208dp"
-        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include
-            layout="@layout/item_wallpaper_preview_card_big"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/previewLockscreen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/recyclerSpacerBigger" />
-    </LinearLayout>
+            app:cardBackgroundColor="@color/cardBackground"
+            app:cardCornerRadius="@dimen/default_dialog_radius_round"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/contextual_card_stroke_color"
+            app:strokeWidth="1dp">
+
+            <RelativeLayout
+                android:id="@+id/preview_container_lockscreen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/preview_image_lockscreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/preview_surface_lockscreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/preview_lockscreen_scrim"
+                    android:clickable="false"
+                    android:focusable="false" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/previewLauncher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/cardBackground"
+            app:cardCornerRadius="@dimen/default_dialog_radius_round"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/contextual_card_stroke_color"
+            app:strokeWidth="1dp">
+
+            <RelativeLayout
+                android:id="@+id/preview_container_launcher"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <SurfaceView
+                    android:id="@+id/preview_surface_launcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/preview_image_launcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/preview_surface_launcher"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:adjustViewBounds="true"
+                    android:focusable="false"
+                    android:scaleType="fitCenter" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="192dp"
+        android:layout_height="208dp"
         android:layout_gravity="bottom"
-        android:background="@color/cardBackground"
         android:minHeight="160dp"
         android:orientation="vertical"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
@@ -68,7 +143,7 @@
             android:layout_above="@id/ap_apply"
             android:layout_alignStart="@id/ap_apply"
             android:layout_alignEnd="@id/ap_apply"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/recyclerSpacerBig"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -105,7 +180,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_ripple"
                 android:clickable="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/monetColorCard"
@@ -154,17 +230,19 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ap_apply"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="64dp"
             android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/recyclerSpacerBig"
             android:layout_marginTop="@dimen/recyclerSpacer"
             android:layout_marginEnd="@dimen/recyclerSpacerBig"
             android:layout_marginBottom="@dimen/recyclerSpacer"
+            android:backgroundTint="@color/colorPrimaryBackground"
             android:elevation="0dp"
             android:stateListAnimator="@null"
             android:text="@string/apply"
             android:textAllCaps="false"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/colorAccent"
             app:cornerRadius="300dp"
             app:elevation="0dp"
             app:rippleColor="@color/colorAccent"

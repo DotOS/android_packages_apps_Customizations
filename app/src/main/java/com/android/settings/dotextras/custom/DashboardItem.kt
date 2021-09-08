@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 class DashboardItem(
-    val parent: Fragment,
     val card_title: String,
     val target_fragment: Fragment,
     val display_fragment: Fragment,
 ) {
     var longCard: Boolean = false
     var standalone: Boolean = false
+    var secured: Boolean = false
     var startActivity: AppCompatActivity? = null
 }

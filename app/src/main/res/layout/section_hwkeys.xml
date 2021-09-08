@@ -1,53 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/hwkeys0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/hwkeys1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/hardware_keys_home_key_title" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/hwkeys2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/hardware_keys_back_key_title" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/hwkeys3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/hardware_keys_menu_key_title" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/hwkeys4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/hardware_keys_assist_key_title" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/hwkeys5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:sectionTitle="@string/hardware_keys_appswitch_key_title" />
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/hwkeys6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:sectionTitle="@string/hardware_keys_camera_key_title" >
+        app:sectionTitle="@string/hardware_keys_camera_key_title">
 
-    </com.android.settings.dotextras.custom.views.ContextSectionLayout>
+    </com.dot.ui.ContextSectionLayout>
 
-    <com.android.settings.dotextras.custom.views.ContextSectionLayout
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/hwkeys7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

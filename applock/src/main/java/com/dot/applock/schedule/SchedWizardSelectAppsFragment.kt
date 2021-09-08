@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.dot.applock.R
-import com.dot.applock.ResourceHelper
 import com.dot.applock.model.AppModel
 import com.dot.applock.ui.CustomTextView
+import com.dot.ui.utils.ResourceHelper
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.button.MaterialButton
 import nl.komponents.kovenant.task

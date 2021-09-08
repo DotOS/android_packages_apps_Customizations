@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,92 +20,82 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
+import android.util.Pair
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImageOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.chip.Chip
+import com.android.settings.dotextras.databinding.ActivityCropBinding
 import java.io.File
 import java.io.IOException
 
 class WallpaperCropperActivity : AppCompatActivity(), CropImageView.OnCropImageCompleteListener,
     CropImageView.OnSetImageUriCompleteListener {
 
-    private lateinit var cropImageView: CropImageView
-    private lateinit var sheetLayout: LinearLayout
-    private lateinit var applyCrop: MaterialButton
-
-    private lateinit var ratio189: Chip
-    private lateinit var ratio169: Chip
-    private lateinit var ratio43: Chip
-    private lateinit var ratio11: Chip
-    private lateinit var ratiocustom: Chip
-
-    private lateinit var reflectHorizontal: Chip
-    private lateinit var reflectVertical: Chip
-
-    private lateinit var rotateLeft: Chip
-    private lateinit var rotateRight: Chip
-
+    private lateinit var binding: ActivityCropBinding
     private lateinit var imageUri: Uri
     private lateinit var mOptions: CropImageOptions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_crop)
-        cropImageView = findViewById(R.id.cropImageView)
-        applyCrop = findViewById(R.id.cardApplyCrop)
-        sheetLayout = findViewById(R.id.cropSheet)
-        ratio189 = findViewById(R.id.ratio189)
-        ratio169 = findViewById(R.id.ratio169)
-        ratio43 = findViewById(R.id.ratio43)
-        ratio11 = findViewById(R.id.ratio11)
-        ratiocustom = findViewById(R.id.ratiocustom)
-        reflectHorizontal = findViewById(R.id.reflectHorizontal)
-        reflectVertical = findViewById(R.id.reflectVertical)
-        rotateLeft = findViewById(R.id.rotateLeft)
-        rotateRight = findViewById(R.id.rotateRight)
-        val bottomSheetBehavior = BottomSheetBehavior.from(sheetLayout)
-        val bundle = intent.getBundleExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE)
-        imageUri = bundle!!.getParcelable(CropImage.CROP_IMAGE_EXTRA_SOURCE)!!
-        mOptions = bundle.getParcelable(CropImage.CROP_IMAGE_EXTRA_OPTIONS)!!
-        cropImageView.setImageUriAsync(imageUri)
-        ratio189.setOnClickListener { cropImageView.setAspectRatio(9, 18) }
-        ratio169.setOnClickListener { cropImageView.setAspectRatio(9, 16) }
-        ratio43.setOnClickListener { cropImageView.setAspectRatio(3, 4) }
-        ratio11.setOnClickListener { cropImageView.setAspectRatio(1, 1) }
-        ratiocustom.setOnClickListener { cropImageView.setFixedAspectRatio(false) }
-        reflectHorizontal.setOnClickListener { cropImageView.flipImageHorizontally() }
-        reflectVertical.setOnClickListener { cropImageView.flipImageVertically() }
-        rotateLeft.setOnClickListener { rotateImage(-mOptions.rotationDegrees) }
-        rotateRight.setOnClickListener { rotateImage(mOptions.rotationDegrees) }
-        applyCrop.setOnClickListener { cropImage() }
-        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetCallback() {
-            override fun onStateChanged(@NonNull view: View, newState: Int) {
+        binding = ActivityCropBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        lifecycleScope.launchWhenCreated {
+            with(binding) {
+                appTitle.setNavigationIcon(R.drawable.ic_arrow_back)
+                appTitle.setNavigationOnClickListener { onBackPressed() }
+                val bundle = intent.getBundleExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE)
+                imageUri = bundle!!.getParcelable(CropImage.CROP_IMAGE_EXTRA_SOURCE)!!
+                mOptions = bundle.getParcelable(CropImage.CROP_IMAGE_EXTRA_OPTIONS)!!
+                cropImageView.setImageUriAsync(imageUri)
+                aspectRatio.setOnClickListener {
+                    when (cropImageView.aspectRatio) {
+                        Pair.create(9, 18) -> {
+                            cropImageView.setAspectRatio(9, 16)
+                        }
+                        Pair.create(9, 16) -> {
+                            cropImageView.setAspectRatio(3, 4)
+                        }
+                        Pair.create(3, 4) -> {
+                            cropImageView.setAspectRatio(1, 1)
+                        }
+                        Pair.create(1, 1) -> {
+                            cropImageView.setFixedAspectRatio(false)
+                        }
+                        else -> {
+                            cropImageView.setAspectRatio(9, 18)
+                        }
+                    }
+                }
+                reflect.setOnClickListener {
+                    if (!cropImageView.isFlippedVertically && cropImageView.isFlippedHorizontally) {
+                        cropImageView.flipImageHorizontally()
+                    } else if (cropImageView.isFlippedVertically && !cropImageView.isFlippedHorizontally) {
+                        cropImageView.flipImageVertically()
+                    } else if (!cropImageView.isFlippedVertically && !cropImageView.isFlippedHorizontally) {
+                        cropImageView.flipImageVertically()
+                    }
+                }
+                rotate.setOnClickListener {
+                    rotateImage(mOptions.rotationDegrees)
+                }
+                cardApplyCrop.setOnClickListener { cropImage() }
             }
-
-            override fun onSlide(@NonNull view: View, v: Float) {
-            }
-        })
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        cropImageView.setOnSetImageUriCompleteListener(this)
-        cropImageView.setOnCropImageCompleteListener(this)
+        binding.cropImageView.setOnSetImageUriCompleteListener(this)
+        binding.cropImageView.setOnCropImageCompleteListener(this)
     }
 
     override fun onStop() {
         super.onStop()
-        cropImageView.setOnSetImageUriCompleteListener(null)
-        cropImageView.setOnCropImageCompleteListener(null)
+        binding.cropImageView.setOnSetImageUriCompleteListener(null)
+        binding.cropImageView.setOnCropImageCompleteListener(null)
     }
 
     override fun onBackPressed() {
@@ -120,10 +110,10 @@ class WallpaperCropperActivity : AppCompatActivity(), CropImageView.OnCropImageC
     override fun onSetImageUriComplete(view: CropImageView?, uri: Uri?, error: Exception?) {
         if (error == null) {
             if (mOptions.initialCropWindowRectangle != null) {
-                cropImageView.cropRect = (mOptions.initialCropWindowRectangle)
+                binding.cropImageView.cropRect = (mOptions.initialCropWindowRectangle)
             }
             if (mOptions.initialRotation > -1) {
-                cropImageView.rotatedDegrees = (mOptions.initialRotation)
+                binding.cropImageView.rotatedDegrees = (mOptions.initialRotation)
             }
         } else {
             setResult(null, error, 1)
@@ -137,7 +127,7 @@ class WallpaperCropperActivity : AppCompatActivity(), CropImageView.OnCropImageC
         if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // required permissions granted, start crop image activity
-                cropImageView.setImageUriAsync(imageUri)
+                binding.cropImageView.setImageUriAsync(imageUri)
             } else {
                 Toast.makeText(this, R.string.crop_image_activity_no_permissions, Toast.LENGTH_LONG)
                     .show()
@@ -154,7 +144,7 @@ class WallpaperCropperActivity : AppCompatActivity(), CropImageView.OnCropImageC
             setResult(null, null, 1)
         } else {
             val outputUri = outputUri
-            cropImageView.saveCroppedImageAsync(
+            binding.cropImageView.saveCroppedImageAsync(
                 outputUri,
                 mOptions.outputCompressFormat,
                 mOptions.outputCompressQuality,
@@ -169,7 +159,7 @@ class WallpaperCropperActivity : AppCompatActivity(), CropImageView.OnCropImageC
      * Rotate the image in the crop image view.
      */
     private fun rotateImage(degrees: Int) {
-        cropImageView.rotateImage(degrees)
+        binding.cropImageView.rotateImage(degrees)
     }
 
     /**
@@ -214,13 +204,13 @@ class WallpaperCropperActivity : AppCompatActivity(), CropImageView.OnCropImageC
      */
     private fun getResultIntent(uri: Uri?, error: Exception?, sampleSize: Int): Intent {
         val result = CropImage.ActivityResult(
-            cropImageView.imageUri,
+            binding.cropImageView.imageUri,
             uri,
             error,
-            cropImageView.cropPoints,
-            cropImageView.cropRect,
-            cropImageView.rotatedDegrees,
-            cropImageView.wholeImageRect,
+            binding.cropImageView.cropPoints,
+            binding.cropImageView.cropRect,
+            binding.cropImageView.rotatedDegrees,
+            binding.cropImageView.wholeImageRect,
             sampleSize
         )
         val intent = Intent()

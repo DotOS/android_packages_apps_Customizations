@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,11 +30,11 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.RGB
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
-import com.android.settings.dotextras.custom.utils.BalloonPump
+import com.dot.ui.utils.BalloonPump
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
-import com.android.settings.dotextras.custom.utils.SettingsConstants
-import com.android.settings.dotextras.custom.views.ContextSectionLayout
-import com.android.settings.dotextras.system.FeatureManager
+import com.dot.ui.utils.SettingsConstants
+import com.dot.ui.ContextSectionLayout
+import com.dot.ui.system.FeatureManager
 import kotlin.properties.Delegates
 
 open class GenericSection : Fragment(), SectionInterface {

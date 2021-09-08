@@ -222,7 +222,7 @@ abstract class StreamableAsset : Asset() {
                 val rotateMatrix = Matrix()
                 rotateMatrix.setRotate(matrixRotation.toFloat())
                 bitmap = Bitmap.createBitmap(
-                    bitmap, 0, 0, bitmap.width, bitmap.height, rotateMatrix, false
+                    bitmap!!, 0, 0, bitmap.width, bitmap.height, rotateMatrix, false
                 )
             }
             return bitmap

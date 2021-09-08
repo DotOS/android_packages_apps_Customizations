@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Only for visualization purposes -->
+    <color name="monet_background_device_default">#000</color>
+    <color name="monet_background_secondary_device_default">#212121</color>
+
+    <color name="colorAccent">@*android:color/accent_device_default_dark</color>
+    <color name="colorPrimaryTranslucent">#B3121212</color>
+    <color name="colorPrimaryScrim">#73121212</color>
+
+    <color name="contextual_card_color">@color/monet_background_secondary_device_default</color>
+
+    <color name="fod_item_background_stroke_color">#555555</color>
+</resources>

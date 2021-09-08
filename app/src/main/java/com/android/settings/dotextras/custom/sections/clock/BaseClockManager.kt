@@ -28,7 +28,7 @@ abstract class BaseClockManager(private val mClockProvider: ClockProvider?) {
         callback: OptionsFetchedListener,
         reload: Boolean,
     ) {
-        mClockProvider!!.fetch(callback, false)
+        mClockProvider!!.fetch(callback, reload)
     }
 
     /** Returns the ID of the current clock face, which may be null for the default clock face.  */

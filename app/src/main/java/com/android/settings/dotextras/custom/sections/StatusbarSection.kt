@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,14 @@
  */
 package com.android.settings.dotextras.custom.sections
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.cards.ContextCards
-import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.custom.utils.SettingsConstants
+import com.dot.ui.utils.ResourceHelper
 
 class StatusbarSection : GenericSection() {
 
@@ -191,10 +188,6 @@ class StatusbarSection : GenericSection() {
             feature = featureManager.System().BATTERY_LIGHT_LOW_BLINKING,
             featureType = SYSTEM,
             summary = getString(R.string.blinking_on_low)
-        )
-        val pref = requireActivity().getSharedPreferences(
-            SettingsConstants.SETTINGS_PREF,
-            Context.MODE_PRIVATE
         )
         if (ResourceHelper.hasRGBLed(requireContext())) {
             buildRGB(

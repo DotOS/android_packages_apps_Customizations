@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#000</color>
-    <color name="colorPrimaryDark">#000</color>
-    <color name="colorPrimaryBackground">#121212</color>
-    <color name="colorAccent">@*android:color/accent_device_default_dark</color>
-</resources>

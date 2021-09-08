@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import com.android.settings.dotextras.R
 
-class NotSupportedView(context: Context?, attrs: AttributeSet?) : FrameLayout(context, attrs) {
+class NotSupportedView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
 
     init {
         LayoutInflater.from(context).inflate(
@@ -18,7 +18,7 @@ class NotSupportedView(context: Context?, attrs: AttributeSet?) : FrameLayout(co
             if (a.hasValue(R.styleable.NotSupportedView_featureTitle)) {
                 findViewById<TextView>(R.id.notSupportedTitle).text =
                     String.format(
-                        mContext.getString(R.string.feature_control_not_supported),
+                        context.getString(R.string.feature_control_not_supported),
                         a.getString(R.styleable.NotSupportedView_featureTitle)
                     )
             }

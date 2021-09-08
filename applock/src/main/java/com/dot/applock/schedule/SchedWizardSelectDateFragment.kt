@@ -12,10 +12,10 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import ca.antonious.materialdaypicker.MaterialDayPicker
-import com.dot.applock.ObjectToolsAnimator
 import com.dot.applock.R
-import com.dot.applock.ResourceHelper
 import com.dot.applock.ui.CustomTextView
+import com.dot.ui.utils.ObjectToolsAnimator
+import com.dot.ui.utils.ResourceHelper
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -92,7 +92,7 @@ class SchedWizardSelectDateFragment : Fragment() {
                 TimePickerDialog(
                     requireContext(),
                     R.style.DialogThemeTest,
-                    { timePicker, selectedHour, selectedMinute ->
+                    { _, selectedHour, selectedMinute ->
                         run {
                             updateScheduledHoursNow(selectedRecurrence == Recurrence.DOES_NOT_REPEAT, selectedHour, selectedMinute)
                         }

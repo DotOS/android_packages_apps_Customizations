@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/clock_face"
+    android:tint="@color/monet_background_device_default">
+
+</bitmap>

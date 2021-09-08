@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.android.settings.dotextras.custom.sections.fod
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -25,10 +26,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.size.Scale
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.system.FeatureManager
-import com.bumptech.glide.Glide
+import com.dot.ui.utils.ResourceHelper
+import com.dot.ui.system.FeatureManager
 import com.google.android.material.card.MaterialCardView
 
 class FodIconAdapter(
@@ -53,16 +55,14 @@ class FodIconAdapter(
         val fodIcon: FodResource = items[position]
         fodIcon.selected =
             featureManager.System().getInt(featureManager.System().FOD_ICON, 0) == fodIcon.id
-        Glide.with(holder.fodIcon)
-            .load(
-                ResourceHelper.getDrawable(
-                    holder.fodIcon.context,
-                    holder.fodIcon.context.getString(R.string.systemui_package),
-                    fodIcon.resource
-                )
-            )
-            .placeholder(android.R.color.transparent)
-            .into(holder.fodIcon)
+        Handler(holder.itemView.context.mainLooper).post {
+            holder.fodIcon.load(ResourceHelper.getDrawable(holder.fodIcon.context,
+                holder.fodIcon.context.getString(R.string.systemui_package), fodIcon.resource)) {
+                scale(Scale.FIT)
+                crossfade(true)
+                placeholder(android.R.color.transparent)
+            }
+        }
         holder.fodLayout.setOnClickListener {
             select(position)
             updateSelection(fodIcon, holder)
@@ -129,14 +129,17 @@ class FodIconAdapter(
                 )
             )
         } else {
-            holder.fodCard.strokeColor = ResourceHelper.getSecondaryTextColor(holder.fodCard.context)
+            holder.fodCard.strokeColor = holder.itemView.resources.getColor(
+                com.android.internal.R.color.monet_background_secondary_device_default,
+                holder.itemView.context.theme)
         }
     }
 
     private fun select(pos: Int) {
         for (i in items.indices) {
+            val selected = items[i].selected
             items[i].selected = pos == i
-            notifyItemChanged(i)
+            if (selected != items[i].selected) notifyItemChanged(i)
         }
     }
 

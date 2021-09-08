@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/clockfaceSettings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:summary=" "
+        android:title="@string/clockface"
+        android:widgetLayout="@layout/preference_widget_clockface"
+        app:newStyle="true" />
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/gridSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:summary=" "
+        android:title="@string/grid_section"
+        android:widgetLayout="@layout/preference_widget_grid"
+        app:newStyle="true" />
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/fontSettings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:summary=" "
+        android:title="@string/system_font"
+        android:widgetLayout="@layout/preference_widget_font"
+        app:newStyle="true" />
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/shapeSettings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:summary=" "
+        android:title="@string/icon_shapes"
+        android:widgetLayout="@layout/preference_widget_shape"
+        app:newStyle="true" />
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/iconSettings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="6dp"
+        android:summary=" "
+        android:title="@string/icon_pack"
+        android:widgetLayout="@layout/preference_widget_icons"
+        app:newStyle="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/moreSettings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:summary="Status Bar, Quick Settings, Buttons etc"
+        android:title="@string/more_settings"
+        android:widgetLayout="@layout/preference_widget_more"
+        app:newStyle="true" />
+</LinearLayout>

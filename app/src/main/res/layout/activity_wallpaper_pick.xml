@@ -1,78 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.dot.ui.DotToolbar
+        android:id="@+id/wallpaperToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
+        android:title="@string/select_wallpaper"
+        app:addToAppbar="true">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/colltoolbar_height"
-            android:animateLayoutChanges="true"
-            android:background="?attr/colorPrimary"
-            app:collapsedTitleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
-            app:contentScrim="?android:attr/colorPrimary"
-            app:expandedTitleMarginStart="32dp"
-            app:expandedTitleTextAppearance="@style/Dashboard.Toolbar.Expanded"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:maxLines="2"
-            app:statusBarScrim="?android:attr/colorPrimary"
-            app:toolbarId="@+id/action_bar">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
+            android:orientation="vertical">
 
-            <Toolbar
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/monetWarning"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:animateLayoutChanges="true"
-                android:paddingStart="@dimen/recyclerSpacerBig"
-                android:theme="?android:attr/actionBarTheme"
-                android:title="@string/select_wallpaper"
-                android:titleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
-                app:layout_collapseMode="pin" />
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_error_round"
+                android:tint="@color/colorAccent"
+                android:title="@string/monet_live_wp"
+                android:visibility="gone"
+                app:footerLayout="true"
+                app:newStyle="true"
+                tools:visibility="visible" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/categoriesRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="@dimen/recyclerSpacer"
+                android:visibility="gone"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_wallpaper_filter" />
+        </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoriesRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:visibility="gone"
-            tools:itemCount="1"
-            tools:listitem="@layout/item_wallpaper_filter" />
+    </com.dot.ui.DotToolbar>
 
-        <com.android.settings.dotextras.custom.views.DotMaterialPreference
-            android:id="@+id/monetWarning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/recyclerSpacer"
-            android:icon="@drawable/ic_error_round"
-            android:summary="@string/monet_live_wp"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.cardview.widget.CardView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wallRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="@dimen/recyclerSpacer"
         android:layout_marginEnd="@dimen/recyclerSpacer"
-        app:cardBackgroundColor="@color/colorPrimaryBackground"
-        app:cardCornerRadius="@dimen/default_dialog_radius_round"
-        app:cardElevation="0dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/wallRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.cardview.widget.CardView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,11 +11,11 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.dot.applock.R
-import com.dot.applock.ResourceHelper
 import com.dot.applock.adapter.AppLockAdapter
 import com.dot.applock.model.AppModel
 import com.dot.applock.task.ScheduledLocker
 import com.dot.applock.task.ScheduledUnlocker
+import com.dot.ui.utils.ResourceHelper
 import com.google.android.material.button.MaterialButton
 import java.util.*
 import java.util.concurrent.TimeUnit

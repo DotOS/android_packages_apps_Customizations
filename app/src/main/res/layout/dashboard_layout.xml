@@ -2,70 +2,48 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:transitionName="root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BaseActivity">
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/dashboardAppBar"
+    <com.dot.ui.DotToolbar
+        android:id="@+id/dashboardToolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/colltoolbar_height"
-        android:animateLayoutChanges="true"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
+        android:layout_height="wrap_content"
+        android:transitionName="toolbar"
+        android:title="@string/app_name">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        <LinearLayout
+            android:id="@+id/appblayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/toolbar_height"
             android:animateLayoutChanges="true"
-            android:background="?android:attr/colorPrimary"
-            app:collapsedTitleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
-            app:contentScrim="?android:attr/colorPrimary"
-            app:expandedTitleMarginStart="32dp"
-            app:expandedTitleTextAppearance="@style/Dashboard.Toolbar.Expanded"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:maxLines="2"
-            app:statusBarScrim="?android:attr/colorPrimary"
-            app:toolbarId="@+id/appTitle">
+            android:background="@android:color/transparent"
+            android:orientation="horizontal">
 
-            <Toolbar
-                android:id="@+id/appTitle"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:paddingStart="32dp"
-                android:animateLayoutChanges="true"
-                android:theme="?android:attr/actionBarTheme"
-                android:title="@string/app_name"
-                android:titleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
-                app:layout_collapseMode="pin" />
-
-            <LinearLayout
-                android:id="@+id/appblayout"
-                android:layout_width="match_parent"
+            <Space
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:background="@android:color/transparent"
-                android:orientation="horizontal">
+                android:layout_weight="1" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/launchSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="28dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                app:srcCompat="@drawable/ic_settings_aosp"
+                app:tint="?android:attr/textColorPrimary"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/launchSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_margin="28dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="?android:attr/textColorPrimary"
-                    app:srcCompat="@drawable/ic_settings_aosp" />
-            </LinearLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.dot.ui.DotToolbar>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedContainer"
@@ -78,12 +56,180 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/frameContent"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/topCard"
+                android:transitionName="topCard"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/recyclerSpacerBig"
+                android:layout_marginTop="@dimen/recyclerSpacerBigger"
+                android:layout_marginEnd="@dimen/recyclerSpacerBig"
+                android:layout_marginBottom="@dimen/recyclerSpacer"
+                app:cardBackgroundColor="@color/cardBackground"
+                app:cardCornerRadius="@dimen/default_dialog_radius_round"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/recyclerSpacerBig">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/cardBackground"
+                            app:cardCornerRadius="@dimen/default_dialog_radius_round"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/contextual_card_stroke_color"
+                            app:strokeWidth="1dp">
+
+                            <RelativeLayout
+                                android:id="@+id/preview_container_lockscreen"
+                                android:layout_width="match_parent"
+                                android:layout_height="258dp">
+
+                                <ImageView
+                                    android:id="@+id/preview_image_lockscreen"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="centerCrop" />
+
+                                <ImageView
+                                    android:id="@+id/preview_surface_lockscreen"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/preview_lockscreen_scrim"
+                                    android:clickable="false"
+                                    android:focusable="false" />
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <Space
+                            android:layout_width="12dp"
+                            android:layout_height="wrap_content" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/cardBackground"
+                            app:cardCornerRadius="@dimen/default_dialog_radius_round"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/contextual_card_stroke_color"
+                            app:strokeWidth="1dp">
+
+                            <RelativeLayout
+                                android:id="@+id/preview_container_launcher"
+                                android:layout_width="match_parent"
+                                android:layout_height="258dp">
+
+                                <SurfaceView
+                                    android:id="@+id/preview_surface_launcher"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+
+                                <ImageView
+                                    android:id="@+id/preview_image_launcher"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/preview_surface_launcher"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:adjustViewBounds="true"
+                                    android:focusable="false"
+                                    android:scaleType="fitCenter" />
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/changeWallpaper"
+                        android:layout_width="match_parent"
+                        android:layout_height="66dp"
+                        android:layout_marginTop="@dimen/recyclerSpacerBigger"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
+                        android:text="@string/change_wallpaper"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/DashboardV2.TabLayout.Item"
+                        android:textColor="?android:attr/textColorPrimaryInverse"
+                        app:backgroundTint="@color/colorAccent"
+                        app:cornerRadius="300dp"
+                        app:elevation="0dp"
+                        app:rippleColor="@color/colorAccent" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/theme_selector"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="@dimen/recyclerSpacerBig"
+                android:layout_marginTop="@dimen/recyclerSpacer"
+                android:layout_marginEnd="@dimen/recyclerSpacerBig"
+                android:background="@drawable/circle_bg"
+                android:backgroundTint="@color/cardBackground"
+                app:tabIndicator="@drawable/circle_bg"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorHeight="56dp"
+                app:tabTextAppearance="@style/DashboardV2.TabLayout.Item">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wallpaper_colors" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/system_colors" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/theme_accent_picker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/recyclerSpacerBig"
+                android:scrollbars="none" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/wallpaperColorsSettings"
+                android:name="com.android.settings.dotextras.custom.sections.fragments.FragmentWallpaperColorsSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:layout="@layout/fragment_wallpaper_colors_settings" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/systemColorsSettings"
+                android:name="com.android.settings.dotextras.custom.sections.fragments.FragmentSystemColorsSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:layout="@layout/fragment_system_colors_settings" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/themeSettings"
+                android:name="com.android.settings.dotextras.custom.sections.fragments.FragmentThemeSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_theme_settings" />
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

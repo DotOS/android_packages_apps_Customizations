@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,9 +44,9 @@ import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWIPE
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SWITCH
 import com.android.settings.dotextras.custom.sections.cards.ContextCardsAdapter.Type.SYSTEM
-import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.dot.ui.utils.ResourceHelper
 import com.android.settings.dotextras.custom.views.ColorSheet
-import com.android.settings.dotextras.system.FeatureManager
+import com.dot.ui.system.FeatureManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import kotlin.math.roundToInt
@@ -592,19 +592,38 @@ class ContextCardsAdapter(
                 updateRGBSection(contextCard, holder)
             }
             LIST -> {
-                contextCard.isCardChecked = true //Checked by default as there's always an option selected
+                contextCard.isCardChecked =
+                    true //Checked by default as there's always an option selected
                 (holder as ViewHolder).cardIcon.setImageResource(contextCard.iconID)
-                holder.cardIcon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(holder.cardIcon.context, contextCard.accentColor))
+                holder.cardIcon.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        holder.cardIcon.context,
+                        contextCard.accentColor
+                    )
+                )
                 when (contextCard.featureType) {
-                    SECURE -> holder.cardTitle.text = contextCard.entries!![featureManager.Secure().getInt(contextCard.feature, contextCard.default)]
-                    SYSTEM -> holder.cardTitle.text = contextCard.entries!![featureManager.System().getInt(contextCard.feature, contextCard.default)]
-                    GLOBAL -> holder.cardTitle.text = contextCard.entries!![featureManager.Global().getInt(contextCard.feature, contextCard.default)]
+                    SECURE -> holder.cardTitle.text = contextCard.entries!![featureManager.Secure()
+                        .getInt(contextCard.feature, contextCard.default)]
+                    SYSTEM -> holder.cardTitle.text = contextCard.entries!![featureManager.System()
+                        .getInt(contextCard.feature, contextCard.default)]
+                    GLOBAL -> holder.cardTitle.text = contextCard.entries!![featureManager.Global()
+                        .getInt(contextCard.feature, contextCard.default)]
                 }
                 holder.cardTitle.isSelected = true
-                holder.cardTitle.setTextColor(ContextCompat.getColor(holder.cardTitle.context, contextCard.accentColor))
+                holder.cardTitle.setTextColor(
+                    ContextCompat.getColor(
+                        holder.cardTitle.context,
+                        contextCard.accentColor
+                    )
+                )
                 holder.cardSubtitle.text = contextCard.subtitle
                 holder.cardSubtitle.isSelected = true
-                holder.cardSubtitle.setTextColor(ContextCompat.getColor(holder.cardSubtitle.context, contextCard.accentColor))
+                holder.cardSubtitle.setTextColor(
+                    ContextCompat.getColor(
+                        holder.cardSubtitle.context,
+                        contextCard.accentColor
+                    )
+                )
                 if (contextCard.summary == null) holder.cardSummary.visibility = View.INVISIBLE
                 else holder.cardSummary.text = contextCard.summary
                 holder.cardClickable.setOnClickListener {
@@ -615,13 +634,15 @@ class ContextCardsAdapter(
                         }
                     }
                     ListBottomSheet()
-                        .setupDialog(contextCard.subtitle,
+                        .setupDialog(
+                            contextCard.subtitle,
                             contextCard.feature,
                             contextCard.featureType,
                             contextCard.default,
                             contextCard.entries!!,
                             contextCard.entryValues!!,
-                            callback)
+                            callback
+                        )
                         .show(contextCard.fragmentManager!!, contextCard.subtitle)
                 }
                 holder.cardClickable.setOnTouchListener { _, event ->
@@ -712,10 +733,7 @@ class ContextCardsAdapter(
             holder.cardLayout.setCardBackgroundColor(accentColor)
         } else {
             holder.cardLayout.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.cardLayout.context,
-                    R.color.colorPrimaryBackground
-                )
+                holder.cardLayout.resources.getColor(com.android.internal.R.color.monet_background_secondary_device_default, holder.cardLayout.context.theme)
             )
         }
         if (holder.cardTitle.text == holder.cardTitle.context.getString(R.string.enabled) || holder.cardTitle.text == holder.cardTitle.context.getString(

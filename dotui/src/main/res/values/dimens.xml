@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_card_width">164dp</dimen>
+    <dimen name="default_card_height">164dp</dimen>
+    <dimen name="large_card_height">286dp</dimen>
+    <dimen name="default_size_icon">52dp</dimen>
+    <dimen name="default_header_height">174dp</dimen>
+    <dimen name="small_card_width">128dp</dimen>
+    <dimen name="small_card_height">128dp</dimen>
+    <dimen name="wallpaper_card_height">248dp</dimen>
+    <dimen name="default_dialog_radius">12dp</dimen>
+    <dimen name="default_dialog_radius_round">24dp</dimen>
+    <dimen name="recyclerSpacer">16dp</dimen>
+    <dimen name="recyclerSpacerBig">32dp</dimen>
+    <dimen name="recyclerSpacerBigger">24dp</dimen>
+    <dimen name="recyclerSpacerSmall">16dp</dimen>
+    <dimen name="component_shape_thumb_size">72dp</dimen>
+
+    <!-- FOD icon picker -->
+    <dimen name="fod_picker_item_size">98dp</dimen>
+
+    <dimen name="battery_height">14.5dp</dimen>
+    <dimen name="battery_width">9.5dp</dimen>
+
+    <dimen name="colltoolbar_height">180dp</dimen>
+    <dimen name="toolbar_height">70dp</dimen>
+    <dimen name="section_fragment_size">82dp</dimen>
+
+</resources>

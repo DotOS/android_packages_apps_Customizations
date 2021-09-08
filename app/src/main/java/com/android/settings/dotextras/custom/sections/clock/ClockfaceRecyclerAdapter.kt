@@ -23,7 +23,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.utils.ResourceHelper
+import com.dot.ui.utils.ResourceHelper
 import com.google.android.material.card.MaterialCardView
 
 class ClockfaceRecyclerAdapter(
@@ -52,7 +52,7 @@ class ClockfaceRecyclerAdapter(
         val clockfaceCompat: ClockfaceCompat = items[position]
         val shouldSelect = clockfaceCompat.clockface.isActive(clockManager)
         if (shouldSelect) clockfaceCompat.selected = true
-        clockfaceCompat.clockface.bindThumbnailTile2(holder.clockThumbnail)
+        clockfaceCompat.clockface.bindThumbnailTile(holder.clockThumbnail)
         holder.clockTitle.text = clockfaceCompat.clockface.getTitle()
         holder.clockLayout.setOnClickListener {
             clockManager.apply(clockfaceCompat.clockface) {}
@@ -68,14 +68,17 @@ class ClockfaceRecyclerAdapter(
             holder.clockCard.strokeColor = accentColor
             callback.onApply(clockfaceCompat)
         } else {
-            holder.clockCard.strokeColor = ResourceHelper.getSecondaryTextColor(holder.clockCard.context)
+            holder.clockCard.strokeColor = holder.itemView.resources.getColor(
+                com.android.internal.R.color.monet_background_secondary_device_default,
+                holder.itemView.context.theme)
         }
     }
 
     private fun select(pos: Int) {
         for (i in items.indices) {
+            val selected = items[i].selected
             items[i].selected = pos == i
-            notifyItemChanged(i)
+            if (selected != items[i].selected) notifyItemChanged(i)
         }
     }
 

@@ -8,10 +8,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.dot.applock.AppLockActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
+            android:exported="false">
         </activity>
     </application>
 

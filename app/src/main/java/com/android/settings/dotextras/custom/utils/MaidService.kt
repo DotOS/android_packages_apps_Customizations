@@ -12,13 +12,13 @@ class MaidService : Service() {
     }
 
     override fun onTaskRemoved(rootIntent: Intent) {
-        println("onTaskRemoved called")
         super.onTaskRemoved(rootIntent)
         val dir = applicationContext.cacheDir
         val children: Array<String>? = dir.list()
         if (children != null) {
             for (child in children) {
-                if (child.endsWith(".jpeg") || child.endsWith(".jpg")) File(dir, child).delete()
+                if ((child.endsWith(".jpeg") || child.endsWith(".jpg")) && child != "temp.jpg")
+                    File(dir, child).delete()
             }
         }
         this.stopSelf()

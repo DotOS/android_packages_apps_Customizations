@@ -23,8 +23,8 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import com.android.settings.dotextras.R
-import com.android.settings.dotextras.custom.utils.ResourceHelper
-import com.android.settings.dotextras.custom.utils.getNormalizedSecondaryColor
+import com.dot.ui.utils.ResourceHelper
+import com.dot.ui.utils.getNormalizedSecondaryColor
 import com.android.settings.dotextras.custom.views.GridTileDrawable
 
 /**

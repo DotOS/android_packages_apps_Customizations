@@ -1,40 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <com.dot.ui.DotToolbar
+        android:id="@+id/maintainerToolbar"
         android:layout_width="match_parent"
-        android:background="@android:color/transparent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/colltoolbar_height"
-            app:collapsedTitleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
-            app:contentScrim="@color/colorPrimary"
-            app:expandedTitleMarginStart="32dp"
-            app:expandedTitleTextAppearance="@style/Dashboard.Toolbar.Expanded"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:maxLines="2"
-            app:statusBarScrim="@color/colorPrimary"
-            app:toolbarId="@+id/toolbar">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height"
-                android:animateLayoutChanges="true"
-                android:background="@color/colorPrimary"
-                android:paddingStart="@dimen/recyclerSpacerBig"
-                android:titleTextAppearance="@style/Dashboard.Toolbar.Collapsed"
-                app:layout_collapseMode="pin"
-                app:title="@string/maintainers" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="wrap_content"
+        android:title="@string/maintainers" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/maintainersRefresh"
@@ -51,12 +28,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.android.settings.dotextras.custom.views.DotMaterialPreference
+                <com.dot.ui.DotMaterialPreference
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:icon="@drawable/ic_error_round"
-                    android:summary="@string/maintainers_summary" />
+                    android:summary="@string/maintainers_summary"
+                    android:tint="@color/colorAccent"
+                    app:newStyle="true" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/maintainersRecycler"
@@ -77,6 +55,7 @@
         android:clickable="true"
         app:backgroundTint="@color/colorAccent"
         app:srcCompat="@drawable/ic_refresh"
-        app:tint="?android:attr/textColorPrimaryInverse" />
+        app:tint="?android:attr/textColorPrimaryInverse"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

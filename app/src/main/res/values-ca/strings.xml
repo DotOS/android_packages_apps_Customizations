@@ -3,7 +3,6 @@
     <string name="app_name">Personalització</string>
     <!-- Common Strings -->
     <string name="apply">Aplicar</string>
-    <string name="apply_for">Apply for</string>
     <string name="clockface">Clockface</string>
     <string name="disabled">Desactivat</string>
     <string name="enable">Activar</string>
@@ -11,42 +10,24 @@
     <string name="options">Opcions</string>
     <string name="picker_title">Triar un color</string>
     <string name="reset">Restablir</string>
-    <string name="sections">Seccions</string>
     <string name="manifest_wallpaper">Fons de pantalla</string>
     <string name="style">Estil</string>
     <string name="hide">Amagar</string>
     <string name="inside">Dins</string>
     <string name="outside">Fora</string>
     <string name="default_theme_title">Per defecte</string>
-    <string name="icons">Icones</string>
     <string name="miscellaneous">Varis</string>
     <!-- Themes Section -->
     <string name="accent_color">Color d\'èmfasi</string>
     <string name="picker_summary">Tria el que prefereixis.</string>
-    <string name="headline_01">Títol 01</string>
-    <string name="body_02">Cos 02</string>
     <string name="fonts">Lletra</string>
     <string name="icon_pack">Paquet d\'icones</string>
     <string name="icon_shapes">Forma de les icones</string>
-    <string name="device_default">Opció predeterminada del dispositiu</string>
-    <string name="device_default_font">Device\nDefault Font</string>
-    <string name="light_shade">Tema clar</string>
-    <string name="dark_shade">Tema fosc</string>
-    <string name="twotone_accent_summary">Apply a shade of Accent for Light and Dark Theme. You can also choose two different accents for each style.\n
-        \nExample : White Theme with Cyan Accent and Dark Theme with Yellow Accent.\n
-        \nIn order to use on-device accent packages, reset custom accent using the top-right button from color picker.</string>
-    <string name="ballon_twotone">Long press to pick\na new accent color</string>
-    <string name="smart_accent_picker">Smart Accent Picker</string>
-    <string name="disable_notification_transparency">Desactivar transparència de notificacions</string>
     <!-- Wallpapers Section -->
-    <string name="current_wallpaper">Fons de pantalla actual</string>
     <string name="built_in_wallpapers">Fons de pantalla inclosa</string>
     <string name="live_wallpapers">Fons de pantalla animats</string>
     <string name="dotos_exclusives">Exclusiu de DotOS</string>
-    <string name="apply_wallpaper">Establir fons de pantalla</string>
-    <string name="apply_wallpaper_summary">Segur que vols utilitzar aquest fons de pantalla?</string>
     <string name="apply_both">Pantalles d\'inici i de bloqueig</string>
-    <string name="wall_applied">Fons de pantalla aplicat!</string>
     <string name="pick_image_intent_chooser_title">Select source</string>
     <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
     <!-- AOD Section -->
@@ -91,18 +72,13 @@
     <!-- FOD Section -->
     <string name="fod_screenoff_summary">Use Biometric Authentication while you screen is closed. </string>
     <string name="fod_screenoff_title">Screen-off FOD</string>
-    <string name="fod_animations">Animations</string>
     <string name="fod_color">Recognising Color</string>
     <string name="enable_aod">Enable Always on Display?</string>
     <!-- Statusbar Section -->
     <string name="battery_styles">Battery Styles</string>
     <string name="percentage_style">Percentage Styles</string>
-    <string name="battery_meter_very_low_overlay_symbol">!</string>
     <string name="traffic_meter_title">Show Traffic Meter</string>
-    <string name="traffic_meter_summary">Keep track of your internet traffic</string>
-    <string name="traffic_meter_treshold_subtitle">Activity threshold</string>
     <string name="traffic_meter_treshold_summary">Auto-hide traffic meter</string>
-    <string name="traffic_meter_treshold_extra">KB/s</string>
     <string name="status_bar">Status Bar</string>
     <string name="led_color">Led Color</string>
     <string name="light_charged">When battery is charged</string>
@@ -118,8 +94,6 @@
     <!-- Settings Section -->
     <string name="enable_dot_stats">Enable Dot Stats</string>
     <string name="enable_dot_stats_summary">Allow dotOS to collect anonymous data like version, device and country from your phone.</string>
-    <string name="rgb_battery_light">RGB Battery Light</string>
-    <string name="rgb_battery_light_summary">Show RGB Picker for battery light states</string>
     <string name="enable_balloons">Enable Balloons</string>
     <string name="enable_balloons_summary">Show tooltips around the app</string>
     <string name="check_stats">Check stats at stats.droidontime.com</string>
@@ -160,20 +134,16 @@
     <string name="rows">Row(s)</string>
     <string name="portrait">Portrait</string>
     <string name="landscape">Landscape</string>
-    <string name="disable_qs_transparency">Disable QSPanel\'s Transparency</string>
-    <string name="settings">Settings</string>
     <string name="qs_percentage">Show percentage in quick settings</string>
     <string name="fod_anim_start">Start Animation</string>
     <string name="fod_anim_stop">Stop Animation</string>
     <!-- Buttons -->
-    <string name="button_pref_title">Buttons</string>
     <string name="hardware_keys_home_key_title">Home button</string>
     <string name="hardware_keys_back_key_title">Back button</string>
     <string name="hardware_keys_menu_key_title">Menu button</string>
     <string name="hardware_keys_assist_key_title">Search button</string>
     <string name="hardware_keys_appswitch_key_title">Recents button</string>
     <string name="hardware_keys_camera_key_title">Camera button</string>
-    <string name="hardware_keys_short_press_title">Short press</string>
     <string name="hardware_keys_long_press_title">Long press</string>
     <string name="hardware_keys_double_tap_title">Double tap</string>
     <string name="hardware_keys_action_nothing">No action</string>
@@ -181,20 +151,10 @@
     <string name="hardware_keys_action_app_switch">Recent apps switcher</string>
     <string name="hardware_keys_action_search">Search assistant</string>
     <string name="hardware_keys_action_voice_search">Voice search</string>
-    <string name="hardware_keys_action_in_app_search">In-app search</string>
     <string name="hardware_keys_action_launch_camera">Launch camera</string>
     <string name="hardware_keys_action_sleep">Turn screen off</string>
     <string name="hardware_keys_action_split_screen">Split screen</string>
-    <string name="hardware_keys_swipe_right_key_title">Swipe right</string>
-    <string name="hardware_keys_swipe_left_key_title">Swipe left</string>
-    <string name="hardware_keys_long_tap_key_title">Long tap</string>
-    <string name="hardware_keys_swipe_tap_title">Swipe action</string>
-    <string name="hardware_keys_long_tap_title">Long tap action</string>
     <string name="button_wake_title">Wake device</string>
-    <string name="camera_sleep_on_release_title">Screen peek</string>
-    <string name="camera_sleep_on_release_summary">A half press will keep the screen on only while the button is held down</string>
-    <string name="camera_launch_title">Launch camera</string>
-    <string name="camera_launch_summary">A longpress and release will launch camera</string>
     <string name="home_key_press_summary">On home key press</string>
     <string name="back_key_press_summary">On back key press</string>
     <string name="menu_key_press_summary">On menu key press</string>
@@ -204,10 +164,8 @@
     <string name="nothing">Nothing</string>
     <!-- Volume keys customization -->
     <string name="volbtn_music_controls_title">Control playback</string>
-    <string name="volbtn_music_controls_summary">Seek music tracks by long pressing the volume keys while the display is off</string>
     <string name="volume_answer_call_title">Answer call</string>
     <string name="volume_summary">By pressing the volume buttons</string>
-    <string name="volbtn_cursor_control_title">Keyboard cursor control</string>
     <string name="volbtn_cursor_control_off">Disabled</string>
     <string name="volbtn_cursor_control_on">Volume up/down moves cursor left/right</string>
     <string name="volbtn_cursor_control_on_reverse">Volume up/down moves cursor right/left</string>
@@ -217,15 +175,9 @@
     <string name="button_backlight_title">Backlight</string>
     <string name="button_backlight_enabled">Illuminate buttons</string>
     <string name="button_backlight_only_when_pressed_title">Illuminate buttons only when pressed</string>
-    <string name="keyboard_backlight_enabled">Illuminate keyboard</string>
     <string name="button_backlight_seekbar_title">Button brightness</string>
-    <string name="keyboard_backlight_seekbar_title">Keyboard brightness</string>
     <string name="backlight_timeout_title">Illumination timeout</string>
-    <string name="backlight_timeout_unlimited">Don\'t turn off</string>
-    <string name="backlight_summary_disabled">Disabled</string>
     <string name="backlight_seconds"><xliff:g id="timeout">%s</xliff:g> seconds</string>
-    <string name="backlight_summary_enabled">Enabled</string>
-    <string name="done">Done</string>
     <!-- Buttons - Enable navbar -->
     <string name="navkeys_title">Enable on-screen nav bar</string>
     <string name="navkeys_summary">Enable on-screen navigation bar</string>
@@ -235,13 +187,6 @@
     <string name="nav_large">Large</string>
     <string name="advanced_reboot_title">Advanced reboot</string>
     <string name="advanced_reboot_summary">Reboot to system, recovery, bootloader</string>
-    <string name="monetwannabe">MonetWannabe</string>
-    <string name="enable_engine">Enable Engine</string>
-    <string name="amount_of_generated_colors">Amount of generated colors</string>
-    <string name="palette_type">Palette Type</string>
-    <string name="palette_type_summary">Selected color might be applied in a slightly modified version to make sure it fits the light/dark theme</string>
-    <string name="amount_of_generated_colors_summary">More colors = better accuracy</string>
-    <string name="enable_engine_summary">Automatically update your system colors based on the wallpaper applied.</string>
     <string name="crop_amp_rotate"><![CDATA[Crop & Rotate]]></string>
     <string name="aspect_ratio">Aspect Ratio</string>
     <string name="_18_9">18:9</string>
@@ -262,11 +207,8 @@
     <string name="select_wallpaper">Select Wallpaper</string>
     <string name="default_wallpaper_uri">android.resource://android/drawable/default_wallpaper</string>
     <string name="no_internet">Internet Unavailable</string>
-    <string name="system_accent">System Accent</string>
     <string name="homescreen">Homescreen</string>
     <string name="lockscreen">Lockscreen</string>
-    <string name="approximate">Approximate</string>
-    <string name="crop">Crop</string>
     <string name="monet_live_wp">MonetWananbe can\'t be used with Live Wallpapers. If you set one, the engine will fall back to the pre-installed wallpaper colors.</string>
     <string name="music_visualizer_title">Music Visualizer</string>
     <string name="music_visualizer_summary">Sound bars on lockscreen</string>

@@ -22,7 +22,7 @@ import android.os.Bundle
 import androidx.annotation.WorkerThread
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.utils.PreviewUtils
-import com.android.settings.dotextras.system.OverlayController
+import com.dot.ui.system.OverlayController
 import com.bumptech.glide.Glide
 import java.util.*
 import kotlin.collections.ArrayList
@@ -63,26 +63,28 @@ class LauncherGridOptionsProvider(context: Context, authorityMetadataKey: String
                 mPreviewUtils.getUri(LIST_OPTIONS), null, null, null,
                 null
             ).use { c ->
-                mOptions = ArrayList()
-                while (c.moveToNext()) {
-                    val name = c.getString(c.getColumnIndex(COL_NAME))
-                    val rows = c.getInt(c.getColumnIndex(COL_ROWS))
-                    val cols = c.getInt(c.getColumnIndex(COL_COLS))
-                    val previewCount = c.getInt(c.getColumnIndex(COL_PREVIEW_COUNT))
-                    val isSet =
-                        java.lang.Boolean.valueOf(c.getString(c.getColumnIndex(COL_IS_DEFAULT)))
-                    val title =
-                        if (GRID_NAME_NORMAL == name) mContext.getString(R.string.default_theme_title) else mContext.getString(
-                            R.string.grid_title_pattern, cols, rows
+                if (c != null) {
+                    mOptions = ArrayList()
+                    while (c.moveToNext()) {
+                        val name = c.getString(c.getColumnIndex(COL_NAME))
+                        val rows = c.getInt(c.getColumnIndex(COL_ROWS))
+                        val cols = c.getInt(c.getColumnIndex(COL_COLS))
+                        val previewCount = c.getInt(c.getColumnIndex(COL_PREVIEW_COUNT))
+                        val isSet =
+                            java.lang.Boolean.valueOf(c.getString(c.getColumnIndex(COL_IS_DEFAULT)))
+                        val title =
+                            if (GRID_NAME_NORMAL == name) mContext.getString(R.string.default_theme_title) else mContext.getString(
+                                R.string.grid_title_pattern, cols, rows
+                            )
+                        mOptions!!.add(
+                            GridOption(
+                                title, name, isSet, rows, cols,
+                                mPreviewUtils.getUri(PREVIEW), previewCount, iconPath
+                            )
                         )
-                    mOptions!!.add(
-                        GridOption(
-                            title, name, isSet, rows, cols,
-                            mPreviewUtils.getUri(PREVIEW), previewCount, iconPath
-                        )
-                    )
+                    }
+                    Glide.get(mContext).clearDiskCache()
                 }
-                Glide.get(mContext).clearDiskCache()
             }
         } catch (e: Exception) {
             mOptions = null
@@ -122,8 +124,6 @@ class LauncherGridOptionsProvider(context: Context, authorityMetadataKey: String
 
         // Normal gird size name
         private const val GRID_NAME_NORMAL = "normal"
-
-        private const val METADATA_KEY_PREVIEW_VERSION = "preview_version"
     }
 
 }

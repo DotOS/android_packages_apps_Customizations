@@ -26,8 +26,8 @@ import androidx.core.graphics.PathParser
 class GridTileDrawable(private val mCols: Int, private val mRows: Int, path: String?) : Drawable() {
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mShapePath: Path = PathParser.createPathFromPathData(path)
-    private val mTransformedPath: Path
-    private val mScaleMatrix: Matrix
+    private val mTransformedPath: Path = Path(mShapePath)
+    private val mScaleMatrix: Matrix = Matrix()
     private var mCellSize = -1f
     private var mMarginTop = 0f
     private var mMarginLeft = 0f
@@ -60,7 +60,7 @@ class GridTileDrawable(private val mCols: Int, private val mRows: Int, path: Str
         mPaint.alpha = alpha
     }
 
-    override fun setColorFilter(colorFilter: ColorFilter) {
+    override fun setColorFilter(colorFilter: ColorFilter?) {
         mPaint.colorFilter = colorFilter
     }
 
@@ -76,8 +76,4 @@ class GridTileDrawable(private val mCols: Int, private val mRows: Int, path: Str
         private const val ICON_SCALE = .8f
     }
 
-    init {
-        mTransformedPath = Path(mShapePath)
-        mScaleMatrix = Matrix()
-    }
 }

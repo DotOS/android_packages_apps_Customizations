@@ -3,7 +3,7 @@ package com.dot.applock.task
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.dot.applock.ResourceHelper
+import com.dot.ui.utils.ResourceHelper
 
 class ScheduledUnlocker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BlurView">
+        <attr name="blurOverlayColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="BlurDialog">
+        <attr name="cornerRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableLayout">
+        <attr name="el_duration" format="integer" />
+        <attr name="el_expanded" format="boolean" />
+        <attr name="el_parallax" format="float" />
+        <attr name="android:orientation" />
+    </declare-styleable>
+
+    <declare-styleable name="ContextSectionLayout">
+        <attr name="sectionTitle" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CropImageView">
+        <attr name="cropGuidelines">
+            <enum name="off" value="0" />
+            <enum name="onTouch" value="1" />
+            <enum name="on" value="2" />
+        </attr>
+        <attr name="cropScaleType">
+            <enum name="fitCenter" value="0" />
+            <enum name="center" value="1" />
+            <enum name="centerCrop" value="2" />
+            <enum name="centerInside" value="3" />
+        </attr>
+        <attr name="cropShape">
+            <enum name="rectangle" value="0" />
+            <enum name="oval" value="1" />
+        </attr>
+        <attr name="cropAutoZoomEnabled" format="boolean" />
+        <attr name="cropMaxZoom" format="integer" />
+        <attr name="cropMultiTouchEnabled" format="boolean" />
+        <attr name="cropFixAspectRatio" format="boolean" />
+        <attr name="cropAspectRatioX" format="integer" />
+        <attr name="cropAspectRatioY" format="integer" />
+        <attr name="cropInitialCropWindowPaddingRatio" format="float" />
+        <attr name="cropBorderLineThickness" format="dimension" />
+        <attr name="cropBorderLineColor" format="color" />
+        <attr name="cropBorderCornerThickness" format="dimension" />
+        <attr name="cropBorderCornerOffset" format="dimension" />
+        <attr name="cropBorderCornerLength" format="dimension" />
+        <attr name="cropBorderCornerColor" format="color" />
+        <attr name="cropGuidelinesThickness" format="dimension" />
+        <attr name="cropGuidelinesColor" format="color" />
+        <attr name="cropBackgroundColor" format="color" />
+        <attr name="cropSnapRadius" format="dimension" />
+        <attr name="cropTouchRadius" format="dimension" />
+        <attr name="cropSaveBitmapToInstanceState" format="boolean" />
+        <attr name="cropShowCropOverlay" format="boolean" />
+        <attr name="cropShowProgressBar" format="boolean" />
+        <attr name="cropMinCropWindowWidth" format="dimension" />
+        <attr name="cropMinCropWindowHeight" format="dimension" />
+        <attr name="cropMinCropResultWidthPX" format="float" />
+        <attr name="cropMinCropResultHeightPX" format="float" />
+        <attr name="cropMaxCropResultWidthPX" format="float" />
+        <attr name="cropMaxCropResultHeightPX" format="float" />
+        <attr name="cropFlipHorizontally" format="boolean" />
+        <attr name="cropFlipVertically" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="DeviceCardView">
+        <attr name="extra_title" format="string" />
+    </declare-styleable>
+    <declare-styleable name="Themes">
+        <attr name="waveViewStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DotMaterialPreference">
+        <attr name="android:icon" format="reference" />
+        <attr name="android:title" format="string|reference" />
+        <attr name="android:summary" format="string|reference" />
+        <attr name="android:checkable" format="boolean|reference" />
+        <attr name="android:checked" format="boolean|reference" />
+        <attr name="cardStyle" format="boolean|reference" />
+        <attr name="android:tint" format="color|reference" />
+        <attr name="url" format="string|reference" />
+        <attr name="seekable" format="boolean|reference" />
+        <attr name="android:max" format="integer|reference" />
+        <attr name="android:min" format="integer|reference" />
+        <attr name="android:progress" format="integer|reference" />
+        <attr name="showDivider" format="boolean|reference" />
+        <attr name="newStyle" format="boolean|reference"/>
+        <attr name="android:widgetLayout" format="reference" />
+        <attr name="footerLayout" format="boolean|reference" />
+        <attr name="categoryLayout" format="boolean|reference" />
+        <attr name="featureType" format="string|reference" />
+        <attr name="feature" format="string|reference" />
+        <attr name="featureValue" format="integer|reference" />
+        <attr name="featureDefault" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="NotSupportedView">
+        <attr name="featureTitle" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DotToolbar">
+        <attr name="android:title" format="string|reference"/>
+        <attr name="addToAppbar" format="boolean|reference" />
+    </declare-styleable>
+</resources>

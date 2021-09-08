@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The dotOS Project
+ * Copyright (C) 2021 The dotOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,17 +35,5 @@ class AODDisplay : Fragment(R.layout.display_aod) {
         val dateText: TextView = view.findViewById(R.id.dateView)
         val formatter = SimpleDateFormat(getString(R.string.lockscreen_date_pattern))
         dateText.text = formatter.format(Calendar.getInstance().time)
-        val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
-            requireContext().registerReceiver(null, ifilter)
-        }
-        val batteryPct: Float? = batteryStatus?.let { intent ->
-            val level: Int = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-            val scale: Int = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-            level * 100 / scale.toFloat()
-        }
-        val batteryTextView: TextView = view.findViewById(R.id.batteryStatus)
-        if (batteryPct != null) {
-            batteryTextView.text = "${batteryPct.toInt()}%"
-        }
     }
 }
