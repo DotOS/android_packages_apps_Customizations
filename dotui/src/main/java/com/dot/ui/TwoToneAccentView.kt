@@ -115,13 +115,6 @@ class TwoToneAccentView(context: Context?, attrs: AttributeSet?) : LinearLayout(
 
     fun setSharedPref(prefs: SharedPreferences) {
         sharedPref = prefs
-        createBalloon(if (isInFocus(Shade.DARK)) darkLayout else whiteLayout)
-    }
-
-    private fun createBalloon(view: View) {
-        val balloonPump = BalloonPump(context, sharedPref!!)
-        balloonPump.create(R.string.ballon_twotone)
-        balloonPump.show(view)
     }
 
     fun setOnTwoTonePressed(listener: onTwoTonePressed) {
