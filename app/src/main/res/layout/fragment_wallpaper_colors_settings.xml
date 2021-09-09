@@ -15,7 +15,9 @@
         android:paddingBottom="@dimen/recyclerSpacer"
         android:scrollbars="none"
         tools:itemCount="1"
-        tools:listitem="@layout/item_monet_color_pack" />
+        tools:listitem="@layout/item_monet_color_pack" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.dot.ui.DotMaterialPreference
         android:id="@+id/monetChroma"
@@ -27,4 +29,17 @@
         android:title="@string/theme_colourfulness"
         app:newStyle="true"
         app:seekable="true" />
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/monetLightness"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="1000"
+        android:min="0"
+        android:progress="425"
+        android:title="@string/monet_lightness_title"
+        android:summary="@string/monet_lightness_summary"
+        app:newStyle="true"
+        app:seekable="true" />
+
 </LinearLayout>

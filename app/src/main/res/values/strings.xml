@@ -266,5 +266,8 @@
     <string name="create">Create</string>
     <string name="pick_your_wallpapers">Pick your wallpapers</string>
     <string name="schedule">Schedule</string>
+    <string name="monet_lightness_summary">Increasing brightness will make lighter colors stronger and darker colors more subtle, and vice versa.</string>
+    <string name="monet_lightness_title">Theme Brightness</string>
+    <string name="generated_colors">Generated Colors</string>
 
 </resources>
