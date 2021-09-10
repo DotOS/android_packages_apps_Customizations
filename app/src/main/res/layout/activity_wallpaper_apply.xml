@@ -175,26 +175,25 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ap_colors"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_ripple"
                 android:clickable="true"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/monetColorCard"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:padding="12dp"
-                    app:srcCompat="@drawable/circle_bg"
+                    app:srcCompat="@drawable/ic_palette"
                     app:tint="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/accent_color"
+                    android:text="Colors"
                     android:textAlignment="center"
                     android:textColor="?android:attr/textColorPrimary"
                     android:textSize="16sp" />

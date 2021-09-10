@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import com.android.settings.dotextras.custom.sections.wallpaper.colors.WallpaperColor
+import com.android.settings.dotextras.custom.sections.wallpaper.colors.WallpaperColorFragment
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
 import com.android.settings.dotextras.custom.sections.wallpaper.fragments.ApplyForDialogFragment
@@ -28,8 +30,7 @@ import java.net.URL
 class WallpaperApplyActivity : AppCompatActivity(),
     TabLayout.OnTabSelectedListener {
 
-    var wallpaper: Wallpaper? = null
-
+    private lateinit var wallpaper: Wallpaper
     private lateinit var binding: ActivityWallpaperApplyBinding
     private lateinit var wallpaperManager: WallpaperManager
     private lateinit var targetWall: Drawable
@@ -43,14 +44,14 @@ class WallpaperApplyActivity : AppCompatActivity(),
                 val context = this@WallpaperApplyActivity
                 wallpaper = intent.getSerializableExtra("wallpaperObject") as Wallpaper
                 wallpaperManager = WallpaperManager.getInstance(context)
-                val isSystem = wallpaper!!.uri != null
+                val isSystem = wallpaper.uri != null
                 targetWall = if (!isSystem)
-                    urlToDrawable(wallpaper!!.url!!)
+                    urlToDrawable(wallpaper.url!!)
                 else
-                    uriToDrawable(Uri.parse(wallpaper!!.uri!!))
+                    uriToDrawable(Uri.parse(wallpaper.uri!!))
                 val uriB = if (!isSystem) {
                     val bitmap =
-                        BitmapFactory.decodeStream(URL(wallpaper!!.url!!).openConnection().getInputStream())
+                        BitmapFactory.decodeStream(URL(wallpaper.url!!).openConnection().getInputStream())
                     val imageFileName = "temp.jpg"
                     val storageDir = File(cacheDir.toString())
                     val imageFile = File(storageDir, imageFileName)
@@ -64,7 +65,7 @@ class WallpaperApplyActivity : AppCompatActivity(),
                         e.printStackTrace()
                     }
                     Uri.fromFile(imageFile)
-                } else Uri.parse(wallpaper!!.uri!!)
+                } else Uri.parse(wallpaper.uri!!)
                 apCrop.setOnClickListener {
                     CropImage.activity(uriB)
                         .setGuidelines(CropImageView.Guidelines.ON)
@@ -80,7 +81,7 @@ class WallpaperApplyActivity : AppCompatActivity(),
 
                 apApply.setOnClickListener {
                     if (previewImageLockscreen.drawable != null)
-                        ApplyForDialogFragment.newInstance(wallpaper!!)
+                        ApplyForDialogFragment.newInstance(wallpaper)
                             .show(supportFragmentManager, "applyWallpaper")
                 }
                 apDownload.isVisible = targetWall.toBitmap() != null
@@ -91,8 +92,11 @@ class WallpaperApplyActivity : AppCompatActivity(),
                         }
                     }
                 }
+                apColors.setOnClickListener {
+                    WallpaperColorFragment.newInstance(wallpaper).show(supportFragmentManager, "wallpaperColors")
+                }
                 wallTabs.addOnTabSelectedListener(context)
-                WallpaperPreview(context, previewContainerLauncher, previewSurfaceLockscreen, wallpaper!!)
+                WallpaperPreview(context, previewContainerLauncher, previewSurfaceLockscreen, wallpaper)
             }
         }
     }
@@ -106,8 +110,8 @@ class WallpaperApplyActivity : AppCompatActivity(),
                 contentResolver.openInputStream(resultUri!!),
                 resultUri.toString()
             )
-            wallpaper!!.uri = resultUri.toString()
-            wallpaper!!.url = null
+            wallpaper.uri = resultUri.toString()
+            wallpaper.url = null
             targetWall = drawable
             binding.previewImageLockscreen.load(resultUri) { crossfade(true) }
         }

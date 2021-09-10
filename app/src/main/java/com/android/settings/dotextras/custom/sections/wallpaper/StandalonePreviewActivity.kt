@@ -30,6 +30,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.sections.wallpaper.colors.WallpaperColorFragment
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
 import com.android.settings.dotextras.custom.sections.wallpaper.fragments.ApplyForDialogFragment
@@ -107,6 +108,9 @@ class StandalonePreviewActivity : AppCompatActivity(),
                         Toast.makeText(context, "Wallpaper saved.", Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
+            apColors.setOnClickListener {
+                WallpaperColorFragment.newInstance(wallpaper).show(supportFragmentManager, "wallpaperColors")
             }
             wallTabs.addOnTabSelectedListener(context)
 
