@@ -50,5 +50,15 @@
         <item>dot_wall_0</item>
         <item>dot_wall_1</item>
         <item>dot_wall_2</item>
+        <item>dot_wall_3</item>
+        <item>dot_wall_4</item>
+        <item>dot_wall_5</item>
+        <item>dot_wall_6</item>
+        <item>dot_wall_7</item>
+        <item>dot_wall_8</item>
+        <item>dot_wall_9</item>
+        <item>dot_wall_10</item>
+        <item>dot_wall_11</item>
+        <item>dot_wall_12</item>
     </string-array>
 </resources>
