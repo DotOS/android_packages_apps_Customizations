@@ -23,7 +23,6 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,12 +39,17 @@ import com.android.settings.dotextras.custom.sections.fod.FodColorAdapter
 import com.android.settings.dotextras.custom.sections.fod.FodIconAdapter
 import com.android.settings.dotextras.custom.sections.fod.FodResource
 import com.android.settings.dotextras.custom.utils.GridSpacingItemDecoration
+import com.android.settings.dotextras.databinding.SectionFodBinding
 import com.dot.ui.utils.ResourceHelper
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.section_fod.*
+import nl.komponents.kovenant.task
+import nl.komponents.kovenant.ui.successUi
 
 open class FODSection : GenericSection(), TabLayout.OnTabSelectedListener {
+
+    private var _binding: SectionFodBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var mClockManager: BaseClockManager
     private val EXTRA_CLOCK_FACE_NAME = "clock_face_name"
@@ -122,7 +126,8 @@ open class FODSection : GenericSection(), TabLayout.OnTabSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        return inflater.inflate(R.layout.section_fod, container, false)
+        _binding = SectionFodBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun isAvailable(context: Context): Boolean = ResourceHelper.hasFodSupport(context)
@@ -138,131 +143,149 @@ open class FODSection : GenericSection(), TabLayout.OnTabSelectedListener {
     }
 
     private fun setupFODIconsSelector() {
-        val staticIconTab = icon_selector.getTabAt(0)
-        val animatedIconTab = icon_selector.getTabAt(1)
-        fodIconContainer.setExpanded(icon_selector.selectedTabPosition == 0, true)
-        icon_selector.selectTab(if (isAnimatedIconEnabled()) animatedIconTab else staticIconTab)
-        icon_selector.addOnTabSelectedListener(this)
-        var adapter: FodIconAdapter
-        Handler(requireActivity().mainLooper).post {
-            fodIcons.clear()
-            for (i in ICON_STYLES.indices) {
-                val fodIcon = FodResource(ICON_STYLES[i], i)
-                fodIcon.listener = { drawable ->
-                    latestIcon = drawable
-                    updateIconPreview(drawable)
+        with(binding) {
+            val staticIconTab = iconSelector.getTabAt(0)
+            val animatedIconTab = iconSelector.getTabAt(1)
+            fodIconContainer.setExpanded(iconSelector.selectedTabPosition == 0, true)
+            iconSelector.selectTab(if (isAnimatedIconEnabled()) animatedIconTab else staticIconTab)
+            fodIconContainer.setExpanded(!isAnimatedIconEnabled(), false)
+            iconSelector.addOnTabSelectedListener(this@FODSection)
+            task {
+                fodIcons.clear()
+                for (i in ICON_STYLES.indices) {
+                    val fodIcon = FodResource(ICON_STYLES[i], i)
+                    fodIcon.listener = { drawable ->
+                        latestIcon = drawable
+                        updateIconPreview(drawable)
+                    }
+                    fodIcons.add(fodIcon)
                 }
-                fodIcons.add(fodIcon)
+                FodIconAdapter(featureManager, fodIcons)
+            } successUi {
+                requireActivity().runOnUiThread {
+                    fodIconRecycler.adapter = it
+                    fodIconRecycler.addItemDecoration(
+                        GridSpacingItemDecoration(GRID_FOD_COLUMNS, SPACER, true)
+                    )
+                    fodIconRecycler.layoutManager =
+                        GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
+                }
             }
-            adapter = FodIconAdapter(featureManager, fodIcons)
-            fodIconRecycler.adapter = adapter
-            fodIconRecycler.addItemDecoration(
-                GridSpacingItemDecoration(GRID_FOD_COLUMNS, SPACER, true)
-            )
-            fodIconRecycler.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
         }
     }
 
     private fun setupFODAnimationSelector() {
-        var adapterAnim: FodAnimationAdapter
-        Handler(requireActivity().mainLooper).post {
-            for (i in ANIM_STYLES.indices) {
-                val fodAnim = FodResource(ANIM_STYLES[i], i)
-                fodAnim.listenerAnim = { drawable ->
-                    setPreviewAnimation(drawable!!, false)
-                    fodAnimStart.setOnClickListener {
-                        fodAnimStart.text =
-                            if (!isAnimating()) getString(R.string.fod_anim_stop) else getString(
-                                R.string.fod_anim_start
-                            )
-                        setAnimationState(running = !isAnimating())
+        with(binding) {
+            task {
+                for (i in ANIM_STYLES.indices) {
+                    val fodAnim = FodResource(ANIM_STYLES[i], i)
+                    fodAnim.listenerAnim = { drawable ->
+                        requireActivity().runOnUiThread {
+                            setPreviewAnimation(drawable!!, false)
+                            fodAnimStart.setOnClickListener {
+                                fodAnimStart.text =
+                                    if (!isAnimating()) getString(R.string.fod_anim_stop) else getString(
+                                        R.string.fod_anim_start
+                                    )
+                                setAnimationState(running = !isAnimating())
+                            }
+                        }
                     }
+                    fodAnims.add(fodAnim)
                 }
-                fodAnims.add(fodAnim)
+                FodAnimationAdapter(featureManager, fodAnims)
+            } successUi {
+                requireActivity().runOnUiThread {
+                    fodAnimRecycler.adapter = it
+                    fodAnimRecycler.setHasFixedSize(true)
+                    fodAnimRecycler.addItemDecoration(
+                        GridSpacingItemDecoration(
+                            GRID_FOD_COLUMNS,
+                            SPACER,
+                            true
+                        )
+                    )
+
+                    fodAnimRecycler.layoutManager =
+                        GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
+                }
             }
-            adapterAnim = FodAnimationAdapter(featureManager, fodAnims)
-            fodAnimRecycler.adapter = adapterAnim
-            fodAnimRecycler.setHasFixedSize(true)
-            fodAnimRecycler.addItemDecoration(
+            fodAnimSwitch.isChecked = featureManager.System()
+                .getInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, 0) == 1
+            fodAnimLayout.setExpanded(fodAnimSwitch.isChecked, false)
+            fodAnimStart.visibility = if (fodAnimSwitch.isChecked) View.VISIBLE else View.GONE
+            fodAnimSwitch.setOnCheckedChangeListener { _, isChecked ->
+                fodAnimStart.visibility = if (isChecked) View.VISIBLE else View.GONE
+                fodAnimLayout.setExpanded(expand = isChecked, animate = true)
+                featureManager.System()
+                    .setInt(
+                        featureManager.System().FOD_RECOGNIZING_ANIMATION,
+                        if (isChecked) 1 else 0
+                    )
+            }
+        }
+    }
+
+    private fun setupFODOptions() {
+        with(binding) {
+            fodoptList.clear()
+            fodColors.clear()
+            buildSwitch(
+                fodoptList,
+                iconID = R.drawable.ic_night_mode,
+                title = getString(R.string.disabled),
+                subtitle = getString(R.string.fod_nightlight),
+                accentColor = R.color.light_green_500,
+                feature = featureManager.System().FOD_NIGHT_LIGHT,
+                featureType = ContextCardsAdapter.Type.SYSTEM,
+                summary = getString(R.string.fod_nightlight_summary),
+                enabled = ResourceHelper.shouldDisableNightLight(requireContext())
+            )
+            if (ResourceHelper.hasAmbient(requireContext())) {
+                buildSwitch(
+                    fodoptList,
+                    iconID = R.drawable.ic_lock,
+                    title = getString(R.string.disabled),
+                    subtitle = getString(R.string.fod_screenoff_title),
+                    accentColor = R.color.cyan_800,
+                    feature = featureManager.System().FOD_GESTURE,
+                    featureType = ContextCardsAdapter.Type.SYSTEM,
+                    summary = getString(R.string.fod_screenoff_summary)
+                )
+                { value ->
+                    featureManager.Secure().enableDozeIfNeeded(requireContext())
+                    when (value) {
+                        0 -> {
+                            Snackbar.make(
+                                requireView(),
+                                getString(R.string.enable_aod),
+                                Snackbar.LENGTH_LONG
+                            )
+                                .setAction(R.string.enable) {
+                                    featureManager.Secure().enableAOD()
+                                }.show()
+                        }
+                        1 -> {
+                            featureManager.Secure().disableAOD()
+                        }
+                    }
+
+                }
+            }
+            setupLayout(fodoptList, R.id.fodOptSection, GRID_OPT_COLUMNS)
+            for (i in PRESSED_COLOR.indices) fodColors.add(FodResource(PRESSED_COLOR[i], i))
+            val adapterfodColor = FodColorAdapter(featureManager, fodColors)
+            fodRecRecycler.adapter = adapterfodColor
+            fodRecRecycler.setHasFixedSize(true)
+            fodRecRecycler.addItemDecoration(
                 GridSpacingItemDecoration(
                     GRID_FOD_COLUMNS,
                     SPACER,
                     true
                 )
             )
-
-            fodAnimRecycler.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
+            fodRecRecycler.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
         }
-        fodAnimSwitch.isChecked = featureManager.System()
-            .getInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, 0) == 1
-        fodAnimLayout.setExpanded(fodAnimSwitch.isChecked, false)
-        fodAnimStart.visibility = if (fodAnimSwitch.isChecked) View.VISIBLE else View.GONE
-        fodAnimSwitch.setOnCheckedChangeListener { _, isChecked ->
-            fodAnimStart.visibility = if (isChecked) View.VISIBLE else View.GONE
-            fodAnimLayout.setExpanded(expand = isChecked, animate = true)
-            featureManager.System()
-                .setInt(featureManager.System().FOD_RECOGNIZING_ANIMATION, if (isChecked) 1 else 0)
-        }
-    }
-
-    private fun setupFODOptions() {
-        fodoptList.clear()
-        fodColors.clear()
-        buildSwitch(
-            fodoptList,
-            iconID = R.drawable.ic_night_mode,
-            title = getString(R.string.disabled),
-            subtitle = getString(R.string.fod_nightlight),
-            accentColor = R.color.light_green_500,
-            feature = featureManager.System().FOD_NIGHT_LIGHT,
-            featureType = ContextCardsAdapter.Type.SYSTEM,
-            summary = getString(R.string.fod_nightlight_summary),
-            enabled = ResourceHelper.shouldDisableNightLight(requireContext())
-        )
-        if (ResourceHelper.hasAmbient(requireContext())) {
-            buildSwitch(
-                fodoptList,
-                iconID = R.drawable.ic_lock,
-                title = getString(R.string.disabled),
-                subtitle = getString(R.string.fod_screenoff_title),
-                accentColor = R.color.cyan_800,
-                feature = featureManager.System().FOD_GESTURE,
-                featureType = ContextCardsAdapter.Type.SYSTEM,
-                summary = getString(R.string.fod_screenoff_summary)
-            )
-            { value ->
-                featureManager.Secure().enableDozeIfNeeded(requireContext())
-                when (value) {
-                    0 -> {
-                        Snackbar.make(
-                            requireView(),
-                            getString(R.string.enable_aod),
-                            Snackbar.LENGTH_LONG
-                        )
-                            .setAction(R.string.enable) {
-                                featureManager.Secure().enableAOD()
-                            }.show()
-                    }
-                    1 -> {
-                        featureManager.Secure().disableAOD()
-                    }
-                }
-
-            }
-        }
-        setupLayout(fodoptList, R.id.fodOptSection, GRID_OPT_COLUMNS)
-        for (i in PRESSED_COLOR.indices) fodColors.add(FodResource(PRESSED_COLOR[i], i))
-        val adapterfodColor = FodColorAdapter(featureManager, fodColors)
-        fodRecRecycler.adapter = adapterfodColor
-        fodRecRecycler.setHasFixedSize(true)
-        fodRecRecycler.addItemDecoration(
-            GridSpacingItemDecoration(
-                GRID_FOD_COLUMNS,
-                SPACER,
-                true
-            )
-        )
-        fodRecRecycler.layoutManager = GridLayoutManager(requireContext(), GRID_FOD_COLUMNS)
     }
 
 
@@ -298,7 +321,7 @@ open class FODSection : GenericSection(), TabLayout.OnTabSelectedListener {
                         if (opt.selected) {
                             opt.clockface.bindPreviewTile(
                                 requireActivity(),
-                                preview_surface_lockscreen
+                                binding.previewSurfaceLockscreen
                             )
                         }
                     }
@@ -314,9 +337,9 @@ open class FODSection : GenericSection(), TabLayout.OnTabSelectedListener {
         ) {
             val pfd = wallpaperManager.getWallpaperFile(WallpaperManager.FLAG_LOCK)
             if (pfd != null)
-                preview_image_lockscreen.load(BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor))
+                binding.previewImageLockscreen.load(BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor))
             else
-                preview_image_lockscreen.load(wallpaperManager.drawable)
+                binding.previewImageLockscreen.load(wallpaperManager.drawable)
         }
 
         for (j in ICON_STYLES.indices) {
@@ -332,10 +355,15 @@ open class FODSection : GenericSection(), TabLayout.OnTabSelectedListener {
     }
 
     private fun updateIconPreview(drawable: Drawable?) {
-        if (isAnimatedIconEnabled()) {
-            setPreview(getAnimatedIcon())
-        } else {
-            setPreview(drawable)
+        with(binding) {
+            fodPreviewSrc.post {
+                if (isAnimatedIconEnabled()) {
+                    setPreview(getAnimatedIcon())
+                    (fodPreviewSrc.drawable!! as AnimationDrawable).start()
+                } else {
+                    setPreview(drawable)
+                }
+            }
         }
     }
 
@@ -343,38 +371,47 @@ open class FODSection : GenericSection(), TabLayout.OnTabSelectedListener {
         featureManager.System().getInt(FOD_ICON_ANIMATION_SETTING, 0) != 0
 
     private fun setPreview(drawable: Drawable?) {
-        fodPreviewSrc.setImageDrawable(drawable)
+        binding.fodPreviewSrc.setImageDrawable(drawable)
     }
 
     private fun setPreviewAnimation(anim: AnimationDrawable, start: Boolean) {
-        if (fodAnimPreviewSrc.drawable != null && (fodAnimPreviewSrc.drawable as AnimationDrawable).isRunning)
-            (fodAnimPreviewSrc.drawable as AnimationDrawable).stop()
-        fodAnimPreviewSrc.setImageDrawable(anim)
-        if (start) {
-            anim.start()
+        with(binding) {
+            if (fodAnimPreviewSrc.drawable != null && (fodAnimPreviewSrc.drawable as AnimationDrawable).isRunning)
+                (fodAnimPreviewSrc.drawable as AnimationDrawable).stop()
+            fodAnimPreviewSrc.setImageDrawable(anim)
+            if (start) {
+                anim.start()
+            }
         }
     }
 
     private fun isAnimating(): Boolean =
-        (fodAnimPreviewSrc.drawable!! as AnimationDrawable).isRunning
+        (binding.fodAnimPreviewSrc.drawable!! as AnimationDrawable).isRunning
 
     private fun setAnimationState(running: Boolean) {
-        if (running)
-            (fodAnimPreviewSrc.drawable!! as AnimationDrawable).start()
-        else {
-            (fodAnimPreviewSrc.drawable!! as AnimationDrawable).stop()
-            val drw = fodAnimPreviewSrc.drawable as AnimationDrawable
-            fodAnimPreviewSrc.setImageDrawable(null)
-            fodAnimPreviewSrc.setImageDrawable(drw)
+        with(binding) {
+            if (running)
+                (fodAnimPreviewSrc.drawable!! as AnimationDrawable).start()
+            else {
+                (fodAnimPreviewSrc.drawable!! as AnimationDrawable).stop()
+                val drw = fodAnimPreviewSrc.drawable as AnimationDrawable
+                fodAnimPreviewSrc.setImageDrawable(null)
+                fodAnimPreviewSrc.setImageDrawable(drw)
+            }
         }
     }
 
     override fun onTabSelected(tab: TabLayout.Tab) {
-        featureManager.System().setInt(FOD_ICON_ANIMATION_SETTING, tab.position)
-        updateIconPreview(latestIcon)
-        fodIconContainer.setExpanded(tab.position == 0, true)
-        if (tab.position == 1) {
-            (fodPreviewSrc.drawable!! as AnimationDrawable).start()
+        with(binding) {
+            featureManager.System().setInt(FOD_ICON_ANIMATION_SETTING, tab.position)
+            updateIconPreview(latestIcon)
+            fodIconContainer.setExpanded(tab.position == 0, true)
+            if (tab.position == 1) {
+                fodPreviewSrc.post {
+                    if (fodPreviewSrc.drawable!! is AnimationDrawable)
+                        (fodPreviewSrc.drawable!! as AnimationDrawable).start()
+                }
+            }
         }
     }
 
