@@ -1,7 +1,7 @@
 package com.android.settings.dotextras.custom.stats
 
 object Constants {
-    const val BASE_URL = "https://apidev.droidontime.com/api/"
+    const val BASE_URL = "https://api.droidontime.com/api/stats/"
     const val TAG = "Statistics"
     const val ALLOW_STATS = "allow_stats"
     const val IS_FIRST_LAUNCH = "isFirstLaunch"

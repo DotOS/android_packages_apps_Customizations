@@ -40,13 +40,11 @@ class StatsSheetFragment : BottomSheetDialogFragment() {
             with(binding) {
                 sharedprefStats = requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
                 pref_stats.setChecked(sharedprefStats!!.getBoolean(Constants.ALLOW_STATS, true))
-                this@StatsSheetFragment.isChecked = sharedprefStats!!.getBoolean(Constants.ALLOW_STATS, true)
                 pref_stats.setOnCheckListener { _, isChecked ->
                     run {
                         val editor: SharedPreferences.Editor = sharedprefStats!!.edit()
                         editor.putBoolean(Constants.ALLOW_STATS, isChecked)
                         editor.apply()
-                        this@StatsSheetFragment.isChecked = isChecked
                     }
                 }
                 prefApply.setOnClickListener {
@@ -57,7 +55,7 @@ class StatsSheetFragment : BottomSheetDialogFragment() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        if (isChecked) StatsBuilder(requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)).push(requireActivity())
+        StatsBuilder(requireActivity().getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)).push(requireActivity())
         super.onDismiss(dialog)
     }
 }
