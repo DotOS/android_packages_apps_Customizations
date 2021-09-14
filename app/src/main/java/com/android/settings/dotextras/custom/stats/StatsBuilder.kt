@@ -55,17 +55,15 @@ class StatsBuilder(private val pref: SharedPreferences) {
     }
 
     private fun handleResponse(resp: ServerResponse) {
+        val editor: SharedPreferences.Editor = pref.edit()
+        editor.putBoolean(Constants.IS_FIRST_LAUNCH, false)
         if (resp.success!!) {
-            val editor: SharedPreferences.Editor = pref.edit()
-            editor.putBoolean(Constants.IS_FIRST_LAUNCH, false)
             editor.putString(
                 Constants.LAST_BUILD_DATE,
                 SystemProperties.get(Constants.KEY_BUILD_DATE)
             )
             editor.apply()
             Log.d(Constants.TAG, "Stats pushed")
-        } else {
-            resp.message?.let { Log.d(Constants.TAG, it) }
         }
     }
 
