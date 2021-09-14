@@ -265,6 +265,21 @@ class FeatureManager(private val contentResolver: ContentResolver) {
         val FOD_COLOR = "fod_color"
 
         /**
+         * Show 4G instead of LTE
+         */
+        val SHOW_FOURG = "show_fourg"
+
+        /**
+         * Data disabled icon
+         */
+        val DATA_DISABLED_ICON = "data_disabled_icon"
+
+        /**
+         * Show/Hide roaming indicator
+         */
+        val ROAMING_INDICATOR_ICON = "roaming_indicator_icon"
+
+        /**
          * How many rows to show in the qs panel when in portrait
          */
         val QS_ROWS_PORTRAIT = "qs_rows_portrait"

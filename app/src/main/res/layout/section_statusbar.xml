@@ -30,6 +30,12 @@
         app:sectionTitle="@string/traffic_indicator" />
 
     <com.dot.ui.ContextSectionLayout
+        android:id="@+id/sectionStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:sectionTitle="@string/statusbar_items" />
+
+    <com.dot.ui.ContextSectionLayout
         android:id="@+id/sectionBatteryLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -41,6 +41,7 @@ class StatusbarSection : GenericSection() {
         val batteryLightList = ArrayList<ContextCards>()
         val trafficList = ArrayList<ContextCards>()
         val clockList = ArrayList<ContextCards>()
+        val sbItemsList = ArrayList<ContextCards>()
         buildSwipeable(
             list,
             iconID = R.drawable.round_battery_full_white_36dp,
@@ -158,6 +159,40 @@ class StatusbarSection : GenericSection() {
             entryValues = trafficUnitsValuesArrayList
         )
         setupLayout(trafficList, R.id.sectionTraffic)
+        buildSwitch(
+            sbItemsList,
+            iconID = R.drawable.ic_4g,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.show_fourg_title),
+            accentColor = R.color.cyan_700,
+            feature = featureManager.System().SHOW_FOURG,
+            featureType = SYSTEM,
+            summary = getString(R.string.show_fourg_summary),
+            enabled = false
+        )
+        buildSwitch(
+            sbItemsList,
+            iconID = R.drawable.ic_data_cross,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.data_disabled_icon_title),
+            accentColor = R.color.purple_500,
+            feature = featureManager.System().DATA_DISABLED_ICON,
+            featureType = SYSTEM,
+            summary = getString(R.string.data_disabled_icon_summary),
+            enabled = true
+        )
+        buildSwitch(
+            sbItemsList,
+            iconID = R.drawable.ic_roaming,
+            title = getString(R.string.disabled),
+            subtitle = getString(R.string.roaming_indicator_icon_title),
+            accentColor = R.color.pink_500,
+            feature = featureManager.System().ROAMING_INDICATOR_ICON,
+            featureType = SYSTEM,
+            summary = getString(R.string.roaming_indicator_icon_summary),
+            enabled = false
+        )
+        setupLayout(sbItemsList, R.id.sectionStatusBar)
         buildSwitch(
             batteryLightList,
             iconID = R.drawable.round_battery_full_white_36dp,
