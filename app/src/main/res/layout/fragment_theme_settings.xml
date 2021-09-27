@@ -52,6 +52,26 @@
         android:widgetLayout="@layout/preference_widget_icons"
         app:newStyle="true" />
 
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/cardsSettings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:checkable="true"
+        android:summary="Enable showing cards in some parts"
+        android:title="Settings Cards"
+        app:newStyle="true" >
+
+    </com.dot.ui.DotMaterialPreference>
+
+    <com.dot.ui.DotMaterialPreference
+        android:id="@+id/notificationTransparency"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:checkable="true"
+        android:title="@string/disable_notification_transparency"
+        app:newStyle="true" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

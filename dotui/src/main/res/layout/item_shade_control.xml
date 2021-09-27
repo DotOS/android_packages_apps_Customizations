@@ -196,10 +196,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/recyclerSpacerBig"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/recyclerSpacer"
         android:layout_marginEnd="@dimen/recyclerSpacerBig"
         app:cardBackgroundColor="@color/cardBackground"
-        app:cardCornerRadius="@dimen/default_dialog_radius"
+        app:cardCornerRadius="@dimen/default_dialog_radius_round"
         app:cardElevation="0dp">
 
         <LinearLayout
@@ -234,10 +234,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/recyclerSpacerBig"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/recyclerSpacer"
         android:layout_marginEnd="@dimen/recyclerSpacerBig"
+        android:layout_marginBottom="@dimen/recyclerSpacer"
         app:cardBackgroundColor="@color/colorError"
-        app:cardCornerRadius="@dimen/default_dialog_radius"
+        app:cardCornerRadius="@dimen/default_dialog_radius_round"
         app:cardElevation="0dp">
 
         <LinearLayout

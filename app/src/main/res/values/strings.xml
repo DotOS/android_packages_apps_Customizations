@@ -20,6 +20,8 @@
 
     <!-- Themes Section -->
 
+    <string name="disable_notification_transparency">Disable Notification Transparency</string>
+
     <!-- Wallpapers Section -->
     <string name="built_in_wallpapers">Built-in Wallpapers</string>
     <string name="live_wallpapers">Live Wallpapers</string>

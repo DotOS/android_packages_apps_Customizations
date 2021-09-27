@@ -15,6 +15,7 @@ import com.android.settings.dotextras.custom.sections.clock.*
 import com.android.settings.dotextras.custom.sections.grid.GridOptionsManager
 import com.android.settings.dotextras.custom.sections.grid.LauncherGridOptionsProvider
 import com.android.settings.dotextras.databinding.FragmentThemeSettingsBinding
+import com.dot.ui.DotMaterialPreference
 import com.dot.ui.system.OverlayController
 import com.dot.ui.utils.overlayController
 
@@ -54,12 +55,28 @@ class FragmentThemeSettings : GenericSection() {
                 moreSettings.setOnClickListener {
                     startActivity(Intent(requireActivity(), SectionActivity::class.java))
                 }
+                setupStyles(
+                    notificationTransparency,
+                    OverlayController.Categories.NOTIFICATION_CATEGORY,
+                    OverlayController.Packages.NOTIFICATION_OPAQUE
+                )
+                setupStyles(
+                    cardsSettings,
+                    OverlayController.Categories.OVERLAY_CATEGORY_STYLES_SETTINGS,
+                    OverlayController.Packages.STYLES_SETTINGS
+                )
                 updateSummaries()
             }
         }
         lifecycleScope.launchWhenResumed {
             updateSummaries()
         }
+    }
+
+    private fun setupStyles(pref: DotMaterialPreference, category: String, pckg: String) {
+        val styles: OverlayController.Styles = requireActivity().packageManager.overlayController(category).Styles()
+        pref.setChecked(styles.isEnabled(pckg))
+        pref.setOnCheckListener { _, isChecked -> styles.toggleStyle(pckg, isChecked) }
     }
 
     private fun launchSheet(type: Int) {
