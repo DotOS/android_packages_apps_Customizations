@@ -19,6 +19,7 @@ import android.Manifest
 import android.app.WallpaperManager
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -30,6 +31,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.android.settings.dotextras.R
+import com.android.settings.dotextras.custom.sections.wallpaper.colors.MonetColors
 import com.android.settings.dotextras.custom.sections.wallpaper.colors.WallpaperColorFragment
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
@@ -76,6 +78,20 @@ class StandalonePreviewActivity : AppCompatActivity(),
             val context = this@StandalonePreviewActivity
             wallpaper = Wallpaper()
             wallpaper.uri = intent.data.toString()
+            val monetColors = MonetColors(context, wallpaper)
+            with(monetColors) {
+                applyContainer.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+                apApply.backgroundTintList = ColorStateList.valueOf(backgroundSecondaryColor)
+                apApply.rippleColor = ColorStateList.valueOf(backgroundSecondaryColor)
+                apApply.setTextColor(accentColor)
+                wallTabs.setSelectedTabIndicatorColor(accentColor)
+                wallTabs.backgroundTintList = ColorStateList.valueOf(backgroundSecondaryColor)
+                wallTabsToolbar.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+                previewLockscreen.setCardBackgroundColor(backgroundSecondaryColor)
+                previewLauncher.setCardBackgroundColor(backgroundSecondaryColor)
+                context.window.statusBarColor = backgroundColor
+                context.window.navigationBarColor = backgroundColor
+            }
             wallpaperManager = WallpaperManager.getInstance(context)
             targetWall = uriToDrawable(Uri.parse(wallpaper.uri!!))
             val uriB = Uri.parse(wallpaper.uri!!)
@@ -113,6 +129,14 @@ class StandalonePreviewActivity : AppCompatActivity(),
                 WallpaperColorFragment.newInstance(wallpaper).show(supportFragmentManager, "wallpaperColors")
             }
             wallTabs.addOnTabSelectedListener(context)
+            val showLockscreen = wallTabs.getTabAt(0)!!.isSelected
+            if (showLockscreen) {
+                ObjectToolsAnimator.show(binding.previewLockscreen, 500)
+                ObjectToolsAnimator.hide(binding.previewLauncher, 500)
+            } else {
+                ObjectToolsAnimator.hide(binding.previewLockscreen, 500)
+                ObjectToolsAnimator.show(binding.previewLauncher, 500)
+            }
 
             WallpaperPreview(context, previewContainerLauncher, previewSurfaceLockscreen, wallpaper)
         }

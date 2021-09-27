@@ -9,6 +9,7 @@
     android:backgroundTint="@color/colorPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/wallTabsToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
@@ -244,9 +245,7 @@
             android:textColor="@color/colorAccent"
             app:cornerRadius="300dp"
             app:elevation="0dp"
-            app:rippleColor="@color/colorAccent"
-            app:strokeColor="@color/colorPrimaryBackground"
-            app:strokeWidth="2dp" />
+            app:rippleColor="@color/colorAccent" />
 
     </RelativeLayout>
 

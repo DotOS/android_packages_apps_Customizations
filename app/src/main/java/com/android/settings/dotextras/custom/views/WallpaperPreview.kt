@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Lifecycle
 import coil.load
 import com.android.settings.dotextras.R
 import com.android.settings.dotextras.custom.sections.clock.*
@@ -49,7 +50,7 @@ class WallpaperPreview(
     init {
         mGridManager.fetchOptions({ options ->
             run {
-                if (options != null) {
+                if (options != null && activity.lifecycle.currentState != Lifecycle.State.DESTROYED) {
                     val optionsCompat: ArrayList<GridOptionCompat> = ArrayList()
                     for (option in options) {
                         val gridCompat = GridOptionCompat(option)

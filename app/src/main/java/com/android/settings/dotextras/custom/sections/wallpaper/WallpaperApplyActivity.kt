@@ -2,6 +2,7 @@ package com.android.settings.dotextras.custom.sections.wallpaper
 
 import android.app.WallpaperManager
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
-import com.android.settings.dotextras.custom.sections.wallpaper.colors.WallpaperColor
+import com.android.settings.dotextras.custom.sections.wallpaper.colors.MonetColors
 import com.android.settings.dotextras.custom.sections.wallpaper.colors.WallpaperColorFragment
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.CropImageView
 import com.android.settings.dotextras.custom.sections.wallpaper.cropper.utils.CropImage
@@ -43,6 +44,20 @@ class WallpaperApplyActivity : AppCompatActivity(),
             with(binding) {
                 val context = this@WallpaperApplyActivity
                 wallpaper = intent.getSerializableExtra("wallpaperObject") as Wallpaper
+                val monetColors = MonetColors(context, wallpaper)
+                with(monetColors) {
+                    applyContainer.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+                    apApply.backgroundTintList = ColorStateList.valueOf(backgroundSecondaryColor)
+                    apApply.rippleColor = ColorStateList.valueOf(backgroundSecondaryColor)
+                    apApply.setTextColor(accentColor)
+                    wallTabs.setSelectedTabIndicatorColor(accentColor)
+                    wallTabs.backgroundTintList = ColorStateList.valueOf(backgroundSecondaryColor)
+                    wallTabsToolbar.backgroundTintList = ColorStateList.valueOf(backgroundColor)
+                    previewLockscreen.setCardBackgroundColor(backgroundSecondaryColor)
+                    previewLauncher.setCardBackgroundColor(backgroundSecondaryColor)
+                    context.window.statusBarColor = backgroundColor
+                    context.window.navigationBarColor = backgroundColor
+                }
                 wallpaperManager = WallpaperManager.getInstance(context)
                 val isSystem = wallpaper.uri != null
                 targetWall = if (!isSystem)
@@ -97,6 +112,11 @@ class WallpaperApplyActivity : AppCompatActivity(),
                 }
                 wallTabs.addOnTabSelectedListener(context)
                 WallpaperPreview(context, previewContainerLauncher, previewSurfaceLockscreen, wallpaper)
+            }
+        }
+        lifecycleScope.launchWhenResumed {
+            with(binding) {
+                WallpaperPreview(this@WallpaperApplyActivity, previewContainerLauncher, previewSurfaceLockscreen, wallpaper)
             }
         }
     }

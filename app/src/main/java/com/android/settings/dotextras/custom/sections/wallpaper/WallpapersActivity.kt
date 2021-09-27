@@ -54,10 +54,18 @@ class WallpapersActivity: AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                 }
-                WallpaperPreviewSystem(context,
+
+            }
+        }
+        lifecycleScope.launchWhenResumed {
+            with(binding) {
+                val context = this@WallpapersActivity
+                WallpaperPreviewSystem(
+                    context,
                     previewContainerLauncher,
                     previewSurfaceLockscreen,
-                    previewImageLockscreen)
+                    previewImageLockscreen
+                )
             }
         }
     }
