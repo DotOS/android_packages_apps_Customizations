@@ -30,7 +30,10 @@ class BiometricVerification(val activity: FragmentActivity) {
         }
 
     init {
-        if (!isSupported()) Log.d("Keyguard", "Biometric Verification not supported.")
+        if (!isSupported()) {
+            Log.w(activity::class.java.simpleName, "Biometric Verification not supported. Bypassing verification")
+            callback?.onSuccess()
+        }
         biometricPrompt = BiometricPrompt(activity, executor,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(
