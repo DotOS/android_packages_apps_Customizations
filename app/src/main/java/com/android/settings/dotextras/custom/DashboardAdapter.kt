@@ -144,7 +144,7 @@ class DashboardAdapter(
 
             override fun onFail() {
             }
-        }).setTitle("AppLock").setSubtitle("Lock/Unlock your apps").authneticate()
+        }).setTitle("AppLock").setSubtitle("Lock/Unlock your apps").authenticate()
     }
 
     private fun launchSection(fragment: String, cardTitle: String, standalone: Boolean) {

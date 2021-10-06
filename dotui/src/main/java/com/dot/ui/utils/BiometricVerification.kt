@@ -63,7 +63,7 @@ class BiometricVerification(val activity: FragmentActivity) {
             .build()
     }
 
-    fun authneticate() {
+    fun authenticate() {
         biometricPrompt.authenticate(promptInfo)
     }
 
