@@ -106,7 +106,7 @@
 
     <!-- Settings Section -->
     <string name="enable_dot_stats">Enable Dot Stats</string>
-    <string name="enable_dot_stats_summary">Allow dotOS to collect anonymous data like version, device and country from your phone.</string>
+    <string name="enable_dot_stats_summary">Allow dotOS to collect anonymous data like version, device and country from your phone. This action will happen one time to keep our statistics updated.</string>
     <string name="enable_balloons">Enable Balloons</string>
     <string name="enable_balloons_summary">Show tooltips around the app</string>
     <string name="check_stats">Check stats at stats.droidontime.com</string>
@@ -271,5 +271,7 @@
     <string name="monet_lightness_summary">Increasing brightness will make lighter colors stronger and darker colors more subtle, and vice versa.</string>
     <string name="monet_lightness_title">Theme Brightness</string>
     <string name="generated_colors">Generated Colors</string>
+    <string name="allow">Allow</string>
+    <string name="dismiss">Dismiss</string>
 
 </resources>

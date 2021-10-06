@@ -56,7 +56,6 @@ class StatsBuilder(private val pref: SharedPreferences) {
 
     private fun handleResponse(resp: ServerResponse) {
         val editor: SharedPreferences.Editor = pref.edit()
-        editor.putBoolean(Constants.IS_FIRST_LAUNCH, false)
         if (resp.success!!) {
             editor.putString(
                 Constants.LAST_BUILD_DATE,

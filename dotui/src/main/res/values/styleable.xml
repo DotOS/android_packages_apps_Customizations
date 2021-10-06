@@ -90,6 +90,7 @@
         <attr name="newStyle" format="boolean|reference"/>
         <attr name="android:widgetLayout" format="reference" />
         <attr name="footerLayout" format="boolean|reference" />
+        <attr name="footerLayout_below" format="reference" />
         <attr name="categoryLayout" format="boolean|reference" />
         <attr name="featureType" format="string|reference" />
         <attr name="feature" format="string|reference" />

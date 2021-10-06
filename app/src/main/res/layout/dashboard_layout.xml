@@ -58,13 +58,13 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/topCard"
-                android:transitionName="topCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/recyclerSpacerBig"
                 android:layout_marginTop="@dimen/recyclerSpacerBigger"
                 android:layout_marginEnd="@dimen/recyclerSpacerBig"
                 android:layout_marginBottom="@dimen/recyclerSpacer"
+                android:transitionName="topCard"
                 app:cardBackgroundColor="@color/cardBackground"
                 app:cardCornerRadius="@dimen/default_dialog_radius_round"
                 app:cardElevation="0dp">
@@ -223,6 +223,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
+
+            <com.dot.ui.DotMaterialPreference
+                android:id="@+id/statsPreference"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/ic_error_round"
+                android:tint="@color/colorAccent"
+                android:title="@string/enable_dot_stats_summary"
+                app:footerLayout="true"
+                app:footerLayout_below="@layout/preference_footer_stats" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/themeSettings"

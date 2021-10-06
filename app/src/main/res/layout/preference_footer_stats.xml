@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/recyclerSpacer"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dismissStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:elevation="0dp"
+        android:paddingLeft="0dp"
+        android:backgroundTint="@android:color/transparent"
+        android:stateListAnimator="@null"
+        android:text="@string/dismiss"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        app:cornerRadius="300dp"
+        app:elevation="0dp"
+        app:rippleColor="@color/colorAccent" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/allowStats"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_gravity="center_vertical"
+        android:backgroundTint="@color/colorAccent"
+        android:elevation="0dp"
+        android:stateListAnimator="@null"
+        android:text="@string/allow"
+        android:textAllCaps="false"
+        android:textColor="?android:attr/textColorPrimaryInverse"
+        app:cornerRadius="300dp"
+        app:elevation="0dp"
+        app:rippleColor="@color/colorAccent" />
+</LinearLayout>

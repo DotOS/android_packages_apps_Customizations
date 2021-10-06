@@ -48,6 +48,8 @@ class DotMaterialPreference(context: Context?, attrs: AttributeSet?) :
             val cardStyle = a.getBoolean(R.styleable.DotMaterialPreference_cardStyle, false)
             widgetLayoutResource =
                 a.getResourceId(R.styleable.DotMaterialPreference_android_widgetLayout, -1)
+            val footerLayoutResource =
+                a.getResourceId(R.styleable.DotMaterialPreference_footerLayout_below, -1)
             when {
                 cardStyle -> {
                     if (childCount != 0) removeAllViews()
@@ -186,6 +188,12 @@ class DotMaterialPreference(context: Context?, attrs: AttributeSet?) :
                                 Log.e("DotPreferences", "Invalid feature type")
                             }
                         }
+                    }
+                }
+                else {
+                    if (footerLayoutResource != -1) {
+                        val footerView = LayoutInflater.from(context).inflate(footerLayoutResource, this, false)
+                        findViewById<LinearLayout>(R.id.preference_layout).addView(footerView)
                     }
                 }
             }

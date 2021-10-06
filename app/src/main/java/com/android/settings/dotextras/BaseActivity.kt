@@ -19,6 +19,7 @@ import android.animation.LayoutTransition
 import android.app.WallpaperManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.*
 import android.os.Bundle
 import android.view.View
@@ -41,9 +42,11 @@ import com.dot.ui.utils.overlayController
 import com.google.android.material.tabs.TabLayout
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.core.view.isVisible
 import com.android.settings.dotextras.custom.stats.Constants
-import com.android.settings.dotextras.custom.stats.StatsSheetFragment
+import com.android.settings.dotextras.custom.stats.StatsBuilder
 import com.android.settings.dotextras.custom.utils.MaidService
+import com.google.android.material.button.MaterialButton
 
 class BaseActivity : AppCompatActivity(),
     TabLayout.OnTabSelectedListener {
@@ -62,8 +65,23 @@ class BaseActivity : AppCompatActivity(),
             with(binding) {
                 val context = this@BaseActivity
                 val sharedprefStats = getSharedPreferences("dotStatsPrefs", Context.MODE_PRIVATE)
-                if (sharedprefStats.getBoolean(Constants.IS_FIRST_LAUNCH, true)) {
-                    StatsSheetFragment().show(supportFragmentManager, "statsSheet")
+                statsPreference.isVisible = sharedprefStats.getBoolean(Constants.IS_FIRST_LAUNCH, true)
+                val allowStats = statsPreference.findViewById<MaterialButton>(R.id.allowStats)
+                val dismissStats = statsPreference.findViewById<MaterialButton>(R.id.dismissStats)
+                allowStats.setOnClickListener {
+                    val editor: SharedPreferences.Editor = sharedprefStats!!.edit()
+                    editor.putBoolean(Constants.ALLOW_STATS, true)
+                    editor.putBoolean(Constants.IS_FIRST_LAUNCH, false)
+                    editor.apply()
+                    StatsBuilder(getSharedPreferences("dotStatsPrefs", MODE_PRIVATE)).push(context)
+                    statsPreference.isVisible = false
+                }
+                dismissStats.setOnClickListener {
+                    val editor: SharedPreferences.Editor = sharedprefStats!!.edit()
+                    editor.putBoolean(Constants.ALLOW_STATS, false)
+                    editor.putBoolean(Constants.IS_FIRST_LAUNCH, false)
+                    editor.apply()
+                    statsPreference.isVisible = false
                 }
                 startService(Intent(context, MaidService::class.java))
                 monetManager = MonetManager(context)
