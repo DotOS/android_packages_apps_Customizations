@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Ambang aktivitas</string>
     <string name="traffic_meter_treshold_summary">Sembunyikan kecepatan jaringan secara otomatis</string>
     <string name="traffic_meter_treshold_extra">KB/d</string>
+    <string name="network_traffic_mode_title">Mode tampilan</string>
+    <string name="network_traffic_mode_disable">Dinonaktifkan</string>
+    <string name="network_traffic_mode_status_bar">Bilah status</string>
+    <string name="network_traffic_mode_qs">Setelan Cepat</string>
+    <string name="network_traffic_autohide">Sembunyikan otomatis</string>
+    <string name="network_traffic_autohide_summary">Sembunyikan monitor lalu lintas jaringan saat tidak ada aktivitas</string>
+    <string name="network_traffic_units_title">Unit pengukuran lalu lintas</string>
     <string name="status_bar">Bilah status</string>
     <string name="led_color">Warna Led</string>
     <string name="light_charged">Saat baterai sedang mengisi</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Aktifkan dalam mode Jangan Ganggu</string>
     <string name="blinking">Berkedip</string>
     <string name="blinking_on_low">Lampu Berkedip pada baterai lemah</string>
+    <string name="extras_title">Ekstra</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Ikon Bilah Status Berwarna</string>
+    <string name="statusbar_icons_style_summary">Pilih gaya ikon bilah status Anda (memerlukan mulai ulang SistemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Aktifkan Dot Stats</string>
     <string name="enable_dot_stats_summary">Izinkan dotOS mengumpulkan data anonim seperti versi, perangkat, dan negara dari ponsel Anda.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Bilah suara di layar kunci</string>
     <string name="lrb_title">Tombol Kiri Kanan</string>
     <string name="lrb_summary">Tambahkan mereka saat mengetik</string>
+    <string name="download">Unduh</string>
+    <string name="crop_image">Potong Gambar</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Animasi Layar Mati</string>
+    <string name="screen_off_animation_summary">Animasi untuk mematikan layar</string>
+    <string name="screen_off_animation_default">Bawaan</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Skala</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Tukar tata letak</string>
+    <string name="navbar_invert_layout_summary">Balikkan tata letak bilah navigasi</string>
 </resources>

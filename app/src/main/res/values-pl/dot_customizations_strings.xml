@@ -7,7 +7,7 @@
     <string name="section_themes_title">Motywy</string>
     <string name="section_wallpaper_title">Tapety</string>
     <string name="section_aod_title">AOD i ekran blokady</string>
-    <string name="section_fod_icon">Ikona FOD</string>
+    <string name="section_fod_icon">Ikony FOD</string>
     <string name="section_fod_anim">Animacje FOD</string>
     <string name="section_fod_color_opt">Opcje FOD</string>
     <string name="section_hwkeys">Przyciski</string>

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sections -->
-    <string name="section_statusbar_title">شريط الحاله</string>
+    <string name="section_statusbar_title">شريط الحالة</string>
     <string name="section_qs_title">الاعدادات السريعة</string>
     <string name="section_system_title">النظام</string>
+    <string name="section_themes_title">السمات</string>
+    <string name="section_wallpaper_title">الخلفيات</string>
     <string name="section_aod_title">Always on display و شاشه القفل</string>
-    <string name="section_hwkeys">Buttons</string>
-    <string name="grid_section">شبكه التطبيقات</string>
+    <string name="section_fod_icon">أيقونات مستشعر البصمة</string>
+    <string name="section_fod_anim">المؤثرات الحركية لمستشعر البصمة</string>
+    <string name="section_fod_color_opt">خيارات مستشعر البصمة</string>
+    <string name="section_hwkeys">الأزرار</string>
+    <string name="grid_section">شبكة التطبيقات</string>
+    <string name="section_lab">المختبر</string>
     <string name="section_settings">الاعدادات</string>
+    <string name="section_clockface2">شكل الساعة</string>
     <string name="system_gestures">الإيماءات</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

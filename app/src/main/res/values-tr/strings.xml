@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Aktivite eşiği</string>
     <string name="traffic_meter_treshold_summary">Ağ trafiğini otomatik gizle</string>
     <string name="traffic_meter_treshold_extra">KB/sn</string>
+    <string name="network_traffic_mode_title">Görüntüleme modu</string>
+    <string name="network_traffic_mode_disable">Devre dışı</string>
+    <string name="network_traffic_mode_status_bar">Durum çubuğu</string>
+    <string name="network_traffic_mode_qs">Hızlı ayarlar</string>
+    <string name="network_traffic_autohide">Otomatik gizle</string>
+    <string name="network_traffic_autohide_summary">Etkinlik olmadığında ağ göstergesini gizle</string>
+    <string name="network_traffic_units_title">Ağ ölçme birimi</string>
     <string name="status_bar">Durum çubuğu</string>
     <string name="led_color">Led rengi</string>
     <string name="light_charged">Pil şarj edildiğinde</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Rahatsız etmeyin modunda etkinleştirin</string>
     <string name="blinking">Yanıp sönme</string>
     <string name="blinking_on_low">Düşük pil durumunda ışığı yakıp söndür</string>
+    <string name="extras_title">Ekstralar</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Renkli durum çubuğu simgeleri</string>
+    <string name="statusbar_icons_style_summary">Durum çubuğu simgelerinizin stilini seçin (Sistem kullanıcı arayüzü\'nün yeniden başlatılması gerekir)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Dot istatistiklerini etkinleştir</string>
     <string name="enable_dot_stats_summary">DotOS\'un telefonunuzdan sürüm, cihaz ve ülke gibi anonim verileri toplamasına izin verin.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Kilit ekranında ses çubukları</string>
     <string name="lrb_title">Sol Sağ Tuşlar</string>
     <string name="lrb_summary">Yazarken ekleyin</string>
+    <string name="download">İndir</string>
+    <string name="crop_image">Resmi kırp</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Ekran kapanma animasyonu</string>
+    <string name="screen_off_animation_summary">Ekranı kilitlemek için animasyon</string>
+    <string name="screen_off_animation_default">Varsayılan</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Ölçek</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Düzeni tersine çevir</string>
+    <string name="navbar_invert_layout_summary">Gezinme çubuğu düzenini tersine çevir</string>
 </resources>

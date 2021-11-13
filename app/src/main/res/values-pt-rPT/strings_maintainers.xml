@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="maintainers">Maintainers</string>
-    <string name="maintainers_summary">This is a list of all device maintainers for dotOS 5.0</string>
+    <string name="maintainers">Programadores</string>
+    <string name="maintainers_summary">Esta lista contém todas os/as programadores(as) que fizeram possível o dotOS 5.0 funcionar neste dispositivo</string>
 </resources>

@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Prahová hodnota aktivity</string>
     <string name="traffic_meter_treshold_summary">Automaticky skrývať indikátor sieťovej premávky</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Režim zobrazenia</string>
+    <string name="network_traffic_mode_disable">Vypnuté</string>
+    <string name="network_traffic_mode_status_bar">Stavová lišta</string>
+    <string name="network_traffic_mode_qs">Rýchle nastavenie</string>
+    <string name="network_traffic_autohide">Automaticky skrývať</string>
+    <string name="network_traffic_autohide_summary">Skryť indikátor sieťovej prevádzky pri neaktivite</string>
+    <string name="network_traffic_units_title">Jednotky merania sieťovej prevádzky</string>
     <string name="status_bar">Stavový riadok</string>
     <string name="led_color">Farba LED</string>
     <string name="light_charged">Keď je batéria nabitá</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Povoliť v režime \"Nerušiť\"</string>
     <string name="blinking">Blikanie</string>
     <string name="blinking_on_low">Zapnúť LED pri slabej batérii</string>
+    <string name="extras_title">Doplnky</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Sfarbené Ikonky Stavovej lišty</string>
+    <string name="statusbar_icons_style_summary">Vyberte štýl ikon na stavovom riadku (vyžaduje reštart SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Povoliť odosielanie štatistík dotOS</string>
     <string name="enable_dot_stats_summary">Umožnite systému dotOS zhromažďovať z telefónu anonymné údaje, ako sú verzia, zariadenie a krajina.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Zvukové panely na zamykacej obrazovke</string>
     <string name="lrb_title">Ľavé a pravé tlačidlo</string>
     <string name="lrb_summary">Pridajte ich počas písania</string>
+    <string name="download">Stiahnuť</string>
+    <string name="crop_image">Orezať obrázok</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Animácia vypnutia obrazovky</string>
+    <string name="screen_off_animation_summary">Animácia na uzamknutie obrazovky</string>
+    <string name="screen_off_animation_default">Predvolená</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Škálovanie</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Prevrátené rozloženie</string>
+    <string name="navbar_invert_layout_summary">Prevrátené rozloženie navigačnej lišty</string>
 </resources>

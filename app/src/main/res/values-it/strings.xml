@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Soglia di Inattività</string>
     <string name="traffic_meter_treshold_summary">Nascondi automaticamente il contatore</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Modalità schermo</string>
+    <string name="network_traffic_mode_disable">Disabilitato</string>
+    <string name="network_traffic_mode_status_bar">Barra di stato</string>
+    <string name="network_traffic_mode_qs">Impostazioni rapide</string>
+    <string name="network_traffic_autohide">Nascondi automaticamente</string>
+    <string name="network_traffic_autohide_summary">Nascondi il traffico di rete quando non c\'è attività</string>
+    <string name="network_traffic_units_title">Unità di misura del traffico di rete</string>
     <string name="status_bar">Barra di stato</string>
     <string name="led_color">Colore LED</string>
     <string name="light_charged">Quando la batteria è carica</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Abilita in modalità Non Disturbare</string>
     <string name="blinking">Lampeggio</string>
     <string name="blinking_on_low">Lampeggio a batteria scarica</string>
+    <string name="extras_title">Extra</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Icone barra di stato colorate</string>
+    <string name="statusbar_icons_style_summary">Scegli lo stile delle icone della barra di stato (richiede il riavvio della SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Abilita Statistiche Dot</string>
     <string name="enable_dot_stats_summary">Consenti a dotOS di raccogliere dati anonimi come versione, dispositivo e paese dal tuo telefono.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Barre sonore sulla schermata di blocco</string>
     <string name="lrb_title">Pulsanti sinistro e destro</string>
     <string name="lrb_summary">Aggiungili durante la digitazione</string>
+    <string name="download">Download</string>
+    <string name="crop_image">Ritaglia immagine</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Animazione spegnimento schermo</string>
+    <string name="screen_off_animation_summary">Animazione per bloccare lo schermo</string>
+    <string name="screen_off_animation_default">Predefinito</string>
+    <string name="screen_off_animation_crt">Tubo catodico</string>
+    <string name="screen_off_animation_scale">Scala</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Inverti disposizione</string>
+    <string name="navbar_invert_layout_summary">Inverte la disposizione della barra di navigazione</string>
 </resources>

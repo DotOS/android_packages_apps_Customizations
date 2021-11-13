@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Твики системы</string>
+    <string name="app_name">Настройка внешнего вида</string>
     <!-- Common Strings -->
     <string name="apply">Применить</string>
     <string name="apply_for">Применить для</string>
@@ -34,7 +34,7 @@
     <string name="dark_shade">Тёмная тема</string>
     <string name="twotone_accent_summary">Примените оттенок Акцента для Светлой и Темной Темы. Вы также можете выбрать два разных акцента для каждого стиля.\n
         \nПример: белая тема с голубым акцентом и темная тема с желтым акцентом.\n
-        \nЧтобы использовать пакеты акцента на устройстве, сбросьте пользовательский акцент, используя правую верхнюю кнопку в палитре цветов.</string>
+        \nЧтобы использовать готовые акценты на устройстве, сбросьте пользовательский акцент, используя правую верхнюю кнопку в палитре цветов.</string>
     <string name="ballon_twotone">Удерживайте для выбора\nнового цвета акцента</string>
     <string name="smart_accent_picker">Умный выбор акцента</string>
     <string name="disable_notification_transparency">Отключить прозрачность уведомлений</string>
@@ -61,7 +61,7 @@
     <string name="edge_lightning_mode_custom">Свой цвет</string>
     <string name="edge_lightning_mode_auto">Цвет уведомлений</string>
     <!-- System Section -->
-    <string name="hold_to_torch">Удерживайте для фонарика</string>
+    <string name="hold_to_torch">Удерживайте для включения фонарика</string>
     <string name="hold_to_torch_summary">Удерж. кнопки блокировки для вкл. фонарика</string>
     <string name="pocket_mode">Режим \"В кармане\"</string>
     <string name="statusbar_dt2s">Блокировка экрана по двойному касанию строки состояния</string>
@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Порог активности</string>
     <string name="traffic_meter_treshold_summary">Скрывать шкалу трафика</string>
     <string name="traffic_meter_treshold_extra">КБ/с</string>
+    <string name="network_traffic_mode_title">Режим отображения</string>
+    <string name="network_traffic_mode_disable">Выключено</string>
+    <string name="network_traffic_mode_status_bar">Строка состояния</string>
+    <string name="network_traffic_mode_qs">Быстрые настройки</string>
+    <string name="network_traffic_autohide">Скрывать автоматически</string>
+    <string name="network_traffic_autohide_summary">Скрыть монитор трафика, когда нет никакой активности</string>
+    <string name="network_traffic_units_title">Единицы измерения трафика</string>
     <string name="status_bar">Строка состояния</string>
     <string name="led_color">Цвет светодиода</string>
     <string name="light_charged">Когда аккумулятор заряжен</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Включить в режиме не беспокоить</string>
     <string name="blinking">Индикация</string>
     <string name="blinking_on_low">Включить светодиод при низком заряде батареи</string>
+    <string name="extras_title">Дополнительно</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Цветные значки в строке состояния</string>
+    <string name="statusbar_icons_style_summary">Выберите стиль значков в строке состояния (требуется перезапуск SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Включить отправку статистики dotOS</string>
     <string name="enable_dot_stats_summary">Разрешите dotOS собирать анонимные данные, с вашего телефона такие как версия, устройство и страна.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Визуализатор музыки на экране блокировки</string>
     <string name="lrb_title">Левая и Правая кнопки</string>
     <string name="lrb_summary">Добавить их при вводе текста</string>
+    <string name="download">Загрузить</string>
+    <string name="crop_image">Обрезать изображение</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Анимация выключения экрана</string>
+    <string name="screen_off_animation_summary">Анимация для блокировки экрана</string>
+    <string name="screen_off_animation_default">По умолчанию</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Маштабирование</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Инвертировать порядок кнопок</string>
+    <string name="navbar_invert_layout_summary">Инвертировать расположение панели навигации</string>
 </resources>

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sections -->
-    <string name="section_statusbar_title">Status Bar</string>
-    <string name="section_qs_title">Quick Settings</string>
-    <string name="section_system_title">System</string>
-    <string name="section_aod_title">AOD &amp; Lockscreen</string>
-    <string name="section_hwkeys">Buttons</string>
+    <string name="section_statusbar_title">Bara de stare</string>
+    <string name="section_qs_title">Setări rapide</string>
+    <string name="section_system_title">Sistem</string>
+    <string name="section_themes_title">Teme</string>
+    <string name="section_wallpaper_title">Imagine de fundal</string>
+    <string name="section_aod_title">AOD &amp; Ecran de blocare</string>
+    <string name="section_fod_icon">Pictograme amprenta ecran</string>
+    <string name="section_fod_anim">Animatii amprenta ecran</string>
+    <string name="section_fod_color_opt">Optiuni amprenta ecran</string>
+    <string name="section_hwkeys">Butoane</string>
     <string name="grid_section">Grila launcher</string>
+    <string name="section_lab">Laboratorul</string>
     <string name="section_settings">Setari</string>
+    <string name="section_clockface2">Ceas</string>
     <string name="system_gestures">Gesturi</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->

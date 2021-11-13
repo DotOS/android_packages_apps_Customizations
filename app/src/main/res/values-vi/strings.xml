@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Ngưỡng không hoạt động</string>
     <string name="traffic_meter_treshold_summary">Tự động ẩn đồng hồ đo lưu lượng</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Chế độ Hiển thị</string>
+    <string name="network_traffic_mode_disable">Tắt</string>
+    <string name="network_traffic_mode_status_bar">Thanh trạng thái</string>
+    <string name="network_traffic_mode_qs">Các cài đặt nhanh</string>
+    <string name="network_traffic_autohide">Tự ẩn</string>
+    <string name="network_traffic_autohide_summary">Ẩn giám sát lưu lượng mạng khi không có hoạt động</string>
+    <string name="network_traffic_units_title">Đơn vị đo lưu lượng</string>
     <string name="status_bar">Thanh trạng thái</string>
     <string name="led_color">Đèn LED màu sắc</string>
     <string name="light_charged">Khi pin được sạc</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Bật nó ở chế độ Không làm phiền</string>
     <string name="blinking">Nhấp nháy</string>
     <string name="blinking_on_low">Nhấp nháy ánh sáng khi pin yếu</string>
+    <string name="extras_title">Tính năng bổ sung</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Các biểu tượng trên thanh trạng thái có màu</string>
+    <string name="statusbar_icons_style_summary">Chọn kiểu biểu tượng trên thanh trạng thái của bạn (yêu cầu khởi động lại SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Bật số liệu thống kê về dấu chấm</string>
     <string name="enable_dot_stats_summary">Cho phép dotOS thu thập dữ liệu ẩn danh như phiên bản, thiết bị và quốc gia từ điện thoại của bạn.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Nhấn đúp trên màn hình khóa</string>
     <string name="lrb_title">Các nút trái phải</string>
     <string name="lrb_summary">Thêm chúng trong khi nhập</string>
+    <string name="download">Tải xuống</string>
+    <string name="crop_image">Cắt Ảnh</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Hiệu ứng tắt màn hình</string>
+    <string name="screen_off_animation_summary">Hoạt ảnh để khóa màn hình</string>
+    <string name="screen_off_animation_default">Default</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Tỉ lệ</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Đảo ngược bố cục</string>
+    <string name="navbar_invert_layout_summary">Đảo ngược bố cục thanh điều hướng</string>
 </resources>

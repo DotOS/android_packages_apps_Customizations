@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">آستانه فعالیت</string>
     <string name="traffic_meter_treshold_summary">پنهان کردن خودکار نشانگر مصرف</string>
     <string name="traffic_meter_treshold_extra">کیلو بایت بر ثانیه</string>
+    <string name="network_traffic_mode_title">Display mode</string>
+    <string name="network_traffic_mode_disable">Disabled</string>
+    <string name="network_traffic_mode_status_bar">Status bar</string>
+    <string name="network_traffic_mode_qs">Quick settings</string>
+    <string name="network_traffic_autohide">Auto hide</string>
+    <string name="network_traffic_autohide_summary">Hide the traffic monitor when there is no activity</string>
+    <string name="network_traffic_units_title">Traffic measurement units</string>
     <string name="status_bar">نوار وضعیت</string>
     <string name="led_color">رنگ ال.ای.دی</string>
     <string name="light_charged">هنگامی که باتری شارژ شد</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">فعال کردن در حالت مزاحم نشوید</string>
     <string name="blinking">چشمک زن</string>
     <string name="blinking_on_low">چشمک زن در هنگام باتری ضعیف</string>
+    <string name="extras_title">Extras</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Colored Statusbar Icons</string>
+    <string name="statusbar_icons_style_summary">Choose the style of your statusbar icons (requires SystemUI restart)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">فعال کردن وضعیت Dot</string>
     <string name="enable_dot_stats_summary">اجازه دسترسی به dotOS برای جمع آوری داده‌های ناشناس مانند نسخه، دستگاه و کشور از تلفن شما.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">خط‌های صدا بر روی صفحه قفل</string>
     <string name="lrb_title">دکمه های چپ و راست</string>
     <string name="lrb_summary">افزودن آن‌ها در زمان نوشتن</string>
+    <string name="download">Download</string>
+    <string name="crop_image">Crop Image</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Screen off animation</string>
+    <string name="screen_off_animation_summary">Animation for locking the screen</string>
+    <string name="screen_off_animation_default">Default</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Scale</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Invert layout</string>
+    <string name="navbar_invert_layout_summary">Invert navigation bar layout</string>
 </resources>

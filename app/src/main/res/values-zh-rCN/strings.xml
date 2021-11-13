@@ -50,7 +50,7 @@
     <string name="pick_image_intent_chooser_title">选择来源</string>
     <string name="crop_image_activity_no_permissions">正在取消，未授予所需权限</string>
     <!-- AOD Section -->
-    <string name="aod_title">始终显示</string>
+    <string name="aod_title">息屏显示</string>
     <string name="aod_summary">始终开启环境显示</string>
     <string name="edge_lightning_title">边缘闪光</string>
     <string name="edge_lightning_summary">在您收到通知时，在 AOD 界面显示侧边闪光</string>
@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">网络流量指示器隐藏阈值</string>
     <string name="traffic_meter_treshold_summary">自动隐藏流量表</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">显示模式</string>
+    <string name="network_traffic_mode_disable">禁用</string>
+    <string name="network_traffic_mode_status_bar">状态栏</string>
+    <string name="network_traffic_mode_qs">快速设置</string>
+    <string name="network_traffic_autohide">自动隐藏</string>
+    <string name="network_traffic_autohide_summary">在网络不活跃时隐藏状态栏网速指示计</string>
+    <string name="network_traffic_units_title">流量计量单位</string>
     <string name="status_bar">状态栏​​​​​​​</string>
     <string name="led_color">Led 颜色</string>
     <string name="light_charged">当电池正在充电时</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">在勿扰模式下启用</string>
     <string name="blinking">闪烁</string>
     <string name="blinking_on_low">低电量时闪烁指示灯</string>
+    <string name="extras_title">其他</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">状态栏图标彩色显示</string>
+    <string name="statusbar_icons_style_summary">切换状态栏图标样式 (需要重启系统界面)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">启用 Dot 统计</string>
     <string name="enable_dot_stats_summary">允许 dotOS 从您的手机中收集匿名数据，例如版本、设备和国家/地区。</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">锁屏界面上的音量条</string>
     <string name="lrb_title">左右按键</string>
     <string name="lrb_summary">在打字输入时添加</string>
+    <string name="download">下载</string>
+    <string name="crop_image">裁剪图像</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">锁屏动画</string>
+    <string name="screen_off_animation_summary">锁定屏幕时的动画</string>
+    <string name="screen_off_animation_default">默认</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">缩放</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">反转布局</string>
+    <string name="navbar_invert_layout_summary">反转导航栏布局</string>
 </resources>

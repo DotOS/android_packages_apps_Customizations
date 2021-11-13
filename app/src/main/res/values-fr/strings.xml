@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Seuil d\'activité</string>
     <string name="traffic_meter_treshold_summary">Masquer automatiquement le débit internet</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Mode d\'affichage</string>
+    <string name="network_traffic_mode_disable">Désactivé</string>
+    <string name="network_traffic_mode_status_bar">Barre d\'état</string>
+    <string name="network_traffic_mode_qs">Paramètres rapides</string>
+    <string name="network_traffic_autohide">Masquer automatiquement</string>
+    <string name="network_traffic_autohide_summary">Masquer le moniteur de trafic lorsqu\'il n\'y a pas d\'activité</string>
+    <string name="network_traffic_units_title">Unités de mesure du débit</string>
     <string name="status_bar">Barre d\'état</string>
     <string name="led_color">Couleur de la LED</string>
     <string name="light_charged">Lorsque la batterie est chargée</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Activer en mode Ne Pas Déranger</string>
     <string name="blinking">Clignotant</string>
     <string name="blinking_on_low">Clignotement lumineux sur batterie faible</string>
+    <string name="extras_title">Extras</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Icônes colorées de la barre d\'état</string>
+    <string name="statusbar_icons_style_summary">Choisissez le style de vos icônes dans la barre d\'état (nécessite un redémarrage de SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Activer les stats de Dot</string>
     <string name="enable_dot_stats_summary">Permettre à dotOS de collecter des données anonymes telles que la version, l\'appareil et le pays de votre téléphone.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Barres de son sur l\'écran de verrouillage</string>
     <string name="lrb_title">Boutons gauche à droite</string>
     <string name="lrb_summary">Ajoutez-les en tapant</string>
+    <string name="download">Téléchargement</string>
+    <string name="crop_image">Rogner l\'image</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Animation à l\'extinction de l\'écran</string>
+    <string name="screen_off_animation_summary">Animation pour verrouiller l\'écran</string>
+    <string name="screen_off_animation_default">Par défaut</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Échelle</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Inverser la disposition</string>
+    <string name="navbar_invert_layout_summary">Inverser la disposition de la barre de navigation</string>
 </resources>

@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">流量監測閥值</string>
     <string name="traffic_meter_treshold_summary">自動隱藏網速流量表</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">顯示方式</string>
+    <string name="network_traffic_mode_disable">停用</string>
+    <string name="network_traffic_mode_status_bar">狀態列</string>
+    <string name="network_traffic_mode_qs">快速設定</string>
+    <string name="network_traffic_autohide">自動隱藏</string>
+    <string name="network_traffic_autohide_summary">未使用時自動隱藏網路流量指示</string>
+    <string name="network_traffic_units_title">網路流量單位</string>
     <string name="status_bar">狀態列</string>
     <string name="led_color">LED 顏色</string>
     <string name="light_charged">當電池正在充電時</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">在勿擾模式下啟用</string>
     <string name="blinking">閃爍</string>
     <string name="blinking_on_low">低電量時閃爍指示燈</string>
+    <string name="extras_title">附加功能</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">狀態欄圖標彩色顯示</string>
+    <string name="statusbar_icons_style_summary">切換狀態欄圖標樣式 (需要重啟系統界面)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">啟用 Dot 統計</string>
     <string name="enable_dot_stats_summary">允許 dotOS 從您的手機中蒐集匿名資料，例如版本、裝置和國家相關資訊。</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">鎖屏界面上的音量條</string>
     <string name="lrb_title">左右按鍵</string>
     <string name="lrb_summary">輸入時新增</string>
+    <string name="download">下載</string>
+    <string name="crop_image">裁剪圖像</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">螢幕關閉動畫</string>
+    <string name="screen_off_animation_summary">鎖定屏幕時的動畫</string>
+    <string name="screen_off_animation_default">預設</string>
+    <string name="screen_off_animation_crt">陰極射線管電視</string>
+    <string name="screen_off_animation_scale">縮放</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">反轉佈局</string>
+    <string name="navbar_invert_layout_summary">反轉導航列佈局</string>
 </resources>

@@ -104,6 +104,13 @@
     <string name="traffic_meter_treshold_subtitle">Fəaliyyət astanası</string>
     <string name="traffic_meter_treshold_summary">Trafiki avto-gizlətmə</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Görüntü rejimi</string>
+    <string name="network_traffic_mode_disable">Deaktiv</string>
+    <string name="network_traffic_mode_status_bar">Status paneli</string>
+    <string name="network_traffic_mode_qs">Cəld tənzimləmələr</string>
+    <string name="network_traffic_autohide">Avto gizlətmə</string>
+    <string name="network_traffic_autohide_summary">Fəaliyyət olmasa trafik göstəricisini gizlət</string>
+    <string name="network_traffic_units_title">Trafik ölçü vahidi</string>
     <string name="status_bar">Vəziyyət sətri</string>
     <string name="led_color">LED rəngi</string>
     <string name="light_charged">Batareya enerji yığanda</string>
@@ -116,6 +123,10 @@
     <string name="show_batterylight_dnd">Narahat etməyin rejimində fəallaşdırın</string>
     <string name="blinking">Yanıb sönən</string>
     <string name="blinking_on_low">Zəif batareya işığı yanıb söndür</string>
+    <string name="extras_title">Əlavələr</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Rəngli bildiriş paneli ikonları</string>
+    <string name="statusbar_icons_style_summary">Bildiriş paneli ikonlarının stilini seçin (Sistem interfeysi yenidən başlamalıdır)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">DOT statistikalarını fəallaşdır</string>
     <string name="enable_dot_stats_summary">DotOS-a telefonunuzdakı ölkə, cihaz, versiya kimi anonim verilənləri yığmasına icazə verin.</string>
@@ -273,4 +284,15 @@
     <string name="music_visualizer_summary">Kilid ekranında səs sətirləri</string>
     <string name="lrb_title">Sol Sağ Düymələr</string>
     <string name="lrb_summary">Yazarkən əlavə edin</string>
+    <string name="download">Endir</string>
+    <string name="crop_image">Şəkli Kəs</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Ekran qapanma animasiyası</string>
+    <string name="screen_off_animation_summary">Ekran bağlanması üçün animasiya</string>
+    <string name="screen_off_animation_default">İlkin</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Scale</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Düzülüşü tərs çevir</string>
+    <string name="navbar_invert_layout_summary">Invert navigation bar layout</string>
 </resources>

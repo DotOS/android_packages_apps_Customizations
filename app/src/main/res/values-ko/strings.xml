@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">속도 미표시 구간</string>
     <string name="traffic_meter_treshold_summary">자동으로 인터넷 속도계를 숨깁니다</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">표시 모드</string>
+    <string name="network_traffic_mode_disable">사용 안 함</string>
+    <string name="network_traffic_mode_status_bar">상태 표시줄</string>
+    <string name="network_traffic_mode_qs">빠른 설정</string>
+    <string name="network_traffic_autohide">자동으로 숨기기</string>
+    <string name="network_traffic_autohide_summary">활동이 없을 때 트래픽 모니터 숨기기</string>
+    <string name="network_traffic_units_title">트래픽 측정 단위</string>
     <string name="status_bar">상태 표시줄</string>
     <string name="led_color">LED 색상</string>
     <string name="light_charged">배터리가 충전 중일 때</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">방해 금지 모드 사용 중 표시</string>
     <string name="blinking">깜박임</string>
     <string name="blinking_on_low">배터리가 부족하면 불빛을 깜박입니다</string>
+    <string name="extras_title">부가 기능</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">상태 표시줄 아이콘 색상</string>
+    <string name="statusbar_icons_style_summary">상태 표시줄 아이콘 스타일 고르기 (시스템 UI 재시작 필요)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Dot 통계 활성화</string>
     <string name="enable_dot_stats_summary">dotOS에서 버전, 기기, 국가와 같은 익명 데이터를 수집할 수 있도록 허용합니다.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">잠금 화면에서 소리 막대를 표시합니다</string>
     <string name="lrb_title">왼쪽 오른쪽 버튼</string>
     <string name="lrb_summary">타이핑 중 표시합니다</string>
+    <string name="download">다운로드</string>
+    <string name="crop_image">이미지 자르기</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">화면 끄기 애니메이션</string>
+    <string name="screen_off_animation_summary">화면을 잠글 때 애니메이션</string>
+    <string name="screen_off_animation_default">기본</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">스케일</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">버튼 순서 반전</string>
+    <string name="navbar_invert_layout_summary">내비게이션 바 레이아웃 반전</string>
 </resources>

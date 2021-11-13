@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Поріг активності</string>
     <string name="traffic_meter_treshold_summary">Автоматично приховувати лічильник трафіку</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Режим відображення</string>
+    <string name="network_traffic_mode_disable">Вимкнено</string>
+    <string name="network_traffic_mode_status_bar">Рядок стану</string>
+    <string name="network_traffic_mode_qs">Швидкі налаштування</string>
+    <string name="network_traffic_autohide">Автоприховування</string>
+    <string name="network_traffic_autohide_summary">Не відображати швидкість при відсутності активності</string>
+    <string name="network_traffic_units_title">Одиниці виміру трафіку</string>
     <string name="status_bar">Рядок стану</string>
     <string name="led_color">Колір світлодіоду</string>
     <string name="light_charged">Коли акумулятор заряджено</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Увімкнути його в режимі \"Не турбувати\"</string>
     <string name="blinking">Блимання</string>
     <string name="blinking_on_low">Блимання світлом при низькому заряді батареї</string>
+    <string name="extras_title">Додаткові можливості</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Кольорові значки рядка стану</string>
+    <string name="statusbar_icons_style_summary">Виберіть стиль іконок в рядку стану (потрібен перезапуск SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Увімкнути Dot статистику</string>
     <string name="enable_dot_stats_summary">Дозвольте dotOS збирати з вашого телефону анонімні дані, такі як версія, пристрій та країна.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Звукові стовпчики на екрані блокування</string>
     <string name="lrb_title">Ліва права кнопка</string>
     <string name="lrb_summary">Додайте їх під час набору тексту</string>
+    <string name="download">Завантажити</string>
+    <string name="crop_image">Обрізати зображення</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Анімація вимкнення екрану</string>
+    <string name="screen_off_animation_summary">Анімація для блокування екрана</string>
+    <string name="screen_off_animation_default">За замовчуванням</string>
+    <string name="screen_off_animation_crt">Ефект старого телевізора</string>
+    <string name="screen_off_animation_scale">Масштаб</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Інвертувати порядок кнопок</string>
+    <string name="navbar_invert_layout_summary">Інвертувати відображення панелі навігації</string>
 </resources>

@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Umbral de actividad</string>
     <string name="traffic_meter_treshold_summary">Auto-ocultar monitor de tráfico de datos</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Modo de visualización</string>
+    <string name="network_traffic_mode_disable">Deshabilitado</string>
+    <string name="network_traffic_mode_status_bar">Barra de estado</string>
+    <string name="network_traffic_mode_qs">Ajustes rápidos</string>
+    <string name="network_traffic_autohide">Ocultar automáticamente</string>
+    <string name="network_traffic_autohide_summary">Ocultar el monitor de tráfico cuando no hay actividad</string>
+    <string name="network_traffic_units_title">Unidades de medida del tráfico</string>
     <string name="status_bar">Barra de estado</string>
     <string name="led_color">Color del led</string>
     <string name="light_charged">Cuando la batería esté cargada</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Activarlo en modo \"No Molestar\"</string>
     <string name="blinking">Parpadeo</string>
     <string name="blinking_on_low">Parpadeo de luz en batería baja</string>
+    <string name="extras_title">Extras</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Coloreado de los iconos de la barra de estado</string>
+    <string name="statusbar_icons_style_summary">Elije el estilo de los iconos de tu barra de estado (requiere reiniciar SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Habilitar estadísticas Dot</string>
     <string name="enable_dot_stats_summary">Permite a dotOS que recoja datos anónimos como: versión, dispositivo y país de tu teléfono.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Barras de sonido en pantalla de bloqueo</string>
     <string name="lrb_title">Botones de izquierda a derecha</string>
     <string name="lrb_summary">Añadirlos mientras escribe</string>
+    <string name="download">Descargar</string>
+    <string name="crop_image">Recortar imagen</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Animación al apagar pantalla</string>
+    <string name="screen_off_animation_summary">Animación de la pantalla de bloqueo</string>
+    <string name="screen_off_animation_default">Por Defecto</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Escala</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Diseño invertido</string>
+    <string name="navbar_invert_layout_summary">Invertir diseño de la barra de navegación</string>
 </resources>

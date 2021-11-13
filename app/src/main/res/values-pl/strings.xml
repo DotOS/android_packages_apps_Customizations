@@ -8,7 +8,7 @@
     <string name="disabled">Wyłączony</string>
     <string name="enable">Włącz</string>
     <string name="enabled">Włączony</string>
-    <string name="options">Ustawienia</string>
+    <string name="options">Opcje</string>
     <string name="picker_title">Wybierz kolor</string>
     <string name="reset">Resetuj</string>
     <string name="sections">Sekcje</string>
@@ -28,7 +28,7 @@
     <string name="fonts">Czcionki</string>
     <string name="icon_pack">Zestaw ikon</string>
     <string name="icon_shapes">Kształt ikon</string>
-    <string name="device_default">Domyślny urządzenia</string>
+    <string name="device_default">Domyślny dla urządzenia</string>
     <string name="device_default_font">Urządzenie\nczcionka domyślna</string>
     <string name="light_shade">Jasny Motyw</string>
     <string name="dark_shade">Ciemny motyw</string>
@@ -42,18 +42,18 @@
     <string name="current_wallpaper">Bieżąca tapeta</string>
     <string name="built_in_wallpapers">Wbudowane tapety</string>
     <string name="live_wallpapers">Żywe tapety</string>
-    <string name="dotos_exclusives">Ekskluzywne DotOS</string>
+    <string name="dotos_exclusives">Tapety ekskluzywne dla DotOS</string>
     <string name="apply_wallpaper">Ustaw tapetę</string>
     <string name="apply_wallpaper_summary">Czy na pewno chcesz użyć tej tapety?</string>
     <string name="apply_both">Ekran główny i ekran blokady</string>
-    <string name="wall_applied">Tapeta ustawiona</string>
+    <string name="wall_applied">Tapeta ustawiona!</string>
     <string name="pick_image_intent_chooser_title">Wybierz źródło</string>
     <string name="crop_image_activity_no_permissions">Nie przyznano wymaganych uprawnień.</string>
     <!-- AOD Section -->
-    <string name="aod_title">Always-On Display</string>
+    <string name="aod_title">Ekran zawsze włączony</string>
     <string name="aod_summary">Zawsze pokazuj ekran dostosowany do otoczenia</string>
     <string name="edge_lightning_title">Podświetlenie Edge </string>
-    <string name="edge_lightning_summary">Pokaż światło pulsujące w AOD kiedy otrzymasz powiadomienie</string>
+    <string name="edge_lightning_summary">Pokaż światło pulsujące w AOD podczas powiadomień</string>
     <string name="edge_lightning_summary_colormode">Tryb kolorów</string>
     <string name="edge_lightning_summary_color">Kolor niestandardowy</string>
     <string name="edge_lightning_mode_default">Domyślny kolor (niebieski)</string>
@@ -63,7 +63,7 @@
     <!-- System Section -->
     <string name="hold_to_torch">Przytrzymaj by włączyć latarkę </string>
     <string name="hold_to_torch_summary">Przytrzymaj przycisk zasilania, do latarki </string>
-    <string name="pocket_mode">Tryb \"kieszeniowy\"</string>
+    <string name="pocket_mode">Tryb kieszonkowy</string>
     <string name="statusbar_dt2s">DT2S na pasku stanu</string>
     <string name="statusbar_dt2s_summary">Dwukrotnie dotknij, aby uśpić</string>
     <string name="lockscreen_dt2s">DT2S na ekranie blokady</string>
@@ -76,12 +76,12 @@
     <string name="volume_left_summary">Spraw, by był przyjazny lewostronnie</string>
     <string name="fod_nightlight">Lampka nocna</string>
     <string name="fod_nightlight_summary">Automatyczne wyłączanie nocnego oświetlenia podczas używania fod</string>
-    <string name="no_navbar">Navbar Pill</string>
-    <string name="no_navbar_summary">Dostosuj długość</string>
+    <string name="no_navbar">Pasek nawigacji</string>
+    <string name="no_navbar_summary">Dostosuj długość paska</string>
     <string name="security">Zabezpieczenia</string>
     <string name="length_size">Długość</string>
     <string name="media_art_title">Okładka albumu na ekranie blokady</string>
-    <string name="media_art_summary">Trwa fantastyczność ekranu blokady</string>
+    <string name="media_art_summary">Ekran blokady staje się fantazyjny</string>
     <!-- QS Section -->
     <string name="qs_title">Tytuły kafelków</string>
     <string name="rows_amp_columns"><![CDATA[Kolumny i rzędy]]></string>
@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Próg bezczynności</string>
     <string name="traffic_meter_treshold_summary">Automatyczne ukrywanie licznika ruchu</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Tryb pełnoekranowy</string>
+    <string name="network_traffic_mode_disable">Wyłączony</string>
+    <string name="network_traffic_mode_status_bar">Belka powiadomień</string>
+    <string name="network_traffic_mode_qs">Szybkie ustawienia</string>
+    <string name="network_traffic_autohide">Autoukrywanie</string>
+    <string name="network_traffic_autohide_summary">Ukryj monitor ruchu przy braku aktywności</string>
+    <string name="network_traffic_units_title">Jednostki pomiaru prędkości sieci</string>
     <string name="status_bar">Pasek stanu</string>
     <string name="led_color">Kolor LED</string>
     <string name="light_charged">Kiedy bateria jest naładowana</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Włącz w trybie Nie-przeszkadzać</string>
     <string name="blinking">Migotanie </string>
     <string name="blinking_on_low">Lekkie migotanie przy niskim poziomie baterii</string>
+    <string name="extras_title">Dodatki</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Kolorowe ikony paska stanu</string>
+    <string name="statusbar_icons_style_summary">Wybierz styl ikon paska powiadomień (wymaga ponownego uruchomienia SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Włącz statystyki kropki</string>
     <string name="enable_dot_stats_summary">Zezwalaj dotOS na zbieranie anonimowych danych takich jak wersja, urządzenie i kraj z telefonu.</string>
@@ -139,7 +150,7 @@
     <string name="show_seconds_summary">Bądź bardziej precyzyjny</string>
     <string name="ampm_title">Format 12-godzinny</string>
     <string name="normal_ampm">Normalna AM/PM</string>
-    <string name="small_ampm">Mała AM/PM</string>
+    <string name="small_ampm">Małe AM/PM</string>
     <string name="no_ampm">Brak AM/PM</string>
     <string name="no_date">Bez daty</string>
     <string name="small_date">Mała data</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Paski dźwięku na ekranie blokady</string>
     <string name="lrb_title">Lewy prawy przycisk</string>
     <string name="lrb_summary">Dodaj je podczas pisania</string>
+    <string name="download">Pobrane</string>
+    <string name="crop_image">Przytnij obraz</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Animacja wyłączenia ekranu</string>
+    <string name="screen_off_animation_summary">Animacja blokady ekranu</string>
+    <string name="screen_off_animation_default">Domyślny</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Skalowanie</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Odwróć układ</string>
+    <string name="navbar_invert_layout_summary">Odwróć układ paska nawigacji</string>
 </resources>

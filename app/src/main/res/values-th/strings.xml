@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Customizations</string>
+    <string name="app_name">การปรับแต่ง</string>
     <!-- Common Strings -->
-    <string name="apply">Apply</string>
-    <string name="apply_for">Apply for</string>
-    <string name="clockface">Clockface</string>
-    <string name="disabled">Disabled</string>
-    <string name="enable">Enable</string>
-    <string name="enabled">Enabled</string>
-    <string name="options">Options</string>
+    <string name="apply">นำไปใช้</string>
+    <string name="apply_for">นำไปใช้สำหรับ</string>
+    <string name="clockface">หน้าปัดนาฬิกา</string>
+    <string name="disabled">ปิดใช้งานแล้ว</string>
+    <string name="enable">เปิดใช้งาน</string>
+    <string name="enabled">เปิดใช้งานแล้ว</string>
+    <string name="options">ตัวเลือก</string>
     <string name="picker_title">เลือกสี</string>
-    <string name="reset">Reset</string>
-    <string name="sections">Sections</string>
-    <string name="manifest_wallpaper">Wallpaper</string>
-    <string name="style">Style</string>
+    <string name="reset">รีเซ็ต</string>
+    <string name="sections">หัวข้อ</string>
+    <string name="manifest_wallpaper">ภาพพื้นหลัง</string>
+    <string name="style">รูปแบบ</string>
     <string name="hide">ซ่อน</string>
-    <string name="inside">Inside</string>
-    <string name="outside">Outside</string>
+    <string name="inside">ด้านใน</string>
+    <string name="outside">ด้านนอก</string>
     <string name="default_theme_title">ค่าเริ่มต้น</string>
     <string name="icons">ไอคอน</string>
-    <string name="miscellaneous">Miscellaneous</string>
+    <string name="miscellaneous">อื่นๆ</string>
     <!-- Themes Section -->
-    <string name="accent_color">Accent Color</string>
-    <string name="picker_summary">Select the one that fits you.</string>
-    <string name="headline_01">Headline 01</string>
-    <string name="body_02">Body 02</string>
-    <string name="fonts">Fonts</string>
-    <string name="icon_pack">Icon Pack</string>
-    <string name="icon_shapes">Icon Shapes</string>
-    <string name="device_default">Device default</string>
-    <string name="device_default_font">Device\nDefault Font</string>
-    <string name="light_shade">Light Theme</string>
-    <string name="dark_shade">Dark Theme</string>
+    <string name="accent_color">สีหลัก</string>
+    <string name="picker_summary">เลือกหนึ่งอย่างที่เหมาะกับคุณ</string>
+    <string name="headline_01">หัวเรื่อง 01</string>
+    <string name="body_02">ส่วนย่อย 02</string>
+    <string name="fonts">แบบอักษร</string>
+    <string name="icon_pack">ชุดไอคอน</string>
+    <string name="icon_shapes">รูปทรงไอคอน</string>
+    <string name="device_default">ค่าเริ่มต้นของอุปกรณ์</string>
+    <string name="device_default_font">ค่าเริ่มต้น\nของตัวอักษร</string>
+    <string name="light_shade">ธีมสว่าง</string>
+    <string name="dark_shade">ธีมมืด</string>
     <string name="twotone_accent_summary">Apply a shade of Accent for Light and Dark Theme. You can also choose two different accents for each style.\n
         \nExample : White Theme with Cyan Accent and Dark Theme with Yellow Accent.\n
         \nIn order to use on-device accent packages, reset custom accent using the top-right button from color picker.</string>
-    <string name="ballon_twotone">Long press to pick\na new accent color</string>
-    <string name="smart_accent_picker">Smart Accent Picker</string>
-    <string name="disable_notification_transparency">Disable Notification Transparency</string>
+    <string name="ballon_twotone">กดค้างเพื่อเลือก\nสีหลักใหม่</string>
+    <string name="smart_accent_picker">การเลือกสีหลักแบบอัจฉริยะ</string>
+    <string name="disable_notification_transparency">ปิดการใช้งานความโปร่งใสการแจ้งเตือน</string>
     <!-- Wallpapers Section -->
-    <string name="current_wallpaper">Current Wallpaper</string>
-    <string name="built_in_wallpapers">Built-in Wallpapers</string>
-    <string name="live_wallpapers">Live Wallpapers</string>
-    <string name="dotos_exclusives">DotOS Exclusives</string>
-    <string name="apply_wallpaper">Apply Wallpaper</string>
-    <string name="apply_wallpaper_summary">Are you sure you want to use this wallpaper?</string>
-    <string name="apply_both">Home Screen and Lock Screen</string>
-    <string name="wall_applied">Wallpaper Applied!</string>
-    <string name="pick_image_intent_chooser_title">Select source</string>
-    <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
+    <string name="current_wallpaper">พึ้นหลังปัจจุบัน</string>
+    <string name="built_in_wallpapers">พึ้นหลังในตัว</string>
+    <string name="live_wallpapers">ไลฟ์วอลเปเปอร์</string>
+    <string name="dotos_exclusives">พิเศษใน DotOS</string>
+    <string name="apply_wallpaper">ใช้เป็นพึ้นหลัง</string>
+    <string name="apply_wallpaper_summary">คุณแน่ใจหรือไม่ว่าต้องใช้พึ้นหลังนี้</string>
+    <string name="apply_both">หน้าจอหลักและหน้าจอล็อก</string>
+    <string name="wall_applied">ภาพพื้นหลังใช้งานแล้ว</string>
+    <string name="pick_image_intent_chooser_title">เลือกแหล่งที่มา</string>
+    <string name="crop_image_activity_no_permissions">กำลังยกเลิก ไม่ได้รับสิทธิ์เข้าถึง</string>
     <!-- AOD Section -->
-    <string name="aod_title">Always on Display</string>
-    <string name="aod_summary">Always show the Ambient Display</string>
-    <string name="edge_lightning_title">Edge Lightning</string>
-    <string name="edge_lightning_summary">Show a light pulse on AOD when you get a notification</string>
-    <string name="edge_lightning_summary_colormode">Color Mode</string>
-    <string name="edge_lightning_summary_color">Custom Color</string>
-    <string name="edge_lightning_mode_default">Default Color (Blue)</string>
-    <string name="edge_lightning_mode_accent">Accent Color</string>
-    <string name="edge_lightning_mode_custom">Custom Color</string>
-    <string name="edge_lightning_mode_auto">Notification Color</string>
+    <string name="aod_title">แสดงผลแบบเปิดตลอด</string>
+    <string name="aod_summary">การแสดงหน้าจอแอมเบียนท์</string>
+    <string name="edge_lightning_title">แสงขอบจอ</string>
+    <string name="edge_lightning_summary">หน้าจอสว่างขึ้นใน AOD เมื่อคุณได้รับการแจ้งเตือน</string>
+    <string name="edge_lightning_summary_colormode">โหมดสี</string>
+    <string name="edge_lightning_summary_color">กำหนดสีเอง</string>
+    <string name="edge_lightning_mode_default">สีเริ่มต้น (สีน้ำเงิน)</string>
+    <string name="edge_lightning_mode_accent">สีหลัก</string>
+    <string name="edge_lightning_mode_custom">กำหนดสีเอง</string>
+    <string name="edge_lightning_mode_auto">สีการแจ้งเตือน</string>
     <!-- System Section -->
     <string name="hold_to_torch">Hold to Torch</string>
     <string name="hold_to_torch_summary">Hold power button to torch</string>
@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Activity threshold</string>
     <string name="traffic_meter_treshold_summary">Auto-hide traffic meter</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Display mode</string>
+    <string name="network_traffic_mode_disable">Disabled</string>
+    <string name="network_traffic_mode_status_bar">Status bar</string>
+    <string name="network_traffic_mode_qs">Quick settings</string>
+    <string name="network_traffic_autohide">Auto hide</string>
+    <string name="network_traffic_autohide_summary">Hide the traffic monitor when there is no activity</string>
+    <string name="network_traffic_units_title">Traffic measurement units</string>
     <string name="status_bar">แถบสถานะ</string>
     <string name="led_color">Led Color</string>
     <string name="light_charged">When battery is charged</string>
@@ -114,18 +121,22 @@
     <string name="show_batterylight">Show the light</string>
     <string name="show_batterylight_dnd">Enable it in Do-Not-Disturb mode</string>
     <string name="blinking">กะพริบ</string>
-    <string name="blinking_on_low">Light Blinking on low battery</string>
+    <string name="blinking_on_low">ไฟกะพริบเมื่อแบตเตอรี่เหลือน้อย</string>
+    <string name="extras_title">เพิ่มเติม</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">สีของไอคอนแถบสถานะ</string>
+    <string name="statusbar_icons_style_summary">เลือกรูปแบบไอคอนแถบสถานะของคุณ (ต้องรีสตาร์ท UI ของระบบ)</string>
     <!-- Settings Section -->
-    <string name="enable_dot_stats">Enable Dot Stats</string>
-    <string name="enable_dot_stats_summary">Allow dotOS to collect anonymous data like version, device and country from your phone.</string>
-    <string name="rgb_battery_light">RGB Battery Light</string>
-    <string name="rgb_battery_light_summary">Show RGB Picker for battery light states</string>
+    <string name="enable_dot_stats">เปิดใช้งาน Dot Stats</string>
+    <string name="enable_dot_stats_summary">อนุญาตให้ dotOS รวบรวมข้อมูลที่ไม่ระบุตัวตน เช่น เวอร์ชัน อุปกรณ์ และประเทศจากโทรศัพท์ของคุณ</string>
+    <string name="rgb_battery_light">ไฟแบตเตอรี่ RGB </string>
+    <string name="rgb_battery_light_summary">แสดงตัวเลือก RGB สำหรับสถานะไฟแบตเตอรี่</string>
     <string name="enable_balloons">Enable Balloons</string>
-    <string name="enable_balloons_summary">Show tooltips around the app</string>
-    <string name="check_stats">Check stats at stats.droidontime.com</string>
+    <string name="enable_balloons_summary">แสดงคำแนะนำเครื่องมือรอบๆ แอป</string>
+    <string name="check_stats">ตรวจสอบสถานะได้ที่ stats.droidontime.com </string>
     <string name="traffic_indicator">Traffic Indicator</string>
     <string name="swipe_to_change">ปัดเพื่อเปลี่ยนมัน!</string>
-    <string name="click_to_toggle">Click to toggle</string>
+    <string name="click_to_toggle">คลิกเพื่อสลับ</string>
     <string name="clock_customization">การปรับแต่งนาฬิกา</string>
     <string name="show_clock_tile">แสดงนาฬิกา</string>
     <string name="show_clock_summary">แสดงเวลาในแถบสถานะ</string>
@@ -144,11 +155,11 @@
     <string name="no_date">ไม่มีวันที่</string>
     <string name="small_date">วันที่เล็กๆ</string>
     <string name="normal_date">วันที่ปกติ</string>
-    <string name="show_date_title">Show date besides time</string>
-    <string name="show_date_summary">See date and time in the statusbar</string>
-    <string name="ampm_summary">Perfect for 12hr format</string>
-    <string name="dt_doze">Double tap to doze</string>
-    <string name="dt_doze_summary">Double tap to open ambient display</string>
+    <string name="show_date_title">แสดงวันที่ต่อจากเวลา</string>
+    <string name="show_date_summary">ดูวันที่และเวลาในแถบสถานะ</string>
+    <string name="ampm_summary">ใช้รูปแบบ 12 ชั่วโมง</string>
+    <string name="dt_doze">แตะสองครั้งเพื่องีบหลับ</string>
+    <string name="dt_doze_summary">แตะสองครั้งเพื่อเปิดหน้าจอแอมเบียนท์</string>
     <string name="feature_control_not_supported">%s feature control not supported.</string>
     <string name="stb_brightness_title">Statusbar brightness control</string>
     <string name="stb_brightness_summary">Control the brightness using statusbar</string>
@@ -212,33 +223,33 @@
     <string name="volbtn_cursor_control_on">Volume up/down moves cursor left/right</string>
     <string name="volbtn_cursor_control_on_reverse">Volume up/down moves cursor right/left</string>
     <string name="swap_volume_buttons_title">Reorient</string>
-    <string name="swap_volume_buttons_summary">Swap volume buttons on screen rotate</string>
+    <string name="swap_volume_buttons_summary">สลับปุ่มปรับระดับเสียงบนหน้าจอหมุน</string>
     <!-- Key backlight -->
-    <string name="button_backlight_title">Backlight</string>
-    <string name="button_backlight_enabled">Illuminate buttons</string>
-    <string name="button_backlight_only_when_pressed_title">Illuminate buttons only when pressed</string>
-    <string name="keyboard_backlight_enabled">Illuminate keyboard</string>
+    <string name="button_backlight_title">แสงไฟปุ่มกด</string>
+    <string name="button_backlight_enabled">เปิดไฟปุ่ม</string>
+    <string name="button_backlight_only_when_pressed_title">เปิดแสงที่ปุ่มกด เฉพาะเมื่อกดปุ่ม</string>
+    <string name="keyboard_backlight_enabled">เปิดไฟแป้นพิมพ์</string>
     <string name="button_backlight_seekbar_title">ความสว่างของปุ่ม</string>
-    <string name="keyboard_backlight_seekbar_title">Keyboard brightness</string>
-    <string name="backlight_timeout_title">Illumination timeout</string>
-    <string name="backlight_timeout_unlimited">Don\'t turn off</string>
-    <string name="backlight_summary_disabled">Disabled</string>
-    <string name="backlight_seconds"><xliff:g id="timeout">%s</xliff:g> seconds</string>
-    <string name="backlight_summary_enabled">Enabled</string>
-    <string name="done">Done</string>
+    <string name="keyboard_backlight_seekbar_title">ความสว่างของแป้นพิมพ์</string>
+    <string name="backlight_timeout_title">ระยะเวลาเปิดแสงไฟ</string>
+    <string name="backlight_timeout_unlimited">เปิดตลอด</string>
+    <string name="backlight_summary_disabled">ปิดใช้งานแล้ว</string>
+    <string name="backlight_seconds"><xliff:g id="timeout">%s</xliff:g> วินาที</string>
+    <string name="backlight_summary_enabled">เปิดใช้งานแล้ว</string>
+    <string name="done">เสร็จสิ้น</string>
     <!-- Buttons - Enable navbar -->
-    <string name="navkeys_title">Enable on-screen nav bar</string>
-    <string name="navkeys_summary">Enable on-screen navigation bar</string>
+    <string name="navkeys_title">เปิดใช้งานแถบนำทางบนหน้าจอ</string>
+    <string name="navkeys_summary">เปิดใช้งานแถบนำทางบนหน้าจอ</string>
     <string name="nav_hide">ซ่อน</string>
     <string name="nav_normal">ปกติ</string>
-    <string name="nav_medium">Medium</string>
-    <string name="nav_large">Large</string>
-    <string name="advanced_reboot_title">Advanced reboot</string>
-    <string name="advanced_reboot_summary">Reboot to system, recovery, bootloader</string>
+    <string name="nav_medium">ปานกลาง</string>
+    <string name="nav_large">ใหญ่</string>
+    <string name="advanced_reboot_title">เริ่มระบบใหม่แบบขั้นสูง</string>
+    <string name="advanced_reboot_summary">เริ่มระบบใหม่ ระบบ,การกู้คืน,บูตโหลดเดอร์</string>
     <string name="monetwannabe">MonetWannabe</string>
-    <string name="enable_engine">Enable Engine</string>
-    <string name="amount_of_generated_colors">Amount of generated colors</string>
-    <string name="palette_type">Palette Type</string>
+    <string name="enable_engine">เปิดใช้งาน Engine</string>
+    <string name="amount_of_generated_colors">จำนวนสีที่ถูกสร้างขึ้น</string>
+    <string name="palette_type">ประเภทจานสี</string>
     <string name="palette_type_summary">Selected color might be applied in a slightly modified version to make sure it fits the light/dark theme</string>
     <string name="amount_of_generated_colors_summary">More colors = better accuracy</string>
     <string name="enable_engine_summary">Automatically update your system colors based on the wallpaper applied.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Sound bars on lockscreen</string>
     <string name="lrb_title">Left Right Buttons</string>
     <string name="lrb_summary">Add them while typing</string>
+    <string name="download">Download</string>
+    <string name="crop_image">Crop Image</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">ภาพเคลื่อนไหวปิดหน้าจอ</string>
+    <string name="screen_off_animation_summary">การเคลื่อนไหวสำหรับหน้าจอล็อค</string>
+    <string name="screen_off_animation_default">ค่าเริ่มต้น</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">สเกล</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">สลับเลย์เอาต์</string>
+    <string name="navbar_invert_layout_summary">สลับเค้าโครงแถบนำทาง</string>
 </resources>

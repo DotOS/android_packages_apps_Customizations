@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">アクティビティのしきい値</string>
     <string name="traffic_meter_treshold_summary">自動非表示のしきい値</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">表示モード</string>
+    <string name="network_traffic_mode_disable">無効</string>
+    <string name="network_traffic_mode_status_bar">ステータスバー</string>
+    <string name="network_traffic_mode_qs">クイック設定</string>
+    <string name="network_traffic_autohide">自動非表示</string>
+    <string name="network_traffic_autohide_summary">非アクティブ時に通信速度を非表示にする</string>
+    <string name="network_traffic_units_title">通信速度の単位</string>
     <string name="status_bar">ステータスバー</string>
     <string name="led_color">LED の色</string>
     <string name="light_charged">充電中</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Do Not Disturb モード中で有効化する</string>
     <string name="blinking">点滅</string>
     <string name="blinking_on_low">バッテリー残量が少ない時はライトを点滅させる</string>
+    <string name="extras_title">追加機能</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">ステータスバーの色</string>
+    <string name="statusbar_icons_style_summary">ステータスバーのスタイルを選択する (システム UI の再起動が必要です)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Dot Stats を有効化</string>
     <string name="enable_dot_stats_summary">DotOS が携帯電話からバージョン、デバイス、国などの匿名データを収集するのを許可する。</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">ロック画面にサウンドバーを表示する</string>
     <string name="lrb_title">左右のボタン</string>
     <string name="lrb_summary">文字入力時にボタンを追加する</string>
+    <string name="download">ダウンロード</string>
+    <string name="crop_image">画像のトリミング</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">画面消灯時のアニメーション</string>
+    <string name="screen_off_animation_summary">画面のロック時のアニメーション</string>
+    <string name="screen_off_animation_default">既定</string>
+    <string name="screen_off_animation_crt">ブラウン管</string>
+    <string name="screen_off_animation_scale">縮小</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">レイアウトを反転</string>
+    <string name="navbar_invert_layout_summary">ナビゲーションバーのレイアウトを反転する</string>
 </resources>

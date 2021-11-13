@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Aktivitás-küszöbérték</string>
     <string name="traffic_meter_treshold_summary">Forgalommérés automatikus elrejtése</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Megjelenítési mód</string>
+    <string name="network_traffic_mode_disable">Letiltva</string>
+    <string name="network_traffic_mode_status_bar">Állapotsor</string>
+    <string name="network_traffic_mode_qs">Gyorsbeállítások</string>
+    <string name="network_traffic_autohide">Automatikus rejtés</string>
+    <string name="network_traffic_autohide_summary">Rejtse el az adatforgalom-kijelzést, ha nincs tevékenység</string>
+    <string name="network_traffic_units_title">Hálózatiforgalom-mértékegység</string>
     <string name="status_bar">Állapotsor</string>
     <string name="led_color">LED-szín</string>
     <string name="light_charged">Ha az akkumulátor töltődik</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Engedélyezze azt \"Ne zavarjanak\" (DND) módban</string>
     <string name="blinking">Villogás</string>
     <string name="blinking_on_low">Alacsony feszültség jelzése villogással</string>
+    <string name="extras_title">Extrák</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Színezett állapotsor-ikonok</string>
+    <string name="statusbar_icons_style_summary">Válasszon egy állapotsorikon-stílust (rendszerfelület-újraindítás szükséges)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Dot-statisztikagyűjtés engedélyezése</string>
     <string name="enable_dot_stats_summary">Jóváhagyja, hogy a DotOS anonim adatokat gyűjtsön a telefonja verziójáról, országáról.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Hangsávok a képernyőzáron</string>
     <string name="lrb_title">Bal-Jobb gombok</string>
     <string name="lrb_summary">Gépelés közben hozzáadhatja</string>
+    <string name="download">Letöltés</string>
+    <string name="crop_image">Fényképvágás</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Képernyő-kikapcsolási animáció</string>
+    <string name="screen_off_animation_summary">Képernyőlezárási animáció</string>
+    <string name="screen_off_animation_default">Alapértelmezett</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Skála</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Fordított elrendezés</string>
+    <string name="navbar_invert_layout_summary">Navigációs sáv elrendezés átfodítása</string>
 </resources>

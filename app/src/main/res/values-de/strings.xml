@@ -103,6 +103,13 @@
     <string name="traffic_meter_treshold_subtitle">Aktivitätsschwelle</string>
     <string name="traffic_meter_treshold_summary">Datennutzung automatisch ausblenden</string>
     <string name="traffic_meter_treshold_extra">KB/s</string>
+    <string name="network_traffic_mode_title">Bildschirmmodus</string>
+    <string name="network_traffic_mode_disable">Deaktiviert</string>
+    <string name="network_traffic_mode_status_bar">Statusleiste</string>
+    <string name="network_traffic_mode_qs">Schnelleinstellungen</string>
+    <string name="network_traffic_autohide">Automatisch ausblenden</string>
+    <string name="network_traffic_autohide_summary">Datenverkehr-Anzeige ausblenden, wenn keine Netzwerkaktivität vorhanden ist</string>
+    <string name="network_traffic_units_title">Einheiten der Datenübertragungsraten</string>
     <string name="status_bar">Statusleiste</string>
     <string name="led_color">LED-Farbe</string>
     <string name="light_charged">Wenn der Akku geladen wird</string>
@@ -115,6 +122,10 @@
     <string name="show_batterylight_dnd">Nicht-stören-Modus aktivieren</string>
     <string name="blinking">Blinken</string>
     <string name="blinking_on_low">Blinken wenn Akku schwach</string>
+    <string name="extras_title">Extras</string>
+    <!-- Colored Statusbar Icons -->
+    <string name="statusbar_icons_style">Farbige Statusleistensymbole</string>
+    <string name="statusbar_icons_style_summary">Wählen Sie den Stil der Icons in der Statusleiste (erfordert SystemUI Neustart)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Dot Stats aktivieren</string>
     <string name="enable_dot_stats_summary">Erlauben Sie dotOS, anonyme Daten wie Version, Gerät und Land von Ihrem Telefon zu sammeln.</string>
@@ -272,4 +283,15 @@
     <string name="music_visualizer_summary">Soundbars auf dem Sperrbildschirm</string>
     <string name="lrb_title">Links Rechts Tasten</string>
     <string name="lrb_summary">Fügen Sie sie während der Eingabe hinzu</string>
+    <string name="download">Herunterladen</string>
+    <string name="crop_image">Bild zuschneiden</string>
+    <!-- Screen off animation -->
+    <string name="screen_off_animation_title">Ausschaltanimation</string>
+    <string name="screen_off_animation_summary">Animation zum Sperren des Bildschirms</string>
+    <string name="screen_off_animation_default">Standard</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Skalierung</string>
+    <!-- Navbar options -->
+    <string name="navbar_invert_layout_title">Layout umkehren</string>
+    <string name="navbar_invert_layout_summary">Navigationsleistenlayout umkehren</string>
 </resources>
