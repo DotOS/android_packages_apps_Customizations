@@ -4,21 +4,11 @@
     <string name="section_statusbar_title">Statusfält</string>
     <string name="section_qs_title">Quick Settings</string>
     <string name="section_system_title">System</string>
-    <string name="section_themes_title">Teman</string>
-    <string name="section_wallpaper_title">Bakgrundsbilder</string>
     <string name="section_aod_title">AOD &amp; låsskärm</string>
-    <string name="section_fod_icon">FOD Icons</string>
-    <string name="section_fod_anim">Animationer</string>
-    <string name="section_fod_color_opt">FOD alternativ</string>
+    <string name="section_fod">In-Screen Fingerprint</string>
     <string name="section_hwkeys">Knappar</string>
     <string name="grid_section">Launcher rutnät</string>
-    <string name="section_lab">Labbet</string>
     <string name="section_settings">Inställningar</string>
-    <string name="section_clockface2">Klockansikte</string>
     <string name="system_gestures">Gester</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

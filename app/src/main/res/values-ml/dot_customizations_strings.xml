@@ -2,23 +2,13 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Sections -->
     <string name="section_statusbar_title">സ്റ്റാറ്റസ് ബാർ</string>
-    <string name="section_qs_title">Quick Settings</string>
+    <string name="section_qs_title">ദ്രുത ക്രമീകരണം</string>
     <string name="section_system_title">സിസ്റ്റം</string>
-    <string name="section_themes_title">തീമുകൾ</string>
-    <string name="section_wallpaper_title">വാൾപേപ്പറുകൾ</string>
-    <string name="section_aod_title">AOD &amp; Lockscreen</string>
-    <string name="section_fod_icon">FOD Icons</string>
-    <string name="section_fod_anim">FOD Animations</string>
-    <string name="section_fod_color_opt">FOD Options</string>
+    <string name="section_aod_title">AOD &amp; ലോക്ക്സ്ക്രീൻ</string>
+    <string name="section_fod">ഇൻ-സ്ക്രീൻ ഫിംഗർപ്രിന്റ്</string>
     <string name="section_hwkeys">ബട്ടണുകൾ</string>
-    <string name="grid_section">Launcher Grid</string>
-    <string name="section_lab">The Lab</string>
+    <string name="grid_section">ലോഞ്ചർ ഗ്രിഡ്</string>
     <string name="section_settings">ക്രമീകരണങ്ങള്‍</string>
-    <string name="section_clockface2">Clockface</string>
-    <string name="system_gestures">Gestures</string>
+    <string name="system_gestures">ആംഗ്യങ്ങൾ</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

@@ -3,7 +3,6 @@
     <string name="app_name">Personnalisations</string>
     <!-- Common Strings -->
     <string name="apply">Appliquer</string>
-    <string name="apply_for">Appliquer pour</string>
     <string name="clockface">Cadran d\'horloge</string>
     <string name="disabled">Désactivé</string>
     <string name="enable">Activer</string>
@@ -11,42 +10,19 @@
     <string name="options">Options</string>
     <string name="picker_title">Choisir une couleur</string>
     <string name="reset">Réinitialiser</string>
-    <string name="sections">Sections</string>
     <string name="manifest_wallpaper">Fond d\'écran</string>
     <string name="style">Style</string>
     <string name="hide">Masquer</string>
     <string name="inside">À l\'intérieur</string>
     <string name="outside">A l\'extérieur</string>
     <string name="default_theme_title">Par défaut</string>
-    <string name="icons">Icônes</string>
     <string name="miscellaneous">Divers</string>
     <!-- Themes Section -->
-    <string name="accent_color">Couleur d\'accentuation</string>
-    <string name="picker_summary">Sélectionnez ce qui convient.</string>
-    <string name="headline_01">Titre 01</string>
-    <string name="body_02">Corps 02</string>
-    <string name="fonts">Polices</string>
-    <string name="icon_pack">Pack d\'icônes</string>
-    <string name="icon_shapes">Formes d\'icônes</string>
-    <string name="device_default">Appareil par défaut</string>
-    <string name="device_default_font">Police par défaut de l\'appareil\n</string>
-    <string name="light_shade">Thème clair</string>
-    <string name="dark_shade">Thème sombre</string>
-    <string name="twotone_accent_summary">Appliquer une teinte d\'accentuation pour les thèmes Clair et Sombre. Vous pouvez également choisir deux accentuations différentes pour chaque style.\n
-        \nExemple : le Thème Blanc avec une Accentuation Cyan et le Thème Sombre avec une Accentuation Jaune.\n
-        \nAfin d\'utiliser les paquets d\'accentuation sur l\'appareil, réinitialiser l\'accentuation personnalisée en utilisant le bouton en haut à droite à partir du sélecteur de couleurs.</string>
-    <string name="ballon_twotone">Appui long pour sélectionner\nune nouvelle couleur d\'accentuation</string>
-    <string name="smart_accent_picker">Sélecteur d\'Accentuation Intelligent</string>
-    <string name="disable_notification_transparency">Désactiver la transparence des notifications</string>
     <!-- Wallpapers Section -->
-    <string name="current_wallpaper">Fond d\'écran actuel</string>
     <string name="built_in_wallpapers">Fonds d\'écran intégrés</string>
     <string name="live_wallpapers">Fonds d\'écran animés</string>
     <string name="dotos_exclusives">Exclusivités DotOS</string>
-    <string name="apply_wallpaper">Appliquer le fond d\'écran</string>
-    <string name="apply_wallpaper_summary">Êtes-vous sûr de vouloir utiliser ce fond d\'écran ?</string>
     <string name="apply_both">Écran d\'accueil et écran de verrouillage</string>
-    <string name="wall_applied">Fond d\'écran appliqué !</string>
     <string name="pick_image_intent_chooser_title">Sélectionner la source</string>
     <string name="crop_image_activity_no_permissions">Annulation, les autorisations requises ne sont pas accordées</string>
     <!-- AOD Section -->
@@ -91,24 +67,16 @@
     <!-- FOD Section -->
     <string name="fod_screenoff_summary">Utiliser l\'authentification biométrique écran éteint. </string>
     <string name="fod_screenoff_title">Reconnaissance d\'empreinte écran éteint</string>
-    <string name="fod_animations">Animations</string>
     <string name="fod_color">Couleur de la reconnaissance d\'empreinte</string>
     <string name="enable_aod">Activer Always on Display ?</string>
     <!-- Statusbar Section -->
     <string name="battery_styles">Styles de la batterie</string>
     <string name="percentage_style">Styles en pourcentage</string>
-    <string name="battery_meter_very_low_overlay_symbol">!</string>
     <string name="traffic_meter_title">Afficher le débit internet</string>
-    <string name="traffic_meter_summary">Garder une trace de votre consommation Internet</string>
-    <string name="traffic_meter_treshold_subtitle">Seuil d\'activité</string>
     <string name="traffic_meter_treshold_summary">Masquer automatiquement le débit internet</string>
-    <string name="traffic_meter_treshold_extra">KB/s</string>
     <string name="network_traffic_mode_title">Mode d\'affichage</string>
     <string name="network_traffic_mode_disable">Désactivé</string>
     <string name="network_traffic_mode_status_bar">Barre d\'état</string>
-    <string name="network_traffic_mode_qs">Paramètres rapides</string>
-    <string name="network_traffic_autohide">Masquer automatiquement</string>
-    <string name="network_traffic_autohide_summary">Masquer le moniteur de trafic lorsqu\'il n\'y a pas d\'activité</string>
     <string name="network_traffic_units_title">Unités de mesure du débit</string>
     <string name="status_bar">Barre d\'état</string>
     <string name="led_color">Couleur de la LED</string>
@@ -122,15 +90,9 @@
     <string name="show_batterylight_dnd">Activer en mode Ne Pas Déranger</string>
     <string name="blinking">Clignotant</string>
     <string name="blinking_on_low">Clignotement lumineux sur batterie faible</string>
-    <string name="extras_title">Extras</string>
-    <!-- Colored Statusbar Icons -->
-    <string name="statusbar_icons_style">Icônes colorées de la barre d\'état</string>
-    <string name="statusbar_icons_style_summary">Choisissez le style de vos icônes dans la barre d\'état (nécessite un redémarrage de SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Activer les stats de Dot</string>
     <string name="enable_dot_stats_summary">Permettre à dotOS de collecter des données anonymes telles que la version, l\'appareil et le pays de votre téléphone.</string>
-    <string name="rgb_battery_light">Voyant de batterie</string>
-    <string name="rgb_battery_light_summary">Afficher le sélecteur RGB pour les états de la batterie</string>
     <string name="enable_balloons">Activer les ballons</string>
     <string name="enable_balloons_summary">Afficher les info-bulles autour de l\'application</string>
     <string name="check_stats">Vérifier les statistiques sur stats.droidontime.com</string>
@@ -160,7 +122,6 @@
     <string name="ampm_summary">Parfait pour le format 12h</string>
     <string name="dt_doze">Appuyer deux fois pour mettre en veille</string>
     <string name="dt_doze_summary">Double appui pour activer l\'affichage ambiant</string>
-    <string name="feature_control_not_supported">Le contrôle de fonctionnalité de %s n\'est pas pris en charge.</string>
     <string name="stb_brightness_title">Contrôle de la luminosité dans la barre d\'état</string>
     <string name="stb_brightness_summary">Contrôler la luminosité à l\'aide de la barre d\'état</string>
     <string name="data_usage_title">Utilisation des données</string>
@@ -171,20 +132,16 @@
     <string name="rows">Ligne(s)</string>
     <string name="portrait">Portrait</string>
     <string name="landscape">Paysage</string>
-    <string name="disable_qs_transparency">Désactiver la transparence du panneau de réglages rapides</string>
-    <string name="settings">Paramètres</string>
     <string name="qs_percentage">Afficher le pourcentage dans les paramètres rapides</string>
     <string name="fod_anim_start">Commencer l\'animation</string>
     <string name="fod_anim_stop">Arrêter l\'animation</string>
     <!-- Buttons -->
-    <string name="button_pref_title">Boutons</string>
     <string name="hardware_keys_home_key_title">Bouton \"Accueil\"</string>
     <string name="hardware_keys_back_key_title">Bouton \"Retour\"</string>
     <string name="hardware_keys_menu_key_title">Bouton \"Menu\"</string>
     <string name="hardware_keys_assist_key_title">Bouton \"Recherche\"</string>
     <string name="hardware_keys_appswitch_key_title">Bouton \"Applications récentes\"</string>
     <string name="hardware_keys_camera_key_title">Bouton \"Appareil photo\"</string>
-    <string name="hardware_keys_short_press_title">Appui court</string>
     <string name="hardware_keys_long_press_title">Appui long</string>
     <string name="hardware_keys_double_tap_title">Appui double</string>
     <string name="hardware_keys_action_nothing">Aucune action</string>
@@ -192,20 +149,10 @@
     <string name="hardware_keys_action_app_switch">Sélecteur d\'applications récentes</string>
     <string name="hardware_keys_action_search">Assistant de recherche</string>
     <string name="hardware_keys_action_voice_search">Recherche vocale</string>
-    <string name="hardware_keys_action_in_app_search">Recherche dans l\'application</string>
     <string name="hardware_keys_action_launch_camera">Lancer l\'appareil photo</string>
     <string name="hardware_keys_action_sleep">Éteindre l\'écran</string>
     <string name="hardware_keys_action_split_screen">Partager l\'écran</string>
-    <string name="hardware_keys_swipe_right_key_title">Glisser vers la droite</string>
-    <string name="hardware_keys_swipe_left_key_title">Glisser vers la gauche</string>
-    <string name="hardware_keys_long_tap_key_title">Appui long</string>
-    <string name="hardware_keys_swipe_tap_title">Action associée au balayage</string>
-    <string name="hardware_keys_long_tap_title">Résultat d\'un appui long</string>
     <string name="button_wake_title">Sortir l\'appareil de veille</string>
-    <string name="camera_sleep_on_release_title">Aperçu de l\'écran</string>
-    <string name="camera_sleep_on_release_summary">Un demi appui permet de garder l\'écran allumé tant que le bouton est maintenu appuyé</string>
-    <string name="camera_launch_title">Démarrer l\'appareil photo</string>
-    <string name="camera_launch_summary">Une pression longue avant de relâcher active l’appareil photo</string>
     <string name="home_key_press_summary">Appui sur la touche d\'accueil</string>
     <string name="back_key_press_summary">Appui sur la touche retour</string>
     <string name="menu_key_press_summary">Appui sur la touche menu</string>
@@ -215,10 +162,8 @@
     <string name="nothing">Rien</string>
     <!-- Volume keys customization -->
     <string name="volbtn_music_controls_title">Contrôle de la lecture</string>
-    <string name="volbtn_music_controls_summary">Changer de piste audio à l\'aide d\'une pression longue sur les boutons de volume lorsque l\'écran est éteint</string>
     <string name="volume_answer_call_title">Répondre à l\'appel</string>
     <string name="volume_summary">En appuyant sur les boutons de volume</string>
-    <string name="volbtn_cursor_control_title">Contrôle du curseur du clavier</string>
     <string name="volbtn_cursor_control_off">Désactivé</string>
     <string name="volbtn_cursor_control_on">Les boutons de volume haut/bas déplacent le curseur vers la gauche/droite</string>
     <string name="volbtn_cursor_control_on_reverse">Les boutons de volume haut/bas déplacent le curseur vers droite/gauche</string>
@@ -228,15 +173,9 @@
     <string name="button_backlight_title">Rétroéclairage</string>
     <string name="button_backlight_enabled">Rétroéclairage des boutons</string>
     <string name="button_backlight_only_when_pressed_title">Rétro-éclairer les boutons seulement lors de l\'appui</string>
-    <string name="keyboard_backlight_enabled">Rétroéclairage du clavier</string>
     <string name="button_backlight_seekbar_title">Luminosité du bouton</string>
-    <string name="keyboard_backlight_seekbar_title">Luminosité du clavier</string>
     <string name="backlight_timeout_title">Durée du rétroéclairage</string>
-    <string name="backlight_timeout_unlimited">Ne pas éteindre</string>
-    <string name="backlight_summary_disabled">Désactivé</string>
     <string name="backlight_seconds"><xliff:g id="timeout">%s</xliff:g> secondes</string>
-    <string name="backlight_summary_enabled">Activé</string>
-    <string name="done">Terminé</string>
     <!-- Buttons - Enable navbar -->
     <string name="navkeys_title">Activer la barre de navigation sur l\'écran</string>
     <string name="navkeys_summary">Activer la barre de navigation sur l\'écran</string>
@@ -246,13 +185,6 @@
     <string name="nav_large">Grand</string>
     <string name="advanced_reboot_title">Redémarrage avancé</string>
     <string name="advanced_reboot_summary">Redémarrer vers le système, le recovery et le bootloader</string>
-    <string name="monetwannabe">MonetWannabe</string>
-    <string name="enable_engine">Activer le moteur</string>
-    <string name="amount_of_generated_colors">Quantité de couleurs générées</string>
-    <string name="palette_type">Type de la palette</string>
-    <string name="palette_type_summary">La couleur sélectionnée peut être appliquée dans une version légèrement modifiée pour s\'assurer qu\'elle correspond au thème clair/sombre</string>
-    <string name="amount_of_generated_colors_summary">Plus de couleurs = meilleure justesse</string>
-    <string name="enable_engine_summary">Mettre à jour automatiquement les couleurs de votre système en fonction du fond d\'écran appliqué.</string>
     <string name="crop_amp_rotate"><![CDATA[Redimensionnement et rotation]]></string>
     <string name="aspect_ratio">Format d\'image</string>
     <string name="_18_9">18:9</string>
@@ -273,12 +205,9 @@
     <string name="select_wallpaper">Sélectionner un fond d\'écran</string>
     <string name="default_wallpaper_uri">android.resource://android/drawable/default_wallpaper</string>
     <string name="no_internet">Internet indisponible</string>
-    <string name="system_accent">Accent du système</string>
     <string name="homescreen">Écran d\'accueil</string>
     <string name="lockscreen">Écran de verrouillage</string>
-    <string name="approximate">Approximativement</string>
-    <string name="crop">Rogner</string>
-    <string name="monet_live_wp">MonetWananbe ne peut pas être utilisé avec des fonds d\'écran animés. Si vous en définissez un, les couleurs du fond d\'écran pré-installé reviendont.</string>
+    <string name="monet_live_wp">MonetWananbe ne peut être utilisé avec certains fonds d\'écran animés. Si vous en définissez un, les couleurs du fond d\'écran pré-installé seront redéfinit.</string>
     <string name="music_visualizer_title">Spectre musical</string>
     <string name="music_visualizer_summary">Barres de son sur l\'écran de verrouillage</string>
     <string name="lrb_title">Boutons gauche à droite</string>
@@ -294,4 +223,25 @@
     <!-- Navbar options -->
     <string name="navbar_invert_layout_title">Inverser la disposition</string>
     <string name="navbar_invert_layout_summary">Inverser la disposition de la barre de navigation</string>
+    <string name="wallpaper_colors">Couleur de fond d\'écran</string>
+    <string name="system_colors">Couleurs du système</string>
+    <string name="change_wallpaper">Changer le fond d\'écran</string>
+    <string name="pick_a_time">Choisissez l\'heure</string>
+    <string name="system_font">Police du système</string>
+    <string name="more_settings">Plus de réglages</string>
+    <string name="theme_colourfulness">Coloration du thème</string>
+    <string name="statistics">Statistiques</string>
+    <string name="schedule_min_delay">Si le temps de déclenchement est inférieur au délai minimum autorisé (15 min), le délai sera défini à la valeur par défaut.</string>
+    <string name="set_trigger_time">Définir l\'heure de déclenchement</string>
+    <string name="weekly">Hebdomadaire</string>
+    <string name="daily">Quotidien</string>
+    <string name="once">Une seule fois</string>
+    <string name="schedule_period">A quelle fréquence changer le fond d\'écran</string>
+    <string name="schedule_info">Le paramétrage pour définir un fond d\'écran une fois vous permettra d\'ajouter un seul fond d\'écran. Quotidien et Hebdomadaire ne sont pas concernés par cette restriction.</string>
+    <string name="create">Créer</string>
+    <string name="pick_your_wallpapers">Choisissez vos fonds d\'écran</string>
+    <string name="schedule">Paramétrage</string>
+    <string name="monet_lightness_summary">L\'augmentation de la luminosité accentuera les couleurs claires et rendra les couleurs sombres plus subtiles, et inversement.</string>
+    <string name="monet_lightness_title">Luminosité du thème</string>
+    <string name="generated_colors">Couleurs générées</string>
 </resources>

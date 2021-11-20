@@ -4,21 +4,11 @@
     <string name="section_statusbar_title">แถบสถานะ</string>
     <string name="section_qs_title">การตั้งค่าด่วน</string>
     <string name="section_system_title">ระบบ</string>
-    <string name="section_themes_title">ธีม</string>
-    <string name="section_wallpaper_title">ภาพพื้นหลัง</string>
     <string name="section_aod_title">หน้าจอแบบเปิดตลอด &amp; หน้าจอล็อก</string>
-    <string name="section_fod_icon">ไอคอน FOD</string>
-    <string name="section_fod_anim">การเคลื่อนไหว FOD</string>
-    <string name="section_fod_color_opt">ตัวเลือก FOD</string>
+    <string name="section_fod">In-Screen Fingerprint</string>
     <string name="section_hwkeys">ปุ่ม</string>
     <string name="grid_section">การจัดวางหน้าหลัก</string>
-    <string name="section_lab">ห้องทดลอง</string>
     <string name="section_settings">การตั้งค่า</string>
-    <string name="section_clockface2">หน้าปัดนาฬิกา</string>
     <string name="system_gestures">ท่าทาง</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

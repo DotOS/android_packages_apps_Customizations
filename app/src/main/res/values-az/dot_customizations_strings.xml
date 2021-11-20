@@ -4,21 +4,11 @@
     <string name="section_statusbar_title">Vəziyyət sətri</string>
     <string name="section_qs_title">Cəld Tənzimləmələr (CT)</string>
     <string name="section_system_title">Sistem</string>
-    <string name="section_themes_title">Temalar</string>
-    <string name="section_wallpaper_title">Divar kağızları</string>
     <string name="section_aod_title">AOD &amp; Kilid ekranı</string>
-    <string name="section_fod_icon">FOD Nişanları</string>
-    <string name="section_fod_anim">FOD Animasiyaları</string>
-    <string name="section_fod_color_opt">FOD Seçimləri</string>
+    <string name="section_fod">In-Screen Fingerprint</string>
     <string name="section_hwkeys">Düymələr</string>
     <string name="grid_section">Başladıcı Toru</string>
-    <string name="section_lab">Labarotoriya</string>
     <string name="section_settings">Tənzimləmələr</string>
-    <string name="section_clockface2">Saat üzü</string>
     <string name="system_gestures">Jestlər</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

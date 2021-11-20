@@ -4,21 +4,11 @@
     <string name="section_statusbar_title">שורת המצב</string>
     <string name="section_qs_title">לחצני וילון הגדרות</string>
     <string name="section_system_title">מערכת</string>
-    <string name="section_themes_title">ערכות נושא</string>
-    <string name="section_wallpaper_title">טפטים</string>
     <string name="section_aod_title">AOD ומסך הנעילה</string>
-    <string name="section_fod_icon">אייקוני טביעת אצבע</string>
-    <string name="section_fod_anim">הנפשות סורק טביעות האצבע</string>
-    <string name="section_fod_color_opt">אפשרויות טביעת אצבע</string>
+    <string name="section_fod">In-Screen Fingerprint</string>
     <string name="section_hwkeys">כפתורים</string>
     <string name="grid_section">פריסת מסך הבית</string>
-    <string name="section_lab">המעבדה</string>
     <string name="section_settings">הגדרות</string>
-    <string name="section_clockface2">תצוגת השעון</string>
     <string name="system_gestures">מחוות</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

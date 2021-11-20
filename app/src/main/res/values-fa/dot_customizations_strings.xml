@@ -4,21 +4,11 @@
     <string name="section_statusbar_title">نوار وضعیت</string>
     <string name="section_qs_title">تنظیمات سریع</string>
     <string name="section_system_title">سیستم</string>
-    <string name="section_themes_title">پوسته‌‌ها</string>
-    <string name="section_wallpaper_title">تصاویر پس زمینه</string>
     <string name="section_aod_title">صفحه نمایش همیشه روشن و صفحه قفل</string>
-    <string name="section_fod_icon">آیکون‌های صفحه قفل</string>
-    <string name="section_fod_anim">انیمیشن آیکون‌های صفحه قفل</string>
-    <string name="section_fod_color_opt">تنظیمات آیکون های صفحه قفل</string>
+    <string name="section_fod">حسگر اثر انگشت زیر صفحه نمایش</string>
     <string name="section_hwkeys">دکمه‌ها</string>
     <string name="grid_section">ردیف لانچر</string>
-    <string name="section_lab">آزمایشگاه</string>
     <string name="section_settings">تنظیمات</string>
-    <string name="section_clockface2">صفحه ساعت</string>
     <string name="system_gestures">اشارات</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

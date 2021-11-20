@@ -4,21 +4,11 @@
     <string name="section_statusbar_title">Barra de estado</string>
     <string name="section_qs_title">Ajustes Rápidos</string>
     <string name="section_system_title">Sistema</string>
-    <string name="section_themes_title">Temas</string>
-    <string name="section_wallpaper_title">Fondos de pantalla</string>
     <string name="section_aod_title">AOD &amp; Pantalla de bloqueo</string>
-    <string name="section_fod_icon">Iconos de huella digital en pantalla</string>
-    <string name="section_fod_anim">Animaciones de huella digital en pantalla</string>
-    <string name="section_fod_color_opt">Opciones de huella digital en pantalla</string>
+    <string name="section_fod">Huella digital en pantalla</string>
     <string name="section_hwkeys">Botones</string>
     <string name="grid_section">Cuadrículas del Lanzador</string>
-    <string name="section_lab">El Laboratorio</string>
     <string name="section_settings">Ajustes</string>
-    <string name="section_clockface2">Esfera del reloj</string>
     <string name="system_gestures">Gestos</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

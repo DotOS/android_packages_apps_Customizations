@@ -3,7 +3,6 @@
     <string name="app_name">Personalizações</string>
     <!-- Common Strings -->
     <string name="apply">Aplicar</string>
-    <string name="apply_for">Aplicar para</string>
     <string name="clockface">Mostrador do relógio</string>
     <string name="disabled">Desabilitado</string>
     <string name="enable">Habilitado</string>
@@ -11,42 +10,19 @@
     <string name="options">Opções</string>
     <string name="picker_title">Escolha uma cor</string>
     <string name="reset">Redefinir</string>
-    <string name="sections">Sessões</string>
     <string name="manifest_wallpaper">Papel de parede</string>
     <string name="style">Estilo</string>
     <string name="hide">Ocultar</string>
     <string name="inside">Dentro</string>
     <string name="outside">Fora</string>
     <string name="default_theme_title">Padrão</string>
-    <string name="icons">Ícones</string>
     <string name="miscellaneous">Diversos</string>
     <!-- Themes Section -->
-    <string name="accent_color">Cor de destaque</string>
-    <string name="picker_summary">Selecione o que mais lhe agrada.</string>
-    <string name="headline_01">Título 01</string>
-    <string name="body_02">Corpo 02</string>
-    <string name="fonts">Fontes</string>
-    <string name="icon_pack">Pacote de ícones</string>
-    <string name="icon_shapes">Formato dos ícones</string>
-    <string name="device_default">Padrão do dispositivo</string>
-    <string name="device_default_font">Dispositivo\nFonte padrão</string>
-    <string name="light_shade">Tema Claro</string>
-    <string name="dark_shade">Tema Escuro</string>
-    <string name="twotone_accent_summary">Aplique um tom de destaque para tema Claro e Escuro . Você também pode escolher dois tons diferentes para cada estilo.\n
-        \nExemplo: Tema Branco com detalhe Ciano e Tema Escuro com Detalhe Amarelo.\n
-        \nPara usar pacotes de destaque do dispositivo, redefina o detalhe personalizado usando o botão superior direito do seletor de cores.</string>
-    <string name="ballon_twotone">Pressione e segure para escolher\numa nova cor de destaque</string>
-    <string name="smart_accent_picker">Seletor de destaque inteligente</string>
-    <string name="disable_notification_transparency">Desativar transparência de notificação</string>
     <!-- Wallpapers Section -->
-    <string name="current_wallpaper">Papel de parede atual</string>
     <string name="built_in_wallpapers">Papéis de parede integrados</string>
     <string name="live_wallpapers">Papéis de parede animados</string>
     <string name="dotos_exclusives">Exclusivos DotOS</string>
-    <string name="apply_wallpaper">Aplicar papel de parede</string>
-    <string name="apply_wallpaper_summary">Tem certeza que deseja usar este papel de parede?</string>
     <string name="apply_both">Tela inicial e tela de bloqueio</string>
-    <string name="wall_applied">Papel de parede aplicado!</string>
     <string name="pick_image_intent_chooser_title">Selecionar fonte</string>
     <string name="crop_image_activity_no_permissions">Cancelando, as permissões necessárias não são concedidas</string>
     <!-- AOD Section -->
@@ -91,24 +67,16 @@
     <!-- FOD Section -->
     <string name="fod_screenoff_summary">Usar desbloqueio por digital quando a tela estiver apagada. </string>
     <string name="fod_screenoff_title">Impressão digital com a tela apagada</string>
-    <string name="fod_animations">Animações</string>
     <string name="fod_color">Cor de reconhecimento</string>
     <string name="enable_aod">Ativar tela ambiente ?</string>
     <!-- Statusbar Section -->
     <string name="battery_styles">Estilos de bateria</string>
     <string name="percentage_style">Estilos de porcentagem</string>
-    <string name="battery_meter_very_low_overlay_symbol">!</string>
     <string name="traffic_meter_title">Mostrar medidor de tráfego de rede </string>
-    <string name="traffic_meter_summary">Acompanhe o seu tráfego de internet</string>
-    <string name="traffic_meter_treshold_subtitle">Limite de atividade</string>
     <string name="traffic_meter_treshold_summary">Ocultar o medidor de tráfego automaticamente</string>
-    <string name="traffic_meter_treshold_extra">KB/s</string>
     <string name="network_traffic_mode_title">Modo de exibição</string>
     <string name="network_traffic_mode_disable">Desabilitado</string>
     <string name="network_traffic_mode_status_bar">Barra de status</string>
-    <string name="network_traffic_mode_qs">Configurações rápidas</string>
-    <string name="network_traffic_autohide">Ocultar automaticamente</string>
-    <string name="network_traffic_autohide_summary">Ocultar o monitor de tráfego quando não houver atividade</string>
     <string name="network_traffic_units_title">Unidades de medida do tráfego</string>
     <string name="status_bar">Barra de status</string>
     <string name="led_color">Cor do Led</string>
@@ -122,15 +90,9 @@
     <string name="show_batterylight_dnd">Ativar no modo Não Perturbe</string>
     <string name="blinking">Piscando</string>
     <string name="blinking_on_low">Piscar luz quando a bateria estiver fraca</string>
-    <string name="extras_title">Extras</string>
-    <!-- Colored Statusbar Icons -->
-    <string name="statusbar_icons_style">Ícones coloridos da barra de status</string>
-    <string name="statusbar_icons_style_summary">Escolha o estilo dos ícones da barra de status (requer reinicialização do SystemUI)</string>
     <!-- Settings Section -->
     <string name="enable_dot_stats">Ativar estatísticas Dot</string>
     <string name="enable_dot_stats_summary">Permitir que a equipe dotOs colete dados anônimos assim como versão, dispositivo e país do seu telefone.</string>
-    <string name="rgb_battery_light">Luz de bateria RGB</string>
-    <string name="rgb_battery_light_summary">Mostrar seletor RGB para estados de luz da bateria</string>
     <string name="enable_balloons">Ativar Balões</string>
     <string name="enable_balloons_summary">Mostrar dicas ao redor do aplicativo</string>
     <string name="check_stats">Verifique estatísticas em stats.droidontime.com</string>
@@ -160,7 +122,6 @@
     <string name="ampm_summary">Perfeito para o formato de 12 horas</string>
     <string name="dt_doze">Toque duplo para espionar</string>
     <string name="dt_doze_summary">Toque duas vezes para abrir a tela ambiente</string>
-    <string name="feature_control_not_supported">Controle de recursos %s não suportado.</string>
     <string name="stb_brightness_title">Controle de brilho na barra de status</string>
     <string name="stb_brightness_summary">Controlar o brilho pela barra de status</string>
     <string name="data_usage_title">Uso de dados</string>
@@ -171,20 +132,16 @@
     <string name="rows">Linha(s)</string>
     <string name="portrait">Retrato</string>
     <string name="landscape">Paisagem</string>
-    <string name="disable_qs_transparency">Desativar transparência do painel de Configurações Rápidas</string>
-    <string name="settings">Configurações</string>
     <string name="qs_percentage">Mostrar porcentagem nas configurações rápidas</string>
     <string name="fod_anim_start">Iniciar animação</string>
     <string name="fod_anim_stop">Parar animação</string>
     <!-- Buttons -->
-    <string name="button_pref_title">Botões</string>
     <string name="hardware_keys_home_key_title">Botão de início</string>
     <string name="hardware_keys_back_key_title">Botão voltar</string>
     <string name="hardware_keys_menu_key_title">Botão de menu</string>
     <string name="hardware_keys_assist_key_title">Botão de pesquisa</string>
     <string name="hardware_keys_appswitch_key_title">Botão de recentes</string>
     <string name="hardware_keys_camera_key_title">Botão da câmera</string>
-    <string name="hardware_keys_short_press_title">Toque curto</string>
     <string name="hardware_keys_long_press_title">Toque longo</string>
     <string name="hardware_keys_double_tap_title">Toque duplo</string>
     <string name="hardware_keys_action_nothing">Nenhuma ação</string>
@@ -192,20 +149,10 @@
     <string name="hardware_keys_action_app_switch">Alternador de aplicativos recentes</string>
     <string name="hardware_keys_action_search">Assistente de pesquisa</string>
     <string name="hardware_keys_action_voice_search">Pesquisa por voz</string>
-    <string name="hardware_keys_action_in_app_search">Pesquisa no aplicativo</string>
     <string name="hardware_keys_action_launch_camera">Iniciar a câmera</string>
     <string name="hardware_keys_action_sleep">Desligar tela</string>
     <string name="hardware_keys_action_split_screen">Dividir tela</string>
-    <string name="hardware_keys_swipe_right_key_title">Deslizar para direita</string>
-    <string name="hardware_keys_swipe_left_key_title">Deslizar para esquerda</string>
-    <string name="hardware_keys_long_tap_key_title">Toque longo</string>
-    <string name="hardware_keys_swipe_tap_title">Ação ao deslizar</string>
-    <string name="hardware_keys_long_tap_title">Ação de toque longo</string>
     <string name="button_wake_title">Acordar o dispositivo</string>
-    <string name="camera_sleep_on_release_title">Visualização de tela</string>
-    <string name="camera_sleep_on_release_summary">Um toque parcial manterá a tela ligada somente enquanto o botão estiver pressionado</string>
-    <string name="camera_launch_title">Iniciar a câmera</string>
-    <string name="camera_launch_summary">Mantenha pressionado e solte para abrir a câmera</string>
     <string name="home_key_press_summary">Ao pressionar a tecla de início</string>
     <string name="back_key_press_summary">Ao pressionar a tecla Voltar</string>
     <string name="menu_key_press_summary">Ao pressionar a tecla menu</string>
@@ -215,10 +162,8 @@
     <string name="nothing">Nada</string>
     <!-- Volume keys customization -->
     <string name="volbtn_music_controls_title">Controle de reprodução</string>
-    <string name="volbtn_music_controls_summary">Procure faixas de música segurando as teclas de volume enquanto a tela está desligada</string>
     <string name="volume_answer_call_title">Atender chamada</string>
     <string name="volume_summary">Pressionando os botões de volume</string>
-    <string name="volbtn_cursor_control_title">Controle do cursor do teclado</string>
     <string name="volbtn_cursor_control_off">Desabilitado</string>
     <string name="volbtn_cursor_control_on">Volume cima/baixo move cursor para esquerda/direita</string>
     <string name="volbtn_cursor_control_on_reverse">Volume cima/baixo move cursor para direita/esquerda</string>
@@ -228,15 +173,9 @@
     <string name="button_backlight_title">Luz de fundo</string>
     <string name="button_backlight_enabled">Iluminar botões</string>
     <string name="button_backlight_only_when_pressed_title">Iluminar botões apenas ao tocar</string>
-    <string name="keyboard_backlight_enabled">Iluminar teclado</string>
     <string name="button_backlight_seekbar_title">Botão de brilho</string>
-    <string name="keyboard_backlight_seekbar_title">Brilho do teclado</string>
     <string name="backlight_timeout_title">Tempo de iluminação</string>
-    <string name="backlight_timeout_unlimited">Não desligue</string>
-    <string name="backlight_summary_disabled">Desativado</string>
     <string name="backlight_seconds"><xliff:g id="timeout">%s</xliff:g> segundos</string>
-    <string name="backlight_summary_enabled">Ativado</string>
-    <string name="done">Concluído</string>
     <!-- Buttons - Enable navbar -->
     <string name="navkeys_title">Ativar barra de navegação na tela</string>
     <string name="navkeys_summary">Ativa a barra de navegação na tela</string>
@@ -246,13 +185,6 @@
     <string name="nav_large">Grande</string>
     <string name="advanced_reboot_title">Reinicialização avançada</string>
     <string name="advanced_reboot_summary">Reiniciar no sistema, recuperação, bootloader</string>
-    <string name="monetwannabe">MonetWannabe</string>
-    <string name="enable_engine">Ativar Motor</string>
-    <string name="amount_of_generated_colors">Quantidade de cores geradas</string>
-    <string name="palette_type">Tipo de paleta</string>
-    <string name="palette_type_summary">A cor selecionada pode ser aplicada em uma versão ligeiramente modificada para garantir que se encaixa no tema claro/escuro</string>
-    <string name="amount_of_generated_colors_summary">Mais cores = melhor precisão</string>
-    <string name="enable_engine_summary">Atualizar automaticamente as cores do seu sistema com base no papel de parede aplicado.</string>
     <string name="crop_amp_rotate"><![CDATA[Cortar e Girar]]></string>
     <string name="aspect_ratio">Proporção da Tela</string>
     <string name="_18_9">18:9</string>
@@ -273,12 +205,9 @@
     <string name="select_wallpaper">Escolha o papel de parede</string>
     <string name="default_wallpaper_uri">android.resource://android/drawable/default_wallpaper</string>
     <string name="no_internet">Internet indisponível</string>
-    <string name="system_accent">Realce do sistema</string>
     <string name="homescreen">Tela Inicial</string>
     <string name="lockscreen">Tela de bloqueio</string>
-    <string name="approximate">Aproximado</string>
-    <string name="crop">Recortar</string>
-    <string name="monet_live_wp">MonetWanbe não pode ser usado com planos de fundo ao vivo. Se você definir um, o motor cairá de volta para as cores do papel de parede pré-instalado.</string>
+    <string name="monet_live_wp">O tema Monet não pode ser usado com alguns papéis de parede ao vivo. Se você definir um, o motor voltará para as cores de papel de parede pré-instalados.</string>
     <string name="music_visualizer_title">Visualizador de música</string>
     <string name="music_visualizer_summary">Barras de som na tela de bloqueio</string>
     <string name="lrb_title">Botões Direito e Esquerdo</string>
@@ -294,4 +223,25 @@
     <!-- Navbar options -->
     <string name="navbar_invert_layout_title">Inverter botões</string>
     <string name="navbar_invert_layout_summary">Inverter layout da barra de navegação</string>
+    <string name="wallpaper_colors">Cores do papel de parede</string>
+    <string name="system_colors">Cores do sistema</string>
+    <string name="change_wallpaper">Mudar Papel de Parede</string>
+    <string name="pick_a_time">Escolha uma hora</string>
+    <string name="system_font">Fonte do Sistema</string>
+    <string name="more_settings">Mais Configurações</string>
+    <string name="theme_colourfulness">Cor do Tema</string>
+    <string name="statistics">Estatísticas</string>
+    <string name="schedule_min_delay">Se o tempo de ativação for menor do que o atraso mínimo permitido (15 min), o atraso será definido como padrão.</string>
+    <string name="set_trigger_time">Defina o tempo de ativação</string>
+    <string name="weekly">Semanalmente</string>
+    <string name="daily">Diariamente</string>
+    <string name="once">Uma vez</string>
+    <string name="schedule_period">Com que frequência alterar o papel de parede</string>
+    <string name="schedule_info">Agendar para definir um papel de parede uma vez permitirá que você adicione apenas um papel de parede. Diário e semanal são liberados desta restrição.</string>
+    <string name="create">Criar</string>
+    <string name="pick_your_wallpapers">Escolha seus planos de fundo</string>
+    <string name="schedule">Agendar</string>
+    <string name="monet_lightness_summary">Aumentar o brilho tornará as cores claras mais fortes e as cores escuras mais intensas, e vice-versa.</string>
+    <string name="monet_lightness_title">Brilho do Tema</string>
+    <string name="generated_colors">Cores geradas</string>
 </resources>

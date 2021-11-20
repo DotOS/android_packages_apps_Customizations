@@ -4,21 +4,11 @@
     <string name="section_statusbar_title">Barra di stato</string>
     <string name="section_qs_title">Impostazioni rapide</string>
     <string name="section_system_title">Sistema</string>
-    <string name="section_themes_title">Temi</string>
-    <string name="section_wallpaper_title">Sfondi</string>
     <string name="section_aod_title">AOD &amp; Schermata di blocco</string>
-    <string name="section_fod_icon">Icone FOD</string>
-    <string name="section_fod_anim">Animazioni FOD</string>
-    <string name="section_fod_color_opt">Opzioni FOD</string>
+    <string name="section_fod">Impronta digitale sotto lo schermo</string>
     <string name="section_hwkeys">Tasti</string>
     <string name="grid_section">Griglia Launcher</string>
-    <string name="section_lab">The Lab</string>
     <string name="section_settings">Impostazioni</string>
-    <string name="section_clockface2">Orologio</string>
     <string name="system_gestures">Gesti</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

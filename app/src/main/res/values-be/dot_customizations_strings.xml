@@ -4,21 +4,11 @@
     <string name="section_statusbar_title">Радок стана</string>
     <string name="section_qs_title">Хуткія налады</string>
     <string name="section_system_title">Сістэма</string>
-    <string name="section_themes_title">Тэмы</string>
-    <string name="section_wallpaper_title">Шпалеры</string>
     <string name="section_aod_title">Актыўны экран і экран блакавання</string>
-    <string name="section_fod_icon">FOD значкі</string>
-    <string name="section_fod_anim">FOD анімацыя</string>
-    <string name="section_fod_color_opt">FOD параметры</string>
+    <string name="section_fod">In-Screen Fingerprint</string>
     <string name="section_hwkeys">Кнопкі</string>
     <string name="grid_section">Сетка працоўнага стала</string>
-    <string name="section_lab">Лабараторыя</string>
     <string name="section_settings">Налады</string>
-    <string name="section_clockface2">Цыферблат</string>
     <string name="system_gestures">Жэсты</string>
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
-    <!-- Authority of a provider in System UI that will provide preview info for available clockfaces. -->
-    <!--Name of metadata in the main launcher Activity which values contains the authority
-    corresponding to a ContentProvider in launcher to provide available grids and
-    allow for changing them -->
 </resources>

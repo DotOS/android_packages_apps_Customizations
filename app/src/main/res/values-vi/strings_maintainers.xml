@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="maintainers">Người bảo trì</string>
-    <string name="maintainers_summary">Đây là danh sách tất cả những người bảo trì thiết bị cho dotOS 5.0</string>
+    <string name="maintainers_summary">Đây là danh sách tất cả những người đã và đang xây dựng dotOS 5.0 cho các thiết bị</string>
 </resources>
