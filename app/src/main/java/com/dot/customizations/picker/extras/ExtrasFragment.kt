@@ -25,6 +25,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.settingslib.collapsingtoolbar.databinding.CollapsingToolbarBaseLayoutBinding
 import com.dot.customizations.R
 import com.dot.customizations.databinding.FragmentExtrasBinding
 import com.dot.customizations.model.CustomizationSectionController
@@ -37,9 +38,11 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
     private val viewModel: ExtrasViewModel by viewModels()
     private val preferencesAdapter get() = viewModel.preferencesAdapter
     private lateinit var preferencesView: RecyclerView
-    private lateinit var mSectionNavigationController:
-            CustomizationSectionController.CustomizationSectionNavigationController
+    private var mSectionNavigationController:
+            CustomizationSectionController.CustomizationSectionNavigationController? = null
 
+    private var _rootbinding: CollapsingToolbarBaseLayoutBinding? = null
+    private val rootbinding get() = _rootbinding!!
     private var _binding: FragmentExtrasBinding? = null
     private val binding get() = _binding!!
 
@@ -48,26 +51,29 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentExtrasBinding.inflate(inflater)
-        // For nav bar edge-to-edge effect.
-        viewModel.navigationController = mSectionNavigationController
+        _rootbinding = CollapsingToolbarBaseLayoutBinding.inflate(inflater)
+        if (mSectionNavigationController != null)
+            viewModel.navigationController = mSectionNavigationController
+        val parent = rootbinding.root.findViewById<ViewGroup>(com.android.settingslib.collapsingtoolbar.R.id.content_frame)
+        parent?.removeAllViews()
+        _binding = FragmentExtrasBinding.inflate(LayoutInflater.from(rootbinding.root.context), parent, true)
         binding.root.setOnApplyWindowInsetsListener { v: View, windowInsets: WindowInsets ->
             v.setPadding(
                 v.paddingLeft,
-                windowInsets.systemWindowInsetTop,
+                v.paddingTop,
                 v.paddingRight,
                 windowInsets.systemWindowInsetBottom
             )
             windowInsets.consumeSystemWindowInsets()
         }
-        return binding.root
+        setUpToolbar(rootbinding.root, true)
+        return rootbinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenCreated {
             with(binding) {
-                setUpToolbar(root)
                 preferencesView = extrasRecycler.apply {
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = preferencesAdapter
@@ -86,6 +92,10 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
         }
     }
 
+    override fun getToolbarId(): Int {
+        return com.android.settingslib.collapsingtoolbar.R.id.action_bar
+    }
+
     override fun onBackPressed(): Boolean {
         return preferencesAdapter.goBack()
     }
@@ -94,6 +104,16 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
         preferencesAdapter.onScreenChangeListener = null
         preferencesView.adapter = null
         super.onDestroy()
+    }
+
+    override fun onScreenChanged(screen: PreferenceScreen, subScreen: Boolean) {
+        setTitle(screen.title)
+        preferencesView.scheduleLayoutAnimation()
+    }
+
+    override fun setTitle(title: CharSequence?) {
+        rootbinding.collapsingToolbar.title = title
+        super.setTitle(title)
     }
 
     companion object {
@@ -106,11 +126,6 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
             fragment.mSectionNavigationController = mSectionNavigationController
             return fragment
         }
-    }
-
-    override fun onScreenChanged(screen: PreferenceScreen, subScreen: Boolean) {
-        setTitle(screen.title)
-        preferencesView.scheduleLayoutAnimation()
     }
 
 }

@@ -96,7 +96,7 @@ public abstract class AppbarFragment extends BottomActionBarFragment
     protected void setUpToolbar(View rootView, boolean upArrow) {
         mUpArrowEnabled = upArrow;
         mToolbar = rootView.findViewById(getToolbarId());
-
+        if (mToolbar.findViewById(R.id.custom_toolbar_title) != null)
         mTitleView = mToolbar.findViewById(R.id.custom_toolbar_title);
         CharSequence title;
         if (getArguments() != null) {
