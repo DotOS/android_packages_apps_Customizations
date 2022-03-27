@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle" android:tint="@color/dot_background3">
+            <corners android:radius="100dp"/>
+            <solid android:color="#80FFFFFF"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/dot_chevron_right" />
+</layer-list>

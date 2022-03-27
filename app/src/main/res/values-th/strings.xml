@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+     Copyright (C) 2018 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" msgid="1647136562008520313">การปรับแต่ง</string>
+    <string name="grid_title" msgid="1688173478777254123">"ตารางกริดแอป"</string>
+    <string name="grid_preview_card_content_description" msgid="8449383777584714842">"พรีวิวตารางกริด"</string>
+    <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> ใช้อยู่ในขณะนี้"</string>
+    <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>แสดงตัวอย่างและใช้อยู่"</string>
+    <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>แสดงตัวอย่างอยู่"</string>
+    <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"ตั้งค่าตารางกริดเรียบร้อยแล้ว"</string>
+    <string name="something_went_wrong" msgid="529840112449799117">"อ๊ะ! มีบางอย่างผิดปกติ"</string>
+    <string name="mode_title" msgid="2394873501427436055">"ธีมมืด"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"ปิดใช้ชั่วคราวเนื่องจากอยู่ในโหมดประหยัดแบตเตอรี่"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"ไอคอนตามธีม"</string>
+    <string name="beta_title" msgid="8703819523760746458">"เบต้า"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"เปลี่ยนแปลงตารางกริดสำหรับแอป"</string>
+</resources>

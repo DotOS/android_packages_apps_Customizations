@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/SettingsLibToolbar/src/main/res/layout/collapsing_toolbar_base_layout.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/drawable/option_border_color.xml" value="0.222" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/drawable/separated_tabs_background.xml" value="0.191" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/drawable/separated_tabs_indicator_background.xml" value="0.191" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/drawable/separated_tabs_ripple_mask.xml" value="0.191" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout-land/fragment_extras.xml" value="0.2838541666666667" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/activity_customization_picker.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/activity_individual_picker.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/bottom_action_bar.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/color_section_view.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/dark_mode_section_view.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/extra_preference_widget.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/extras_preference_widget.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/extras_section_view.xml" value="0.2958974358974359" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/fragment_category_picker.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/fragment_category_selector.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/fragment_customization_picker.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/fragment_extras.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/fragment_grid_picker.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/fragment_individual_picker.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/grid_section_view.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/map_preference.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/preferences_section_view.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/section_header.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/wallpaper_preview_card.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/app/src/main/res/layout/wallpaper_section_view.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/extmodernpref/src/main/res/layout/map_accent_button_preference.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/extmodernpref/src/main/res/layout/map_preference.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/extmodernpref/src/main/res/layout/map_preference_category.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/extmodernpref/src/main/res/layout/map_preference_widget_seekbar_stub.xml" value="0.30052083333333335" />
+        <entry key="..\:/Projects/DotOS/Customizations-steroid/extmodernpref/src/main/res/layout/map_preference_widget_switch.xml" value="0.30052083333333335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

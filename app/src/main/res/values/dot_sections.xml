@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sections -->
+    <string name="section_statusbar_title">Status Bar</string>
+    <string name="section_qs_title">Quick Settings</string>
+    <string name="section_system_title">System</string>
+    <string name="section_aod_title">AOD &amp; Lockscreen</string>
+    <string name="section_udfps_title">In-Screen Fingerprint</string>
+    <string name="section_hwkeys_title">Buttons</string>
+    <string name="section_misc_title">Miscellaneous</string>
+
+    <string name="wallpaper_color_title">Wallpaper color</string>
+    <string name="color_changed">Color changed</string>
+    <string name="wallpaper_color_tab">Wallpaper colors</string>
+    <string name="preset_color_tab">Basic colors</string>
+    <string name="monet_options">Options</string>
+    <string name="extras_title">Extras</string>
+    <string name="extras_summary">Personalize to your taste</string>
+</resources>

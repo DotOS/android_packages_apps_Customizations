@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:clickable="false"
+    android:focusable="false">
+
+    <ImageView
+        android:id="@+id/extrasWidgetImage"
+        android:layout_width="@dimen/option_tile_width"
+        android:layout_height="@dimen/option_tile_width"
+        android:background="@drawable/option_border_color"
+        android:scaleType="center"
+        android:tint="?android:attr/colorAccent" />
+</FrameLayout>

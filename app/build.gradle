@@ -1,0 +1,98 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.dot.customizations"
+        minSdk 31
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        defaultConfig {
+            storeFile file('../platform.keystore')
+            storePassword 'password'
+            keyAlias 'platform'
+            keyPassword 'password'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.defaultConfig
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.defaultConfig
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    compileOnly fileTree(dir: 'system_libs/', include: ['*.jar'])
+    implementation fileTree(dir: 'libs/', include: ['*.jar', '*.aar'])
+
+
+    implementation project(":SettingsLibToolbar")
+    implementation project(":SettingsLibTheme")
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.exifinterface:exifinterface:1.3.3'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.slice:slice-view:1.0.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.9.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+
+    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.8.1'
+
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
+
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'com.github.bumptech.glide:disklrucache:+'
+    implementation 'com.github.bumptech.glide:gifdecoder:+'
+
+    implementation "com.google.guava:guava:31.1-android"
+
+    androidTestImplementation('org.robolectric:robolectric:4.2.1') {
+        exclude group: 'xmlpull'
+    }
+    androidTestImplementation('com.thoughtworks.xstream:xstream:1.4.8');
+    androidTestImplementation 'org.mockito:mockito-core:1.10.19'
+
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
