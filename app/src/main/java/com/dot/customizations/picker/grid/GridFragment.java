@@ -30,21 +30,21 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dot.customizations.model.WallpaperInfo;
-import com.dot.customizations.module.CurrentWallpaperInfoFactory;
-import com.dot.customizations.module.InjectorProvider;
-import com.dot.customizations.picker.AppbarFragment;
-import com.dot.customizations.util.LaunchUtils;
-import com.dot.customizations.widget.BottomActionBar;
 import com.bumptech.glide.Glide;
 import com.dot.customizations.R;
 import com.dot.customizations.model.CustomizationManager.Callback;
 import com.dot.customizations.model.CustomizationManager.OptionsFetchedListener;
 import com.dot.customizations.model.CustomizationOption;
+import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.model.grid.GridOption;
 import com.dot.customizations.model.grid.GridOptionsManager;
+import com.dot.customizations.module.CurrentWallpaperInfoFactory;
+import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.ThemesUserEventLogger;
+import com.dot.customizations.picker.AppbarFragment;
 import com.dot.customizations.picker.WallpaperPreviewer;
+import com.dot.customizations.util.LaunchUtils;
+import com.dot.customizations.widget.BottomActionBar;
 import com.dot.customizations.widget.OptionSelectorController;
 import com.dot.customizations.widget.OptionSelectorController.CheckmarkStyle;
 

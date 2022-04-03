@@ -21,11 +21,11 @@ import android.content.res.Resources;
 import android.os.Parcel;
 import android.util.Log;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.ResourceAsset;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.PartnerProvider;
-import com.dot.customizations.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class PartnerWallpaperInfo extends WallpaperInfo {
     public static final Creator<PartnerWallpaperInfo> CREATOR =
-            new Creator<PartnerWallpaperInfo>() {
+            new Creator<>() {
                 @Override
                 public PartnerWallpaperInfo createFromParcel(Parcel in) {
                     return new PartnerWallpaperInfo(in);

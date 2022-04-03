@@ -23,8 +23,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import com.dot.customizations.model.WallpaperRotationInitializer.NetworkPreference;
 import com.dot.customizations.R;
+import com.dot.customizations.model.WallpaperRotationInitializer.NetworkPreference;
 
 /**
  * Dialog fragment which communicates that starting a wallpaper rotation failed and gives the user

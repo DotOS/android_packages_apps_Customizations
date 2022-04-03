@@ -48,6 +48,7 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.BitmapCachingAsset;
 import com.dot.customizations.module.CurrentWallpaperInfoFactory;
@@ -61,7 +62,6 @@ import com.dot.customizations.util.ResourceUtils;
 import com.dot.customizations.util.WallpaperConnection;
 import com.dot.customizations.util.WallpaperSurfaceCallback;
 import com.dot.customizations.widget.LockScreenPreviewer;
-import com.dot.customizations.R;
 
 import org.lsposed.hiddenapibypass.HiddenApiBypass;
 

@@ -44,6 +44,9 @@ import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.MemoryCategory;
+import com.dot.customizations.R;
 import com.dot.customizations.model.Category;
 import com.dot.customizations.model.LiveWallpaperInfo;
 import com.dot.customizations.model.WallpaperCategory;
@@ -71,9 +74,6 @@ import com.dot.customizations.widget.LockScreenPreviewer;
 import com.dot.customizations.widget.PreviewPager;
 import com.dot.customizations.widget.WallpaperColorsLoader;
 import com.dot.customizations.widget.WallpaperPickerRecyclerViewAccessibilityDelegate;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.MemoryCategory;
-import com.dot.customizations.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;

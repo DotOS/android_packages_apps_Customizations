@@ -22,10 +22,10 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.view.WindowCompat;
 
+import com.dot.customizations.R;
 import com.dot.customizations.module.Injector;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.UserEventLogger;
-import com.dot.customizations.R;
 
 /**
  * Abstract base class for a wallpaper full-screen preview activity.

@@ -46,6 +46,8 @@
         <item name="colorAccent">@color/settingslib_dialog_accent</item>
         <item name="android:colorError">@color/settingslib_dialog_colorError</item>
         <item name="android:colorBackground">@color/settingslib_dialog_background</item>
+        <item name="colorSurface">@color/settingslib_dialog_background</item>
+        <item name="textAllCaps">false</item>
 
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:clipToPadding">true</item>

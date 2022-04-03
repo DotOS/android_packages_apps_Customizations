@@ -24,11 +24,11 @@ import android.widget.TextView;
 import androidx.annotation.IntDef;
 import androidx.fragment.app.Fragment;
 
+import com.dot.customizations.R;
 import com.dot.customizations.module.FormFactorChecker;
 import com.dot.customizations.module.FormFactorChecker.FormFactor;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.WallpaperPreferences;
-import com.dot.customizations.R;
 
 import java.util.Date;
 

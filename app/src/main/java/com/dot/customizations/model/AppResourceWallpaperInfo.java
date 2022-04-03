@@ -24,9 +24,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.ResourceAsset;
-import com.dot.customizations.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

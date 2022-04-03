@@ -1,0 +1,8 @@
+android_app {
+    name: "PrebuiltColorBundles",
+    platform_apis: true,
+    manifest: "src/main/AndroidManifest.xml",
+    resource_dirs: ["src/main/res"],
+    certificate: "platform",
+    system_ext_specific: true,
+}

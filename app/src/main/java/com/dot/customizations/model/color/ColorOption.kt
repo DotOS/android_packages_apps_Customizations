@@ -61,7 +61,10 @@ abstract class ColorOption(
                 if (colorCustomizationManager.mCurrentOverlays == null) {
                     colorCustomizationManager.parseSettings(colorCustomizationManager.storedOverlays)
                 }
-                if (colorCustomizationManager.mCurrentOverlays!!.isNotEmpty()) {
+                if (colorCustomizationManager.mCurrentOverlays!!.isNotEmpty() &&
+                    (storedOverlays!!.contains("android.theme.customization.system_palette") ||
+                     storedOverlays.contains("android.theme.customization.accent_color"))
+                ) {
                     return false
                 }
             }

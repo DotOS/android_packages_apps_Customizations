@@ -19,10 +19,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.module.WallpaperPreferences;
 import com.dot.customizations.module.WallpaperPreferences.PresentationMode;
-import com.dot.customizations.R;
 
 import java.util.List;
 

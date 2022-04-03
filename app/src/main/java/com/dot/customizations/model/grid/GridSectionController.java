@@ -23,9 +23,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.dot.customizations.model.CustomizationSectionController;
 import com.dot.customizations.R;
 import com.dot.customizations.model.CustomizationManager.OptionsFetchedListener;
+import com.dot.customizations.model.CustomizationSectionController;
 import com.dot.customizations.picker.grid.GridFragment;
 import com.dot.customizations.picker.grid.GridSectionView;
 

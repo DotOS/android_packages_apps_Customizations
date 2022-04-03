@@ -21,6 +21,7 @@ import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.Asset.DrawableLoadedListener;
 import com.dot.customizations.model.WallpaperRotationInitializer;
@@ -28,7 +29,6 @@ import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.WallpaperPreferences;
 import com.dot.customizations.picker.RotationStarter;
 import com.dot.customizations.util.ResourceUtils;
-import com.dot.customizations.R;
 
 /**
  * IndividualHolder subclass for a wallpaper tile in the RecyclerView for which a click should

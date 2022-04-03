@@ -37,8 +37,8 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.dot.customizations.model.CustomizationSectionController;
 import com.dot.customizations.R;
+import com.dot.customizations.model.CustomizationSectionController;
 import com.dot.customizations.picker.mode.DarkModeSectionView;
 
 import java.util.concurrent.ExecutorService;

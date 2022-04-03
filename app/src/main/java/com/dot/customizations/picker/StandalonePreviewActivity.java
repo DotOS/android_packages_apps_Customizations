@@ -28,12 +28,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.ImageWallpaperInfo;
 import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.UserEventLogger;
 import com.dot.customizations.picker.AppbarFragment.AppbarFragmentHost;
-import com.dot.customizations.R;
 
 /**
  * Activity that displays a preview of a specific wallpaper and provides the ability to set the

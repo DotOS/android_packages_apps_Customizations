@@ -25,8 +25,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.R;
+import com.dot.customizations.model.WallpaperInfo;
 
 import java.util.List;
 

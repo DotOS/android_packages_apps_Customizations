@@ -23,12 +23,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import com.dot.customizations.module.InjectorProvider;
-import com.dot.customizations.util.PreviewUtils;
 import com.dot.customizations.R;
 import com.dot.customizations.model.CustomizationManager;
 import com.dot.customizations.module.CustomizationInjector;
+import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.ThemesUserEventLogger;
+import com.dot.customizations.util.PreviewUtils;
 
 import java.util.List;
 

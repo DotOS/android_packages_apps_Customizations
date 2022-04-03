@@ -16,10 +16,7 @@
 
 package com.dot.customizations.widget;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
-
-import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

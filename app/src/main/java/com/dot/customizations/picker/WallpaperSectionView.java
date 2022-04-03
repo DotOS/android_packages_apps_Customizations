@@ -22,8 +22,8 @@ import android.view.ViewGroup;
 
 import androidx.cardview.widget.CardView;
 
-import com.dot.customizations.util.ScreenSizeCalculator;
 import com.dot.customizations.R;
+import com.dot.customizations.util.ScreenSizeCalculator;
 import com.dot.customizations.util.SizeCalculator;
 
 /**

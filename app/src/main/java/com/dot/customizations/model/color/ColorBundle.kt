@@ -10,36 +10,25 @@ import android.widget.ImageView
 import com.dot.customizations.R
 
 class ColorBundle(
-    str: String?,
+    title: String?,
     map: Map<String?, String?>?,
-    z: Boolean,
-    i: Int,
+    isDefault: Boolean,
+    index: Int,
     private val mPreviewInfo: PreviewInfo
 ) : ColorOption(
-    str!!, map!!, z, i
+    title!!, map!!, isDefault, index
 ) {
     class PreviewInfo(
         val secondaryColorLight: Int,
         val secondaryColorDark: Int,
-        i3: Int,
-        i4: Int,
-        list: List<Drawable>,
-        drawable: Drawable?,
-        i5: Int
-    ) {
-        val icons: List<Drawable>
-
-        init {
-            icons = list
-        }
-    }
+    )
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun bindThumbnailTile(view: View) {
         val resources = view.context.resources
         val thumbnailView = view.findViewById<ImageView>(R.id.color_preview_icon)
         val secondaryColor =
-            if (resources.configuration.uiMode == Configuration.UI_MODE_NIGHT_YES) mPreviewInfo.secondaryColorDark
+            if ((resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) mPreviewInfo.secondaryColorDark
             else mPreviewInfo.secondaryColorLight
         val gradientDrawable = view.resources.getDrawable(
             R.drawable.color_chip_medium_filled, thumbnailView.context.theme

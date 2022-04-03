@@ -31,6 +31,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.Category;
 import com.dot.customizations.model.CategoryProvider;
 import com.dot.customizations.model.CategoryReceiver;
@@ -48,7 +49,6 @@ import com.dot.customizations.util.DiskBasedLogger;
 import com.dot.customizations.util.ResourceUtils;
 import com.dot.customizations.widget.BottomActionBar;
 import com.dot.customizations.widget.BottomActionBar.BottomActionBarHost;
-import com.dot.customizations.R;
 
 /**
  * Activity that can be launched from the Android wallpaper picker and allows users to pick from

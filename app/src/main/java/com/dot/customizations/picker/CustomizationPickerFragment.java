@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.CustomizationSectionController;
 import com.dot.customizations.model.CustomizationSectionController.CustomizationSectionNavigationController;
 import com.dot.customizations.model.PermissionRequester;
@@ -37,7 +38,6 @@ import com.dot.customizations.model.WorkspaceViewModel;
 import com.dot.customizations.module.CustomizationSections;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.util.ActivityUtils;
-import com.dot.customizations.R;
 
 import java.util.ArrayList;
 import java.util.List;

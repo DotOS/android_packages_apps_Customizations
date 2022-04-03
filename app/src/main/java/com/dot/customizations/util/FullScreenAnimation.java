@@ -36,8 +36,8 @@ import android.widget.Toolbar;
 
 import androidx.cardview.widget.CardView;
 
-import com.dot.customizations.picker.TouchForwardingLayout;
 import com.dot.customizations.R;
+import com.dot.customizations.picker.TouchForwardingLayout;
 import com.google.android.material.appbar.AppBarLayout;
 
 import org.lsposed.hiddenapibypass.HiddenApiBypass;

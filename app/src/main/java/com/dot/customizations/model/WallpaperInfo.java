@@ -29,8 +29,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.StringRes;
 
-import com.dot.customizations.asset.Asset;
 import com.dot.customizations.R;
+import com.dot.customizations.asset.Asset;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

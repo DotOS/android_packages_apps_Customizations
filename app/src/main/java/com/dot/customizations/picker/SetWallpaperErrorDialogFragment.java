@@ -24,8 +24,8 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.dot.customizations.module.WallpaperPersister.Destination;
 import com.dot.customizations.R;
+import com.dot.customizations.module.WallpaperPersister.Destination;
 
 /**
  * Dialog fragment which communicates a message that setting the wallpaper failed with an option to

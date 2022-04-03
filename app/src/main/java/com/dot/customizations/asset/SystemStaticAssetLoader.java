@@ -17,11 +17,11 @@ package com.dot.customizations.asset;
 
 import androidx.annotation.Nullable;
 
-import com.dot.customizations.asset.ResourceAssetLoader.ResourceAssetFetcher;
 import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
+import com.dot.customizations.asset.ResourceAssetLoader.ResourceAssetFetcher;
 
 import java.io.InputStream;
 

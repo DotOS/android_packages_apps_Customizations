@@ -17,16 +17,12 @@ package com.dot.customizations.model;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Parcel;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.BuiltInWallpaperAsset;
-import com.dot.customizations.asset.ResourceAsset;
-import com.dot.customizations.R;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,7 +30,7 @@ import java.util.List;
  */
 public class DefaultWallpaperInfo extends WallpaperInfo {
     public static final Creator<DefaultWallpaperInfo> CREATOR =
-            new Creator<DefaultWallpaperInfo>() {
+            new Creator<>() {
                 @Override
                 public DefaultWallpaperInfo createFromParcel(Parcel in) {
                     return new DefaultWallpaperInfo(in);
@@ -56,23 +52,13 @@ public class DefaultWallpaperInfo extends WallpaperInfo {
 
     @Override
     public List<String> getAttributions(Context context) {
-        return Arrays.asList(context.getResources().getString(R.string.fallback_wallpaper_title));
+        return List.of(context.getResources().getString(R.string.fallback_wallpaper_title));
     }
 
     @Override
     public Asset getAsset(Context context) {
         if (mAsset == null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                mAsset = new BuiltInWallpaperAsset(context);
-            } else {
-                Resources sysRes = Resources.getSystem();
-                mAsset = new ResourceAsset(
-                        sysRes,
-                        sysRes.getIdentifier(
-                                "default_wallpaper" /* name */,
-                                "drawable" /* defType */,
-                                "android" /* defPackage */));
-            }
+            mAsset = new BuiltInWallpaperAsset(context);
         }
         return mAsset;
     }

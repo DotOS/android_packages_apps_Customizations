@@ -19,3 +19,4 @@ rootProject.name = "Customizations"
 include ':app'
 include ':SettingsLibTheme'
 include ':SettingsLibToolbar'
+include ':PrebuiltColorBundles'

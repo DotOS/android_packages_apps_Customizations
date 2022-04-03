@@ -3,6 +3,7 @@ package com.dot.customizations.model.color
 import android.app.WallpaperColors
 import android.content.Context
 import android.content.res.ColorStateList
+import android.util.Log
 import androidx.core.graphics.ColorUtils
 import com.dot.customizations.compat.WallpaperManagerCompat
 import com.dot.customizations.model.ResourcesApkProvider
@@ -11,6 +12,8 @@ import com.dot.customizations.module.InjectorProvider
 import com.dot.customizations.monet.ColorScheme
 import kotlinx.coroutines.CoroutineScope
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ColorProvider(context: Context, stubPackageName: String) :
     ResourcesApkProvider(context, stubPackageName), ColorOptionsProvider {
@@ -18,70 +21,119 @@ class ColorProvider(context: Context, stubPackageName: String) :
     var homeWallpaperColors: WallpaperColors? = null
     var lockWallpaperColors: WallpaperColors? = null
     val scope: CoroutineScope? = null
-    fun buildBundle(i: Int, i2: Int, z: Boolean, str: String?, list: ArrayList<ColorSeedOption>) {
+    private fun buildBundle(
+        seed: Int,
+        index: Int,
+        mIsDefault: Boolean,
+        source: String?,
+        list: ArrayList<ColorOption>
+    ) {
 
-        val hashMap: HashMap<String, String> = HashMap()
-        val colorScheme = ColorScheme(i, false)
-        val colorScheme2 = ColorScheme(i, true)
-        val iArr = intArrayOf(
+        val hashMap: HashMap<String?, String?> = HashMap()
+        val colorScheme = ColorScheme(seed, false)
+        val colorSchemeDark = ColorScheme(seed, true)
+        val secondaryColorLight = intArrayOf(
             ColorUtils.setAlphaComponent(colorScheme.accent1[2], 255), ColorUtils.setAlphaComponent(
                 colorScheme.accent1[2], 255
             ), ColorStateList.valueOf(
                 colorScheme.accent3[6]
-            ).withLStar(85.0f).getColors().get(0), ColorUtils.setAlphaComponent(
+            ).withLStar(85.0f).colors[0], ColorUtils.setAlphaComponent(
                 colorScheme.accent1[6], 255
             )
         )
-        val iArr2 = intArrayOf(
-            ColorUtils.setAlphaComponent(colorScheme2.accent1[2], 255),
+        val secondaryColorDark = intArrayOf(
+            ColorUtils.setAlphaComponent(colorSchemeDark.accent1[2], 255),
             ColorUtils.setAlphaComponent(
-                colorScheme2.accent1[2], 255
+                colorSchemeDark.accent1[2], 255
             ),
             ColorStateList.valueOf(
-                colorScheme2.accent3[6]
-            ).withLStar(85.0f).getColors().get(0),
+                colorSchemeDark.accent3[6]
+            ).withLStar(85.0f).colors[0],
             ColorUtils.setAlphaComponent(
-                colorScheme2.accent1[6], 255
+                colorSchemeDark.accent1[6], 255
             )
         )
-        var str3 = ""
-        val str2 = if (z) {
-            str3
+        var source3 = ""
+        val source2 = if (mIsDefault) {
+            source3
         } else {
-            toColorString(i)
+            toColorString(seed)
         }
-        hashMap["android.theme.customization.system_palette"] = str2
-        if (!z) {
-            str3 = toColorString(i)
+        hashMap["android.theme.customization.system_palette"] = source2
+        if (!mIsDefault) {
+            source3 = toColorString(seed)
         }
-        hashMap["android.theme.customization.accent_color"] = str3
+        hashMap["android.theme.customization.accent_color"] = source3
         list.add(
             ColorSeedOption(
-                str,
+                source,
                 hashMap,
-                z,
-                str,
-                1 + i2,
-                ColorSeedOption.PreviewInfo(iArr, iArr2)
+                mIsDefault,
+                source!!,
+                1 + index,
+                ColorSeedOption.PreviewInfo(secondaryColorLight, secondaryColorDark)
             )
         )
     }
 
+    private fun loadPreset() {
+        val bundlesList = ArrayList<String>()
+        val bundleNames = mStubApkResources.getStringArray(
+            mStubApkResources.getIdentifier(
+                "color_bundles",
+                "array",
+                mStubPackageName
+            )
+        )
+        for (i in bundleNames.indices) {
+            if (i == 4) break
+            bundlesList.add(bundleNames[i])
+        }
+        val colorPresetBundles = ArrayList<ColorOption>()
+        var position = 1;
+        for (bundle in bundlesList) {
+            val hashMap: HashMap<String?, String?> = HashMap()
+            val bundleName = getItemStringFromStub("bundle_name_", bundle)
+            val bundleColorPrimary = getItemColorFromStub("color_primary_", bundle)
+            val bundleColorSecondary = getItemColorFromStub("color_secondary_", bundle)
+            hashMap["android.theme.customization.system_palette"] =
+                toColorString(bundleColorSecondary)
+            hashMap["android.theme.customization.accent_color"] = toColorString(bundleColorPrimary)
+            val accentColor = ColorScheme(bundleColorPrimary, false).accentColor
+            val accentColor2 = ColorScheme(bundleColorPrimary, true).accentColor
+            colorPresetBundles.add(
+                ColorBundle(
+                    bundleName,
+                    hashMap,
+                    false,
+                    index = position,
+                    mPreviewInfo = ColorBundle.PreviewInfo(
+                        accentColor,
+                        accentColor2
+                    )
+                )
+            )
+            position++
+        }
+        this.colorBundles = colorPresetBundles
+    }
+
     fun buildColorSeeds(
         wallpaperColors: WallpaperColors,
-        i: Int,
-        str: String?,
-        z: Boolean,
-        list: ArrayList<ColorSeedOption>
+        count: Int,
+        source: String?,
+        isDefault: Boolean,
+        list: ArrayList<ColorOption>
     ) {
-        val list2: List<Number>
-        val list3: List<Number>
+        val list2: List<Int>
+        val list3: List<Int>
         val seedColors: List<Int> = ColorScheme.getSeedColors(wallpaperColors)
+        loadPreset()
         buildBundle(
-            (seedColors[0] as Number).toInt(),
+            seedColors[0],
             0,
-            z,
-            str,
+            isDefault,
+            source,
             list
         )
         val size = seedColors.size - 1
@@ -89,16 +141,9 @@ class ColorProvider(context: Context, stubPackageName: String) :
             ArrayList()
         } else if (size != 1) {
             val arrayList: ArrayList<Int> = ArrayList(size)
-            if (seedColors is RandomAccess) {
-                val size2 = seedColors.size
-                for (i2 in 1 until size2) {
-                    arrayList.add(seedColors[i2])
-                }
-            } else {
-                val listIterator = seedColors.listIterator(1)
-                while (listIterator.hasNext()) {
-                    arrayList.add(listIterator.next())
-                }
+            val listIterator = seedColors.listIterator(1)
+            while (listIterator.hasNext()) {
+                arrayList.add(listIterator.next())
             }
             arrayList
         } else if (seedColors.isNotEmpty()) {
@@ -106,8 +151,8 @@ class ColorProvider(context: Context, stubPackageName: String) :
         } else {
             throw NoSuchElementException("List is empty.")
         }
-        val i3 = i - 1
-        var i4 = 0
+        val i3 = count - 1
+        var index4 = 0
         if (i3 >= 0) {
             list3 = if (i3 == 0) {
                 ArrayList()
@@ -116,7 +161,7 @@ class ColorProvider(context: Context, stubPackageName: String) :
             } else if (i3 == 1) {
                 listOf(list2[0])
             } else {
-                val arrayList2: ArrayList<Number> = ArrayList(i3)
+                val arrayList2: ArrayList<Int> = ArrayList(i3)
                 var i5 = 0
                 for (obj in list2) {
                     arrayList2.add(obj)
@@ -127,9 +172,9 @@ class ColorProvider(context: Context, stubPackageName: String) :
                 }
                 arrayList2
             })
-            for (number in list3) {
-                i4++
-                buildBundle(number.toInt(), i4, false, str, list)
+            for (seed in list3) {
+                index4++
+                buildBundle(seed, index4, false, source, list)
             }
             return
         }
@@ -137,78 +182,57 @@ class ColorProvider(context: Context, stubPackageName: String) :
     }
 
     companion object {
-        fun getItemColorFromStub(
-            colorProvider: ColorProvider,
-            str: String?,
-            str2: String?
-        ): Int {
-            return colorProvider.mStubApkResources.getColor(
-                colorProvider.mStubApkResources.getIdentifier(
-                    String.format("%s%s", str, str2), "color", colorProvider.mStubPackageName
-                ), null
-            )
-        }
 
         fun loadSeedColors(
             colorProvider: ColorProvider,
             wallpaperColors: WallpaperColors?,
             wallpaperColors2: WallpaperColors?
         ) {
-            var emptyList: ArrayList<ColorSeedOption>?
-            Objects.requireNonNull(colorProvider)
+            val arrayList = ArrayList<ColorOption>()
             if (wallpaperColors != null) {
-                val arrayList = ArrayList<ColorSeedOption>()
-                val i = if (wallpaperColors2 == null) 4 else 2
+                val count = if (wallpaperColors2 == null) 4 else 2
                 if (wallpaperColors2 != null) {
                     val wallpaperManagerCompat: WallpaperManagerCompat =
                         InjectorProvider.getInjector()
                             .getWallpaperManagerCompat(colorProvider.mContext)
-                    var z = true
+                    var isDefault = true
                     if (wallpaperManagerCompat.getWallpaperId(WallpaperManagerCompat.FLAG_LOCK) <= wallpaperManagerCompat.getWallpaperId(
                             WallpaperManagerCompat.FLAG_SYSTEM
                         )
                     ) {
-                        z = false
+                        isDefault = false
                     }
                     colorProvider.buildColorSeeds(
-                        if (z) wallpaperColors2 else wallpaperColors,
-                        i,
-                        if (z) "lock_wallpaper" else "home_wallpaper",
+                        if (isDefault) wallpaperColors2 else wallpaperColors,
+                        count,
+                        if (isDefault) "lock_wallpaper" else "home_wallpaper",
                         true,
                         arrayList
                     )
                     colorProvider.buildColorSeeds(
-                        if (z) wallpaperColors else wallpaperColors2,
-                        i,
-                        if (z) "home_wallpaper" else "lock_wallpaper",
+                        if (isDefault) wallpaperColors else wallpaperColors2,
+                        count,
+                        if (isDefault) "home_wallpaper" else "lock_wallpaper",
                         false,
                         arrayList
                     )
                 } else {
                     colorProvider.buildColorSeeds(
                         wallpaperColors,
-                        i,
+                        count,
                         "home_wallpaper",
                         true,
                         arrayList
                     )
                 }
                 val list = colorProvider.colorBundles
-                emptyList = if (list == null) {
-                    null
-                } else {
-                    val arrayList2 = ArrayList<ColorSeedOption>()
+                val arrayList2 = ArrayList<ColorOption>()
+                if (list != null) {
                     for (t in list) {
-                        if (t !is ColorSeedOption) {
-                            arrayList2.add(t as ColorSeedOption)
-                        }
+                        arrayList2.add(t)
                     }
-                    arrayList2
                 }
-                if (emptyList == null) {
-                    emptyList = ArrayList()
-                }
-                arrayList.addAll(emptyList)
+                arrayList.addAll(arrayList2)
                 colorProvider.colorBundles = arrayList
             }
         }

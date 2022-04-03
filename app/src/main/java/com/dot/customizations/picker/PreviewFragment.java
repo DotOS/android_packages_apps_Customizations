@@ -42,6 +42,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.LiveWallpaperInfo;
 import com.dot.customizations.model.SetWallpaperViewModel;
 import com.dot.customizations.model.WallpaperInfo;
@@ -55,7 +56,6 @@ import com.dot.customizations.util.FullScreenAnimation;
 import com.dot.customizations.widget.BottomActionBar;
 import com.dot.customizations.widget.BottomActionBar.BottomSheetContent;
 import com.dot.customizations.widget.WallpaperInfoView;
-import com.dot.customizations.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Date;

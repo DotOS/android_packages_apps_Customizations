@@ -29,8 +29,8 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.DialogFragment;
 
-import com.dot.customizations.module.WallpaperPersister;
 import com.dot.customizations.R;
+import com.dot.customizations.module.WallpaperPersister;
 
 /**
  * Dialog fragment which shows the "Set wallpaper" destination dialog for N+ devices. Lets user

@@ -28,10 +28,10 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 
 import com.android.systemui.shared.system.QuickStepContract;
+import com.dot.customizations.R;
 import com.dot.customizations.module.FormFactorChecker;
 import com.dot.customizations.module.FormFactorChecker.FormFactor;
 import com.dot.customizations.module.InjectorProvider;
-import com.dot.customizations.R;
 
 
 /**
@@ -229,8 +229,12 @@ public class SizeCalculator {
      * to the screen's corner radius
      */
     public static float getPreviewCornerRadius(@NonNull Activity activity, int previewWidth) {
-        return QuickStepContract.getWindowCornerRadius(Resources.getSystem())
-                / ((float) getActivityWindowWidthPx(activity) / previewWidth);
+        try {
+            return QuickStepContract.getWindowCornerRadius(Resources.getSystem())
+                    / ((float) getActivityWindowWidthPx(activity) / previewWidth);
+        } catch (NoSuchMethodError e) {
+            return activity.getResources().getDimension(R.dimen.separated_tabs_corner_radius);
+        }
     }
 
     /**

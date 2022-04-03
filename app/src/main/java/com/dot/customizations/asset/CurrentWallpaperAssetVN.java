@@ -29,9 +29,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.WorkerThread;
 
-import com.dot.customizations.compat.WallpaperManagerCompat;
-import com.dot.customizations.compat.WallpaperManagerCompat.WallpaperLocation;
-import com.dot.customizations.util.WallpaperCropUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.MultiTransformation;
@@ -39,6 +36,9 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.dot.customizations.compat.WallpaperManagerCompat;
+import com.dot.customizations.compat.WallpaperManagerCompat.WallpaperLocation;
+import com.dot.customizations.util.WallpaperCropUtils;
 
 import java.io.InputStream;
 import java.security.MessageDigest;

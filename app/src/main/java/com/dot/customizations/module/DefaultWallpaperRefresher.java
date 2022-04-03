@@ -25,11 +25,11 @@ import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.BitmapUtils;
 import com.dot.customizations.compat.BuildCompat;
 import com.dot.customizations.compat.WallpaperManagerCompat;
 import com.dot.customizations.model.WallpaperMetadata;
-import com.dot.customizations.R;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -57,6 +57,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.FragmentActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.MemoryCategory;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.CurrentWallpaperAssetVN;
 import com.dot.customizations.model.SetWallpaperViewModel;
@@ -71,11 +76,6 @@ import com.dot.customizations.util.WallpaperCropUtils;
 import com.dot.customizations.widget.BottomActionBar;
 import com.dot.customizations.widget.BottomActionBar.AccessibilityCallback;
 import com.dot.customizations.widget.LockScreenPreviewer;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.MemoryCategory;
-import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.dot.customizations.R;
 
 import org.lsposed.hiddenapibypass.HiddenApiBypass;
 

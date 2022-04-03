@@ -26,10 +26,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
-import com.dot.customizations.util.ResourceUtils;
 import com.dot.customizations.R;
 import com.dot.customizations.model.CustomizationManager;
 import com.dot.customizations.model.CustomizationOption;
+import com.dot.customizations.util.ResourceUtils;
 import com.dot.customizations.widget.GridTileDrawable;
 
 /**

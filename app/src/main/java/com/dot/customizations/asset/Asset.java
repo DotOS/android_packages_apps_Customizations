@@ -34,11 +34,11 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.dot.customizations.module.BitmapCropper;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.util.ScreenSizeCalculator;
 import com.dot.customizations.util.WallpaperCropUtils;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 /**
  * Interface representing an image asset.

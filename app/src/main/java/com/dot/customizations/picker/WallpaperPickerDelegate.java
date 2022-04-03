@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
+import com.dot.customizations.R;
 import com.dot.customizations.compat.WallpaperManagerCompat;
 import com.dot.customizations.model.Category;
 import com.dot.customizations.model.CategoryProvider;
@@ -48,7 +49,6 @@ import com.dot.customizations.picker.PreviewActivity.PreviewActivityIntentFactor
 import com.dot.customizations.picker.ViewOnlyPreviewActivity.ViewOnlyPreviewActivityIntentFactory;
 import com.dot.customizations.picker.WallpaperDisabledFragment.WallpaperSupportLevel;
 import com.dot.customizations.picker.individual.IndividualPickerActivity.IndividualPickerActivityIntentFactory;
-import com.dot.customizations.R;
 
 import java.util.ArrayList;
 import java.util.List;

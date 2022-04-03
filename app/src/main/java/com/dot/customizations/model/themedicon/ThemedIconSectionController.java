@@ -21,9 +21,9 @@ import android.view.LayoutInflater;
 
 import androidx.annotation.Nullable;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.CustomizationSectionController;
 import com.dot.customizations.model.WorkspaceViewModel;
-import com.dot.customizations.R;
 import com.dot.customizations.picker.themedicon.ThemedIconSectionView;
 
 /**

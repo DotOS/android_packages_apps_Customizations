@@ -17,7 +17,6 @@ package com.dot.customizations.model;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.provider.Settings.Secure;
 
 import com.dot.customizations.R;
 

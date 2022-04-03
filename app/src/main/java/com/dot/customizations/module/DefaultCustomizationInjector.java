@@ -68,12 +68,9 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
     @Override
     public synchronized WallpaperRotationRefresher getWallpaperRotationRefresher() {
         if (mWallpaperRotationRefresher == null) {
-            mWallpaperRotationRefresher = new WallpaperRotationRefresher() {
-                @Override
-                public void refreshWallpaper(Context context, Listener listener) {
-                    // Not implemented
-                    listener.onError();
-                }
+            mWallpaperRotationRefresher = (context, listener) -> {
+                // Not implemented
+                listener.onError();
             };
         }
         return mWallpaperRotationRefresher;

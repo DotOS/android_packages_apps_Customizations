@@ -3,6 +3,8 @@ package com.dot.customizations.model.color
 import android.app.WallpaperColors
 import android.content.ContentResolver
 import android.content.Context
+import android.database.ContentObserver
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
@@ -12,30 +14,26 @@ import android.util.Log
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationManager
 import com.dot.customizations.model.CustomizationManager.OptionsFetchedListener
-import com.dot.customizations.model.mode.OverlayManagerCompat
 import com.dot.customizations.picker.color.ColorSectionView
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.concurrent.Executors
 
-
 class ColorCustomizationManager(
     val mProvider: ColorOptionsProvider,
-    val mContentResolver: ContentResolver,
-    overlayManagerCompat: OverlayManagerCompat?
+    private val mContentResolver: ContentResolver
 ) : CustomizationManager<ColorOption> {
     var mCurrentOverlays: Map<String, String>? = null
-    var mCurrentSource: String? = null
+    private var mCurrentSource: String? = null
     var mHomeWallpaperColors: WallpaperColors? = null
     var mLockWallpaperColors: WallpaperColors? = null
 
     companion object {
         var COLOR_OVERLAY_SETTINGS: Set<String>? = null
-        var sColorCustomizationManager: ColorCustomizationManager? = null
-        val sExecutorService = Executors.newSingleThreadExecutor()
+        private var sColorCustomizationManager: ColorCustomizationManager? = null
+        val sExecutorService = Executors.newSingleThreadExecutor()!!
         fun getInstance(
-            context: Context,
-            overlayManagerCompat: OverlayManagerCompat?
+            context: Context
         ): ColorCustomizationManager? {
             if (sColorCustomizationManager == null) {
                 val applicationContext = context.applicationContext
@@ -44,19 +42,36 @@ class ColorCustomizationManager(
                         applicationContext, applicationContext.getString(
                             R.string.themes_stub_package
                         )
-                    ), applicationContext.contentResolver, overlayManagerCompat
+                    ), applicationContext.contentResolver
                 )
             }
             return sColorCustomizationManager
         }
 
         init {
-            val hashSet: HashSet<String> = HashSet<String>()
+            val hashSet = HashSet<String>()
             COLOR_OVERLAY_SETTINGS = hashSet
             hashSet.add("android.theme.customization.system_palette")
             hashSet.add("android.theme.customization.accent_color")
             hashSet.add("android.theme.customization.color_source")
         }
+    }
+
+    init {
+        mContentResolver.registerContentObserver(Settings.Secure.CONTENT_URI, true, object :
+            ContentObserver(Handler(Looper.getMainLooper())) {
+            override fun onChange(selfChange: Boolean, uri: Uri?) {
+                super.onChange(selfChange, uri)
+                if (TextUtils.equals(
+                        uri!!.lastPathSegment,
+                        "theme_customization_overlay_packages"
+                    )
+                ) {
+                    mCurrentOverlays = null
+                }
+
+            }
+        })
     }
 
     val currentColorSource: String?
@@ -66,11 +81,11 @@ class ColorCustomizationManager(
             }
             return mCurrentSource
         }
-    val storedOverlays: String
-        get() = Settings.Secure.getString(mContentResolver, "theme_customization_overlay_packages")
+    val storedOverlays: String?
+         get() = Settings.Secure.getString(mContentResolver, "theme_customization_overlay_packages")
 
     fun parseSettings(str: String?) {
-        val hashMap: HashMap<String, String> = HashMap<String, String>()
+        val hashMap = HashMap<String, String>()
         if (str != null) {
             try {
                 val jSONObject = JSONObject(str)
@@ -100,7 +115,7 @@ class ColorCustomizationManager(
     }
 
     override fun isAvailable(): Boolean {
-        return false
+        return true
     }
 
     fun setThemeBundle(colorSectionController: ColorSectionController, option: ColorOption) {
@@ -119,26 +134,23 @@ class ColorCustomizationManager(
                             R.string.color_changed
                         )
                     )
-                    val colorSectionController2: ColorSectionController = colorSectionController
-                    val themesUserEventLogger = colorSectionController2.mEventLogger
-                    val colorOption2: ColorOption = option
-                    val wallpaperColors = colorSectionController2.mLockWallpaperColors
+                    val wallpaperColors = colorSectionController.mLockWallpaperColors
                     var i3 = 0
                     val z2 =
-                        wallpaperColors == null || wallpaperColors == colorSectionController2.mHomeWallpaperColors
-                    if (TextUtils.equals(colorOption2.source, "preset")) {
+                        wallpaperColors == null || wallpaperColors == colorSectionController.mHomeWallpaperColors
+                    if (TextUtils.equals(option.source, "preset")) {
                         i3 = 26
                     } else if (z2) {
                         i3 = 25
                     } else {
-                        val source = colorOption2.source
+                        val source = option.source
                         if (source == "lock_wallpaper") {
                             i3 = 24
                         } else if (source == "home_wallpaper") {
                             i3 = 23
                         }
                     }
-                    themesUserEventLogger.logColorApplied(i3, option.mIndex)
+                    colorSectionController.mEventLogger.logColorApplied(i3, option.mIndex)
                 }
             }
             sExecutorService.submit {
@@ -150,8 +162,7 @@ class ColorCustomizationManager(
 
     private fun applyBundle(option: ColorOption, callback: CustomizationManager.Callback) {
         var mStoredOverlays = storedOverlays
-        Log.d("DotCustomization", "Before $mStoredOverlays + : ${option.mTitle}" )
-        if (TextUtils.isEmpty(mStoredOverlays)) {
+        if (TextUtils.isEmpty(mStoredOverlays) || mStoredOverlays == null) {
             mStoredOverlays = "{}"
         }
         var z4: Boolean
@@ -220,6 +231,8 @@ class ColorCustomizationManager(
         }
     }
 
-    override fun apply(option: ColorOption, callback: CustomizationManager.Callback) {}
+    override fun apply(option: ColorOption, callback: CustomizationManager.Callback) {
+        applyBundle(option, callback)
+    }
     override fun fetchOptions(callback: OptionsFetchedListener<ColorOption>, reload: Boolean) {}
 }

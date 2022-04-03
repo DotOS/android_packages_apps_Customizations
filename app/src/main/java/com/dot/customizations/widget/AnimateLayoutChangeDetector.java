@@ -18,8 +18,6 @@ package com.dot.customizations.widget;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL;
-
 import android.animation.LayoutTransition;
 import android.view.View;
 import android.view.ViewGroup;

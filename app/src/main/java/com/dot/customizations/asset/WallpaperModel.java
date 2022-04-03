@@ -15,11 +15,9 @@
  */
 package com.dot.customizations.asset;
 
-import android.annotation.TargetApi;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.IntDef;
@@ -53,7 +51,6 @@ public class WallpaperModel {
     /**
      * Returns the {@link Drawable} for the wallpaper image represented by this object.
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public Drawable getDrawable(int width, int height) {
         if (mWallpaperSource != SOURCE_BUILT_IN) {
             Log.e(TAG, "Invalid wallpaper data source: " + mWallpaperSource);

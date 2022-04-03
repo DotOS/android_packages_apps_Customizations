@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package com.dot.customizations.monet
-
 import android.annotation.ColorInt
 import android.app.WallpaperColors
 import android.graphics.Color
@@ -25,24 +24,28 @@ import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 const val TAG = "ColorScheme"
+
 const val ACCENT1_CHROMA = 48.0f
 const val ACCENT2_CHROMA = 16.0f
 const val ACCENT3_CHROMA = 32.0f
 const val ACCENT3_HUE_SHIFT = 60.0f
+
 const val NEUTRAL1_CHROMA = 4.0f
 const val NEUTRAL2_CHROMA = 8.0f
-const val GOOGLE_BLUE = 0xFF1b6ef3.toInt()
-const val MIN_CHROMA = 15
-const val MIN_LSTAR = 10
 
-public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
+const val GOOGLE_BLUE = 0xFF1b6ef3.toInt()
+
+const val MIN_CHROMA = 5
+
+class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
+
     val accent1: List<Int>
     val accent2: List<Int>
     val accent3: List<Int>
     val neutral1: List<Int>
     val neutral2: List<Int>
 
-    constructor(wallpaperColors: WallpaperColors, darkTheme: Boolean) :
+    constructor(wallpaperColors: WallpaperColors, darkTheme: Boolean):
             this(getSeedColor(wallpaperColors), darkTheme)
 
     val allAccentColors: List<Int>
@@ -53,6 +56,7 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
             allColors.addAll(accent3)
             return allColors
         }
+
     val allNeutralColors: List<Int>
         get() {
             val allColors = mutableListOf<Int>()
@@ -60,19 +64,29 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
             allColors.addAll(neutral2)
             return allColors
         }
+
     val backgroundColor
         get() = ColorUtils.setAlphaComponent(if (darkTheme) neutral1[8] else neutral1[0], 0xFF)
+
     val accentColor
         get() = ColorUtils.setAlphaComponent(if (darkTheme) accent1[2] else accent1[6], 0xFF)
 
     init {
-        val seedArgb = if (seed == Color.TRANSPARENT) GOOGLE_BLUE else seed
+        val proposedSeedCam = Cam.fromInt(seed)
+        val seedArgb = if (seed == Color.TRANSPARENT) {
+            GOOGLE_BLUE
+        } else if (proposedSeedCam.chroma < 5) {
+            GOOGLE_BLUE
+        } else {
+            seed
+        }
         val camSeed = Cam.fromInt(seedArgb)
         val hue = camSeed.hue
         val chroma = camSeed.chroma.coerceAtLeast(ACCENT1_CHROMA)
+        val tertiaryHue = wrapDegrees((hue + ACCENT3_HUE_SHIFT).toInt())
         accent1 = Shades.of(hue, chroma).toList()
         accent2 = Shades.of(hue, ACCENT2_CHROMA).toList()
-        accent3 = Shades.of(hue + ACCENT3_HUE_SHIFT, ACCENT3_CHROMA).toList()
+        accent3 = Shades.of(tertiaryHue.toFloat(), ACCENT3_CHROMA).toList()
         neutral1 = Shades.of(hue, NEUTRAL1_CHROMA).toList()
         neutral2 = Shades.of(hue, NEUTRAL2_CHROMA).toList()
     }
@@ -120,19 +134,20 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
                 val distinctColors = wallpaperColors.mainColors.map {
                     it.toArgb()
                 }.distinct().filter {
-                    val cam = Cam.fromInt(it)
-                    val lstar = lstarFromInt(it)
-                    cam.chroma >= MIN_CHROMA && lstar >= MIN_LSTAR
+                    Cam.fromInt(it).chroma >= MIN_CHROMA
                 }.toList()
+
                 if (distinctColors.isEmpty()) {
                     return listOf(GOOGLE_BLUE)
                 }
                 return distinctColors
             }
+
             val intToProportion = wallpaperColors.allColors.mapValues {
                 it.value.toDouble() / totalPopulation
             }
             val intToCam = wallpaperColors.allColors.mapValues { Cam.fromInt(it.key) }
+
             // Get an array with 360 slots. A slot contains the percentage of colors with that hue.
             val hueProportions = huePopulations(intToCam, intToProportion)
             // Map each color to the percentage of the image with its hue.
@@ -152,35 +167,45 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
                 val cam = it.value
                 val lstar = lstarFromInt(it.key)
                 val proportion = intToHueProportion[it.key]!!
-                cam.chroma >= MIN_CHROMA && lstar >= MIN_LSTAR &&
+                cam.chroma >= MIN_CHROMA &&
                         (totalPopulationMeaningless || proportion > 0.01)
             }
             // Sort the colors by score, from high to low.
-            val seeds = mutableListOf<Int>()
             val intToScoreIntermediate = filteredIntToCam.mapValues {
                 score(it.value, intToHueProportion[it.key]!!)
             }
             val intToScore = intToScoreIntermediate.entries.toMutableList()
             intToScore.sortByDescending { it.value }
-            // Go through the colors, from high score to low score. If there isn't already a seed
-            // color with a hue close to color being examined, add the color being examined to the
-            // seed colors.
-            for (entry in intToScore) {
-                val int = entry.key
-                val existingSeedNearby = seeds.find {
-                    val hueA = intToCam[int]!!.hue
-                    val hueB = intToCam[it]!!.hue
-                    hueDiff(hueA, hueB) < 15
-                } != null
-                if (existingSeedNearby) {
-                    continue
+
+            // Go through the colors, from high score to low score.
+            // If the color is distinct in hue from colors picked so far, pick the color.
+            // Iteratively decrease the amount of hue distinctness required, thus ensuring we
+            // maximize difference between colors.
+            val minimumHueDistance = 15
+            val seeds = mutableListOf<Int>()
+            maximizeHueDistance@ for (i in 90 downTo minimumHueDistance step 1) {
+                seeds.clear()
+                for (entry in intToScore) {
+                    val int = entry.key
+                    val existingSeedNearby = seeds.find {
+                        val hueA = intToCam[int]!!.hue
+                        val hueB = intToCam[it]!!.hue
+                        hueDiff(hueA, hueB) < i } != null
+                    if (existingSeedNearby) {
+                        continue
+                    }
+                    seeds.add(int)
+                    if (seeds.size >= 4) {
+                        break@maximizeHueDistance
+                    }
                 }
-                seeds.add(int)
             }
+
             if (seeds.isEmpty()) {
                 // Use gBlue 500 if there are 0 colors
                 seeds.add(GOOGLE_BLUE)
             }
+
             return seeds
         }
 
@@ -218,12 +243,17 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
             populationByColor: Map<Int, Double>
         ): List<Double> {
             val huePopulation = List(size = 360, init = { 0.0 }).toMutableList()
+
             for (entry in populationByColor.entries) {
                 val population = populationByColor[entry.key]!!
                 val cam = camByColor[entry.key]!!
                 val hue = cam.hue.roundToInt() % 360
+                if (cam.chroma <= MIN_CHROMA) {
+                    continue
+                }
                 huePopulation[hue] = huePopulation[hue] + population
             }
+
             return huePopulation
         }
     }

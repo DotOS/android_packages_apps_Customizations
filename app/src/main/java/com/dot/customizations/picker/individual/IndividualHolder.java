@@ -23,9 +23,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.util.ResourceUtils;
-import com.dot.customizations.R;
 
 import java.util.List;
 

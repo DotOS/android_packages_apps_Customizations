@@ -15,6 +15,7 @@
  */
 package com.dot.customizations.picker.extras
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +53,7 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
         savedInstanceState: Bundle?
     ): View {
         _rootbinding = CollapsingToolbarBaseLayoutBinding.inflate(inflater)
+        retainInstance = true
         if (mSectionNavigationController != null)
             viewModel.navigationController = mSectionNavigationController
         val parent = rootbinding.root.findViewById<ViewGroup>(com.android.settingslib.collapsingtoolbar.R.id.content_frame)
@@ -68,6 +70,11 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
         }
         setUpToolbar(rootbinding.root, true)
         return rootbinding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

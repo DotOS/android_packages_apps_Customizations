@@ -1,0 +1,6 @@
+Update system libs:
+
+1   - Extract framework.jar and services.jar from target
+2   - use dex2jar on framework.jar and services.jar
+2.1 - Ignore errors from resulted framework-dex2jar.jar
+3   - Copy resulted files here

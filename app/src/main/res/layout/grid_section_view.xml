@@ -18,6 +18,7 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
     android:clickable="true"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/section_horizontal_padding"
     android:paddingVertical="@dimen/section_top_padding">

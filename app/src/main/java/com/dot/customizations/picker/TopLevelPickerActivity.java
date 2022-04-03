@@ -47,6 +47,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.compat.BuildCompat;
 import com.dot.customizations.compat.ButtonDrawableSetterCompat;
@@ -81,7 +82,6 @@ import com.dot.customizations.util.ActivityUtils;
 import com.dot.customizations.util.ResourceUtils;
 import com.dot.customizations.util.ScreenSizeCalculator;
 import com.dot.customizations.util.ThrowableAnalyzer;
-import com.dot.customizations.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback;
 import com.google.android.material.tabs.TabLayout;

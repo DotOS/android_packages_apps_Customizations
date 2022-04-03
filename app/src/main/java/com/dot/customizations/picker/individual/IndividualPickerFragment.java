@@ -54,6 +54,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.MemoryCategory;
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.Asset.DrawableLoadedListener;
 import com.dot.customizations.model.Category;
@@ -95,9 +98,6 @@ import com.dot.customizations.util.SizeCalculator;
 import com.dot.customizations.widget.WallpaperInfoView;
 import com.dot.customizations.widget.WallpaperPickerRecyclerViewAccessibilityDelegate;
 import com.dot.customizations.widget.WallpaperPickerRecyclerViewAccessibilityDelegate.BottomSheetHost;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.MemoryCategory;
-import com.dot.customizations.R;
 
 import java.util.ArrayList;
 import java.util.Date;

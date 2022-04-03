@@ -24,9 +24,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.dot.customizations.R;
 import com.dot.customizations.widget.BottomActionBar;
 import com.dot.customizations.widget.BottomActionBar.BottomActionBarHost;
-import com.dot.customizations.R;
 
 /**
  * Base class for Fragments that own a {@link BottomActionBar} widget.

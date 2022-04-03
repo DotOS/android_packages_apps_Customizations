@@ -20,6 +20,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.module.Injector;
@@ -29,7 +30,6 @@ import com.dot.customizations.module.UserEventLogger.WallpaperSetFailureReason;
 import com.dot.customizations.module.WallpaperPersister;
 import com.dot.customizations.module.WallpaperPersister.SetWallpaperCallback;
 import com.dot.customizations.util.ThrowableAnalyzer;
-import com.dot.customizations.R;
 
 /**
  * IndividualHolder subclass for a wallpaper tile in the RecyclerView for which a click should

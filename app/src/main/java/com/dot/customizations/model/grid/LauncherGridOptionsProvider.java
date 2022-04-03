@@ -27,9 +27,9 @@ import android.view.SurfaceView;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
-import com.dot.customizations.util.PreviewUtils;
 import com.dot.customizations.R;
 import com.dot.customizations.model.ResourceConstants;
+import com.dot.customizations.util.PreviewUtils;
 
 import java.util.ArrayList;
 import java.util.List;

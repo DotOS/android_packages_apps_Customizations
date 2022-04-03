@@ -18,7 +18,6 @@ package com.dot.customizations.picker;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -33,9 +32,9 @@ import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.dot.customizations.R;
 import com.dot.customizations.util.ResourceUtils;
 import com.dot.customizations.widget.BottomActionBar;
-import com.dot.customizations.R;
 
 /**
  * Base class for Fragments that own a {@link Toolbar} widget and a {@link BottomActionBar}.

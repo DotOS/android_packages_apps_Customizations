@@ -22,12 +22,12 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.InlinePreviewIntentFactory;
 import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.picker.AppbarFragment.AppbarFragmentHost;
 import com.dot.customizations.util.ActivityUtils;
-import com.dot.customizations.R;
 
 /**
  * Activity that displays a view-only preview of a specific wallpaper.

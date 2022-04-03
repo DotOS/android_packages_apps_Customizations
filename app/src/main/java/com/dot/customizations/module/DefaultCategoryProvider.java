@@ -17,19 +17,24 @@ package com.dot.customizations.module;
 
 import static com.dot.customizations.module.NetworkStatusNotifier.NETWORK_NOT_INITIALIZED;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.os.AsyncTask;
-import android.os.Parcelable;
+import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
 
 import androidx.annotation.XmlRes;
 
+import com.dot.customizations.R;
+import com.dot.customizations.model.AppResourceWallpaperInfo;
 import com.dot.customizations.model.Category;
 import com.dot.customizations.model.CategoryProvider;
 import com.dot.customizations.model.CategoryReceiver;
@@ -46,7 +51,6 @@ import com.dot.customizations.model.WallpaperCategory;
 import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.module.FormFactorChecker.FormFactor;
 import com.dot.customizations.module.NetworkStatusNotifier.NetworkStatus;
-import com.dot.customizations.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -83,7 +87,7 @@ public class DefaultCategoryProvider implements CategoryProvider {
     protected ArrayList<Category> mCategories;
     protected boolean mFetchedCategories;
 
-    private NetworkStatusNotifier mNetworkStatusNotifier;
+    private final NetworkStatusNotifier mNetworkStatusNotifier;
     // The network status of the last fetch from the server.
     @NetworkStatus
     private int mNetworkStatus;
@@ -188,8 +192,11 @@ public class DefaultCategoryProvider implements CategoryProvider {
      */
     protected static class FetchCategoriesTask extends AsyncTask<Void, Category, Void> {
         protected final Context mAppContext;
-        private CategoryReceiver mReceiver;
+        private final CategoryReceiver mReceiver;
         private PartnerProvider mPartnerProvider;
+        Resources mPixelApkResources;
+        Resources mStubApkResources;
+        String mStubPackageName;
 
         public FetchCategoriesTask(CategoryReceiver receiver, Context context) {
             mReceiver = receiver;
@@ -203,6 +210,19 @@ public class DefaultCategoryProvider implements CategoryProvider {
             FormFactorChecker formFactorChecker =
                     InjectorProvider.getInjector().getFormFactorChecker(mAppContext);
             @FormFactor int formFactor = formFactorChecker.getFormFactor();
+
+            try {
+                if (mPartnerProvider.getPackageName() != null) {
+                    mStubApkResources = mPartnerProvider.getResources();
+                    mStubPackageName = mPartnerProvider.getPackageName();
+                }
+                ApplicationInfo appInfo = mAppContext.getPackageManager().getApplicationInfo("com.google.pixel.livewallpaper", PackageManager.GET_META_DATA);
+                if (!(appInfo == null || appInfo.metaData == null)) {
+                    mPixelApkResources = mAppContext.getPackageManager().getResourcesForApplication(appInfo);
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.w("WPCategoryProvider", "Stub APK not found: ", e);
+            }
 
             // "My photos" wallpapers
             publishProgress(getMyPhotosCategory(formFactor));
@@ -235,7 +255,73 @@ public class DefaultCategoryProvider implements CategoryProvider {
                     publishProgress(thirdPartyApp);
                 }
             }
-
+            // WIP
+            /*
+            try {
+                ApplicationInfo applicationInfo = mAppContext.getPackageManager().
+                        getApplicationInfo("com.google.android.launcher", PackageManager.GET_META_DATA);
+                if (applicationInfo.metaData != null) {
+                    List<WallpaperInfo> list2 = AppResourceWallpaperInfo.getAll(mAppContext,
+                            applicationInfo,
+                            applicationInfo.metaData.getInt("wallpapers", 0));
+                    ArrayList<WallpaperInfo> arrayList = new ArrayList<>(list2);
+                    if (!arrayList.isEmpty()) {
+                        WallpaperCategory wallpaperCategory = new WallpaperCategory(
+                                mAppContext.getString(R.string.on_device_wallpapers_category_title),
+                                mAppContext.getString(R.string.on_device_wallpaper_collection_id),
+                                arrayList,
+                                200);
+                        publishProgress(wallpaperCategory);
+                        if (mAppContext.getPackageManager().hasSystemFeature("android.software.live_wallpaper")) {
+                            List<WallpaperInfo> all = LiveWallpaperInfo.getAll(mAppContext, getExcludedLiveWallpaperPackageNames());
+                            if (!all.isEmpty()) {
+                                publishProgress(new ThirdPartyLiveWallpaperCategory(
+                                        mAppContext.getString(R.string.live_wallpapers_category_title),
+                                        mAppContext.getString(R.string.live_wallpaper_collection_id),
+                                        all, 300, getExcludedLiveWallpaperPackageNames()));
+                            }
+                        }
+                        List<String> asList = Arrays.asList(
+                                "com.android.launcher",
+                                "com.android.wallpaper.livepicker",
+                                "com.google.android.googlequicksearchbox"
+                        );
+                        List<ResolveInfo> queryIntentActivities = mAppContext.getPackageManager().
+                                queryIntentActivities(new Intent("android.intent.action.SET_WALLPAPER"), 0);
+                        ArrayList<ThirdPartyAppCategory> arrayList4 = new ArrayList<>();
+                        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+                        intent.setType("image/*");
+                        List<ResolveInfo> queryIntentActivities2 = mAppContext.getPackageManager().queryIntentActivities(intent, 0);
+                        for (int i = 0; i < queryIntentActivities.size(); i++) {
+                            ResolveInfo resolveInfo = queryIntentActivities.get(i);
+                            ActivityInfo activityInfo = resolveInfo.activityInfo;
+                            String packageName = new ComponentName(activityInfo.packageName, activityInfo.name).getPackageName();
+                            if (!asList.contains(packageName) && !packageName.equals(mAppContext.getPackageName())) {
+                                Iterator<ResolveInfo> resolveIterator = queryIntentActivities2.iterator();
+                                while (true) {
+                                    if (resolveIterator.hasNext()) {
+                                        if (packageName.equals(resolveIterator.next().activityInfo.packageName)) {
+                                            break;
+                                        }
+                                    } else {
+                                        arrayList4.add(new ThirdPartyAppCategory(mAppContext,
+                                                resolveInfo,
+                                                mAppContext.getString(R.string.third_party_app_wallpaper_collection_id) +
+                                                        "_" + packageName,
+                                                400));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        for (ThirdPartyAppCategory thirdPartyAppCategory : arrayList4) {
+                            publishProgress(thirdPartyAppCategory);
+                        }
+                        return null;
+                    }
+                }
+            } catch (PackageManager.NameNotFoundException ignored) {}
+            */
             return null;
         }
 

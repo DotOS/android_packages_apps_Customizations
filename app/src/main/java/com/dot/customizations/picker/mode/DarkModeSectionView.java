@@ -22,8 +22,8 @@ import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 
-import com.dot.customizations.picker.SectionView;
 import com.dot.customizations.R;
+import com.dot.customizations.picker.SectionView;
 
 /**
  * The view of section in the customization picker fragment.

@@ -19,6 +19,8 @@ import androidx.lifecycle.Lifecycle.Event;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.bumptech.glide.Glide;
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.BuiltInWallpaperAsset;
 import com.dot.customizations.model.LiveWallpaperInfo;
@@ -31,8 +33,6 @@ import com.dot.customizations.picker.SetWallpaperDialogFragment.Listener;
 import com.dot.customizations.util.ScreenSizeCalculator;
 import com.dot.customizations.util.ThrowableAnalyzer;
 import com.dot.customizations.util.WallpaperCropUtils;
-import com.bumptech.glide.Glide;
-import com.dot.customizations.R;
 
 import org.lsposed.hiddenapibypass.HiddenApiBypass;
 

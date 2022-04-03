@@ -27,9 +27,9 @@ import android.view.SurfaceView;
 
 import androidx.annotation.Nullable;
 
+import com.dot.customizations.R;
 import com.dot.customizations.util.PreviewUtils;
 import com.dot.customizations.util.SurfaceViewUtils;
-import com.dot.customizations.R;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

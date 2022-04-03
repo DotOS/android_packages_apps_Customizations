@@ -17,8 +17,8 @@ package com.dot.customizations.picker;
 
 import android.app.Application;
 
-import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.DefaultCustomizationInjector;
+import com.dot.customizations.module.InjectorProvider;
 
 public class CustomizationPickerApplication extends Application {
     @Override

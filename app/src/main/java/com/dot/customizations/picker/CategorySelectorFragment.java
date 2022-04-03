@@ -43,6 +43,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.model.Category;
 import com.dot.customizations.model.CategoryProvider;
@@ -56,8 +58,6 @@ import com.dot.customizations.util.ResourceUtils;
 import com.dot.customizations.util.SizeCalculator;
 import com.dot.customizations.widget.WallpaperPickerRecyclerViewAccessibilityDelegate;
 import com.dot.customizations.widget.WallpaperPickerRecyclerViewAccessibilityDelegate.BottomSheetHost;
-import com.bumptech.glide.Glide;
-import com.dot.customizations.R;
 
 import java.util.ArrayList;
 import java.util.List;

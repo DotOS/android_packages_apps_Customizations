@@ -24,9 +24,9 @@ import android.util.Log;
 
 import androidx.exifinterface.media.ExifInterface;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.ContentUriAsset;
-import com.dot.customizations.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -29,9 +29,9 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.dot.customizations.picker.BasePreviewAdapter.PreviewPage;
 import com.dot.customizations.util.SizeCalculator;
 import com.dot.customizations.widget.PreviewPager;
-import com.dot.customizations.picker.BasePreviewAdapter.PreviewPage;
 
 import java.util.ArrayList;
 import java.util.List;

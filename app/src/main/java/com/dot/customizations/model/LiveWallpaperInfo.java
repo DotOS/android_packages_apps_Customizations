@@ -32,13 +32,13 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.LiveWallpaperThumbAsset;
 import com.dot.customizations.compat.BuildCompat;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.LiveWallpaperInfoFactory;
 import com.dot.customizations.util.ActivityUtils;
-import com.dot.customizations.R;
 
 import org.xmlpull.v1.XmlPullParserException;
 

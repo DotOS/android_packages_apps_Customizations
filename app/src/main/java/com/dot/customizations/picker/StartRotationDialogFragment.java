@@ -32,8 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.R;
+import com.dot.customizations.module.InjectorProvider;
 
 /**
  * Dialog which allows user to start a wallpaper rotation or cancel, as well as providing an option

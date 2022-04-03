@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Color Primary is used for Accent -->
+    <color name="color_primary_default">#00bcd4</color>
+    <color name="color_primary_bundle1">#d81b60</color>
+    <color name="color_primary_bundle2">#43a047</color>
+    <color name="color_primary_bundle3">#5e35b1</color>
+
+    <!-- Color Secondary is used for System Colors -->
+    <color name="color_secondary_default">#00bcd4</color>
+    <color name="color_secondary_bundle1">#ff5c8d</color>
+    <color name="color_secondary_bundle2">#76d275</color>
+    <color name="color_secondary_bundle3">#9162e4</color>
+
+</resources>

@@ -1,60 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.dot.customizations.picker.color.ColorSectionView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/section_bottom_padding">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/section_horizontal_padding">
+        android:paddingHorizontal="@dimen/separated_tabs_horizontal_margin">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/separated_tabs_height"
-            android:background="@drawable/separated_tabs_indicator_background"
-            android:backgroundTint="?androidprv:attr/colorControlActivated"
-            android:paddingHorizontal="@dimen/section_horizontal_padding">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/wallpaper_color_tab"
-                android:textAppearance="@style/SeparatedTabsTextAppearance"
-                android:textColor="?android:attr/textColorPrimaryInverse" />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/monetOptions"
-            style="@style/SeparatedTabsTextAppearance"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/separated_tabs_height"
-            android:layout_marginStart="@dimen/section_horizontal_padding"
-            android:layout_weight="1"
-            android:background="@drawable/btn_transparent_background"
-            android:clickable="true"
-            android:drawableEnd="@drawable/dot_chevron_right"
-            android:drawableTint="?android:attr/textColorPrimary"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/monet_options" />
-
-    </LinearLayout>
+        <include layout="@layout/separated_tabs" />
+    </FrameLayout>
 
     <com.dot.customizations.widget.ViewPager2OSS
         android:id="@+id/color_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/color_options_container_top_margin"
+        android:layout_marginVertical="@dimen/color_options_container_top_margin"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:minHeight="@dimen/color_options_container_min_height"
         android:paddingHorizontal="@dimen/section_horizontal_padding" />
+
+    <LinearLayout
+        android:id="@+id/monetSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/section_horizontal_padding"
+        android:paddingVertical="@dimen/section_top_padding">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/SectionTitleTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/monet_title" />
+
+            <TextView
+                style="@style/SectionSubtitleTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/monet_summary" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/option_tile_width"
+            android:layout_height="@dimen/option_tile_width"
+            android:background="@drawable/option_border_color"
+            android:scaleType="center"
+            android:src="@drawable/ic_palette"
+            android:tint="?android:attr/textColorPrimary" />
+
+    </LinearLayout>
 </com.dot.customizations.picker.color.ColorSectionView>

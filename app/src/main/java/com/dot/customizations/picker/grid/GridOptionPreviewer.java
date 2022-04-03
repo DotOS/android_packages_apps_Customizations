@@ -20,11 +20,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 
+import com.dot.customizations.model.grid.GridOption;
+import com.dot.customizations.model.grid.GridOptionsManager;
 import com.dot.customizations.picker.WorkspaceSurfaceHolderCallback;
 import com.dot.customizations.util.PreviewUtils;
 import com.dot.customizations.util.SurfaceViewUtils;
-import com.dot.customizations.model.grid.GridOption;
-import com.dot.customizations.model.grid.GridOptionsManager;
 
 /**
  * A class to load the {@link GridOption} preview to the view.

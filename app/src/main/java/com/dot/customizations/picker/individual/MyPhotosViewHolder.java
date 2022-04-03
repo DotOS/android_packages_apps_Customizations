@@ -29,11 +29,11 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.ContentUriAsset;
 import com.dot.customizations.picker.MyPhotosStarter;
 import com.dot.customizations.util.ResourceUtils;
-import com.dot.customizations.R;
 
 /**
  * ViewHolder for a "my photos" tile presented in an individual category grid.

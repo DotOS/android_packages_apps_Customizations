@@ -3,11 +3,6 @@ package com.dot.customizations.asset;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
-import com.dot.customizations.asset.CurrentWallpaperAssetVNLoader.CurrentWallpaperAssetVNLoaderFactory;
-import com.dot.customizations.asset.LiveWallpaperThumbAssetLoader.LiveWallpaperThumbAssetLoaderFactory;
-import com.dot.customizations.asset.ResourceAssetLoader.ResourceAssetLoaderFactory;
-import com.dot.customizations.asset.SystemStaticAssetLoader.SystemStaticAssetLoaderFactory;
-import com.dot.customizations.asset.WallpaperModelLoader.WallpaperModelLoaderFactory;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;
@@ -16,6 +11,11 @@ import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.module.GlideModule;
 import com.bumptech.glide.request.RequestOptions;
+import com.dot.customizations.asset.CurrentWallpaperAssetVNLoader.CurrentWallpaperAssetVNLoaderFactory;
+import com.dot.customizations.asset.LiveWallpaperThumbAssetLoader.LiveWallpaperThumbAssetLoaderFactory;
+import com.dot.customizations.asset.ResourceAssetLoader.ResourceAssetLoaderFactory;
+import com.dot.customizations.asset.SystemStaticAssetLoader.SystemStaticAssetLoaderFactory;
+import com.dot.customizations.asset.WallpaperModelLoader.WallpaperModelLoaderFactory;
 
 import java.io.InputStream;
 

@@ -16,4 +16,5 @@
     <string name="monet_options">Options</string>
     <string name="extras_title">Extras</string>
     <string name="extras_summary">Personalize to your taste</string>
+    <string name="qs_section_summary">Control your control panel</string>
 </resources>

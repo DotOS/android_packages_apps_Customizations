@@ -62,6 +62,7 @@ import androidx.slice.Slice;
 import androidx.slice.widget.SliceLiveData;
 import androidx.slice.widget.SliceView;
 
+import com.dot.customizations.R;
 import com.dot.customizations.compat.BuildCompat;
 import com.dot.customizations.model.SetWallpaperViewModel;
 import com.dot.customizations.util.FullScreenAnimation;
@@ -75,7 +76,6 @@ import com.dot.customizations.widget.BottomActionBar.AccessibilityCallback;
 import com.dot.customizations.widget.BottomActionBar.BottomSheetContent;
 import com.dot.customizations.widget.LockScreenPreviewer;
 import com.dot.customizations.widget.WallpaperColorsLoader;
-import com.dot.customizations.R;
 
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;

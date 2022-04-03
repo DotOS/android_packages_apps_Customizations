@@ -33,9 +33,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.ImageViewCompat;
 
+import com.dot.customizations.R;
 import com.dot.customizations.util.ResourceUtils;
 import com.dot.customizations.util.SizeCalculator;
-import com.dot.customizations.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback;
 

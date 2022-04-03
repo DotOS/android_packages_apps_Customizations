@@ -23,9 +23,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.util.ActivityUtils;
-import com.dot.customizations.R;
 
 import java.util.ArrayList;
 import java.util.List;

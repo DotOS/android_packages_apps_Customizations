@@ -37,8 +37,8 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
-import com.dot.customizations.util.ScreenSizeCalculator;
 import com.dot.customizations.R;
+import com.dot.customizations.util.ScreenSizeCalculator;
 
 import java.lang.reflect.Field;
 import java.util.Locale;

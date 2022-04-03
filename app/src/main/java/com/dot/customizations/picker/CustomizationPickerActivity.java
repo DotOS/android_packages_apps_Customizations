@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +32,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.dot.customizations.R;
 import com.dot.customizations.model.Category;
 import com.dot.customizations.model.PermissionRequester;
 import com.dot.customizations.model.WallpaperCategory;
@@ -54,7 +54,6 @@ import com.dot.customizations.util.DeepLinkUtils;
 import com.dot.customizations.util.LaunchUtils;
 import com.dot.customizations.widget.BottomActionBar;
 import com.dot.customizations.widget.BottomActionBar.BottomActionBarHost;
-import com.dot.customizations.R;
 
 /**
  * Main Activity allowing containing view sections for the user to switch between the different
@@ -103,9 +102,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements App
             DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
 
             // Switch to the target fragment.
-            switchFragment(isWallpaperOnlyMode(getIntent())
-                    ? WallpaperOnlyFragment.newInstance(getString(R.string.app_name))
-                    : CustomizationPickerFragment.newInstance(getString(R.string.app_name)));
+            switchFragment(CustomizationPickerFragment.newInstance(getString(R.string.app_name)));
         }
 
         // Deep link case

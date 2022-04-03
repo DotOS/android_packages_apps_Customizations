@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dot Themes</string>
+
+    <string name="default_color_name">Classic</string>
+    <string name="bundle1_color_name">Hot Pink</string>
+    <string name="bundle2_color_name">Green Tea</string>
+    <string name="bundle3_color_name">Purple Puff</string>
+
+    <string name="bundle_name_default">@string/default_color_name</string>
+    <string name="bundle_name_bundle1">@string/bundle1_color_name</string>
+    <string name="bundle_name_bundle2">@string/bundle2_color_name</string>
+    <string name="bundle_name_bundle3">@string/bundle3_color_name</string>
+
+</resources>

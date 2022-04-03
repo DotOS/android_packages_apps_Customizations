@@ -36,10 +36,10 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.dot.customizations.R;
 import com.dot.customizations.util.ScreenSizeCalculator;
 import com.dot.customizations.util.TimeUtils;
 import com.dot.customizations.util.TimeUtils.TimeTicker;
-import com.dot.customizations.R;
 
 import java.util.Calendar;
 import java.util.Locale;

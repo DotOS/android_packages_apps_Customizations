@@ -24,9 +24,9 @@ import android.os.Looper;
 
 import androidx.annotation.Nullable;
 
-import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.R;
 import com.dot.customizations.module.CustomizationPreferences;
+import com.dot.customizations.module.InjectorProvider;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

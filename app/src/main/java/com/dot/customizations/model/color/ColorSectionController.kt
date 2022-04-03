@@ -10,36 +10,38 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationManager
 import com.dot.customizations.model.CustomizationSectionController
+import com.dot.customizations.model.CustomizationSectionController.CustomizationSectionNavigationController
 import com.dot.customizations.model.WallpaperColorsViewModel
-import com.dot.customizations.model.mode.OverlayManagerCompat
 import com.dot.customizations.module.CustomizationInjector
 import com.dot.customizations.module.InjectorProvider
 import com.dot.customizations.module.ThemesUserEventLogger
 import com.dot.customizations.picker.color.ColorSectionView
+import com.dot.customizations.picker.color.MonetFragment
 import com.dot.customizations.widget.OptionSelectorController
 import com.dot.customizations.widget.SeparatedTabLayout
 import com.dot.customizations.widget.ViewPager2OSS
 import com.google.common.collect.FluentIterable
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 class ColorSectionController(
     activity: Activity?,
     wallpaperColorsViewModel: WallpaperColorsViewModel,
     lifecycleOwner: LifecycleOwner,
-    bundle: Bundle?
+    bundle: Bundle?,
+    private val navigationController: CustomizationSectionNavigationController
 ) : CustomizationSectionController<ColorSectionView?> {
 
     val mColorManager: ColorCustomizationManager
     var mColorSectionView: ColorSectionView? = null
-    private val mColorSectionAdapter = ColorSectionAdapter()
+    private var mColorSectionAdapter = ColorSectionAdapter()
     private lateinit var mColorViewPager: ViewPager2OSS
     val mEventLogger: ThemesUserEventLogger
     var mHomeWallpaperColors: WallpaperColors? = null
@@ -49,6 +51,8 @@ class ColorSectionController(
     private var mLockWallpaperColorsReady = false
     val mPresetColorOptions: MutableList<ColorOption?> = ArrayList()
     var mSelectedColor: ColorOption? = null
+    private var mTabLayout: SeparatedTabLayout? = null
+    private var mTabPositionToRestore: Int? = null
     val mWallpaperColorOptions: MutableList<ColorOption?> = ArrayList()
     private val mWallpaperColorsViewModel: WallpaperColorsViewModel
     var mLastColorApplyingTime: Long = 0
@@ -98,10 +102,11 @@ class ColorSectionController(
         mColorSectionView = LayoutInflater.from(context)
             .inflate(R.layout.color_section_view, null as ViewGroup?) as ColorSectionView
         mColorViewPager = mColorSectionView!!.requireViewById<ViewPager2OSS>(R.id.color_view_pager)
+        mTabLayout = mColorSectionView!!.requireViewById(R.id.separated_tabs)
         mColorViewPager.mRecyclerView.adapter = mColorSectionAdapter
-        mColorViewPager.setCurrentItem(0, false)
         mColorViewPager.restorePendingState()
         mColorViewPager.mUserInputEnabled = false
+        mTabLayout!!.setViewPager(mColorViewPager)
         mWallpaperColorsViewModel.homeWallpaperColors.observe(mLifecycleOwner) {
             mHomeWallpaperColors = it
             mHomeWallpaperColorsReady = true
@@ -112,6 +117,17 @@ class ColorSectionController(
             mLockWallpaperColors = it
             mLockWallpaperColorsReady = true
             maybeLoadColors()
+        }
+
+        val monetLauncher: LinearLayout = mColorSectionView!!.requireViewById(R.id.monetSettings)
+        monetLauncher.setOnClickListener {
+            navigationController.navigateTo(
+                MonetFragment.newInstance(context.getString(R.string.monet_title))
+            )
+        }
+
+        mLifecycleOwner.lifecycleScope.launchWhenResumed {
+            mTabPositionToRestore?.let { mColorViewPager.setCurrentItem(it, false) }
         }
 
         return mColorSectionView!!
@@ -136,56 +152,57 @@ class ColorSectionController(
                     }
 
                     override fun onOptionsLoaded(list: List<ColorOption?>) {
-                        var colorOption: ColorOption?
-                        val colorOption2: ColorOption
-                        mWallpaperColorOptions.clear()
-                        mPresetColorOptions.clear()
-                        for (colorOption3 in list) {
-                            if (colorOption3 is ColorSeedOption) {
-                                mWallpaperColorOptions.add(colorOption3)
-                            } else if (colorOption3 is ColorBundle) {
-                                mPresetColorOptions.add(colorOption3)
+                        if (list.isNotEmpty()) {
+                            var colorOption: ColorOption?
+                            val colorOption2: ColorOption
+                            mWallpaperColorOptions.clear()
+                            mPresetColorOptions.clear()
+                            for (colorOption3 in list) {
+                                if (colorOption3 is ColorSeedOption) {
+                                    mWallpaperColorOptions.add(colorOption3)
+                                } else if (colorOption3 is ColorBundle) {
+                                    mPresetColorOptions.add(colorOption3)
+                                }
                             }
-                        }
-                        val allColors = ArrayList<ColorOption?>()
-                        allColors.addAll(mWallpaperColorOptions)
-                        allColors.addAll(mPresetColorOptions)
-                        val iterator = FluentIterable.from(allColors).iterator()
-                        while (true) {
-                            if (!iterator.hasNext()) {
-                                colorOption = null
-                                break
+                            val allColors = ArrayList<ColorOption?>()
+                            allColors.addAll(mWallpaperColorOptions)
+                            allColors.addAll(mPresetColorOptions)
+                            val iterator = FluentIterable.from(allColors).iterator()
+                            while (true) {
+                                if (!iterator.hasNext()) {
+                                    colorOption = null
+                                    break
+                                }
+                                colorOption = iterator.next()
+                                if (colorOption!!.isActive(mColorManager)) {
+                                    break
+                                }
                             }
-                            colorOption = iterator.next()
-                            if (colorOption!!.isActive(mColorManager)) {
-                                break
+                            if (colorOption == null) {
+                                colorOption2 =
+                                    (if (mWallpaperColorOptions.isEmpty()) mPresetColorOptions[0]!! else mWallpaperColorOptions[0]!!)
+                                colorOption = colorOption2
                             }
-                        }
-                        if (colorOption == null) {
-                            colorOption2 =
-                                (if (mWallpaperColorOptions.isEmpty()) mPresetColorOptions[0]!! else mWallpaperColorOptions[0]!!)
-                            colorOption = colorOption2
-                        }
-                        mSelectedColor = colorOption
-                        mColorViewPager.post {
-                            mColorViewPager.adapter?.notifyDataSetChanged()
-                            /*if (mTabLayout != null && mTabLayout!!.tabCount == 0) {
-                                val newTab = mTabLayout!!.newTab()
-                                newTab.setText(R.string.wallpaper_color_tab)
-                                mTabLayout!!.addTab(newTab, 0, mTabLayout!!.tabCount == 0)
-                                val newTab2 = mTabLayout!!.newTab()
-                                newTab2.setText(R.string.preset_color_tab)
-                                mTabLayout!!.addTab(newTab2, 1, mTabLayout!!.tabCount == 0)
-                            }*/
-                            if (mWallpaperColorOptions.isEmpty()) {
-                                //mTabLayout!!.getTabAt(0)!!.view.isEnabled = false
-                                mColorViewPager.setCurrentItem(1, false)
+                            mSelectedColor = colorOption
+                            mColorViewPager.post {
+                                mColorViewPager.adapter?.notifyItemChanged(0)
+                                if (mTabLayout != null && mTabLayout!!.tabCount == 0) {
+                                    val newTab = mTabLayout!!.newTab()
+                                    newTab.setText(R.string.wallpaper_color_tab)
+                                    mTabLayout!!.addTab(newTab, 0, mTabLayout!!.tabCount == 0)
+                                    val newTab2 = mTabLayout!!.newTab()
+                                    newTab2.setText(R.string.preset_color_tab)
+                                    mTabLayout!!.addTab(newTab2, 1, mTabLayout!!.tabCount == 0)
+                                }
+                                if (mWallpaperColorOptions.isEmpty()) {
+                                    mTabLayout!!.getTabAt(0)!!.view.isEnabled = false
+                                    mColorViewPager.setCurrentItem(1, false)
+                                }
+                                mColorViewPager.setCurrentItem(
+                                    if ("preset" == mColorManager.currentColorSource) 1 else 0,
+                                    false
+                                )
                             }
-                            mColorViewPager.setCurrentItem(
-                                if ("preset" == mColorManager.currentColorSource) 1 else 0,
-                                false
-                            )
-                            mColorViewPager.mUserInputEnabled = false
                         }
                     }
                 }
@@ -218,36 +235,35 @@ class ColorSectionController(
         }
     }
 
-    override fun onSaveInstanceState(bundle: Bundle) {
-        val viewPager2 = mColorViewPager
-        bundle.putInt("COLOR_TAB_POSITION", viewPager2.currentItem)
-    }
-
     fun setUpColorOptionsController(optionSelectorController: OptionSelectorController<ColorOption>) {
         if (mSelectedColor != null && optionSelectorController.containsOption(mSelectedColor)) {
             optionSelectorController.setSelectedOption(mSelectedColor)
         }
         optionSelectorController.addListener {
             if (mSelectedColor != it) {
-                mSelectedColor = (it as ColorOption?)!!
+                mSelectedColor = (it as ColorOption)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    mColorManager.setThemeBundle(this, mSelectedColor!!)
+                    mColorManager.setThemeBundle(this, it)
                 }, 100L)
                 return@addListener
             }
         }
     }
 
+    override fun onSaveInstanceState(bundle: Bundle) {
+        val viewPager2 = mColorViewPager
+        bundle.putInt("COLOR_TAB_POSITION", viewPager2.currentItem)
+    }
+
     init {
         mEventLogger =
             (InjectorProvider.getInjector() as CustomizationInjector).getUserEventLogger(activity) as ThemesUserEventLogger
         mColorManager =
-            ColorCustomizationManager.getInstance(activity!!, OverlayManagerCompat(activity))!!
+            ColorCustomizationManager.getInstance(activity!!)!!
         mWallpaperColorsViewModel = wallpaperColorsViewModel
         mLifecycleOwner = lifecycleOwner
-        /*if (bundle != null && bundle.containsKey("COLOR_TAB_POSITION")) {
-            mTabPositionToRestore =
-                Optional.of(Integer.valueOf(bundle.getInt("COLOR_TAB_POSITION")))
-        }*/
+        if (bundle != null && bundle.containsKey("COLOR_TAB_POSITION")) {
+            mTabPositionToRestore = bundle.getInt("COLOR_TAB_POSITION")
+        }
     }
 }

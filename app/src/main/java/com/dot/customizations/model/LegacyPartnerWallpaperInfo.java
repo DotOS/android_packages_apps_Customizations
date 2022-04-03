@@ -23,11 +23,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 
+import com.dot.customizations.R;
 import com.dot.customizations.asset.Asset;
 import com.dot.customizations.asset.FileAsset;
 import com.dot.customizations.module.InjectorProvider;
 import com.dot.customizations.module.PartnerProvider;
-import com.dot.customizations.R;
 
 import java.io.File;
 import java.util.ArrayList;

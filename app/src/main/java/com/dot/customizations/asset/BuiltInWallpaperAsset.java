@@ -15,7 +15,6 @@
  */
 package com.dot.customizations.asset;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -26,9 +25,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -41,7 +37,6 @@ import com.bumptech.glide.request.RequestOptions;
  * built-in wallpaper is accessed via the system Resources object, and is thus be represented
  * by a {@code ResourceAsset} instead.
  */
-@TargetApi(Build.VERSION_CODES.KITKAT)
 public final class BuiltInWallpaperAsset extends Asset {
     private static final boolean SCALE_TO_FIT = true;
     private static final boolean CROP_TO_FIT = false;
@@ -57,10 +52,6 @@ public final class BuiltInWallpaperAsset extends Asset {
      * @param context The application's context.
      */
     public BuiltInWallpaperAsset(Context context) {
-        if (VERSION.SDK_INT < VERSION_CODES.KITKAT) {
-            throw new AssertionError("BuiltInWallpaperAsset should not be instantiated on a pre-KitKat"
-                    + " build");
-        }
 
         mContext = context.getApplicationContext();
     }
