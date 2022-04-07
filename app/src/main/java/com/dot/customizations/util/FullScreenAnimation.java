@@ -24,6 +24,7 @@ import android.content.res.TypedArray;
 import android.graphics.Insets;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceView;
 import android.view.View;
@@ -223,9 +224,11 @@ public class FullScreenAnimation {
         Toolbar toolbar = mView.findViewById(R.id.toolbar);
         // It may be null because there's no back arrow in some cases. For example: no back arrow
         // for Photos launching case.
-        ImageButton button = (ImageButton) toolbar.getChildAt(0);
-        if (button != null) {
-            button.setColorFilter(mCurrentTextColor);
+        if (toolbar.getChildAt(1) instanceof ImageButton) {
+            ImageButton button = (ImageButton) toolbar.getChildAt(1);
+            if (button != null) {
+                button.setColorFilter(mCurrentTextColor);
+            }
         }
     }
 

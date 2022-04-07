@@ -42,10 +42,10 @@ public class WorkspaceSurfaceHolderCallback implements SurfaceHolder.Callback {
     private static final String KEY_WALLPAPER_COLORS = "wallpaper_colors";
     private final SurfaceView mWorkspaceSurface;
     private final PreviewUtils mPreviewUtils;
-    private final boolean mShouldUseWallpaperColors;
+    final boolean mShouldUseWallpaperColors;
     private final AtomicBoolean mRequestPending = new AtomicBoolean(false);
-    private WallpaperColors mWallpaperColors;
-    private boolean mIsWallpaperColorsReady;
+    WallpaperColors mWallpaperColors;
+    boolean mIsWallpaperColorsReady;
     private Surface mLastSurface;
     private Message mCallback;
     private WorkspaceRenderListener mListener;
@@ -101,7 +101,7 @@ public class WorkspaceSurfaceHolderCallback implements SurfaceHolder.Callback {
         mListener = listener;
     }
 
-    private void maybeRenderPreview() {
+    void maybeRenderPreview() {
         if ((mShouldUseWallpaperColors && !mIsWallpaperColorsReady) || mLastSurface == null) {
             return;
         }

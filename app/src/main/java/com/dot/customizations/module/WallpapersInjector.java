@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.dot.customizations.model.CategoryProvider;
 import com.dot.customizations.model.WallpaperInfo;
 import com.dot.customizations.monitor.PerformanceMonitor;
-import com.dot.customizations.picker.ImagePreviewFragment;
+import com.dot.customizations.picker.ImageWallpaperColorThemePreviewFragment;
 import com.dot.customizations.picker.TopLevelPickerActivity;
 
 /**
@@ -55,12 +55,9 @@ public class WallpapersInjector extends BaseWallpaperInjector {
     @Override
     public synchronized WallpaperRotationRefresher getWallpaperRotationRefresher() {
         if (mWallpaperRotationRefresher == null) {
-            mWallpaperRotationRefresher = new WallpaperRotationRefresher() {
-                @Override
-                public void refreshWallpaper(Context context, Listener listener) {
-                    // Not implemented
-                    listener.onError();
-                }
+            mWallpaperRotationRefresher = (context, listener) -> {
+                // Not implemented
+                listener.onError();
             };
         }
         return mWallpaperRotationRefresher;
@@ -73,7 +70,7 @@ public class WallpapersInjector extends BaseWallpaperInjector {
             int mode,
             boolean viewAsHome,
             boolean testingModeEnabled) {
-        return ImagePreviewFragment.newInstance(wallpaperInfo, mode, viewAsHome,
+        return ImageWallpaperColorThemePreviewFragment.newInstance(wallpaperInfo, mode, viewAsHome,
                 testingModeEnabled);
     }
 
@@ -89,11 +86,8 @@ public class WallpapersInjector extends BaseWallpaperInjector {
     @Override
     public synchronized PerformanceMonitor getPerformanceMonitor() {
         if (mPerformanceMonitor == null) {
-            mPerformanceMonitor = new PerformanceMonitor() {
-                @Override
-                public void recordFullResPreviewLoadedMemorySnapshot() {
-                    // No Op
-                }
+            mPerformanceMonitor = () -> {
+                // No Op
             };
         }
         return mPerformanceMonitor;

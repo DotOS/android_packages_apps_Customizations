@@ -131,7 +131,7 @@ public abstract class PreviewFragment extends AppbarFragment implements
         args.putBoolean(ARG_TESTING_MODE_ENABLED, testingModeEnabled);
 
         PreviewFragment fragment = wallpaperInfo instanceof LiveWallpaperInfo
-                ? new LivePreviewFragment() : new ImagePreviewFragment();
+                ? new LivePreviewFragment() : new ImageWallpaperColorThemePreviewFragment();
         fragment.setArguments(args);
         return fragment;
     }
