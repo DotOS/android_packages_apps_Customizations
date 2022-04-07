@@ -3,6 +3,8 @@ package com.dot.customizations.model.color
 import android.app.WallpaperColors
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
+import android.provider.Settings
 import android.util.Log
 import androidx.core.graphics.ColorUtils
 import com.dot.customizations.compat.WallpaperManagerCompat
@@ -127,7 +129,14 @@ class ColorProvider(context: Context, stubPackageName: String) :
     ) {
         val list2: List<Int>
         val list3: List<Int>
-        val seedColors: List<Int> = ColorScheme.getSeedColors(wallpaperColors)
+        val seedColors: List<Int> =
+            if (Settings.Secure.getInt(mContext.contentResolver, "monet_engine_custom_color", 0) == 1) {
+                listOf(
+                    Settings.Secure.getInt(mContext.contentResolver,
+                        "monet_engine_color_override", -1)
+                )
+            } else
+                ColorScheme.getSeedColors(wallpaperColors)
         loadPreset()
         buildBundle(
             seedColors[0],
