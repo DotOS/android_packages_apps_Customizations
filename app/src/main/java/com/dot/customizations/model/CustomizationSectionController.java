@@ -20,6 +20,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.dot.customizations.picker.SectionView;
 
@@ -68,5 +69,7 @@ public interface CustomizationSectionController<T extends SectionView> {
          * Navigates to the given {@code fragment}.
          */
         void navigateTo(Fragment fragment);
+
+        FragmentActivity getRootFragment();
     }
 }

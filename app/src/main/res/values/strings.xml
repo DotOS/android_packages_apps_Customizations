@@ -508,6 +508,38 @@
     <string name="default_theme_title">Default</string>
     <string name="monet_title">Theme Settings</string>
     <string name="monet_summary">Personalize your phone even more</string>
+    <string name="app_lock_summary">An extra layer of security to your most sensitive apps</string>
+    <string name="app_lock_title">AppLock</string>
+    <string name="app_category_others">Others</string>
+    <string name="app_category_games">Games</string>
+    <string name="app_category_social">Social</string>
+    <string name="app_category_prod">Productivity</string>
+    <string name="app_category_maps"><![CDATA[Travel & Maps]]></string>
+    <string name="app_lock_summary_singular">1 application is protected</string>
+    <string name="app_lock_summary_plural"><xliff:g example="2" id="Number of applications">%1$d</xliff:g> applications are protected</string>
+    <string name="app_lock_authentication_dialog_title">Unlock</string>
+    <string name="enable_debugging">Enable debugging</string>
+    <string name="disable_debugging">Disable debugging</string>
+    <string name="app_lock_packages_title">Protected apps</string>
+    <string name="app_lock_packages_summary">Select the apps to protect with biometrics or device credentials</string>
+    <string name="app_lock_timeout_title">Auto lock timeout</string>
+    <string name="app_lock_timeout_summary">Duration of time after which an unlocked app in background should be locked</string>
+    <string name="app_lock_notifications_title">Collapse notifications</string>
+    <string name="app_lock_notifications_summary">
+          Notification content will be hidden and collapsed for selected apps when they are locked.
+          Heads up notifications will be automatically disabled.
+    </string>
+    <string name="app_lock_notifications_disabled_summary">Protect an application first</string>
+    <string name="app_lock_biometrics_allowed_title">Enable biometrics for unlocking</string>
+    <string name="app_lock_timeout_instant">Instant (250ms)</string>
+    <string name="app_lock_timeout_5s">5 seconds</string>
+    <string name="app_lock_timeout_10s">10 seconds</string>
+    <string name="app_lock_timeout_30s">30 seconds</string>
+    <string name="app_lock_timeout_1m">1 minute</string>
+    <string name="app_lock_timeout_5m">5 minutes</string>
+    <string name="app_lock_timeout_10m">10 minutes</string>
+    <string name="app_lock_timeout_30m">30 minutes</string>
+    <string name="app_lock_footer">Bubbles will be automatically dismissed after timeout</string>
 
 
 </resources>

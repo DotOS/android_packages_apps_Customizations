@@ -10,12 +10,13 @@ import de.Maxr1998.modernpreferences.helpers.*
 import de.Maxr1998.modernpreferences.preferences.SeekBarPreference
 import de.Maxr1998.modernpreferences.preferences.choice.SelectionItem
 import de.Maxr1998.modernpreferences.preferences.choice.SingleChoiceDialogPreference
+import kotlin.random.Random
 
 fun PreferenceScreen.Builder.fragmentPreference(
     navigationController: CustomizationSectionController.CustomizationSectionNavigationController,
     fragment: AppbarFragment
 ): Preference {
-    return pref(fragment::class.java.name) {
+    return pref(fragment::class.java.name + Random(8)) {
         onClickView { navigationController.navigateTo(fragment) }
     }
 }

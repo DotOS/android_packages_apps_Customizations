@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -170,6 +171,11 @@ public class CustomizationPickerFragment extends AppbarFragment implements
                 .addToBackStack(null)
                 .commit();
         fragmentManager.executePendingTransactions();
+    }
+
+    @Override
+    public FragmentActivity getRootFragment() {
+        return getActivity();
     }
 
     /**

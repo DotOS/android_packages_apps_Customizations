@@ -71,6 +71,9 @@ class DefaultCustomizationSections : CustomizationSections {
             )
         )
 
+        // App Lock
+        sectionControllers.add(AppLockSectionController(sectionNavigationController))
+
         // Dot Extras
         sectionControllers.add(ExtrasSectionController(sectionNavigationController))
         return sectionControllers
