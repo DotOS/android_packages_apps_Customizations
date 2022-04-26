@@ -18,11 +18,11 @@ package com.dot.customizations.picker.extras
 import android.app.Application
 import android.content.Context
 import android.provider.Settings
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.AndroidViewModel
 import com.android.internal.util.dot.DotUtils
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationSectionController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.Maxr1998.modernpreferences.Preference
 import de.Maxr1998.modernpreferences.PreferenceScreen
 import de.Maxr1998.modernpreferences.PreferencesAdapter
@@ -44,7 +44,7 @@ class ExtrasViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         Preference.Config.dialogBuilderFactory = { context ->
-            MaterialAlertDialogBuilder(
+            AlertDialog.Builder(
                 context,
                 com.android.settingslib.R.style.Theme_AlertDialog_SettingsLib
             )
