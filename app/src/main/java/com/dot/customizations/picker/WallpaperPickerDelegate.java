@@ -371,26 +371,12 @@ public class WallpaperPickerDelegate implements MyPhotosStarter {
     public int getWallpaperSupportLevel() {
         WallpaperManager wallpaperManager = WallpaperManager.getInstance(mActivity);
 
-        if (VERSION.SDK_INT >= VERSION_CODES.N) {
-            if (wallpaperManager.isWallpaperSupported()) {
-                return wallpaperManager.isSetWallpaperAllowed()
-                        ? WallpaperDisabledFragment.SUPPORTED_CAN_SET
-                        : WallpaperDisabledFragment.NOT_SUPPORTED_BLOCKED_BY_ADMIN;
-            }
-            return WallpaperDisabledFragment.NOT_SUPPORTED_BY_DEVICE;
-        } else if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            return wallpaperManager.isWallpaperSupported()
+        if (wallpaperManager.isWallpaperSupported()) {
+            return wallpaperManager.isSetWallpaperAllowed()
                     ? WallpaperDisabledFragment.SUPPORTED_CAN_SET
-                    : WallpaperDisabledFragment.NOT_SUPPORTED_BY_DEVICE;
-        } else {
-            WallpaperManagerCompat wallpaperManagerCompat =
-                    InjectorProvider.getInjector().getWallpaperManagerCompat(
-                            mActivity);
-            boolean isSupported = wallpaperManagerCompat.getDrawable() != null;
-            wallpaperManager.forgetLoadedWallpaper();
-            return isSupported ? WallpaperDisabledFragment.SUPPORTED_CAN_SET
-                    : WallpaperDisabledFragment.NOT_SUPPORTED_BY_DEVICE;
+                    : WallpaperDisabledFragment.NOT_SUPPORTED_BLOCKED_BY_ADMIN;
         }
+        return WallpaperDisabledFragment.NOT_SUPPORTED_BY_DEVICE;
     }
 
     public IndividualPickerActivityIntentFactory getPickerIntentFactory() {

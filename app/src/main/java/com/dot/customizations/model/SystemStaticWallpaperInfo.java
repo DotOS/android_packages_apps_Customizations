@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class SystemStaticWallpaperInfo extends WallpaperInfo {
     public static final Creator<SystemStaticWallpaperInfo> CREATOR =
-            new Creator<SystemStaticWallpaperInfo>() {
+            new Creator<>() {
                 @Override
                 public SystemStaticWallpaperInfo createFromParcel(Parcel in) {
                     return new SystemStaticWallpaperInfo(in);

@@ -512,7 +512,7 @@ public class WallpaperSectionController implements
                 });
         progressBar.animate()
                 .alpha(fadeIn ? 1.0f : 0.0f)
-                .setDuration(duration * 2)
+                .setDuration(duration * 2L)
                 .setStartDelay(duration)
                 .withStartAction(progressBar::show)
                 .withEndAction(progressBar::hide);

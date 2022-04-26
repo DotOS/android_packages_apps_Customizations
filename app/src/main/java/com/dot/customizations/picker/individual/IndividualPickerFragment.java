@@ -200,7 +200,7 @@ public class IndividualPickerFragment extends AppbarFragment
      * A Runnable which regularly updates the thumbnail for the "Daily wallpapers" tile in desktop
      * mode.
      */
-    private Runnable mUpdateDailyWallpaperThumbRunnable = new Runnable() {
+    private final Runnable mUpdateDailyWallpaperThumbRunnable = new Runnable() {
         @Override
         public void run() {
             ViewHolder viewHolder = mImageGrid.findViewHolderForAdapterPosition(
@@ -218,7 +218,7 @@ public class IndividualPickerFragment extends AppbarFragment
         }
     };
     private Set<String> mAppliedWallpaperIds;
-    private WallpaperPersister.SetWallpaperCallback mSetWallpaperCallback =
+    private final WallpaperPersister.SetWallpaperCallback mSetWallpaperCallback =
             new WallpaperPersister.SetWallpaperCallback() {
                 @Override
                 public void onSuccess(WallpaperInfo wallpaperInfo) {
@@ -375,33 +375,28 @@ public class IndividualPickerFragment extends AppbarFragment
         mWallpapers.clear();
         mIsWallpapersReceived = false;
         updateLoading();
-        mCategory.fetchWallpapers(getActivity().getApplicationContext(), new WallpaperReceiver() {
-            @Override
-            public void onWallpapersReceived(List<WallpaperInfo> wallpapers) {
-                mIsWallpapersReceived = true;
-                updateLoading();
-                for (WallpaperInfo wallpaper : wallpapers) {
-                    mWallpapers.add(wallpaper);
-                }
-                maybeSetUpImageGrid();
+        mCategory.fetchWallpapers(getActivity().getApplicationContext(), wallpapers -> {
+            mIsWallpapersReceived = true;
+            updateLoading();
+            mWallpapers.addAll(wallpapers);
+            maybeSetUpImageGrid();
 
-                // Wallpapers may load after the adapter is initialized, in which case we have
-                // to explicitly notify that the data set has changed.
-                if (mAdapter != null) {
-                    mAdapter.notifyDataSetChanged();
-                }
+            // Wallpapers may load after the adapter is initialized, in which case we have
+            // to explicitly notify that the data set has changed.
+            if (mAdapter != null) {
+                mAdapter.notifyDataSetChanged();
+            }
 
-                if (mWallpapersUiContainer != null) {
-                    mWallpapersUiContainer.onWallpapersReady();
-                } else {
-                    if (wallpapers.isEmpty()) {
-                        // If there are no more wallpapers and we're on phone, just finish the
-                        // Activity.
-                        Activity activity = getActivity();
-                        if (activity != null
-                                && mFormFactor == FormFactorChecker.FORM_FACTOR_MOBILE) {
-                            activity.finish();
-                        }
+            if (mWallpapersUiContainer != null) {
+                mWallpapersUiContainer.onWallpapersReady();
+            } else {
+                if (wallpapers.isEmpty()) {
+                    // If there are no more wallpapers and we're on phone, just finish the
+                    // Activity.
+                    Activity activity = getActivity();
+                    if (activity != null
+                            && mFormFactor == FormFactorChecker.FORM_FACTOR_MOBILE) {
+                        activity.finish();
                     }
                 }
             }
@@ -449,7 +444,7 @@ public class IndividualPickerFragment extends AppbarFragment
 
         mAppliedWallpaperIds = getAppliedWallpaperIds();
 
-        mImageGrid = (RecyclerView) view.findViewById(R.id.wallpaper_grid);
+        mImageGrid = view.findViewById(R.id.wallpaper_grid);
         if (mFormFactor == FormFactorChecker.FORM_FACTOR_DESKTOP) {
             int gridPaddingPx = getResources().getDimensionPixelSize(R.dimen.grid_padding_desktop);
             updateImageGridPadding(false /* addExtraBottomSpace */);
@@ -589,7 +584,7 @@ public class IndividualPickerFragment extends AppbarFragment
     void setUpBottomSheet() {
         mImageGrid.addOnScrollListener(new OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, final int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, final int dy) {
                 if (mCurrentWallpaperBottomSheetPresenter == null) {
                     return;
                 }
@@ -597,16 +592,7 @@ public class IndividualPickerFragment extends AppbarFragment
                 if (mCurrentWallpaperBottomSheetExpandedRunnable != null) {
                     mHandler.removeCallbacks(mCurrentWallpaperBottomSheetExpandedRunnable);
                 }
-                mCurrentWallpaperBottomSheetExpandedRunnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        if (dy > 0) {
-                            mCurrentWallpaperBottomSheetPresenter.setCurrentWallpapersExpanded(false);
-                        } else {
-                            mCurrentWallpaperBottomSheetPresenter.setCurrentWallpapersExpanded(true);
-                        }
-                    }
-                };
+                mCurrentWallpaperBottomSheetExpandedRunnable = () -> mCurrentWallpaperBottomSheetPresenter.setCurrentWallpapersExpanded(dy <= 0);
                 mHandler.postDelayed(mCurrentWallpaperBottomSheetExpandedRunnable, 100);
             }
         });
@@ -741,11 +727,7 @@ public class IndividualPickerFragment extends AppbarFragment
         // causes Espresso to hang once the dialog is shown.
         if (mFormFactor == FormFactorChecker.FORM_FACTOR_MOBILE && !mTestingMode) {
             int themeResId;
-            if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
-                themeResId = R.style.ProgressDialogThemePreL;
-            } else {
-                themeResId = R.style.LightDialogTheme;
-            }
+            themeResId = R.style.LightDialogTheme;
             mProgressDialog = new ProgressDialog(getActivity(), themeResId);
 
             mProgressDialog.setTitle(PROGRESS_DIALOG_NO_TITLE);

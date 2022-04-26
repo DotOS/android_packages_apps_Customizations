@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class AppResourceWallpaperInfo extends WallpaperInfo {
     public static final Parcelable.Creator<AppResourceWallpaperInfo> CREATOR =
-            new Parcelable.Creator<AppResourceWallpaperInfo>() {
+            new Parcelable.Creator<>() {
                 @Override
                 public AppResourceWallpaperInfo createFromParcel(Parcel in) {
                     return new AppResourceWallpaperInfo(in);
