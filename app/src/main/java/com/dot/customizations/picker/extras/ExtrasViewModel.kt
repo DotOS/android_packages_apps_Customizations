@@ -536,10 +536,8 @@ class ExtrasViewModel(app: Application) : AndroidViewModel(app) {
                 mSummary = "Tiles will keep their shape on all states",
                 mSummaryOn = "Tiles will change their shapes :\n[Active] - Circle\n[Inactive/Disabled] - Rounded Rectangle",
                 mDefault = 1,
-                setting = "QS_TILE_MORPH_ANIM"
-            ).apply {
-                enabled = false
-            }
+                setting = "QS_TILE_MORPH"
+            )
 
             categoryHeader("qsbrightness") {
                 titleRes = R.string.qs_brightness_slider_category
