@@ -78,8 +78,10 @@ fun PreferenceScreen.Builder.secureSettingsSeekBar(
         min = mMin
         max = mMax
         default = Settings.Secure.getInt(context.contentResolver, setting.lowercase(), mDefault)
-        seekListener = SeekBarPreference.OnSeekListener { _, _, value ->
-            Settings.Secure.putInt(context.contentResolver, setting.lowercase(), value)
+        seekListener = SeekBarPreference.OnSeekListener { _, _, value, done ->
+            if (done)
+                Settings.Secure.putInt(context.contentResolver, setting.lowercase(), value)
+            else true
         }
     }
 }
@@ -101,8 +103,10 @@ fun PreferenceScreen.Builder.systemSettingsSeekBar(
         min = mMin
         max = mMax
         default = Settings.System.getInt(context.contentResolver, setting.lowercase(), mDefault)
-        seekListener = SeekBarPreference.OnSeekListener { _, _, value ->
-            Settings.System.putInt(context.contentResolver, setting.lowercase(), value)
+        seekListener = SeekBarPreference.OnSeekListener { _, _, value, done ->
+            if (done)
+                Settings.System.putInt(context.contentResolver, setting.lowercase(), value)
+            else true
         }
     }
 }
