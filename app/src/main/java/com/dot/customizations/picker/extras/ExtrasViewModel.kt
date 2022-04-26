@@ -562,7 +562,7 @@ class ExtrasViewModel(app: Application) : AndroidViewModel(app) {
                     SelectionItem("0", R.string.qs_brightness_slider_position_top),
                     SelectionItem("1", R.string.qs_brightness_slider_position_bottom)
                 ),
-                mDefault = 0,
+                mDefault = 1,
                 setting = "QS_BRIGHTNESS_SLIDER_POSITION"
             )
 
