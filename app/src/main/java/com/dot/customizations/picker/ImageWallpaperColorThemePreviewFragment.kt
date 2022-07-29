@@ -13,7 +13,7 @@ import com.dot.customizations.model.color.WallpaperColorResources
 import com.google.android.material.resources.MaterialAttributes
 import com.dot.customizations.widget.LockScreenPreviewer
 
-class ImageWallpaperColorThemePreviewFragment : ImagePreviewFragment(), WallpaperColorThemePreview {
+open class ImageWallpaperColorThemePreviewFragment : ImagePreviewFragment(), WallpaperColorThemePreview {
     var mIgnoreInitialColorChange = false
     var mWallpaperColors: WallpaperColors? = null
     public override fun createWorkspaceSurfaceCallback(surfaceView: SurfaceView): WorkspaceSurfaceHolderCallback {

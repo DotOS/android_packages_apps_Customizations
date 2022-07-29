@@ -104,11 +104,11 @@ public class FullScreenAnimation {
         mIsHomeSelected = isHomeSelected;
     }
 
-    private int getStatusBarHeight() {
+    public int getStatusBarHeight() {
         return mStatusBarHeight;
     }
 
-    private int getNavigationBarHeight() {
+    public int getNavigationBarHeight() {
         return mNavigationBarHeight;
     }
 

@@ -2,6 +2,7 @@ package com.dot.customizations.model.color
 
 import android.text.TextUtils
 import android.util.Log
+import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationManager
 import com.dot.customizations.model.CustomizationOption
 import org.json.JSONException
@@ -80,6 +81,10 @@ abstract class ColorOption(
 
     companion object {
         const val TIMESTAMP_FIELD = "_applied_timestamp"
+    }
+
+    override fun getLayoutResId(): Int {
+        return R.layout.color_option
     }
 
     init {

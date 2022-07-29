@@ -53,7 +53,7 @@ import com.dot.customizations.widget.BottomActionBar;
 public abstract class AppbarFragment extends BottomActionBarFragment
         implements OnMenuItemClickListener {
 
-    private static final String ARG_TITLE = "ToolbarFragment.title";
+    public static final String ARG_TITLE = "ToolbarFragment.title";
     protected Toolbar mToolbar;
     private AppbarFragmentHost mHost;
     private boolean mUpArrowEnabled;
@@ -95,8 +95,9 @@ public abstract class AppbarFragment extends BottomActionBarFragment
     protected void setUpToolbar(View rootView, boolean upArrow) {
         mUpArrowEnabled = upArrow;
         mToolbar = rootView.findViewById(getToolbarId());
-        if (mToolbar.findViewById(R.id.custom_toolbar_title) != null)
-        mTitleView = mToolbar.findViewById(R.id.custom_toolbar_title);
+        if (mToolbar.findViewById(R.id.custom_toolbar_title) != null) {
+            mTitleView = mToolbar.findViewById(R.id.custom_toolbar_title);
+        }
         CharSequence title;
         if (getArguments() != null) {
             title = getArguments().getCharSequence(ARG_TITLE, getDefaultTitle());

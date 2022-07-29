@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dot.customizations.picker.color.MonetSettingsSectionView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:clickable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/section_horizontal_padding"
+    android:paddingVertical="@dimen/section_top_padding">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/SectionTitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/monet_title" />
+
+        <TextView
+            style="@style/SectionSubtitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/monet_summary" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/option_tile_width"
+        android:layout_height="@dimen/option_tile_width"
+        android:background="@drawable/option_border_color"
+        android:scaleType="center"
+        android:src="@drawable/ic_palette"
+        android:tint="?android:attr/textColorPrimary" />
+
+</com.dot.customizations.picker.color.MonetSettingsSectionView>

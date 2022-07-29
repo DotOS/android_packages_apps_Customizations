@@ -6,7 +6,7 @@ import com.dot.customizations.monet.ColorScheme
 
 class WallpaperColorResources(wallpaperColors: WallpaperColors?) {
     var mColorOverlay = SparseIntArray()
-    fun addOverlayColor(list: List<Int>, i: Int) {
+    private fun addOverlayColor(list: List<Int>, i: Int) {
         var i = i
         for (num in list) {
             mColorOverlay.put(i, num)

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">DotWallpapers</string>
+
+    <string name="walls_title">Dot Exclusives</string>
+    <string name="chromebook_title">Chromebook</string>
+
+    <string name="chrm1title">Precious Water</string>
+    <string name="chrm2title">Iris</string>
+    <string name="chrm3title">Orchid</string>
+    <string name="chrm4title">Freesia</string>
+    <string name="chrm5title">Leaf</string>
+    <string name="chrm6title">Floating In The Forest</string>
+    <string name="chrm7title">Unexpected Land</string>
+    <string name="chrm8title">The Lonely Rock</string>
+
+</resources>

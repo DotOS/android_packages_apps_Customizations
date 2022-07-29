@@ -5,8 +5,28 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <TextView
+        style="@style/SectionTitleTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/clock"
+        android:paddingHorizontal="@dimen/grid_options_container_horizontal_margin"
+        android:paddingVertical="@dimen/grid_options_container_horizontal_margin"
+        android:text="Custom colors" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/monetColorRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/bottom_actions_bottom_padding" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/monetRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

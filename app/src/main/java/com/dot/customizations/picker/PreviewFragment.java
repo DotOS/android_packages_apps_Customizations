@@ -78,12 +78,12 @@ public abstract class PreviewFragment extends AppbarFragment implements
      * User can view wallpaper and attributions in full screen, but "Set wallpaper" button is
      * hidden.
      */
-    static final int MODE_VIEW_ONLY = 0;
+    public static final int MODE_VIEW_ONLY = 0;
     /**
      * User can view wallpaper and attributions in full screen and click "Set wallpaper" to set the
      * wallpaper with pan and crop position to the device.
      */
-    static final int MODE_CROP_AND_SET_WALLPAPER = 1;
+    public static final int MODE_CROP_AND_SET_WALLPAPER = 1;
     private static final String TAG_LOAD_WALLPAPER_ERROR_DIALOG_FRAGMENT =
             "load_wallpaper_error_dialog";
     private static final String TAG_SET_WALLPAPER_ERROR_DIALOG_FRAGMENT =
@@ -105,12 +105,12 @@ public abstract class PreviewFragment extends AppbarFragment implements
     protected View mRootView;
     protected FullScreenAnimation mFullScreenAnimation;
     @PreviewMode
-    protected int mPreviewMode;
-    protected boolean mViewAsHome;
-    protected SetWallpaperViewModel mSetWallpaperViewModel;
-    protected ViewModelProvider mViewModelProvider;
-    protected Optional<Integer> mLastSelectedTabPositionOptional = Optional.empty();
-    private OnBackPressedCallback mOnBackPressedCallback;
+    int mPreviewMode;
+    boolean mViewAsHome;
+    SetWallpaperViewModel mSetWallpaperViewModel;
+    ViewModelProvider mViewModelProvider;
+    Optional<Integer> mLastSelectedTabPositionOptional = Optional.empty();
+    OnBackPressedCallback mOnBackPressedCallback;
     /**
      * Staged error dialog fragments that were unable to be shown when the hosting activity didn't
      * allow committing fragment transactions.

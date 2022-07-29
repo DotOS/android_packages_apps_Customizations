@@ -5,14 +5,15 @@ import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
 import com.dot.customizations.model.*
 import com.dot.customizations.model.CustomizationSectionController.CustomizationSectionNavigationController
+import com.dot.customizations.model.applock.AppLockSectionController
 import com.dot.customizations.model.color.ColorSectionController
+import com.dot.customizations.model.color.MonetSectionController
+import com.dot.customizations.model.extras.ExtrasSectionController
+import com.dot.customizations.model.grid.GridOptionsManager
+import com.dot.customizations.model.grid.GridSectionController
 import com.dot.customizations.model.mode.DarkModeSectionController
 import com.dot.customizations.model.themedicon.ThemedIconSectionController
 import com.dot.customizations.model.themedicon.ThemedIconSwitchProvider
-import com.dot.customizations.model.grid.GridSectionController
-import com.dot.customizations.model.grid.GridOptionsManager
-import com.dot.customizations.model.extras.ExtrasSectionController
-import java.util.ArrayList
 
 /**
  * [CustomizationSections] for the customization picker.
@@ -37,14 +38,14 @@ class DefaultCustomizationSections : CustomizationSections {
             )
         )
 
-        // Monet Settings section.
+        // Monet Color Picker section.
         sectionControllers.add(
             ColorSectionController(
                 activity,
                 wallpaperColorsViewModel,
                 lifecycleOwner,
-                savedInstanceState,
-                sectionNavigationController
+                sectionNavigationController,
+                savedInstanceState
             )
         )
 
@@ -70,6 +71,9 @@ class DefaultCustomizationSections : CustomizationSections {
                 GridOptionsManager.getInstance(activity), sectionNavigationController
             )
         )
+
+        // Monet Settings section.
+        sectionControllers.add(MonetSectionController(sectionNavigationController))
 
         // App Lock
         sectionControllers.add(AppLockSectionController(sectionNavigationController))

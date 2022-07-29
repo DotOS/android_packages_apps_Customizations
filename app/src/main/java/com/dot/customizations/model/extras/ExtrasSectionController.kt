@@ -20,7 +20,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationSectionController
-import com.dot.customizations.picker.extras.ExtrasFragment
 import com.dot.customizations.picker.extras.ExtrasSectionView
 
 class ExtrasSectionController(private val mSectionNavigationController:

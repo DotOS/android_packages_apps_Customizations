@@ -540,6 +540,7 @@
     <string name="app_lock_timeout_10m">10 minutes</string>
     <string name="app_lock_timeout_30m">30 minutes</string>
     <string name="app_lock_footer">Bubbles will be automatically dismissed after timeout</string>
+    <string name="color_show_more">More colors</string>
 
 
 </resources>

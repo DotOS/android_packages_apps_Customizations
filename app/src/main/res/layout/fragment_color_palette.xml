@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainPaletteRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/grid_options_container_horizontal_margin"
+            android:paddingHorizontal="@dimen/grid_options_container_horizontal_margin"
+            android:paddingBottom="@dimen/bottom_actions_bottom_padding" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            style="@style/SectionTitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/grid_options_container_horizontal_margin"
+            android:paddingVertical="@dimen/grid_options_container_horizontal_margin"
+            android:text="Palette styles" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/otherPaletteRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/grid_options_container_horizontal_margin" />
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

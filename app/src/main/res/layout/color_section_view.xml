@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dot.customizations.picker.color.ColorSectionView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.dot.customizations.picker.color.ColorSectionView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/separated_tabs_horizontal_margin">
-
         <include layout="@layout/separated_tabs" />
     </FrameLayout>
 
@@ -18,49 +16,24 @@
         android:id="@+id/color_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/color_options_container_top_margin"
+        android:layout_marginTop="@dimen/color_options_container_top_margin"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:minHeight="@dimen/color_options_container_min_height"
         android:paddingHorizontal="@dimen/section_horizontal_padding" />
 
-    <LinearLayout
-        android:id="@+id/monetSettings"
+    <TextView
+        android:id="@+id/color_option_more"
+        style="@style/SectionTitleTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/separated_tabs_ripple_mask"
+        android:drawableEnd="@drawable/dot_chevron_right"
+        android:drawableTint="?android:attr/textColorPrimary"
         android:paddingHorizontal="@dimen/section_horizontal_padding"
-        android:paddingVertical="@dimen/section_top_padding">
+        android:paddingVertical="16dp"
+        android:text="@string/color_show_more"
+        android:textColor="?android:attr/textColorPrimary" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/SectionTitleTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/monet_title" />
-
-            <TextView
-                style="@style/SectionSubtitleTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/monet_summary" />
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="@dimen/option_tile_width"
-            android:layout_height="@dimen/option_tile_width"
-            android:background="@drawable/option_border_color"
-            android:scaleType="center"
-            android:src="@drawable/ic_palette"
-            android:tint="?android:attr/textColorPrimary" />
-
-    </LinearLayout>
 </com.dot.customizations.picker.color.ColorSectionView>

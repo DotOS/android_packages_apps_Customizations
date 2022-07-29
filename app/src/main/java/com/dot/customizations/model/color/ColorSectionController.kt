@@ -10,33 +10,30 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationManager
 import com.dot.customizations.model.CustomizationSectionController
-import com.dot.customizations.model.CustomizationSectionController.CustomizationSectionNavigationController
 import com.dot.customizations.model.WallpaperColorsViewModel
 import com.dot.customizations.module.CustomizationInjector
 import com.dot.customizations.module.InjectorProvider
 import com.dot.customizations.module.ThemesUserEventLogger
 import com.dot.customizations.picker.color.ColorSectionView
-import com.dot.customizations.picker.color.MonetFragment
 import com.dot.customizations.widget.OptionSelectorController
 import com.dot.customizations.widget.SeparatedTabLayout
 import com.dot.customizations.widget.ViewPager2OSS
 import com.google.common.collect.FluentIterable
 import kotlinx.coroutines.launch
 
-
 class ColorSectionController(
     activity: Activity?,
     wallpaperColorsViewModel: WallpaperColorsViewModel,
     lifecycleOwner: LifecycleOwner,
-    bundle: Bundle?,
-    private val navigationController: CustomizationSectionNavigationController
+    val sectionNavigationController: CustomizationSectionController.CustomizationSectionNavigationController,
+    bundle: Bundle?
 ) : CustomizationSectionController<ColorSectionView?> {
 
     val mColorManager: ColorCustomizationManager
@@ -103,7 +100,6 @@ class ColorSectionController(
             .inflate(R.layout.color_section_view, null as ViewGroup?) as ColorSectionView
         mColorViewPager = mColorSectionView!!.requireViewById<ViewPager2OSS>(R.id.color_view_pager)
         mTabLayout = mColorSectionView!!.requireViewById(R.id.separated_tabs)
-        mColorViewPager.mRecyclerView.adapter = mColorSectionAdapter
         mColorViewPager.restorePendingState()
         mColorViewPager.mUserInputEnabled = false
         mTabLayout!!.setViewPager(mColorViewPager)
@@ -119,15 +115,13 @@ class ColorSectionController(
             maybeLoadColors()
         }
 
-        val monetLauncher: LinearLayout = mColorSectionView!!.requireViewById(R.id.monetSettings)
-        monetLauncher.setOnClickListener {
-            navigationController.navigateTo(
-                MonetFragment.newInstance(context.getString(R.string.monet_title))
-            )
-        }
-
         mLifecycleOwner.lifecycleScope.launchWhenResumed {
             mTabPositionToRestore?.let { mColorViewPager.setCurrentItem(it, false) }
+        }
+        
+        val moreOptions: TextView = mColorSectionView!!.findViewById(R.id.color_option_more)
+        moreOptions.setOnClickListener {
+            sectionNavigationController.navigateTo(ColorPaletteFragment())
         }
 
         return mColorSectionView!!
@@ -185,6 +179,7 @@ class ColorSectionController(
                             }
                             mSelectedColor = colorOption
                             mColorViewPager.post {
+                                mColorViewPager.adapter = mColorSectionAdapter
                                 mColorViewPager.adapter?.notifyItemChanged(0)
                                 if (mTabLayout != null && mTabLayout!!.tabCount == 0) {
                                     val newTab = mTabLayout!!.newTab()
@@ -211,8 +206,8 @@ class ColorSectionController(
             }
             val wallpaperColors3 = mColorManager.mHomeWallpaperColors
             val colorProvider = mColorManager.mProvider as ColorProvider
-            val wallpapersColorsChanged = (colorProvider.homeWallpaperColors == wallpaperColors3
-                    ) || (colorProvider.lockWallpaperColors == wallpaperColors2)
+            val wallpapersColorsChanged = (colorProvider.homeWallpaperColors != wallpaperColors3
+                    ) || (colorProvider.lockWallpaperColors != wallpaperColors2)
             if (wallpapersColorsChanged) {
                 colorProvider.homeWallpaperColors = wallpaperColors3
                 colorProvider.lockWallpaperColors = wallpaperColors2
@@ -223,11 +218,11 @@ class ColorSectionController(
                     if (wallpapersColorsChanged) {
                         ColorProvider.loadSeedColors(
                             colorProvider,
-                            wallpaperColors3,
-                            wallpaperColors2
+                            colorProvider.homeWallpaperColors,
+                            colorProvider.lockWallpaperColors
                         )
                     }
-                    optionsFetcher.onOptionsLoaded(colorProvider.colorBundles!!)
+                    colorProvider.colorBundles?.let { optionsFetcher.onOptionsLoaded(it) }
                 }
             } else {
                 optionsFetcher.onOptionsLoaded(list)
@@ -251,8 +246,9 @@ class ColorSectionController(
     }
 
     override fun onSaveInstanceState(bundle: Bundle) {
-        val viewPager2 = mColorViewPager
-        bundle.putInt("COLOR_TAB_POSITION", viewPager2.currentItem)
+        // https://github.com/AOSPA/android_packages_apps_ThemePicker/commit/8b23f25e3221aa99d7c686ff6a8307c14a622c66
+        if (this::mColorViewPager.isInitialized)
+            bundle.putInt("COLOR_TAB_POSITION", mColorViewPager.currentItem)
     }
 
     init {

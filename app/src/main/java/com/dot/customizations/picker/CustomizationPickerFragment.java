@@ -121,10 +121,6 @@ public class CustomizationPickerFragment extends AppbarFragment implements
     }
 
     private void restoreViewState(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            mNestedScrollView.post(() ->
-                    mNestedScrollView.setScrollY(savedInstanceState.getInt(SCROLL_POSITION_Y)));
-        }
     }
 
     @Override

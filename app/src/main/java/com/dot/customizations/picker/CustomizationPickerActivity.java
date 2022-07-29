@@ -48,7 +48,7 @@ import com.dot.customizations.picker.AppbarFragment.AppbarFragmentHost;
 import com.dot.customizations.picker.CategoryFragment.CategoryFragmentHost;
 import com.dot.customizations.picker.CategorySelectorFragment.CategorySelectorFragmentHost;
 import com.dot.customizations.picker.MyPhotosStarter.PermissionChangedListener;
-import com.dot.customizations.picker.extras.ExtrasFragment;
+import com.dot.customizations.model.extras.ExtrasFragment;
 import com.dot.customizations.picker.individual.IndividualPickerFragment.IndividualPickerFragmentHost;
 import com.dot.customizations.util.DeepLinkUtils;
 import com.dot.customizations.util.LaunchUtils;

@@ -20,9 +20,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationSectionController
-import com.dot.customizations.picker.applock.AppLockFragment
 import com.dot.customizations.picker.applock.AppLockSectionView
-import com.dot.customizations.picker.applock.BiometricVerification
 
 class AppLockSectionController(
     private val mSectionNavigationController:

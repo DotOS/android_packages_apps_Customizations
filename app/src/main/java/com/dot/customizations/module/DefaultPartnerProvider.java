@@ -58,10 +58,11 @@ public class DefaultPartnerProvider implements PartnerProvider {
     @Nullable
     protected Pair<String, Resources> findSystemApk(PackageManager pm) {
         final Intent intent = new Intent(PartnerProvider.ACTION_PARTNER_CUSTOMIZATION);
-        for (ResolveInfo info : pm.queryBroadcastReceivers(intent, 0)) {
+        for (ResolveInfo info : pm.queryIntentActivities(intent, 0)) {
             if (info.activityInfo != null
-                    && (info.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                /*&& (info.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0*/) {
                 final String packageName = info.activityInfo.packageName;
+                Log.d("WallpaperDot", packageName);
                 try {
                     final Resources res = pm.getResourcesForApplication(packageName);
                     return Pair.create(packageName, res);

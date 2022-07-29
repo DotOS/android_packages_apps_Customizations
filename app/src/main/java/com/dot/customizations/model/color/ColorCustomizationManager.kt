@@ -118,6 +118,41 @@ class ColorCustomizationManager(
         return true
     }
 
+    fun setThemeBundle(fragment: ColorPaletteFragment, option: ColorOption) {
+        if (SystemClock.elapsedRealtime() - fragment.mLastColorApplyingTime >= 500) {
+            fragment.mLastColorApplyingTime = SystemClock.elapsedRealtime()
+            val callback: CustomizationManager.Callback = object : CustomizationManager.Callback {
+                override fun onError(th2: Throwable?) {
+                    Log.w("ColorSectionController", "Apply theme with error: null")
+                }
+
+                override fun onSuccess() {
+                    val wallpaperColors = fragment.mLockWallpaperColors
+                    var i3 = 0
+                    val z2 =
+                        wallpaperColors == null || wallpaperColors == fragment.mHomeWallpaperColors
+                    if (TextUtils.equals(option.source, "preset")) {
+                        i3 = 26
+                    } else if (z2) {
+                        i3 = 25
+                    } else {
+                        val source = option.source
+                        if (source == "lock_wallpaper") {
+                            i3 = 24
+                        } else if (source == "home_wallpaper") {
+                            i3 = 23
+                        }
+                    }
+                    fragment.mEventLogger.logColorApplied(i3, option.mIndex)
+                }
+            }
+            sExecutorService.submit {
+                applyBundle(option, callback)
+            }
+            return
+        }
+    }
+
     fun setThemeBundle(colorSectionController: ColorSectionController, option: ColorOption) {
         if (SystemClock.elapsedRealtime() - colorSectionController.mLastColorApplyingTime >= 500) {
             colorSectionController.mLastColorApplyingTime = SystemClock.elapsedRealtime()
@@ -165,7 +200,6 @@ class ColorCustomizationManager(
         if (TextUtils.isEmpty(mStoredOverlays) || mStoredOverlays == null) {
             mStoredOverlays = "{}"
         }
-        var z4: Boolean
         var jSONObject: JSONObject? = null
         try {
             jSONObject = JSONObject(mStoredOverlays)
@@ -192,16 +226,14 @@ class ColorCustomizationManager(
                 if ("preset" != option.source) {
                     val wallpaperColors = mLockWallpaperColors
                     if (wallpaperColors != null && wallpaperColors != mHomeWallpaperColors) {
-                        z4 = false
                         jSONObject.put(
                             "android.theme.customization.color_both",
-                            if (!z4) "1" else "0"
+                            "1"
                         )
                     }
-                    z4 = true
                     jSONObject.put(
                         "android.theme.customization.color_both",
-                        if (!z4) "1" else "0"
+                        "0"
                     )
                 } else {
                     jSONObject.remove("android.theme.customization.color_both")

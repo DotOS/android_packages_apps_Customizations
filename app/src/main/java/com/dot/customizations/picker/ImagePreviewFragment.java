@@ -93,29 +93,29 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ImagePreviewFragment extends PreviewFragment {
 
-    private static final String TAG = "ImagePreviewFragment";
-    private static final float DEFAULT_WALLPAPER_MAX_ZOOM = 8f;
-    private static final Executor sExecutor = Executors.newCachedThreadPool();
+    static final String TAG = "ImagePreviewFragment";
+    static final float DEFAULT_WALLPAPER_MAX_ZOOM = 8f;
+    static final Executor sExecutor = Executors.newCachedThreadPool();
 
-    private final WallpaperSurfaceCallback mWallpaperSurfaceCallback =
+    final WallpaperSurfaceCallback mWallpaperSurfaceCallback =
             new WallpaperSurfaceCallback();
 
-    private final AtomicInteger mImageScaleChangeCounter = new AtomicInteger(0);
-    private final AtomicInteger mRecalculateColorCounter = new AtomicInteger(0);
-    protected SurfaceView mWorkspaceSurface;
-    protected WorkspaceSurfaceHolderCallback mWorkspaceSurfaceCallback;
-    protected ViewGroup mLockPreviewContainer;
-    protected LockScreenPreviewer mLockScreenPreviewer;
-    private SubsamplingScaleImageView mFullResImageView;
-    private Asset mWallpaperAsset;
-    private Point mScreenSize;
-    private Point mRawWallpaperSize; // Native size of wallpaper image.
-    private ImageView mLowResImageView;
-    private TouchForwardingLayout mTouchForwardingLayout;
-    private ConstraintLayout mContainer;
-    private SurfaceView mWallpaperSurface;
-    private boolean mIsSurfaceCreated = false;
-    private Future<Integer> mPlaceholderColorFuture;
+    final AtomicInteger mImageScaleChangeCounter = new AtomicInteger(0);
+    final AtomicInteger mRecalculateColorCounter = new AtomicInteger(0);
+    public SurfaceView mWorkspaceSurface;
+    public WorkspaceSurfaceHolderCallback mWorkspaceSurfaceCallback;
+    public ViewGroup mLockPreviewContainer;
+    public LockScreenPreviewer mLockScreenPreviewer;
+    public SubsamplingScaleImageView mFullResImageView;
+    public Asset mWallpaperAsset;
+    public Point mScreenSize;
+    public Point mRawWallpaperSize; // Native size of wallpaper image.
+    public ImageView mLowResImageView;
+    public TouchForwardingLayout mTouchForwardingLayout;
+    public ConstraintLayout mContainer;
+    public SurfaceView mWallpaperSurface;
+    public boolean mIsSurfaceCreated = false;
+    public Future<Integer> mPlaceholderColorFuture;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -482,12 +482,12 @@ public class ImagePreviewFragment extends PreviewFragment {
                 SetWallpaperViewModel.getCallback(mViewModelProvider));
     }
 
-    private void renderWorkspaceSurface() {
+    public void renderWorkspaceSurface() {
         mWorkspaceSurface.setZOrderMediaOverlay(true);
         mWorkspaceSurface.getHolder().addCallback(mWorkspaceSurfaceCallback);
     }
 
-    private void renderImageWallpaper() {
+    public void renderImageWallpaper() {
         mWallpaperSurface.getHolder().addCallback(mWallpaperSurfaceCallback);
     }
 
