@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:sharedUserId="android.uid.system"
     package="com.dot.customizations"
-    tools:ignore="ProtectedPermissions">
+    tools:ignore="ProtectedPermissions, QueryAllPackagesPermission">
 
     <!-- Custom permission to enforce that only this app can notify the running live wallpaper that
              the rotating wallpaper image data changed. -->
@@ -23,8 +23,8 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SET_WALLPAPER_COMPONENT" />
     <uses-permission android:name="android.permission.MODIFY_DAY_NIGHT_MODE" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="com.android.wallpaper.NOTIFY_ROTATING_WALLPAPER_CHANGED" />
 
     <queries>

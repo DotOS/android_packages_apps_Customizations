@@ -11,9 +11,13 @@ import com.dot.customizations.model.color.MonetSectionController
 import com.dot.customizations.model.extras.ExtrasSectionController
 import com.dot.customizations.model.grid.GridOptionsManager
 import com.dot.customizations.model.grid.GridSectionController
+import com.dot.customizations.model.iconpack.IconPackManager
+import com.dot.customizations.model.iconpack.IconPackSectionController
 import com.dot.customizations.model.mode.DarkModeSectionController
+import com.dot.customizations.model.theme.OverlayManagerCompat
 import com.dot.customizations.model.themedicon.ThemedIconSectionController
 import com.dot.customizations.model.themedicon.ThemedIconSwitchProvider
+
 
 /**
  * [CustomizationSections] for the customization picker.
@@ -69,6 +73,14 @@ class DefaultCustomizationSections : CustomizationSections {
         sectionControllers.add(
             GridSectionController(
                 GridOptionsManager.getInstance(activity), sectionNavigationController
+            )
+        )
+
+        // Icon pack selection section.
+        sectionControllers.add(
+            IconPackSectionController(
+                IconPackManager.getInstance(activity, OverlayManagerCompat(activity)),
+                sectionNavigationController
             )
         )
 

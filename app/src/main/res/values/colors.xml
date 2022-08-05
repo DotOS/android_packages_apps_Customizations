@@ -26,5 +26,6 @@
     <color name="smartspace_preview_shadow_color_dark">#B0000000</color>
     <color name="smartspace_preview_shadow_color_transparent">@android:color/transparent</color>
     <color name="dot_background3">@*android:color/system_accent1_400</color>
+    <color name="theme_preview_icon_color">#1B1B1B</color>
 
 </resources>

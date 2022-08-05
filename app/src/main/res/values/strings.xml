@@ -542,5 +542,7 @@
     <string name="app_lock_footer">Bubbles will be automatically dismissed after timeout</string>
     <string name="color_show_more">More colors</string>
 
+    <string name="icon_pack_title">System Icon Packs</string>
+    <string name="icon_preview_card_content_description">Icon Preview</string>
 
 </resources>

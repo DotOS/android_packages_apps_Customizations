@@ -16,4 +16,5 @@
 -->
 <resources>
     <color name="dot_background3">@*android:color/system_accent1_200</color>
+    <color name="theme_preview_icon_color">@color/material_white_100</color>
 </resources>
