@@ -351,6 +351,14 @@ class ExtrasViewModel(app: Application) : AndroidViewModel(app) {
                 setting = "STATUS_BAR_CLOCK"
             )
 
+            secureSettingsSwitch(
+                context,
+                mTitleRes = R.string.wifi_standard_title,
+                mSummaryRes = R.string.wifi_standard_summary,
+                mDefault = 0,
+                setting = "show_wifi_standard_icon"
+            )
+
             subScreen {
                 title = context.getString(R.string.status_bar_clock_title)
                 summaryRes = R.string.status_bar_clock_summary

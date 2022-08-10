@@ -1206,4 +1206,8 @@
     <string name="reticker_summary">Replace your notifications with a redesigned version of tickers. \nSlim and less invasive than a standard notification</string>
     <string name="reticker_colored_title">Use app colored background</string>
     <string name="reticker_colored_summary">Replace reTicker background color using notification app main color</string>
+
+    <!-- Wifi Standard -->
+    <string name="wifi_standard_title">Show Wifi Standard</string>
+    <string name="wifi_standard_summary">Adds a small number on the wifi icon that indicates the connected wifi generation.</string>
 </resources>
