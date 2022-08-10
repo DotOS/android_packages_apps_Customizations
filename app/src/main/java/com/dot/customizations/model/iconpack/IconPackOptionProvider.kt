@@ -78,14 +78,14 @@ class IconPackOptionProvider(private val mContext: Context, manager: OverlayMana
                     TAG, String.format(
                         "Couldn't load icon overlay details for %s, will skip it",
                         overlayPackage
-                    ), e
+                    )
                 )
             } catch (e: PackageManager.NameNotFoundException) {
                 Log.w(
                     TAG, String.format(
                         "Couldn't load icon overlay details for %s, will skip it",
                         overlayPackage
-                    ), e
+                    )
                 )
             }
         }
@@ -150,9 +150,9 @@ class IconPackOptionProvider(private val mContext: Context, manager: OverlayMana
                 option.addIcon(loadIconPreviewDrawable(iconName, ResourceConstants.ANDROID_PACKAGE))
             }
         } catch (e: PackageManager.NameNotFoundException) {
-            Log.w(TAG, "Didn't find SystemUi package icons, will skip option", e)
+            Log.w(TAG, "Didn't find SystemUi package icons, will skip option")
         } catch (e: Resources.NotFoundException) {
-            Log.w(TAG, "Didn't find SystemUi package icons, will skip option", e)
+            Log.w(TAG, "Didn't find SystemUi package icons, will skip option")
         }
         option.addOverlayPackage(ResourceConstants.OVERLAY_CATEGORY_ICON_ANDROID, null)
         option.addOverlayPackage(ResourceConstants.OVERLAY_CATEGORY_ICON_SYSUI, null)
