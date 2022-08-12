@@ -147,6 +147,11 @@
             android:resizeableActivity="false"
             android:theme="@style/WallpaperTheme.Preview" />
 
+        <provider android:name="com.google.android.apps.wallpaper.provider.RecentWallpapersProvider"
+            android:permission="android.permission.MONITOR_INPUT"
+            android:exported="true"
+            android:authorities="com.google.android.apps.wallpaper.recents"/>
+
     </application>
 
 </manifest>
