@@ -24,6 +24,7 @@ fun PreferenceScreen.Builder.fragmentPreference(
 /**
  * [Note] : Selection keys must match Settings Provider's values
  */
+@OptIn(kotlin.ExperimentalStdlibApi::class)
 fun PreferenceScreen.Builder.systemSettingsSingleChoice(
     context: Context,
     mTitle: CharSequence? = null,
@@ -44,6 +45,7 @@ fun PreferenceScreen.Builder.systemSettingsSingleChoice(
 /**
  * [Note] : Selection keys must match Settings Provider's values
  */
+@OptIn(kotlin.ExperimentalStdlibApi::class)
 fun PreferenceScreen.Builder.secureSettingsSingleChoice(
     context: Context,
     mTitle: CharSequence? = null,
@@ -61,6 +63,7 @@ fun PreferenceScreen.Builder.secureSettingsSingleChoice(
     }
 }
 
+@OptIn(kotlin.ExperimentalStdlibApi::class)
 fun PreferenceScreen.Builder.secureSettingsSeekBar(
     context: Context,
     mTitle: CharSequence? = null,
@@ -90,6 +93,7 @@ fun PreferenceScreen.Builder.secureSettingsSeekBar(
     }
 }
 
+@OptIn(kotlin.ExperimentalStdlibApi::class)
 fun PreferenceScreen.Builder.systemSettingsSeekBar(
     context: Context,
     mTitle: CharSequence? = null,
@@ -119,6 +123,7 @@ fun PreferenceScreen.Builder.systemSettingsSeekBar(
     }
 }
 
+@OptIn(kotlin.ExperimentalStdlibApi::class)
 fun PreferenceScreen.Builder.globalSettingsSwitch(
     context: Context,
     mTitle: CharSequence? = null,
@@ -141,6 +146,7 @@ fun PreferenceScreen.Builder.globalSettingsSwitch(
     }
 }
 
+@OptIn(kotlin.ExperimentalStdlibApi::class)
 fun PreferenceScreen.Builder.systemSettingsSwitch(
     context: Context,
     mTitle: CharSequence? = null,
@@ -163,6 +169,7 @@ fun PreferenceScreen.Builder.systemSettingsSwitch(
     }
 }
 
+@OptIn(kotlin.ExperimentalStdlibApi::class)
 fun PreferenceScreen.Builder.secureSettingsSwitch(
     context: Context,
     mTitle: CharSequence? = null,

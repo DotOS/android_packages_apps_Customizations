@@ -24,34 +24,31 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
+import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.settingslib.collapsingtoolbar.databinding.CollapsingToolbarBaseLayoutBinding
+import androidx.recyclerview.widget.RecyclerView
 import com.dot.customizations.R
-import com.dot.customizations.databinding.FragmentApplockPickerBinding
 import com.dot.customizations.model.CustomizationSectionController
-import com.dot.customizations.picker.AppbarFragment
+import com.dot.customizations.picker.CollapsingToolbarFragment
+import com.google.android.material.appbar.AppBarLayout
 import de.Maxr1998.modernpreferences.PreferenceScreen
 import de.Maxr1998.modernpreferences.PreferencesAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListener,
-    MenuItem.OnActionExpandListener {
+class AppLockPickFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnScreenChangeListener,
+    MenuItem.OnActionExpandListener,
+    CustomizationSectionController.CustomizationSectionNavigationController {
 
     private val viewModel: AppLockViewModel by viewModels()
     private val preferencesAdapter get() = viewModel.pickerPreferenceAdapter
-    private var mSectionNavigationController:
-            CustomizationSectionController.CustomizationSectionNavigationController? = null
-
-    private var _rootbinding: CollapsingToolbarBaseLayoutBinding? = null
-    private val rootbinding get() = _rootbinding!!
-    private var _binding: FragmentApplockPickerBinding? = null
-    private val binding get() = _binding!!
 
     private var callback: PickerCallback? = null
 
@@ -65,9 +62,14 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
     }
     private lateinit var packageManager: PackageManager
 
+    private val appBar by lazy { view!!.findViewById<AppBarLayout>(com.android.settingslib.R.id.app_bar)}
+    private val appLoading by lazy { view!!.findViewById<ProgressBar>(R.id.appLoading)}
+    private val applockPickRecycler by lazy { view!!.findViewById<RecyclerView>(R.id.applockPickRecycler)}
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(false)
+        retainInstance = true
         packageManager = requireContext().packageManager
         packageList.addAll(packageManager.getInstalledPackages(0))
     }
@@ -77,31 +79,11 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _rootbinding = CollapsingToolbarBaseLayoutBinding.inflate(inflater)
-        retainInstance = true
-        if (mSectionNavigationController != null)
-            viewModel.navigationController = mSectionNavigationController
+        viewModel.navigationController = this
         viewModel.callback = callback
-        val parent =
-            rootbinding.root.findViewById<ViewGroup>(com.android.settingslib.collapsingtoolbar.R.id.content_frame)
-        parent?.removeAllViews()
-        _binding = FragmentApplockPickerBinding.inflate(
-            LayoutInflater.from(rootbinding.root.context),
-            parent,
-            true
-        )
-        binding.root.setOnApplyWindowInsetsListener { v: View, windowInsets: WindowInsets ->
-            v.setPadding(
-                v.paddingLeft,
-                v.paddingTop,
-                v.paddingRight,
-                windowInsets.systemWindowInsetBottom
-            )
-            windowInsets.consumeSystemWindowInsets()
-        }
-        setUpToolbar(rootbinding.root, true)
+        val view = super.onCreateView(inflater, container, savedInstanceState)
         setUpToolbarMenu(R.menu.app_list_menu)
-        return rootbinding.root
+        return view
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -129,7 +111,7 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onResume() {
         super.onResume()
-        viewModel.navigationController = mSectionNavigationController
+        viewModel.navigationController = this
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
@@ -139,7 +121,7 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
             setDisplayCategory(CATEGORY_BOTH)
             needsToHideProgressBar = true
             refreshList()
-            binding.applockPickRecycler.apply {
+            applockPickRecycler.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = preferencesAdapter
                 layoutAnimation = AnimationUtils.loadLayoutAnimation(
@@ -147,7 +129,7 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
                     R.anim.preference_layout_fall_down
                 )
             }
-            preferencesAdapter.restoreAndObserveScrollPosition(binding.applockPickRecycler)
+            preferencesAdapter.restoreAndObserveScrollPosition(applockPickRecycler)
             onScreenChanged(
                 preferencesAdapter.currentScreen,
                 preferencesAdapter.isInSubScreen()
@@ -158,17 +140,17 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
         // To prevent a large space on tool bar.
-        rootbinding.appBar.setExpanded(false /*expanded*/)
+        appBar.setExpanded(false /*expanded*/)
         // To prevent user expanding the collapsing tool bar view.
-        ViewCompat.setNestedScrollingEnabled(binding.applockPickRecycler, false)
+        ViewCompat.setNestedScrollingEnabled(applockPickRecycler, false)
         return true
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
         // We keep the collapsed status after user cancel the search function.
-        rootbinding.appBar.setExpanded(true /*expanded*/, true)
+        appBar.setExpanded(true /*expanded*/, true)
         // Allow user to expand the tool bar view.
-        ViewCompat.setNestedScrollingEnabled(binding.applockPickRecycler, true)
+        ViewCompat.setNestedScrollingEnabled(applockPickRecycler, true)
         return true
     }
 
@@ -212,10 +194,10 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
             if (viewModel.appList == null ||
                 // Compares the old list with the new one to make sure we're updating the adapter only when is necessary
                 (viewModel.appList != null && list.map { it.packageName } != viewModel.appList!!.map { it.packageName })) {
-                viewModel.updateApps(binding.applockPickRecycler, list)
+                viewModel.updateApps(applockPickRecycler, list)
             }
             if (needsToHideProgressBar) {
-                binding.appLoading.visibility = View.GONE
+                appLoading.visibility = View.GONE
                 needsToHideProgressBar = false
             }
         }
@@ -232,26 +214,22 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
     private fun getLabel(packageInfo: PackageInfo) =
         packageInfo.applicationInfo.loadLabel(packageManager).toString()
 
-    override fun getToolbarId(): Int {
-        return com.android.settingslib.collapsingtoolbar.R.id.action_bar
-    }
-
     override fun onDestroy() {
         preferencesAdapter.onScreenChangeListener = null
-        binding.applockPickRecycler.adapter = null
+        applockPickRecycler.adapter = null
         super.onDestroy()
     }
 
     override fun onScreenChanged(screen: PreferenceScreen, subScreen: Boolean) {
         setTitle(screen.title)
-        binding.applockPickRecycler.scheduleLayoutAnimation()
+        applockPickRecycler.scheduleLayoutAnimation()
         setHasOptionsMenu(subScreen)
     }
 
-    override fun setTitle(title: CharSequence?) {
-        rootbinding.collapsingToolbar.title = title
-        super.setTitle(title)
-    }
+   // override fun onBackPressed(): Boolean {
+   //     return preferencesAdapter.goBack()
+   // }
+
 
     data class AppInfo(
         val packageName: String,
@@ -268,13 +246,13 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
 
         fun newInstance(
             title: CharSequence?,
-            mSectionNavigationController: CustomizationSectionController.CustomizationSectionNavigationController,
             callback: PickerCallback,
-            customFilter: ((packageInfo: PackageInfo) -> Boolean)
+            customFilter: (packageInfo: PackageInfo) -> Boolean
         ): AppLockPickFragment {
             val fragment = AppLockPickFragment()
-            fragment.arguments = createArguments(title)
-            fragment.mSectionNavigationController = mSectionNavigationController
+            val arguments = createArguments(title)
+            arguments.putInt("layoutRes", R.layout.fragment_applock_picker)
+            fragment.arguments = arguments
             fragment.callback = callback
             fragment.setCustomFilter(customFilter)
             return fragment
@@ -295,4 +273,16 @@ class AppLockPickFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeL
          */
         fun onAppChanged(appInfo: AppInfo, isChecked: Boolean)
     }
+
+    override fun navigateTo(fragment: Fragment?) {
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment!!)
+            .addToBackStack(null)
+            .commit()
+        fragmentManager.executePendingTransactions()
+    }
+
+    override fun getRootFragment(): FragmentActivity = requireActivity()
 }

@@ -20,87 +20,60 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.settingslib.collapsingtoolbar.databinding.CollapsingToolbarBaseLayoutBinding
 import com.dot.customizations.R
-import com.dot.customizations.databinding.FragmentExtrasBinding
 import com.dot.customizations.model.CustomizationSectionController
-import com.dot.customizations.picker.AppbarFragment
+import com.dot.customizations.picker.CollapsingToolbarFragment
 import de.Maxr1998.modernpreferences.PreferenceScreen
 import de.Maxr1998.modernpreferences.PreferencesAdapter
 
-class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListener {
+class ExtrasFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnScreenChangeListener {
 
     private val viewModel: ExtrasViewModel by viewModels()
     private val preferencesAdapter get() = viewModel.preferencesAdapter
-    private lateinit var preferencesView: RecyclerView
     private var mSectionNavigationController:
             CustomizationSectionController.CustomizationSectionNavigationController? = null
 
-    private var _rootbinding: CollapsingToolbarBaseLayoutBinding? = null
-    private val rootbinding get() = _rootbinding!!
-    private var _binding: FragmentExtrasBinding? = null
-    private val binding get() = _binding!!
+    private val extrasRecycler by lazy { view!!.findViewById<RecyclerView>(R.id.extrasRecycler)}
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _rootbinding = CollapsingToolbarBaseLayoutBinding.inflate(inflater)
-        retainInstance = true
         if (mSectionNavigationController != null)
             viewModel.navigationController = mSectionNavigationController
-        val parent = rootbinding.root.findViewById<ViewGroup>(com.android.settingslib.collapsingtoolbar.R.id.content_frame)
-        parent?.removeAllViews()
-        _binding = FragmentExtrasBinding.inflate(LayoutInflater.from(rootbinding.root.context), parent, true)
-        binding.root.setOnApplyWindowInsetsListener { v: View, windowInsets: WindowInsets ->
-            v.setPadding(
-                v.paddingLeft,
-                v.paddingTop,
-                v.paddingRight,
-                windowInsets.systemWindowInsetBottom
-            )
-            windowInsets.consumeSystemWindowInsets()
-        }
-        setUpToolbar(rootbinding.root, true)
-        return rootbinding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenCreated {
-            with(binding) {
-                preferencesView = extrasRecycler.apply {
-                    layoutManager = LinearLayoutManager(requireContext())
-                    adapter = preferencesAdapter
-                    layoutAnimation = AnimationUtils.loadLayoutAnimation(
-                        requireContext(),
-                        R.anim.preference_layout_fall_down
-                    )
-                }
-                preferencesAdapter.restoreAndObserveScrollPosition(preferencesView)
-                onScreenChanged(
-                    preferencesAdapter.currentScreen,
-                    preferencesAdapter.isInSubScreen()
+             extrasRecycler.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = preferencesAdapter
+                layoutAnimation = AnimationUtils.loadLayoutAnimation(
+                    requireContext(),
+                    R.anim.preference_layout_fall_down
                 )
-                preferencesAdapter.onScreenChangeListener = this@ExtrasFragment
             }
+            preferencesAdapter.restoreAndObserveScrollPosition(extrasRecycler)
+            onScreenChanged(
+                preferencesAdapter.currentScreen,
+                preferencesAdapter.isInSubScreen()
+            )
+            preferencesAdapter.onScreenChangeListener = this@ExtrasFragment
         }
     }
 
-    override fun getToolbarId(): Int {
-        return com.android.settingslib.collapsingtoolbar.R.id.action_bar
+    override fun onResume() {
+        super.onResume()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onBackPressed(): Boolean {
@@ -109,18 +82,13 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
 
     override fun onDestroy() {
         preferencesAdapter.onScreenChangeListener = null
-        preferencesView.adapter = null
+        extrasRecycler.adapter = null
         super.onDestroy()
     }
 
     override fun onScreenChanged(screen: PreferenceScreen, subScreen: Boolean) {
         setTitle(screen.title)
-        preferencesView.scheduleLayoutAnimation()
-    }
-
-    override fun setTitle(title: CharSequence?) {
-        rootbinding.collapsingToolbar.title = title
-        super.setTitle(title)
+        extrasRecycler.scheduleLayoutAnimation()
     }
 
     companion object {
@@ -129,7 +97,9 @@ class ExtrasFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListen
             mSectionNavigationController: CustomizationSectionController.CustomizationSectionNavigationController
         ): ExtrasFragment {
             val fragment = ExtrasFragment()
-            fragment.arguments = createArguments(title)
+            val arguments = createArguments(title)
+            arguments.putInt("layoutRes", R.layout.fragment_extras)
+            fragment.arguments = arguments
             fragment.mSectionNavigationController = mSectionNavigationController
             return fragment
         }

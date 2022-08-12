@@ -544,5 +544,6 @@
 
     <string name="icon_pack_title">System Icon Packs</string>
     <string name="icon_preview_card_content_description">Icon Preview</string>
+    <string name="color_palette_title">More styles</string>
 
 </resources>

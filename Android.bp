@@ -1,0 +1,122 @@
+
+//
+// Build rule for Customizations dependencies lib.
+//
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_library_import {
+    name: "apibypass",
+    aars: ["static_libs/hiddenapibypass-4.3.aar"],
+    sdk_version: "current",
+    jetifier: true,
+}
+
+android_library_import {
+    name: "modernpreferences",
+    static_libs: [
+        "androidx-constraintlayout_constraintlayout",
+    ],
+    aars: ["app/libs/modernpreferences.aar"],
+    sdk_version: "current",
+    jetifier: true,
+}
+
+java_import {
+    name: "customizations_libs",
+    jars: [
+        "app/libs/WallpaperSharedLib.jar",
+        "app/libs/SystemUISharedLib.jar",
+    ],
+    jetifier: true,
+}
+
+android_library {
+    name: "settingslib",
+
+    static_libs: [
+        "androidx.appcompat_appcompat",
+        "androidx.core_core-ktx",
+        "androidx.preference_preference",
+        "com.google.android.material_material",
+    ],
+
+    optimize: {
+        enabled: false,
+    },
+
+    kotlincflags: ["-Xjvm-default=enable"],
+
+    sdk_version: "current",
+
+    resource_dirs: ["SettingsLibTheme/src/main/res"],
+
+    manifest: "SettingsLibTheme/src/main/AndroidManifest.xml",
+}
+
+prebuilt_etc {
+    name: "privapp_whitelist_com.dot.customizations.xml",
+    src: "privapp_whitelist_com.dot.customizations.xml",
+    system_ext_specific: true,
+    sub_dir: "permissions",
+}
+
+android_app {
+    name: "Customizations",
+
+    srcs: [
+        "app/src/main/java/**/*.java",
+        "app/src/main/java/**/*.kt",
+    ],
+    
+    resource_dirs: ["app/src/main/res"],
+
+    static_libs: [
+        "settingslib",
+        "customizations_libs",
+        "androidx.appcompat_appcompat",
+        "androidx.cardview_cardview",
+        "androidx.activity_activity-ktx",
+        "androidx.fragment_fragment-ktx",
+        "androidx.biometric_biometric",
+        "androidx-constraintlayout_constraintlayout",
+        "androidx.exifinterface_exifinterface",
+        "androidx.lifecycle_lifecycle-runtime-ktx",
+        "androidx.recyclerview_recyclerview",
+        "androidx.slice_slice-view",
+        "androidx.viewpager2_viewpager2",
+        "com.google.android.material_material",
+        "glide-prebuilt",
+        "kotlinx-coroutines-android",
+        "kotlinx-coroutines-core",
+        "libbackup",
+        "subsampling-scale-image-view",
+        "SystemUI-statsd",
+        "guava",
+        "volley",
+        "modernpreferences",
+        "libWallpaperPicker",
+        "apibypass", // Needed for keeping gradle compatibility
+        "colorkt",
+    ],
+
+    use_embedded_native_libs: true,
+
+    optimize: {
+        enabled: false,
+    },
+    kotlincflags: ["-Xjvm-default=enable"],
+
+    certificate: "platform",
+
+    privileged: true,
+    system_ext_specific: true,
+    platform_apis: true,
+
+    manifest: "app/src/main/AndroidManifest.xml",
+
+    overrides: ["ThemePicker", "WallpaperPicker", "WallpaperPicker2", "WallpaperCropper", "WallpaperPickerGoogleRelease"],
+
+    required: ["privapp_whitelist_com.dot.customizations.xml"],
+}

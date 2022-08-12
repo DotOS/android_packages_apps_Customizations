@@ -15,6 +15,7 @@
  */
 package com.dot.customizations.picker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,10 +69,11 @@ public class CustomizationPickerFragment extends AppbarFragment implements
         return fragment;
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(com.android.settingslib.collapsingtoolbar.R.layout.collapsing_toolbar_base_layout,
+        final View view = inflater.inflate(com.android.settingslib.R.layout.collapsing_toolbar_base_layout,
                 container, /* attachToRoot= */ false);
         setContentView(view, R.layout.fragment_customization_picker);
         setUpToolbar(view, ActivityUtils.isLaunchedFromSettingsRelated(requireActivity().getIntent()));
@@ -113,7 +115,7 @@ public class CustomizationPickerFragment extends AppbarFragment implements
     }
 
     private void setContentView(View view, int layoutResId) {
-        final ViewGroup parent = view.findViewById(com.android.settingslib.collapsingtoolbar.R.id.content_frame);
+        final ViewGroup parent = view.findViewById(com.android.settingslib.R.id.content_frame);
         if (parent != null) {
             parent.removeAllViews();
         }
@@ -131,7 +133,7 @@ public class CustomizationPickerFragment extends AppbarFragment implements
 
     @Override
     protected int getToolbarId() {
-        return com.android.settingslib.collapsingtoolbar.R.id.action_bar;
+        return com.android.settingslib.R.id.action_bar;
     }
 
     @Override

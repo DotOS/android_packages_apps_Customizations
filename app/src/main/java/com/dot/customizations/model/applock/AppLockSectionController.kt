@@ -33,8 +33,7 @@ class AppLockSectionController(
             .inflate(R.layout.applock_section_view, null) as AppLockSectionView
         val targetFragment =
             AppLockFragment.newInstance(
-                context!!.getString(R.string.app_lock_title),
-                mSectionNavigationController
+                context!!.getString(R.string.app_lock_title)
             )
         sectionView.setOnClickListener {
             BiometricVerification(mSectionNavigationController.rootFragment).setCallback(object :

@@ -62,7 +62,9 @@
         android:requiredForAllUsers="true"
         android:restoreAnyVersion="true"
         android:supportsRtl="true"
-        android:theme="@style/CustomizationTheme">
+        android:theme="@style/CustomizationTheme"
+        tools:replace="android:appComponentFactory"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory">
         <activity
             android:name=".picker.CustomizationPickerActivity"
             android:exported="true"

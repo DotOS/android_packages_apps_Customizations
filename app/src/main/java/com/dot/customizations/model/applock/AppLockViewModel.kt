@@ -78,7 +78,6 @@ class AppLockViewModel(app: Application) : AndroidViewModel(app) {
             fragmentPreference(it,
                 AppLockPickFragment.newInstance(
                     context.getString(R.string.app_lock_packages_title),
-                    it,
                     object : AppLockPickFragment.PickerCallback {
                         override val sourceComparator: List<String>
                             get() = appLockManager.packages
@@ -103,7 +102,6 @@ class AppLockViewModel(app: Application) : AndroidViewModel(app) {
             fragmentPreference(it,
                 AppLockPickFragment.newInstance(
                     context.getString(R.string.app_lock_notifications_title),
-                    it,
                     object : AppLockPickFragment.PickerCallback {
                         override val sourceComparator: List<String>
                             get() = appLockManager.packagesWithSecureNotifications

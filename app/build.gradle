@@ -45,9 +45,6 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
@@ -55,8 +52,6 @@ dependencies {
     compileOnly fileTree(dir: 'system_libs/', include: ['*.jar'])
     implementation fileTree(dir: 'libs/', include: ['*.jar', '*.aar'])
 
-
-    implementation project(":SettingsLibToolbar")
     implementation project(":SettingsLibTheme")
 
     implementation 'androidx.core:core-ktx:1.8.0'

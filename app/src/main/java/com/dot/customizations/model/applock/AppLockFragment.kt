@@ -20,48 +20,47 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.settingslib.collapsingtoolbar.databinding.CollapsingToolbarBaseLayoutBinding
 import com.dot.customizations.R
-import com.dot.customizations.databinding.FragmentApplockBinding
 import com.dot.customizations.model.CustomizationSectionController
 import com.dot.customizations.picker.AppbarFragment
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import de.Maxr1998.modernpreferences.PreferenceScreen
 import de.Maxr1998.modernpreferences.PreferencesAdapter
 
-class AppLockFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListener {
+class AppLockFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListener,
+    CustomizationSectionController.CustomizationSectionNavigationController {
 
     private val viewModel: AppLockViewModel by viewModels()
     private lateinit var preferencesView: RecyclerView
+    private var collapsingToolbar: CollapsingToolbarLayout? = null
     private var mSectionNavigationController:
-            CustomizationSectionController.CustomizationSectionNavigationController? = null
-
-    private var _rootbinding: CollapsingToolbarBaseLayoutBinding? = null
-    private val rootbinding get() = _rootbinding!!
-    private var _binding: FragmentApplockBinding? = null
-    private val binding get() = _binding!!
+            CustomizationSectionController.CustomizationSectionNavigationController = this
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _rootbinding = CollapsingToolbarBaseLayoutBinding.inflate(inflater)
+        val view = inflater.inflate(
+            com.android.settingslib.R.layout.collapsing_toolbar_base_layout,
+            container,
+            false
+        )
         retainInstance = true
         viewModel.navigationController = mSectionNavigationController
         viewModel.settingsPreferencesAdapter = PreferencesAdapter(viewModel.createSettingsScreen(requireContext()))
-        val parent =
-            rootbinding.root.findViewById<ViewGroup>(com.android.settingslib.collapsingtoolbar.R.id.content_frame)
+        collapsingToolbar = view.findViewById(com.android.settingslib.R.id.collapsing_toolbar)
+        val parent = view.findViewById<ViewGroup>(com.android.settingslib.R.id.content_frame)
         parent?.removeAllViews()
-        _binding = FragmentApplockBinding.inflate(
-            LayoutInflater.from(rootbinding.root.context),
-            parent,
-            true
-        )
-        binding.root.setOnApplyWindowInsetsListener { v: View, windowInsets: WindowInsets ->
+        LayoutInflater.from(parent.context).inflate(R.layout.fragment_applock, parent, true)
+
+        parent.setOnApplyWindowInsetsListener { v: View, windowInsets: WindowInsets ->
             v.setPadding(
                 v.paddingLeft,
                 v.paddingTop,
@@ -70,22 +69,22 @@ class AppLockFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListe
             )
             windowInsets.consumeSystemWindowInsets()
         }
-        setUpToolbar(rootbinding.root, true)
-        return rootbinding.root
+        setUpToolbar(view, true)
+        return view
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onResume() {
         super.onResume()
-        if (mSectionNavigationController != null)
-            viewModel.navigationController = mSectionNavigationController
+        viewModel.navigationController = mSectionNavigationController
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenCreated {
-            preferencesView = binding.applockRecycler.apply {
+            preferencesView = view.findViewById(R.id.applockRecycler)
+            preferencesView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = viewModel.settingsPreferencesAdapter
                 layoutAnimation = AnimationUtils.loadLayoutAnimation(
@@ -103,7 +102,7 @@ class AppLockFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListe
     }
 
     override fun getToolbarId(): Int {
-        return com.android.settingslib.collapsingtoolbar.R.id.action_bar
+        return com.android.settingslib.R.id.action_bar
     }
 
     override fun onBackPressed(): Boolean {
@@ -122,19 +121,29 @@ class AppLockFragment : AppbarFragment(), PreferencesAdapter.OnScreenChangeListe
     }
 
     override fun setTitle(title: CharSequence?) {
-        rootbinding.collapsingToolbar.title = title
+        collapsingToolbar?.title = title
         super.setTitle(title)
     }
 
     companion object {
         fun newInstance(
-            title: CharSequence?,
-            mSectionNavigationController: CustomizationSectionController.CustomizationSectionNavigationController
+            title: CharSequence?
         ): AppLockFragment {
             val fragment = AppLockFragment()
             fragment.arguments = createArguments(title)
-            fragment.mSectionNavigationController = mSectionNavigationController
             return fragment
         }
     }
+
+    override fun navigateTo(fragment: Fragment?) {
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment!!)
+            .addToBackStack(null)
+            .commit()
+        fragmentManager.executePendingTransactions()
+    }
+
+    override fun getRootFragment(): FragmentActivity = requireActivity()
 }
