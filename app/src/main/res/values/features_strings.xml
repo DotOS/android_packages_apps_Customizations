@@ -1210,4 +1210,10 @@
     <!-- Wifi Standard -->
     <string name="wifi_standard_title">Show Wifi Standard</string>
     <string name="wifi_standard_summary">Adds a small number on the wifi icon that indicates the connected wifi generation.</string>
+
+    <!-- Brightness control -->
+    <string name="status_bar_brightness_control_title">Brightness control</string>
+    <string name="status_bar_brightness_control_summary">Adjust brightness by sliding across the status bar</string>
+
+    <string name="gestures_double_tap_summary">Double tap gestures</string>
 </resources>

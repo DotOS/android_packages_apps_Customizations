@@ -68,10 +68,69 @@ class ExtrasViewModel(app: Application) : AndroidViewModel(app) {
         sectionStatusBar(context)
         sectionNotifications(context)
         sectionQuickSettings(context)
+        sectionGestures(context)
         pref("beta") {
             title = "Beta"
             summary = "Features list is incomplete and some might not work.\nDO NOT REPORT"
             enabled = false
+        }
+    }
+
+    /**
+     * [subScreen] Gestures
+     */
+    private fun PreferenceScreen.Builder.sectionGestures(context: Context): PreferenceScreen {
+        return subScreen {
+            title = context.getString(R.string.gestures_title)
+
+            systemSettingsSwitch(
+                context,
+                mTitleRes = R.string.status_bar_brightness_control_title,
+                mSummaryRes = R.string.status_bar_brightness_control_summary,
+                mDefault = 0,
+                setting = "status_bar_brightness_control"
+            )
+
+            systemSettingsSingleChoice(
+                context,
+                mTitleRes = R.string.torch_power_button_gesture_title,
+                mSelections = arrayListOf(
+                    SelectionItem("0", R.string.torch_power_button_gesture_none),
+                    SelectionItem("1", R.string.torch_power_button_gesture_dt),
+                    SelectionItem("2", R.string.torch_power_button_gesture_lp),
+                ),
+                mDefault = 0,
+                setting = "torch_power_button_gesture"
+            )
+
+            subScreen {
+                title = context.getString(R.string.gestures_title)
+                summary = context.getString(R.string.gestures_double_tap_summary)
+
+                systemSettingsSwitch(
+                    context,
+                    mTitleRes = R.string.double_tap_to_sleep_lockscreen_title,
+                    mSummaryRes = R.string.double_tap_to_sleep_lockscreen_summary,
+                    mDefault = 1,
+                    setting = "double_tap_sleep_lockscreen"
+                )
+
+                systemSettingsSwitch(
+                    context,
+                    mTitleRes = R.string.double_tap_to_sleep_title,
+                    mSummaryRes = R.string.double_tap_to_sleep_summary,
+                    mDefault = 1,
+                    setting = "double_tap_sleep_gesture"
+                )
+
+                systemSettingsSwitch(
+                    context,
+                    mTitleRes = R.string.double_tap_on_doze_to_wake_title,
+                    mSummaryRes = R.string.double_tap_on_doze_to_wake_summary,
+                    mDefault = 1,
+                    setting = "doze_pulse_on_double_tap"
+                )
+            }
         }
     }
 
