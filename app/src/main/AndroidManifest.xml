@@ -87,12 +87,12 @@
             android:exported="false"
             android:label="@string/app_name"
             android:resizeableActivity="false"
-            android:theme="@style/WallpaperTheme.NoBackground" />
+            android:theme="@style/DotWallpaperTheme.NoBackground" />
 
         <activity
             android:name=".picker.DeepLinkActivity"
             android:exported="true"
-            android:theme="@style/WallpaperTheme.NoBackground">
+            android:theme="@style/DotWallpaperTheme.NoBackground">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -121,19 +121,19 @@
             android:label="@string/app_name"
             android:parentActivityName=".picker.TopLevelPickerActivity"
             android:resizeableActivity="false"
-            android:theme="@style/WallpaperTheme" />
+            android:theme="@style/DotWallpaperTheme" />
 
         <activity
             android:name=".picker.PreviewActivity"
             android:resizeableActivity="false"
-            android:theme="@style/WallpaperTheme.Preview" />
+            android:theme="@style/DotWallpaperTheme.Preview" />
 
         <activity
             android:name=".picker.StandalonePreviewActivity"
             android:exported="true"
             android:label="Wallpaper"
             android:resizeableActivity="false"
-            android:theme="@style/WallpaperTheme.Preview">
+            android:theme="@style/DotWallpaperTheme.Preview">
             <intent-filter>
                 <action android:name="android.service.wallpaper.CROP_AND_SET_WALLPAPER" />
                 <action android:name="android.intent.action.ATTACH_DATA" />
@@ -145,7 +145,7 @@
         <activity
             android:name=".picker.ViewOnlyPreviewActivity"
             android:resizeableActivity="false"
-            android:theme="@style/WallpaperTheme.Preview" />
+            android:theme="@style/DotWallpaperTheme.Preview" />
 
         <provider android:name="com.google.android.apps.wallpaper.provider.RecentWallpapersProvider"
             android:permission="android.permission.MONITOR_INPUT"

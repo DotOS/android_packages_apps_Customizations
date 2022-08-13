@@ -72,7 +72,7 @@
     </style>
 
     <!-- Main themes -->
-    <style name="WallpaperTheme" parent="@android:style/Theme.DeviceDefault.Settings">
+    <style name="DotWallpaperTheme" parent="@android:style/Theme.DeviceDefault.Settings">
         <item name="colorPrimary">?android:colorPrimary</item>
         <item name="colorControlActivated">?attr/colorPrimary</item>
         <item name="android:statusBarColor">?attr/colorPrimary</item>
@@ -97,13 +97,13 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
-    <style name="WallpaperTheme.NoBackground">
+    <style name="DotWallpaperTheme.NoBackground">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowDisablePreview">true</item>
     </style>
 
-    <style name="WallpaperTheme.Preview" parent="@android:style/Theme.DeviceDefault.Settings">
+    <style name="DotWallpaperTheme.Preview" parent="@android:style/Theme.DeviceDefault.Settings">
         <item name="android:colorPrimary">@color/material_white_100</item>
         <item name="colorPrimary">@color/material_white_100</item>
         <item name="colorControlActivated">?attr/colorPrimary</item>

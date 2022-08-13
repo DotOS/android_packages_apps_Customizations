@@ -44,7 +44,7 @@ public abstract class BasePreviewActivity extends BaseActivity {
         Injector injector = InjectorProvider.getInjector();
         UserEventLogger mUserEventLogger = injector.getUserEventLogger(this);
         getWindow().setColorMode(ActivityInfo.COLOR_MODE_WIDE_COLOR_GAMUT);
-        setTheme(R.style.WallpaperTheme);
+        setTheme(R.style.DotWallpaperTheme);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
         // Check the launching intent's action to figure out the caller is from other application
