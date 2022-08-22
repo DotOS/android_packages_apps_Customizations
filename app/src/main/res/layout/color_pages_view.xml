@@ -14,14 +14,20 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/color_option_container"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/color_page_container"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.dot.customizations.widget.PageIndicator
+        android:id="@+id/color_page_indicator"
+        android:layout_marginTop="@dimen/color_page_indicator_margin_top"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal" />
-</FrameLayout>
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+</LinearLayout>

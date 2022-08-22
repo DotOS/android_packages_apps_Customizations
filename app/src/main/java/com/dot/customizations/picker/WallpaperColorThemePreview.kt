@@ -9,6 +9,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.dot.customizations.model.color.ColorUtils.isMonetEnabled
 import com.dot.customizations.model.color.ColorCustomizationManager
+import com.dot.customizations.model.theme.OverlayManagerCompat
 import com.google.android.material.resources.MaterialAttributes
 
 @SuppressLint("RestrictedApi")
@@ -26,7 +27,7 @@ interface WallpaperColorThemePreview {
             false
         } else {
             val instance =
-                ColorCustomizationManager.getInstance(activity)
+                ColorCustomizationManager.getInstance(activity, OverlayManagerCompat(activity))
             "preset" != instance!!.currentColorSource
         }
     }

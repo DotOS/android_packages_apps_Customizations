@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.dot.customizations.R;
 import com.google.android.material.tabs.TabLayout;
@@ -16,7 +17,7 @@ import java.lang.ref.WeakReference;
  *
  * <p>Don't use {@code TabLayoutMediator} for the tab layout, which binds the tab scrolling
  * animation that is unwanted for the separated tab design. Uses {@link
- * SeparatedTabLayout#setViewPager} to bind a {@link ViewPager2OSS} to use the proper tab effect.
+ * SeparatedTabLayout#setViewPager} to bind a {@link ViewPager2} to use the proper tab effect.
  */
 public final class SeparatedTabLayout extends TabLayout {
 
@@ -35,22 +36,22 @@ public final class SeparatedTabLayout extends TabLayout {
     /**
      * Binds the given {@code viewPager} to the {@link SeparatedTabLayout}.
      */
-    public void setViewPager(ViewPager2OSS viewPager) {
+    public void setViewPager(ViewPager2 viewPager) {
         viewPager.registerOnPageChangeCallback(new SeparatedTabLayoutOnPageChangeCallback(this));
         addOnTabSelectedListener(new SeparatedTabLayoutOnTabSelectedListener(viewPager));
     }
 
     private static class SeparatedTabLayoutOnTabSelectedListener implements
             OnTabSelectedListener {
-        private final WeakReference<ViewPager2OSS> mViewPagerRef;
+        private final WeakReference<ViewPager2> mViewPagerRef;
 
-        private SeparatedTabLayoutOnTabSelectedListener(ViewPager2OSS viewPager) {
+        private SeparatedTabLayoutOnTabSelectedListener(ViewPager2 viewPager) {
             mViewPagerRef = new WeakReference<>(viewPager);
         }
 
         @Override
         public void onTabSelected(Tab tab) {
-            ViewPager2OSS viewPager = mViewPagerRef.get();
+            ViewPager2 viewPager = mViewPagerRef.get();
             if (viewPager != null && viewPager.getCurrentItem() != tab.getPosition()) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
@@ -65,10 +66,10 @@ public final class SeparatedTabLayout extends TabLayout {
         }
     }
 
-    private static class SeparatedTabLayoutOnPageChangeCallback extends ViewPager2OSS.OnPageChangeCallback {
+    private static class SeparatedTabLayoutOnPageChangeCallback extends ViewPager2.OnPageChangeCallback {
         private final WeakReference<TabLayout> mTabLayoutRef;
-        private int mPreviousScrollState = ViewPager2OSS.SCROLL_STATE_IDLE;
-        private int mScrollState = ViewPager2OSS.SCROLL_STATE_IDLE;
+        private int mPreviousScrollState = ViewPager2.SCROLL_STATE_IDLE;
+        private int mScrollState = ViewPager2.SCROLL_STATE_IDLE;
 
         private SeparatedTabLayoutOnPageChangeCallback(TabLayout tabLayout) {
             mTabLayoutRef = new WeakReference<>(tabLayout);
@@ -99,8 +100,8 @@ public final class SeparatedTabLayout extends TabLayout {
         }
 
         private boolean isUserDragging() {
-            return mPreviousScrollState == ViewPager2OSS.SCROLL_STATE_DRAGGING
-                    && mScrollState == ViewPager2OSS.SCROLL_STATE_SETTLING;
+            return mPreviousScrollState == ViewPager2.SCROLL_STATE_DRAGGING
+                    && mScrollState == ViewPager2.SCROLL_STATE_SETTLING;
         }
 
         private void updateTabPositionIfNeeded(int position) {

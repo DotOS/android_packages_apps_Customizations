@@ -1,373 +1,282 @@
+/*
+ * Copyright (C) 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.dot.customizations.model.color
 
 import android.app.WallpaperColors
 import android.content.Context
 import android.content.res.ColorStateList
-import android.provider.Settings
-import android.util.Log
-import androidx.core.graphics.ColorUtils
-import com.android.internal.graphics.cam.Cam
-import com.dot.customizations.compat.WallpaperManagerCompat
+import android.content.res.Resources
+import android.text.TextUtils
+import androidx.annotation.ColorInt
+import androidx.core.graphics.ColorUtils.setAlphaComponent
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import com.dot.customizations.model.CustomizationManager.OptionsFetchedListener
+import com.dot.customizations.model.ResourceConstants.COLOR_BUNDLES_ARRAY_NAME
+import com.dot.customizations.model.ResourceConstants.COLOR_BUNDLE_MAIN_COLOR_PREFIX
+import com.dot.customizations.model.ResourceConstants.COLOR_BUNDLE_NAME_PREFIX
+import com.dot.customizations.model.ResourceConstants.COLOR_BUNDLE_STYLE_PREFIX
+import com.dot.customizations.model.ResourceConstants.OVERLAY_CATEGORY_SYSTEM_PALETTE
+import com.dot.customizations.model.ResourceConstants.OVERLAY_CATEGORY_COLOR
 import com.dot.customizations.model.ResourcesApkProvider
 import com.dot.customizations.model.color.ColorUtils.toColorString
+import com.dot.customizations.compat.WallpaperManagerCompat
+import com.dot.customizations.model.color.ColorOptionsProvider.COLOR_SOURCE_HOME
+import com.dot.customizations.model.color.ColorOptionsProvider.COLOR_SOURCE_LOCK
 import com.dot.customizations.module.InjectorProvider
-import com.dot.customizations.monet.ACCENT3_HUE_SHIFT
 import com.dot.customizations.monet.ColorScheme
-import dev.kdrag0n.colorkt.cam.Zcam
-import dev.kdrag0n.colorkt.cam.Zcam.Companion.toZcam
-import dev.kdrag0n.colorkt.data.Illuminants
-import dev.kdrag0n.colorkt.gamut.LchGamut.clipToLinearSrgb
-import dev.kdrag0n.colorkt.rgb.LinearSrgb.Companion.toLinear
-import dev.kdrag0n.colorkt.rgb.Srgb
-import dev.kdrag0n.colorkt.tristimulus.CieXyz.Companion.toXyz
-import dev.kdrag0n.colorkt.tristimulus.CieXyzAbs.Companion.toAbs
-import dev.kdrag0n.colorkt.ucs.lab.CieLab
-import dev.kdrag0n.colorkt.ucs.lab.Oklab.Companion.toOklab
+import com.dot.customizations.monet.Style
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import kotlin.math.roundToInt
 
+
+/**
+ * Default implementation of {@link ColorOptionsProvider} that reads preset colors from
+ * a stub APK.
+ */
 class ColorProvider(context: Context, stubPackageName: String) :
     ResourcesApkProvider(context, stubPackageName), ColorOptionsProvider {
-    var colorBundles: List<ColorOption>? = null
-    var customColorBundles: List<ColorOption>? = null
-    var homeWallpaperColors: WallpaperColors? = null
-    var lockWallpaperColors: WallpaperColors? = null
-    private fun buildBundle(
-        seed: Int,
-        index: Int,
-        mIsDefault: Boolean,
-        source: String?,
-        list: ArrayList<ColorOption>
-    ) {
 
-        val hashMap: HashMap<String?, String?> = HashMap()
-        val colorScheme = ColorScheme(seed, false)
-        val colorSchemeDark = ColorScheme(seed, true)
-        val secondaryColorLight = intArrayOf(
-            ColorUtils.setAlphaComponent(colorScheme.accent1[2], 255), ColorUtils.setAlphaComponent(
-                colorScheme.accent1[2], 255
-            ), ColorStateList.valueOf(
-                colorScheme.accent3[6]
-            ).withLStar(85.0f).colors[0], ColorUtils.setAlphaComponent(
-                colorScheme.accent1[6], 255
-            )
-        )
-        val secondaryColorDark = intArrayOf(
-            ColorUtils.setAlphaComponent(colorSchemeDark.accent1[2], 255),
-            ColorUtils.setAlphaComponent(
-                colorSchemeDark.accent1[2], 255
-            ),
-            ColorStateList.valueOf(
-                colorSchemeDark.accent3[6]
-            ).withLStar(85.0f).colors[0],
-            ColorUtils.setAlphaComponent(
-                colorSchemeDark.accent1[6], 255
-            )
-        )
-        var source3 = ""
-        val source2 = if (mIsDefault) {
-            source3
-        } else {
-            toColorString(seed)
-        }
-        hashMap["android.theme.customization.system_palette"] = source2
-        if (!mIsDefault) {
-            source3 = toColorString(seed)
-        }
-        hashMap["android.theme.customization.accent_color"] = source3
-        list.add(
-            ColorSeedOption(
-                source,
-                hashMap,
-                mIsDefault,
-                source!!,
-                1 + index,
-                ColorSeedOption.PreviewInfo(secondaryColorLight, secondaryColorDark)
-            )
-        )
+    companion object {
+        const val themeStyleEnabled = true
+        val styleSize = if (themeStyleEnabled) Style.values().size else 1
+        private const val TAG = "ColorProvider"
+        private const val MAX_SEED_COLORS = 4
+        private const val MAX_PRESET_COLORS = 4
+        private const val ALPHA_MASK = 0xFF
     }
 
-    private fun loadPreset() {
-        val bundlesList = ArrayList<String>()
-        val bundleNames = mStubApkResources.getStringArray(
-            mStubApkResources.getIdentifier(
-                "color_bundles",
-                "array",
-                mStubPackageName
-            )
-        )
-        for (i in bundleNames.indices) {
-            if (i == 4) break
-            bundlesList.add(bundleNames[i])
-        }
-        val colorPresetBundles = ArrayList<ColorOption>()
-        var position = 1;
-        for (bundle in bundlesList) {
-            val hashMap: HashMap<String?, String?> = HashMap()
-            val bundleName = getItemStringFromStub("bundle_name_", bundle)
-            val bundleColorPrimary = getItemColorFromStub("color_primary_", bundle)
-            val bundleColorSecondary = getItemColorFromStub("color_secondary_", bundle)
-            hashMap["android.theme.customization.system_palette"] =
-                toColorString(bundleColorSecondary)
-            hashMap["android.theme.customization.accent_color"] = toColorString(bundleColorPrimary)
-            val accentColor = ColorScheme(bundleColorPrimary, false).accentColor
-            val accentColor2 = ColorScheme(bundleColorPrimary, true).accentColor
-            colorPresetBundles.add(
-                ColorBundle(
-                    bundleName,
-                    hashMap,
-                    false,
-                    index = position,
-                    mPreviewInfo = ColorBundle.PreviewInfo(
-                        accentColor,
-                        accentColor2
-                    )
-                )
-            )
-            position++
-        }
-        this.colorBundles = colorPresetBundles
+    private val monetEnabled = ColorUtils.isMonetEnabled(context)
+    // TODO(b/202145216): Use style method to fetch the list of style.
+    private var styleList = if (themeStyleEnabled) arrayOf(
+        Style.TONAL_SPOT, Style.SPRITZ, Style.VIBRANT, Style.EXPRESSIVE
+    ) else arrayOf(Style.TONAL_SPOT)
+
+    private val scope = if (mContext is LifecycleOwner) {
+        mContext.lifecycleScope
+    } else {
+        CoroutineScope(Dispatchers.Default + SupervisorJob())
     }
 
-    fun buildColorSeeds(
-        wallpaperColors: WallpaperColors,
-        count: Int,
-        source: String?,
-        isDefault: Boolean,
-        list: ArrayList<ColorOption>
-    ) {
-        val list2: List<Int>
-        val list3: List<Int>
-        val seedColors: List<Int> =
-            if (Settings.Secure.getInt(mContext.contentResolver, "monet_engine_custom_color", 0) == 1) {
-                getCustomSeeds()
-            } else
-                ColorScheme.getSeedColors(wallpaperColors)
-        loadPreset()
-        buildBundle(
-            seedColors[0],
-            0,
-            isDefault,
-            source,
-            list
-        )
-        val size = seedColors.size - 1
-        list2 = if (size <= 0) {
-            ArrayList()
-        } else if (size != 1) {
-            val arrayList: ArrayList<Int> = ArrayList(size)
-            val listIterator = seedColors.listIterator(1)
-            while (listIterator.hasNext()) {
-                arrayList.add(listIterator.next())
-            }
-            arrayList
-        } else if (seedColors.isNotEmpty()) {
-            listOf(seedColors[seedColors.size - 1])
-        } else {
-            throw NoSuchElementException("List is empty.")
+    private var colorsAvailable = true
+    private var colorBundles: List<ColorOption>? = null
+    private var homeWallpaperColors: WallpaperColors? = null
+    private var lockWallpaperColors: WallpaperColors? = null
+
+
+    override fun isAvailable(): Boolean {
+        return monetEnabled && super.isAvailable() && colorsAvailable
+    }
+
+    override fun fetch(callback: OptionsFetchedListener<ColorOption>?, reload: Boolean,
+                       homeWallpaperColors: WallpaperColors?,
+                       lockWallpaperColors: WallpaperColors?) {
+        val wallpaperColorsChanged = this.homeWallpaperColors != homeWallpaperColors
+                || this.lockWallpaperColors != lockWallpaperColors
+        if (wallpaperColorsChanged) {
+            this.homeWallpaperColors = homeWallpaperColors
+            this.lockWallpaperColors = lockWallpaperColors
         }
-        val i3 = count - 1
-        var index4 = 0
-        if (i3 >= 0) {
-            list3 = if (i3 == 0) {
-                ArrayList()
-            } else (if (i3 >= list2.size) {
-                list2
-            } else if (i3 == 1) {
-                listOf(list2[0])
-            } else {
-                val arrayList2: ArrayList<Int> = ArrayList(i3)
-                var i5 = 0
-                for (obj in list2) {
-                    arrayList2.add(obj)
-                    i5++
-                    if (i5 == i3) {
-                        break
+        if(colorBundles == null || reload || wallpaperColorsChanged) {
+            scope.launch {
+                try {
+                    if (colorBundles == null || reload) {
+                        loadPreset()
                     }
+                    if (wallpaperColorsChanged || reload) {
+                        loadSeedColors(homeWallpaperColors, lockWallpaperColors)
+                    }
+                } catch (e: Throwable) {
+                    colorsAvailable = false
+                    callback?.onError(e)
+                    return@launch
                 }
-                arrayList2
-            })
-            for (seed in list3) {
-                index4++
-                buildBundle(seed, index4, false, source, list)
+                callback?.onOptionsLoaded(colorBundles)
             }
-            return
-        }
-        throw IllegalArgumentException("Requested element count $i3 is less than zero.")
-    }
-
-    fun buildCustomColorSeeds(
-        wallpaperColors: WallpaperColors,
-        list: ArrayList<ColorOption>
-    ) {
-        val seedColors: ArrayList<Int> = ColorScheme.getSeedColors(wallpaperColors) as ArrayList<Int>
-        val hueShifts = arrayListOf(
-            -90f,
-            -60f,
-            -30f,
-            20f,
-            40f,
-            60f,
-            75f,
-            90f,
-            120f,
-            160f,
-            180f,
-            200f,
-            220f,
-            -140f,
-            240f,
-            -100f
-        )
-        val tempList = ArrayList<Int>()
-        for (j in 0 until hueShifts.size) {
-            tempList.add(styleSeed(seedColors[0], 200.0, hueShifts[j]))
-        }
-        seedColors.clear()
-        seedColors.addAll(tempList)
-        for (i in seedColors.indices) {
-            buildBundle(seedColors[i], i, false, toColorString(seedColors[i]), list)
+        } else {
+            callback?.onOptionsLoaded(colorBundles)
         }
     }
 
-    private fun styleSeed(seed: Int, luminance: Double = 200.0, hue: Float = 60f): Int {
-        val cond = Zcam.ViewingConditions(
-            surroundFactor = Zcam.ViewingConditions.SURROUND_AVERAGE,
-            adaptingLuminance = 0.4 * luminance,
-            backgroundLuminance = CieLab(50.0, 0.0, 0.0).toXyz().y * luminance,
-            referenceWhite = Illuminants.D65.toAbs(luminance),
-        )
-        val src = Srgb(toColorString(seed))
-        val zcam = src.toLinear().toXyz().toAbs(luminance).toZcam(cond)
-        val colorful = zcam.copy(hue = wrapDegrees((zcam.hue + hue).roundToInt()).toDouble())
-        return colorful.clipToLinearSrgb().toSrgb().toRgb8()
+    private fun isLockScreenWallpaperLastApplied(): Boolean {
+        // The WallpaperId increases every time a new wallpaper is set, so the larger wallpaper id
+        // is the most recently set wallpaper
+        val manager = InjectorProvider.getInjector().getWallpaperManagerCompat(mContext)
+        return manager.getWallpaperId(WallpaperManagerCompat.FLAG_LOCK) >
+                manager.getWallpaperId(WallpaperManagerCompat.FLAG_SYSTEM)
     }
 
-    private fun wrapDegrees(degrees: Int): Int {
-        return when {
-            degrees < 0 -> {
-                (degrees % 360) + 360
-            }
-            degrees >= 360 -> {
-                degrees % 360
-            }
-            else -> {
-                degrees
-            }
+    private fun loadSeedColors(homeWallpaperColors: WallpaperColors?,
+                               lockWallpaperColors: WallpaperColors?) {
+        if (homeWallpaperColors == null) return
+
+        val bundles: MutableList<ColorOption> = ArrayList()
+        val colorsPerSource = if (lockWallpaperColors == null) {
+            MAX_SEED_COLORS
+        } else {
+            MAX_SEED_COLORS / 2
+        }
+
+        if (lockWallpaperColors != null) {
+            val shouldLockColorsGoFirst = isLockScreenWallpaperLastApplied()
+            // First half of the colors
+            buildColorSeeds(
+                if (shouldLockColorsGoFirst) lockWallpaperColors else homeWallpaperColors,
+                colorsPerSource,
+                if (shouldLockColorsGoFirst) COLOR_SOURCE_LOCK else COLOR_SOURCE_HOME,
+                true,
+                bundles)
+            // Second half of the colors
+            buildColorSeeds(
+                if (shouldLockColorsGoFirst) homeWallpaperColors else lockWallpaperColors,
+                MAX_SEED_COLORS - bundles.size / styleSize,
+                if (shouldLockColorsGoFirst) COLOR_SOURCE_HOME else COLOR_SOURCE_LOCK,
+                false,
+                bundles)
+        } else {
+            buildColorSeeds(homeWallpaperColors, colorsPerSource, COLOR_SOURCE_HOME, true, bundles)
+        }
+
+        bundles.addAll(colorBundles?.filterNot{it is ColorSeedOption} ?: emptyList())
+        colorBundles = bundles
+    }
+
+    private fun buildColorSeeds(wallpaperColors: WallpaperColors, maxColors: Int, source: String,
+                                containsDefault: Boolean, bundles: MutableList<ColorOption>) {
+        val seedColors = ColorScheme.getSeedColors(wallpaperColors)
+        val defaultSeed = seedColors.first()
+        buildBundle(defaultSeed, 0, containsDefault, source, bundles)
+        for ((i, colorInt) in seedColors.drop(1).take(maxColors - 1).withIndex()) {
+            buildBundle(colorInt, i + 1, false, source, bundles)
+        }
+    }
+
+    private fun buildBundle(colorInt: Int, i: Int, isDefault: Boolean, source: String,
+                            bundles: MutableList<ColorOption>) {
+        // TODO(b/202145216): Measure time cost in the loop.
+        for (style in styleList) {
+            val builder = ColorSeedOption.Builder()
+            val lightColorScheme = ColorScheme(colorInt, /* darkTheme= */ false, style)
+            val darkColorScheme = ColorScheme(colorInt, /* darkTheme= */ true, style)
+            builder.setLightColors(lightColorScheme.getLightColorPreview())
+                .setDarkColors(darkColorScheme.getDarkColorPreview())
+                .addOverlayPackage(OVERLAY_CATEGORY_SYSTEM_PALETTE,
+                    if (isDefault) "" else toColorString(colorInt)
+                )
+                .addOverlayPackage(OVERLAY_CATEGORY_COLOR,
+                    if (isDefault) "" else toColorString(colorInt)
+                )
+                .setSource(source)
+                .setStyle(style)
+                // Color option index value starts from 1.
+                .setIndex(i + 1)
+
+            if (isDefault) builder.asDefault()
+
+            bundles.add(builder.build())
         }
     }
 
     /**
-     * @param limitedList is used to show max 4 color options on the main page
+     * Returns the colors for the light theme version of the preview of a ColorScheme
+     * based on this order:
+     * |-------|
+     * | 0 | 1 |
+     * |---+---|
+     * | 2 | 3 |
+     * |-------|
      */
-    fun getCustomSeeds(limitedList: Boolean = true): List<Int> {
-        val seeds = ArrayList<Int>()
-        val prefs = mContext.getSharedPreferences("monet_custom_seeds", Context.MODE_PRIVATE)
-        val colorOverride = Settings.Secure.getInt(mContext.contentResolver,
-            "monet_engine_color_override", -1)
-        prefs.edit().putInt("color_seed_$colorOverride", colorOverride).apply()
-        if (prefs != null && prefs.all.isNotEmpty()) {
-            for (seed in prefs.all) {
-                if (limitedList && seeds.size == 4) break
-                if (seed.key.contains("color_seed_")) {
-                    seeds.add(seed.value as Int)
-                }
-            }
-        }
-        return seeds
+    @ColorInt
+    private fun ColorScheme.getLightColorPreview(): IntArray {
+        return intArrayOf(setAlphaComponent(this.accent1[2], ALPHA_MASK),
+            setAlphaComponent(this.accent1[2], ALPHA_MASK),
+            ColorStateList.valueOf(this.accent3[6]).withLStar(85f).defaultColor,
+            setAlphaComponent(this.accent1[6], ALPHA_MASK))
     }
 
-    companion object {
+    /**
+     * Returns the color for the dark theme version of the preview of a ColorScheme
+     * based on this order:
+     * |-------|
+     * | 0 | 1 |
+     * |---+---|
+     * | 2 | 3 |
+     * |-------|
+     */
+    @ColorInt
+    private fun ColorScheme.getDarkColorPreview(): IntArray {
+        return intArrayOf(setAlphaComponent(this.accent1[2], ALPHA_MASK),
+            setAlphaComponent(this.accent1[2], ALPHA_MASK),
+            ColorStateList.valueOf(this.accent3[6]).withLStar(85f).defaultColor,
+            setAlphaComponent(this.accent1[6], ALPHA_MASK))
+    }
 
-        fun loadSeedColors(
-            colorProvider: ColorProvider,
-            homeColors: WallpaperColors?,
-            lockColors: WallpaperColors?
-        ) {
-            val arrayList = ArrayList<ColorOption>()
-            if (homeColors != null) {
-                val count = if (lockColors == null) 4 else 2
-                if (lockColors != null) {
-                    val wallpaperManagerCompat: WallpaperManagerCompat =
-                        InjectorProvider.getInjector()
-                            .getWallpaperManagerCompat(colorProvider.mContext)
-                    var isDefault = true
-                    if (wallpaperManagerCompat.getWallpaperId(WallpaperManagerCompat.FLAG_LOCK) <= wallpaperManagerCompat.getWallpaperId(
-                            WallpaperManagerCompat.FLAG_SYSTEM
-                        )
-                    ) {
-                        isDefault = false
-                    }
-                    colorProvider.buildColorSeeds(
-                        if (isDefault) lockColors else homeColors,
-                        count,
-                        if (isDefault) "lock_wallpaper" else "home_wallpaper",
-                        true,
-                        arrayList
-                    )
-                    colorProvider.buildColorSeeds(
-                        if (isDefault) homeColors else lockColors,
-                        count,
-                        if (isDefault) "home_wallpaper" else "lock_wallpaper",
-                        false,
-                        arrayList
-                    )
-                } else {
-                    colorProvider.buildColorSeeds(
-                        homeColors,
-                        count,
-                        "home_wallpaper",
-                        true,
-                        arrayList
-                    )
-                }
-                val list = colorProvider.colorBundles
-                val arrayList2 = ArrayList<ColorOption>()
-                if (list != null) {
-                    for (t in list) {
-                        arrayList2.add(t)
-                    }
-                }
-                arrayList.addAll(arrayList2)
-                colorProvider.colorBundles = arrayList
-                loadCustomSeedColors(colorProvider, homeColors, lockColors)
-            }
-        }
-
-        private fun loadCustomSeedColors(
-            colorProvider: ColorProvider,
-            homeColors: WallpaperColors?,
-            lockColors: WallpaperColors?
-        ) {
-            val arrayList = ArrayList<ColorOption>()
-            if (homeColors != null) {
-                if (lockColors != null) {
-                    val wallpaperManagerCompat: WallpaperManagerCompat =
-                        InjectorProvider.getInjector()
-                            .getWallpaperManagerCompat(colorProvider.mContext)
-                    var isDefault = true
-                    if (wallpaperManagerCompat.getWallpaperId(WallpaperManagerCompat.FLAG_LOCK) <= wallpaperManagerCompat.getWallpaperId(
-                            WallpaperManagerCompat.FLAG_SYSTEM
-                        )
-                    ) {
-                        isDefault = false
-                    }
-                    colorProvider.buildCustomColorSeeds(
-                        if (isDefault) lockColors else homeColors,
-                        arrayList
-                    )
-                } else {
-                    colorProvider.buildCustomColorSeeds(
-                        homeColors,
-                        arrayList
-                    )
-                }
-                colorProvider.customColorBundles = arrayList
-            }
+    private fun ColorScheme.getPresetColorPreview(seed: Int): IntArray {
+        return when(this.style) {
+            Style.FRUIT_SALAD -> intArrayOf(seed, this.accent1[2])
+            Style.TONAL_SPOT -> intArrayOf(this.accentColor, this.accentColor)
+            else -> intArrayOf(this.accent1[2], this.accent1[2])
         }
     }
 
+    private suspend fun loadPreset() = withContext(Dispatchers.IO) {
+        val extractor = ColorBundlePreviewExtractor(mContext)
+        val bundles: MutableList<ColorOption> = ArrayList()
+
+        val bundleNames = getItemsFromStub(COLOR_BUNDLES_ARRAY_NAME)
+        // Color option index value starts from 1.
+        var index = 1
+        val maxPresetColors = if (themeStyleEnabled) bundleNames.size else MAX_PRESET_COLORS
+        for (bundleName in bundleNames.take(maxPresetColors)) {
+            val builder = ColorBundle.Builder()
+            builder.title = getItemStringFromStub(COLOR_BUNDLE_NAME_PREFIX, bundleName)
+            builder.setIndex(index)
+            val colorFromStub = getItemColorFromStub(COLOR_BUNDLE_MAIN_COLOR_PREFIX, bundleName)
+            extractor.addPrimaryColor(builder, colorFromStub)
+            extractor.addSecondaryColor(builder, colorFromStub)
+            if (themeStyleEnabled) {
+                val styleName = try {
+                    getItemStringFromStub(COLOR_BUNDLE_STYLE_PREFIX, bundleName)
+                } catch (e: Resources.NotFoundException) {
+                    null
+                }
+                styleName?.let { extractor.addColorStyle(builder, it) }
+                val style = try {
+                    if (styleName != null) Style.valueOf(styleName) else Style.TONAL_SPOT
+                } catch (e: IllegalArgumentException) {
+                    Style.TONAL_SPOT
+                }
+
+                val darkColors = ColorScheme(colorFromStub, true, style)
+                    .getPresetColorPreview(colorFromStub)
+                val lightColors = ColorScheme(colorFromStub, false, style)
+                    .getPresetColorPreview(colorFromStub)
+                builder.setColorPrimaryDark(darkColors[0]).setColorSecondaryDark(darkColors[1])
+                builder.setColorPrimaryLight(lightColors[0]).setColorSecondaryLight(lightColors[1])
+            }
+
+            extractor.addAndroidIconOverlay(builder)
+            bundles.add(builder.build(mContext))
+            index++
+        }
+
+        colorBundles = bundles
+    }
 }

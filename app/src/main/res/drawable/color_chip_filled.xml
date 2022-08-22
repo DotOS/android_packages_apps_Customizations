@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 
-     Copyright (C) 2022 The Android Open Source Project
+     Copyright (C) 2019 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,15 +15,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <corners
-                android:bottomRightRadius="@dimen/component_color_chip_small_size_default" />
-            <size
-                android:width="@dimen/component_color_chip_small_size_default"
-                android:height="@dimen/component_color_chip_small_size_default" />
-            <solid android:color="@android:color/black" />
-        </shape>
-    </item>
-</selector>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="oval">
+    <size
+        android:width="@dimen/component_color_chip_size"
+        android:height="@dimen/component_color_chip_size" />
+    <solid android:color="@android:color/black" />
+</shape>

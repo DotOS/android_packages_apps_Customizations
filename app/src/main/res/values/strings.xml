@@ -546,4 +546,8 @@
     <string name="icon_preview_card_content_description">Icon Preview</string>
     <string name="color_palette_title">More styles</string>
 
+    <!-- Title of a section of color selection option that obtains colors automatically from the
+        wallpaper instead of a set color [CHAR LIMIT=15] -->
+    <string name="adaptive_color_title">Dynamic</string>
+
 </resources>

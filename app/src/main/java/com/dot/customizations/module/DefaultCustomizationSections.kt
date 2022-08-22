@@ -48,7 +48,6 @@ class DefaultCustomizationSections : CustomizationSections {
                 activity,
                 wallpaperColorsViewModel,
                 lifecycleOwner,
-                sectionNavigationController,
                 savedInstanceState
             )
         )

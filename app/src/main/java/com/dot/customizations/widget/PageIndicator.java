@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package com.dot.customizations.widget;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -32,37 +31,27 @@ import com.dot.customizations.R;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
 /**
  * Page indicator widget, based on QS's page indicator:
- * <p>
+ *
  * Based on QS PageIndicator
  * Path: frameworks/base/packages/SystemUI/src/com/android/systemui/qs/PageIndicator.java
  */
 public class PageIndicator extends ViewGroup {
-
-    static final float MINOR_ALPHA = .42f;
     private static final String TAG = "PageIndicator";
     private static final boolean DEBUG = false;
     // The size of a single dot in relation to the whole animation.
     private static final float SINGLE_SCALE = .4f;
-    private static Method sMethodForceAnimationOnUI = null;
+    static final float MINOR_ALPHA = .42f;
     private final ArrayList<Integer> mQueuedPositions = new ArrayList<>();
     private final int mPageIndicatorWidth;
     private final int mPageIndicatorHeight;
     private final int mPageDotWidth;
     private int mPosition = -1;
     private boolean mAnimating;
-    public PageIndicator(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        mPageIndicatorWidth =
-                (int) context.getResources().getDimension(R.dimen.preview_indicator_width);
-        mPageIndicatorHeight =
-                (int) context.getResources().getDimension(R.dimen.preview_indicator_height);
-        mPageDotWidth = (int) (mPageIndicatorWidth * SINGLE_SCALE);
-    }    private final Animatable2.AnimationCallback mAnimationCallback =
+    private static Method sMethodForceAnimationOnUI = null;
+    private final Animatable2.AnimationCallback mAnimationCallback =
             new Animatable2.AnimationCallback() {
-
                 @Override
                 public void onAnimationEnd(Drawable drawable) {
                     super.onAnimationEnd(drawable);
@@ -79,7 +68,14 @@ public class PageIndicator extends ViewGroup {
                     }
                 }
             };
-
+    public PageIndicator(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mPageIndicatorWidth =
+                (int) context.getResources().getDimension(R.dimen.preview_indicator_width);
+        mPageIndicatorHeight =
+                (int) context.getResources().getDimension(R.dimen.preview_indicator_height);
+        mPageDotWidth = (int) (mPageIndicatorWidth * SINGLE_SCALE);
+    }
     public void setNumPages(int numPages) {
         setVisibility(numPages > 1 ? View.VISIBLE : View.INVISIBLE);
         if (mAnimating) {
@@ -101,7 +97,6 @@ public class PageIndicator extends ViewGroup {
         // Refresh state.
         setIndex(mPosition >> 1);
     }
-
     public void setLocation(float location) {
         int index = (int) location;
         setContentDescription(getContext().getString(R.string.accessibility_preview_pager,
@@ -110,7 +105,6 @@ public class PageIndicator extends ViewGroup {
         if (DEBUG) {
             Log.d(TAG, "setLocation " + location + " " + index + " " + position);
         }
-
         int lastPosition = mPosition;
         if (mQueuedPositions.size() != 0) {
             lastPosition = mQueuedPositions.get(mQueuedPositions.size() - 1);
@@ -126,10 +120,8 @@ public class PageIndicator extends ViewGroup {
             mQueuedPositions.add(position);
             return;
         }
-
         setPosition(position);
     }
-
     private void setPosition(int position) {
         if (mPosition >= 0 && Math.abs(mPosition - position) == 1) {
             animate(mPosition, position);
@@ -142,7 +134,6 @@ public class PageIndicator extends ViewGroup {
         }
         mPosition = position;
     }
-
     private void setIndex(int index) {
         final int N = getChildCount();
         for (int i = 0; i < N; i++) {
@@ -153,7 +144,6 @@ public class PageIndicator extends ViewGroup {
             v.setAlpha(getAlpha(i == index));
         }
     }
-
     private void animate(int from, int to) {
         if (DEBUG) {
             Log.d(TAG, "Animating from " + Integer.toHexString(from) + " to "
@@ -161,11 +151,9 @@ public class PageIndicator extends ViewGroup {
         }
         int fromIndex = from >> 1;
         int toIndex = to >> 1;
-
         // Set the position of everything, then we will manually control the two views involved
         // in the animation.
         setIndex(fromIndex);
-
         boolean fromTransition = (from & 1) != 0;
         boolean isAState = fromTransition ? from > to : from < to;
         int firstIndex = Math.min(fromIndex, toIndex);
@@ -181,20 +169,15 @@ public class PageIndicator extends ViewGroup {
         }
         // Lay the two views on top of each other.
         second.setTranslationX(first.getX() - second.getX());
-
         playAnimation(first, getTransition(fromTransition, isAState, false));
         first.setAlpha(getAlpha(false));
-
         playAnimation(second, getTransition(fromTransition, isAState, true));
         second.setAlpha(getAlpha(true));
-
         mAnimating = true;
     }
-
     private float getAlpha(boolean isMajor) {
         return isMajor ? 1 : MINOR_ALPHA;
     }
-
     private void playAnimation(ImageView imageView, int res) {
         Drawable drawable = getContext().getDrawable(res);
         if (!(drawable instanceof AnimatedVectorDrawable)) {
@@ -210,7 +193,6 @@ public class PageIndicator extends ViewGroup {
         avd.registerAnimationCallback(mAnimationCallback);
         avd.start();
     }
-
     private void forceAnimationOnUI(AnimatedVectorDrawable avd)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if (sMethodForceAnimationOnUI == null) {
@@ -221,7 +203,6 @@ public class PageIndicator extends ViewGroup {
             sMethodForceAnimationOnUI.invoke(avd);
         }
     }
-
     private int getTransition(boolean fromB, boolean isMajorAState, boolean isMajor) {
         if (isMajor) {
             if (fromB) {
@@ -253,7 +234,6 @@ public class PageIndicator extends ViewGroup {
             }
         }
     }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int N = getChildCount();
@@ -271,7 +251,6 @@ public class PageIndicator extends ViewGroup {
         int width = (mPageIndicatorWidth - mPageDotWidth) * (N - 1) + mPageDotWidth;
         setMeasuredDimension(width, mPageIndicatorHeight);
     }
-
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         final int N = getChildCount();
@@ -283,6 +262,4 @@ public class PageIndicator extends ViewGroup {
             getChildAt(i).layout(left, 0, mPageIndicatorWidth + left, mPageIndicatorHeight);
         }
     }
-
-
 }

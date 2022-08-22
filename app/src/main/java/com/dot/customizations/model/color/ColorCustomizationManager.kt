@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.dot.customizations.model.color
 
 import android.app.WallpaperColors
@@ -7,73 +22,160 @@ import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
-import android.os.SystemClock
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationManager
-import com.dot.customizations.model.CustomizationManager.OptionsFetchedListener
-import com.dot.customizations.picker.color.ColorSectionView
+import com.dot.customizations.model.ResourceConstants
+import com.dot.customizations.model.ResourceConstants.OVERLAY_CATEGORY_COLOR
+import com.dot.customizations.model.ResourceConstants.OVERLAY_CATEGORY_SYSTEM_PALETTE
+import com.dot.customizations.model.theme.OverlayManagerCompat
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.concurrent.Executors
 
-class ColorCustomizationManager(
-    val mProvider: ColorOptionsProvider,
-    private val mContentResolver: ContentResolver
+/** The Color manager to manage Color bundle related operations.  */
+class ColorCustomizationManager @VisibleForTesting internal constructor(
+    provider: ColorOptionsProvider, contentResolver: ContentResolver,
+    overlayManagerCompat: OverlayManagerCompat
 ) : CustomizationManager<ColorOption> {
-    var mCurrentOverlays: Map<String, String>? = null
+    private val mProvider: ColorOptionsProvider
+    private val mOverlayManagerCompat: OverlayManagerCompat
+    private val mContentResolver: ContentResolver
+    private val mObserver: ContentObserver
+    private var mCurrentOverlays: Map<String, String>? = null
+
+    @ColorOptionsProvider.ColorSource
     private var mCurrentSource: String? = null
-    var mHomeWallpaperColors: WallpaperColors? = null
-    var mLockWallpaperColors: WallpaperColors? = null
-
-    companion object {
-        var COLOR_OVERLAY_SETTINGS: Set<String>? = null
-        private var sColorCustomizationManager: ColorCustomizationManager? = null
-        val sExecutorService = Executors.newSingleThreadExecutor()!!
-        fun getInstance(
-            context: Context
-        ): ColorCustomizationManager? {
-            if (sColorCustomizationManager == null) {
-                val applicationContext = context.applicationContext
-                sColorCustomizationManager = ColorCustomizationManager(
-                    ColorProvider(
-                        applicationContext, applicationContext.getString(
-                            R.string.themes_stub_package
-                        )
-                    ), applicationContext.contentResolver
-                )
-            }
-            return sColorCustomizationManager
-        }
-
-        init {
-            val hashSet = HashSet<String>()
-            COLOR_OVERLAY_SETTINGS = hashSet
-            hashSet.add("android.theme.customization.system_palette")
-            hashSet.add("android.theme.customization.accent_color")
-            hashSet.add("android.theme.customization.color_source")
-        }
-    }
+    private var mCurrentStyle: String? = null
+    private var mHomeWallpaperColors: WallpaperColors? = null
+    private var mLockWallpaperColors: WallpaperColors? = null
 
     init {
-        mContentResolver.registerContentObserver(Settings.Secure.CONTENT_URI, true, object :
-            ContentObserver(Handler(Looper.getMainLooper())) {
+        mProvider = provider
+        mContentResolver = contentResolver
+        mObserver = object : ContentObserver( /* handler= */null) {
             override fun onChange(selfChange: Boolean, uri: Uri?) {
                 super.onChange(selfChange, uri)
-                if (TextUtils.equals(
-                        uri!!.lastPathSegment,
-                        "theme_customization_overlay_packages"
+                // Resets current overlays when system's theme setting is changed.
+                if (TextUtils.equals(uri!!.lastPathSegment, ResourceConstants.THEME_SETTING)) {
+                    Log.i(
+                        TAG, "Resetting " + mCurrentOverlays + ", " + mCurrentStyle + ", "
+                                + mCurrentSource + " to null"
                     )
-                ) {
                     mCurrentOverlays = null
+                    mCurrentStyle = null
+                    mCurrentSource = null
                 }
-
             }
-        })
+        }
+        mContentResolver.registerContentObserver(
+            Settings.Secure.CONTENT_URI,  /* notifyForDescendants= */true, mObserver
+        )
+        mOverlayManagerCompat = overlayManagerCompat
     }
 
+    override fun isAvailable(): Boolean = mOverlayManagerCompat.isAvailable && mProvider.isAvailable
+
+    override fun apply(theme: ColorOption?, callback: CustomizationManager.Callback?) {
+        applyOverlays(theme!!, callback!!)
+    }
+
+    private fun applyOverlays(colorOption: ColorOption, callback: CustomizationManager.Callback) {
+        sExecutorService.submit {
+            var currentStoredOverlays = storedOverlays
+            if (TextUtils.isEmpty(currentStoredOverlays)) {
+                currentStoredOverlays = "{}"
+            }
+            var overlaysJson: JSONObject? = null
+            try {
+                overlaysJson = JSONObject(currentStoredOverlays)
+                val colorJson: JSONObject = colorOption.getJsonPackages(true)
+                for (setting in COLOR_OVERLAY_SETTINGS) {
+                    overlaysJson.remove(setting)
+                }
+                val it: Iterator<String> = colorJson.keys()
+                while (it.hasNext()) {
+                    val key = it.next()
+                    overlaysJson.put(key, colorJson.get(key))
+                }
+                overlaysJson.put(ColorOptionsProvider.OVERLAY_COLOR_SOURCE, colorOption.source)
+                overlaysJson.put(
+                    ColorOptionsProvider.OVERLAY_COLOR_INDEX,
+                    colorOption.index.toString()
+                )
+                overlaysJson.put(
+                    ColorOptionsProvider.OVERLAY_THEME_STYLE,
+                    java.lang.String.valueOf(colorOption.style.toString())
+                )
+
+                // OVERLAY_COLOR_BOTH is only for wallpaper color case, not preset.
+                if (ColorOptionsProvider.COLOR_SOURCE_PRESET != colorOption.source) {
+                    val isForBoth =
+                        mLockWallpaperColors == null || mLockWallpaperColors == mHomeWallpaperColors
+                    overlaysJson.put(
+                        ColorOptionsProvider.OVERLAY_COLOR_BOTH,
+                        if (isForBoth) "1" else "0"
+                    )
+                } else {
+                    overlaysJson.remove(ColorOptionsProvider.OVERLAY_COLOR_BOTH)
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            val allApplied = overlaysJson != null && Settings.Secure.putString(
+                mContentResolver, ResourceConstants.THEME_SETTING, overlaysJson.toString()
+            )
+            Handler(Looper.getMainLooper()).post {
+                if (allApplied) {
+                    callback.onSuccess()
+                } else {
+                    callback.onError(null)
+                }
+            }
+        }
+    }
+
+    override fun fetchOptions(callback: CustomizationManager.OptionsFetchedListener<ColorOption?>, reload: Boolean) {
+        var lockWallpaperColors = mLockWallpaperColors
+        if (lockWallpaperColors != null && mLockWallpaperColors == mHomeWallpaperColors) {
+            lockWallpaperColors = null
+        }
+        mProvider.fetch(callback, reload, mHomeWallpaperColors, lockWallpaperColors)
+    }
+
+    /**
+     * Sets the current wallpaper colors to extract seeds from
+     */
+    fun setWallpaperColors(
+        homeColors: WallpaperColors?,
+        lockColors: WallpaperColors?
+    ) {
+        mHomeWallpaperColors = homeColors
+        mLockWallpaperColors = lockColors
+    }
+
+    /**
+     * Gets current overlays mapping
+     * @return the [Map] of overlays
+     */
+    val currentOverlays: Map<String, String>?
+        get() {
+            if (mCurrentOverlays == null) {
+                parseSettings(storedOverlays)
+            }
+            return mCurrentOverlays
+        }
+
+    /**
+     * @return The source of the currently applied color. One of
+     * [ColorOptionsProvider.COLOR_SOURCE_HOME],[ColorOptionsProvider.COLOR_SOURCE_LOCK]
+     * or [ColorOptionsProvider.COLOR_SOURCE_PRESET].
+     */
+    @get:ColorOptionsProvider.ColorSource
     val currentColorSource: String?
         get() {
             if (mCurrentSource == null) {
@@ -81,190 +183,84 @@ class ColorCustomizationManager(
             }
             return mCurrentSource
         }
-    val storedOverlays: String?
-         get() = Settings.Secure.getString(mContentResolver, "theme_customization_overlay_packages")
 
-    fun parseSettings(str: String?) {
-        val hashMap = HashMap<String, String>()
-        if (str != null) {
+    /**
+     * @return The style of the currently applied color. One of enum values in
+     * [com.android.systemui.monet.Style].
+     */
+    val currentStyle: String?
+        get() {
+            if (mCurrentStyle == null) {
+                parseSettings(storedOverlays)
+            }
+            return mCurrentStyle
+        }
+    val storedOverlays: String
+        get() = Settings.Secure.getString(mContentResolver, ResourceConstants.THEME_SETTING)
+
+    @VisibleForTesting
+    fun parseSettings(serializedJson: String?) {
+        val allSettings = parseColorSettings(serializedJson)
+        mCurrentSource = allSettings.remove(ColorOptionsProvider.OVERLAY_COLOR_SOURCE)
+        mCurrentStyle = allSettings.remove(ColorOptionsProvider.OVERLAY_THEME_STYLE)
+        mCurrentOverlays = allSettings
+    }
+
+    private fun parseColorSettings(serializedJsonSettings: String?): MutableMap<String, String> {
+        val overlayPackages: MutableMap<String, String> = HashMap()
+        if (serializedJsonSettings != null) {
             try {
-                val jSONObject = JSONObject(str)
-                val names = jSONObject.names()
+                val jsonPackages = JSONObject(serializedJsonSettings)
+                val names: JSONArray? = jsonPackages.names()
                 if (names != null) {
                     for (i in 0 until names.length()) {
-                        val string = names.getString(i)
-                        if ((COLOR_OVERLAY_SETTINGS as HashSet<String>?)!!.contains(string)) {
+                        val category: String = names.getString(i)
+                        if (COLOR_OVERLAY_SETTINGS.contains(category)) {
                             try {
-                                hashMap[string] = jSONObject.getString(string)
+                                overlayPackages[category] = jsonPackages.getString(category)
                             } catch (e: JSONException) {
-                                Log.e(
-                                    "ColorCustomizationManager",
-                                    "parseColorOverlays: " + e.localizedMessage,
-                                    e
-                                )
+                                Log.e(TAG, "parseColorOverlays: " + e.localizedMessage, e)
                             }
                         }
                     }
                 }
-            } catch (e2: JSONException) {
-                Log.e("ColorCustomizationManager", e2.localizedMessage!!)
+            } catch (e: JSONException) {
+                Log.e(TAG, "parseColorOverlays: " + e.localizedMessage, e)
             }
         }
-        mCurrentSource = hashMap.remove("android.theme.customization.color_source")
-        mCurrentOverlays = hashMap
+        return overlayPackages
     }
 
-    override fun isAvailable(): Boolean {
-        return true
-    }
+    companion object {
+        private const val TAG = "ColorCustomizationManager"
+        private val sExecutorService = Executors.newSingleThreadExecutor()
+        private val COLOR_OVERLAY_SETTINGS: MutableSet<String> = HashSet()
 
-    fun setThemeBundle(fragment: ColorPaletteFragment, option: ColorOption) {
-        if (SystemClock.elapsedRealtime() - fragment.mLastColorApplyingTime >= 500) {
-            fragment.mLastColorApplyingTime = SystemClock.elapsedRealtime()
-            val callback: CustomizationManager.Callback = object : CustomizationManager.Callback {
-                override fun onError(th2: Throwable?) {
-                    Log.w("ColorSectionController", "Apply theme with error: null")
-                }
-
-                override fun onSuccess() {
-                    val wallpaperColors = fragment.mLockWallpaperColors
-                    var i3 = 0
-                    val z2 =
-                        wallpaperColors == null || wallpaperColors == fragment.mHomeWallpaperColors
-                    if (TextUtils.equals(option.source, "preset")) {
-                        i3 = 26
-                    } else if (z2) {
-                        i3 = 25
-                    } else {
-                        val source = option.source
-                        if (source == "lock_wallpaper") {
-                            i3 = 24
-                        } else if (source == "home_wallpaper") {
-                            i3 = 23
-                        }
-                    }
-                    fragment.mEventLogger.logColorApplied(i3, option.mIndex)
-                }
-            }
-            sExecutorService.submit {
-                applyBundle(option, callback)
-            }
-            return
+        init {
+            COLOR_OVERLAY_SETTINGS.add(OVERLAY_CATEGORY_SYSTEM_PALETTE)
+            COLOR_OVERLAY_SETTINGS.add(OVERLAY_CATEGORY_COLOR)
+            COLOR_OVERLAY_SETTINGS.add(ColorOptionsProvider.OVERLAY_COLOR_SOURCE)
+            COLOR_OVERLAY_SETTINGS.add(ColorOptionsProvider.OVERLAY_THEME_STYLE)
         }
-    }
 
-    fun setThemeBundle(colorSectionController: ColorSectionController, option: ColorOption) {
-        if (SystemClock.elapsedRealtime() - colorSectionController.mLastColorApplyingTime >= 500) {
-            colorSectionController.mLastColorApplyingTime = SystemClock.elapsedRealtime()
-            val callback: CustomizationManager.Callback = object : CustomizationManager.Callback {
-                override fun onError(th2: Throwable?) {
-                    Log.w("ColorSectionController", "Apply theme with error: null")
-                }
+        private var sColorCustomizationManager: ColorCustomizationManager? = null
 
-                override fun onSuccess() {
-                    val colorSectionView: ColorSectionView =
-                        colorSectionController.mColorSectionView!!
-                    colorSectionView.announceForAccessibility(
-                        colorSectionView.context.getString(
-                            R.string.color_changed
-                        )
-                    )
-                    val wallpaperColors = colorSectionController.mLockWallpaperColors
-                    var i3 = 0
-                    val z2 =
-                        wallpaperColors == null || wallpaperColors == colorSectionController.mHomeWallpaperColors
-                    if (TextUtils.equals(option.source, "preset")) {
-                        i3 = 26
-                    } else if (z2) {
-                        i3 = 25
-                    } else {
-                        val source = option.source
-                        if (source == "lock_wallpaper") {
-                            i3 = 24
-                        } else if (source == "home_wallpaper") {
-                            i3 = 23
-                        }
-                    }
-                    colorSectionController.mEventLogger.logColorApplied(i3, option.mIndex)
-                }
-            }
-            sExecutorService.submit {
-                applyBundle(option, callback)
-            }
-            return
-        }
-    }
-
-    private fun applyBundle(option: ColorOption, callback: CustomizationManager.Callback) {
-        var mStoredOverlays = storedOverlays
-        if (TextUtils.isEmpty(mStoredOverlays) || mStoredOverlays == null) {
-            mStoredOverlays = "{}"
-        }
-        var jSONObject: JSONObject? = null
-        try {
-            jSONObject = JSONObject(mStoredOverlays)
-            try {
-                val jsonPackages: JSONObject = option.getJsonPackages(true)
-                val it: Iterator<*> =
-                    (COLOR_OVERLAY_SETTINGS as HashSet?)!!.iterator()
-                while (it.hasNext()) {
-                    jSONObject.remove(it.next() as String?)
-                }
-                val keys: Iterator<String> = jsonPackages.keys()
-                while (keys.hasNext()) {
-                    val next = keys.next()
-                    jSONObject.put(next, jsonPackages.get(next))
-                }
-                jSONObject.put(
-                    "android.theme.customization.color_source",
-                    option.source
+        /** Returns the [ColorCustomizationManager] instance.  */
+        fun getInstance(
+            context: Context,
+            overlayManagerCompat: OverlayManagerCompat
+        ): ColorCustomizationManager? {
+            if (sColorCustomizationManager == null) {
+                val appContext = context.applicationContext
+                sColorCustomizationManager = ColorCustomizationManager(
+                    ColorProvider(
+                        appContext,
+                        appContext.getString(R.string.themes_stub_package)
+                    ),
+                    appContext.contentResolver, overlayManagerCompat
                 )
-                jSONObject.put(
-                    "android.theme.customization.color_index",
-                    option.mIndex.toString()
-                )
-                if ("preset" != option.source) {
-                    val wallpaperColors = mLockWallpaperColors
-                    if (wallpaperColors != null && wallpaperColors != mHomeWallpaperColors) {
-                        jSONObject.put(
-                            "android.theme.customization.color_both",
-                            "1"
-                        )
-                    }
-                    jSONObject.put(
-                        "android.theme.customization.color_both",
-                        "0"
-                    )
-                } else {
-                    jSONObject.remove("android.theme.customization.color_both")
-                }
-            } catch (e2: JSONException) {
-                e2.printStackTrace()
-                Handler(Looper.getMainLooper()).post {
-                    val success = Settings.Secure.putString(
-                        mContentResolver,
-                        "theme_customization_overlay_packages", jSONObject.toString()
-                    )
-                    if (success) callback.onSuccess()
-                    else callback.onError(null)
-                }
-                return
             }
-        } catch (e3: JSONException) {
-            e3.printStackTrace()
-        }
-        Handler(Looper.getMainLooper()).post {
-            val success = jSONObject != null && Settings.Secure.putString(
-                mContentResolver,
-                "theme_customization_overlay_packages", jSONObject.toString()
-            )
-            if (success) callback.onSuccess()
-            else callback.onError(null)
+            return sColorCustomizationManager
         }
     }
-
-    override fun apply(option: ColorOption, callback: CustomizationManager.Callback) {
-        applyBundle(option, callback)
-    }
-    override fun fetchOptions(callback: OptionsFetchedListener<ColorOption>, reload: Boolean) {}
 }
