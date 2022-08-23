@@ -24,6 +24,8 @@ import kotlinx.coroutines.launch
 
 class ColorPaletteFragment: CollapsingToolbarFragment() {
 
+    override var layoutRes: Int? = R.layout.fragment_color_palette
+
     var mLastColorApplyingTime: Long = 0
     lateinit var mColorManager: ColorCustomizationManager
     lateinit var mEventLogger: ThemesUserEventLogger
@@ -43,9 +45,7 @@ class ColorPaletteFragment: CollapsingToolbarFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val args = createArguments(getString(R.string.color_palette_title))
-        args.putInt("layoutRes", R.layout.fragment_color_palette)
-        arguments = args
+        arguments = createArguments(getString(R.string.color_palette_title))
         mEventLogger =
             (InjectorProvider.getInjector() as CustomizationInjector).getUserEventLogger(requireActivity()) as ThemesUserEventLogger
         mColorManager =

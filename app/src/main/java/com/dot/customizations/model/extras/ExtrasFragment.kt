@@ -33,6 +33,8 @@ import de.Maxr1998.modernpreferences.PreferencesAdapter
 
 class ExtrasFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnScreenChangeListener {
 
+    override var layoutRes: Int? = R.layout.fragment_extras
+
     private val viewModel: ExtrasViewModel by viewModels()
     private val preferencesAdapter get() = viewModel.preferencesAdapter
     private var mSectionNavigationController:
@@ -97,9 +99,7 @@ class ExtrasFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnScreenC
             mSectionNavigationController: CustomizationSectionController.CustomizationSectionNavigationController
         ): ExtrasFragment {
             val fragment = ExtrasFragment()
-            val arguments = createArguments(title)
-            arguments.putInt("layoutRes", R.layout.fragment_extras)
-            fragment.arguments = arguments
+            fragment.arguments = createArguments(title)
             fragment.mSectionNavigationController = mSectionNavigationController
             return fragment
         }

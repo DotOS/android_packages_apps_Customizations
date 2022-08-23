@@ -10,7 +10,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 open class CollapsingToolbarFragment : AppbarFragment() {
 
     private var collapsingToolbar: CollapsingToolbarLayout? = null
-    private var layoutRes: Int? = null
+    protected open var layoutRes: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,10 +24,9 @@ open class CollapsingToolbarFragment : AppbarFragment() {
         )
         collapsingToolbar = view.findViewById(com.android.settingslib.R.id.collapsing_toolbar)
         val parent = view.findViewById<ViewGroup>(com.android.settingslib.R.id.content_frame)
-        arguments?.let {
+        layoutRes?.let {
             parent?.removeAllViews()
-            layoutRes = it.getInt("layoutRes", -1)
-            inflater.inflate(layoutRes!!, parent, true)
+            inflater.inflate(it, parent, true)
         }
         parent.setOnApplyWindowInsetsListener { v: View, windowInsets: WindowInsets ->
             v.setPadding(
@@ -51,16 +50,4 @@ open class CollapsingToolbarFragment : AppbarFragment() {
         super.setTitle(title)
     }
 
-    companion object {
-        fun newInstance(
-            title: CharSequence?,
-            layoutRes: Int
-        ): CollapsingToolbarFragment {
-            val fragment = CollapsingToolbarFragment()
-            val arguments = createArguments(title)
-            arguments.putInt("layoutRes", layoutRes)
-            fragment.arguments = arguments
-            return fragment
-        }
-    }
 }

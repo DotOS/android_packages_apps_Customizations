@@ -14,6 +14,8 @@ import de.Maxr1998.modernpreferences.PreferencesAdapter
 
 class MonetSettingsFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnScreenChangeListener {
 
+    override var layoutRes: Int? = R.layout.fragment_monet
+
     private val viewModel: MonetSettingsViewModel by viewModels()
     private val preferencesAdapter get() = viewModel.preferencesAdapter
 
@@ -54,9 +56,7 @@ class MonetSettingsFragment : CollapsingToolbarFragment(), PreferencesAdapter.On
             title: CharSequence?
         ): MonetSettingsFragment {
             val fragment = MonetSettingsFragment()
-            val arguments = createArguments(title)
-            arguments.putInt("layoutRes", R.layout.fragment_monet)
-            fragment.arguments = arguments
+            fragment.arguments = createArguments(title)
             return fragment
         }
     }

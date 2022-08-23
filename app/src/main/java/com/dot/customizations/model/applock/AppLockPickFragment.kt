@@ -47,6 +47,8 @@ class AppLockPickFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnSc
     MenuItem.OnActionExpandListener,
     CustomizationSectionController.CustomizationSectionNavigationController {
 
+    override var layoutRes: Int? = R.layout.fragment_applock_picker
+
     private val viewModel: AppLockViewModel by viewModels()
     private val preferencesAdapter get() = viewModel.pickerPreferenceAdapter
 
@@ -250,9 +252,7 @@ class AppLockPickFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnSc
             customFilter: (packageInfo: PackageInfo) -> Boolean
         ): AppLockPickFragment {
             val fragment = AppLockPickFragment()
-            val arguments = createArguments(title)
-            arguments.putInt("layoutRes", R.layout.fragment_applock_picker)
-            fragment.arguments = arguments
+            fragment.arguments = createArguments(title)
             fragment.callback = callback
             fragment.setCustomFilter(customFilter)
             return fragment
