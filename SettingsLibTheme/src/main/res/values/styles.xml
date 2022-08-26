@@ -34,6 +34,12 @@
         <item name="android:thumb">@drawable/settingslib_switch_thumb</item>
     </style>
 
+    <style name="MainSwitchText.Settingslib" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@string/settingslib_config_headlineFontFamily</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="HorizontalProgressBar.SettingsLib"
            parent="android:style/Widget.Material.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/settingslib_progress_horizontal</item>
