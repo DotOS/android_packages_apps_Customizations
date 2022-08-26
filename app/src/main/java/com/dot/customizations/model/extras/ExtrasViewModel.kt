@@ -18,8 +18,6 @@ package com.dot.customizations.model.extras
 import android.app.Application
 import android.content.Context
 import android.provider.Settings
-import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.AndroidViewModel
 import com.android.internal.util.dot.DotUtils
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationSectionController
@@ -40,21 +38,17 @@ import de.Maxr1998.modernpreferences.preferences.choice.SelectionItem
  *
  * [fragmentPreference] - Launch a fragment from preference
  */
-class ExtrasViewModel(app: Application) : AndroidViewModel(app) {
-
-    init {
-        Preference.Config.dialogBuilderFactory = { context ->
-            AlertDialog.Builder(
-                context,
-                com.android.settingslib.R.style.Theme_AlertDialog_SettingsLib
-            )
-        }
-    }
+class ExtrasViewModel(app: Application) : PreferenceViewModel(app) {
 
     var navigationController:
             CustomizationSectionController.CustomizationSectionNavigationController? = null
+        set(value) {
+            field = value
+            preferencesAdapter = PreferencesAdapter(createScreen(getApplication()))
+        }
 
-    val preferencesAdapter = PreferencesAdapter(createScreen(getApplication()))
+    override var preferencesAdapter: PreferencesAdapter? =
+        PreferencesAdapter(createScreen(getApplication()))
 
     /**
      * Root method to add subScreens of extras
@@ -63,7 +57,7 @@ class ExtrasViewModel(app: Application) : AndroidViewModel(app) {
      *
      * @author IacobIonut01
      */
-    private fun createScreen(context: Context) = screen(context) {
+    fun createScreen(context: Context) = screen(context) {
         title = context.getString(R.string.extras_title)
         sectionStatusBar(context)
         sectionNotifications(context)

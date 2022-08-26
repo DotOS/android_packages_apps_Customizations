@@ -17,8 +17,7 @@ class MonetSettingsFragment : CollapsingToolbarFragment(), PreferencesAdapter.On
     override var layoutRes: Int? = R.layout.fragment_monet
 
     private val viewModel: MonetSettingsViewModel by viewModels()
-    private val preferencesAdapter get() = viewModel.preferencesAdapter
-
+    private val preferencesAdapter get() = viewModel.preferencesAdapter as PreferencesAdapter
     private val monetRecycler by lazy { view!!.findViewById<RecyclerView>(R.id.monetRecycler)}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

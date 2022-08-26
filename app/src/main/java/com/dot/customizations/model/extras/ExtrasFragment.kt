@@ -26,7 +26,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dot.customizations.R
-import com.dot.customizations.model.CustomizationSectionController
 import com.dot.customizations.picker.CollapsingToolbarFragment
 import de.Maxr1998.modernpreferences.PreferenceScreen
 import de.Maxr1998.modernpreferences.PreferencesAdapter
@@ -36,27 +35,26 @@ class ExtrasFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnScreenC
     override var layoutRes: Int? = R.layout.fragment_extras
 
     private val viewModel: ExtrasViewModel by viewModels()
-    private val preferencesAdapter get() = viewModel.preferencesAdapter
-    private var mSectionNavigationController:
-            CustomizationSectionController.CustomizationSectionNavigationController? = null
+    private val preferencesAdapter by lazy { viewModel.preferencesAdapter as PreferencesAdapter }
 
-    private val extrasRecycler by lazy { view!!.findViewById<RecyclerView>(R.id.extrasRecycler)}
+    private var preferenceRecycler: RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (mSectionNavigationController != null)
-            viewModel.navigationController = mSectionNavigationController
         val view = super.onCreateView(inflater, container, savedInstanceState)
+        viewModel.preferencesAdapter = PreferencesAdapter(viewModel.createScreen(requireContext()))
+        viewModel.navigationController = this
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenCreated {
-             extrasRecycler.apply {
+            preferenceRecycler = view.findViewById(R.id.extrasRecycler)
+            preferenceRecycler!!.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = preferencesAdapter
                 layoutAnimation = AnimationUtils.loadLayoutAnimation(
@@ -64,7 +62,7 @@ class ExtrasFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnScreenC
                     R.anim.preference_layout_fall_down
                 )
             }
-            preferencesAdapter.restoreAndObserveScrollPosition(extrasRecycler)
+            preferencesAdapter.restoreAndObserveScrollPosition(preferenceRecycler!!)
             onScreenChanged(
                 preferencesAdapter.currentScreen,
                 preferencesAdapter.isInSubScreen()
@@ -84,23 +82,21 @@ class ExtrasFragment : CollapsingToolbarFragment(), PreferencesAdapter.OnScreenC
 
     override fun onDestroy() {
         preferencesAdapter.onScreenChangeListener = null
-        extrasRecycler.adapter = null
+        preferenceRecycler?.adapter = null
         super.onDestroy()
     }
 
     override fun onScreenChanged(screen: PreferenceScreen, subScreen: Boolean) {
         setTitle(screen.title)
-        extrasRecycler.scheduleLayoutAnimation()
+        preferenceRecycler!!.scheduleLayoutAnimation()
     }
 
     companion object {
         fun newInstance(
-            title: CharSequence?,
-            mSectionNavigationController: CustomizationSectionController.CustomizationSectionNavigationController
+            title: CharSequence?
         ): ExtrasFragment {
             val fragment = ExtrasFragment()
             fragment.arguments = createArguments(title)
-            fragment.mSectionNavigationController = mSectionNavigationController
             return fragment
         }
     }

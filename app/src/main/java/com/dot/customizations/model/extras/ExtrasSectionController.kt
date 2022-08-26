@@ -31,7 +31,7 @@ class ExtrasSectionController(private val mSectionNavigationController:
         val sectionView = LayoutInflater.from(context)
             .inflate(R.layout.extras_section_view, null) as ExtrasSectionView
         val targetFragment =
-            ExtrasFragment.newInstance(context!!.getString(R.string.extras_title), mSectionNavigationController)
+            ExtrasFragment.newInstance(context!!.getString(R.string.extras_title))
         sectionView.setOnClickListener {
             mSectionNavigationController.navigateTo(
                 targetFragment

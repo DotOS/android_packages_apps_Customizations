@@ -19,28 +19,16 @@ import android.app.AppLockManager
 import android.app.Application
 import android.content.Context
 import android.content.pm.ApplicationInfo
-import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.AndroidViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationSectionController
-import com.dot.customizations.model.extras.fragmentPreference
-import de.Maxr1998.modernpreferences.Preference
+import com.dot.customizations.model.extras.PreferenceViewModel
 import de.Maxr1998.modernpreferences.PreferenceScreen
 import de.Maxr1998.modernpreferences.PreferencesAdapter
 import de.Maxr1998.modernpreferences.helpers.*
 import de.Maxr1998.modernpreferences.preferences.choice.SelectionItem
 
-class AppLockViewModel(app: Application) : AndroidViewModel(app) {
-
-    init {
-        Preference.Config.dialogBuilderFactory = { context ->
-            AlertDialog.Builder(
-                context,
-                com.android.settingslib.R.style.Theme_AlertDialog_SettingsLib
-            )
-        }
-    }
+class AppLockViewModel(app: Application) : PreferenceViewModel(app) {
 
     var callback: AppLockPickFragment.PickerCallback? = null
     var appList: List<AppLockPickFragment.AppInfo>? = null

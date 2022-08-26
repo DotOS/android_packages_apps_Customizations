@@ -2,31 +2,18 @@ package com.dot.customizations.model.color
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import com.dot.customizations.R
 import com.dot.customizations.model.CustomizationSectionController
-import com.dot.customizations.model.extras.secureSettingsSeekBar
-import com.dot.customizations.model.extras.secureSettingsSwitch
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import de.Maxr1998.modernpreferences.Preference
+import com.dot.customizations.model.extras.PreferenceViewModel
 import de.Maxr1998.modernpreferences.PreferencesAdapter
 import de.Maxr1998.modernpreferences.helpers.screen
 
-class MonetSettingsViewModel(app: Application) : AndroidViewModel(app) {
-
-    init {
-        Preference.Config.dialogBuilderFactory = { context ->
-            MaterialAlertDialogBuilder(
-                context,
-                com.android.settingslib.R.style.Theme_AlertDialog_SettingsLib
-            )
-        }
-    }
+class MonetSettingsViewModel(app: Application) : PreferenceViewModel(app) {
 
     var navigationController:
             CustomizationSectionController.CustomizationSectionNavigationController? = null
 
-    val preferencesAdapter = PreferencesAdapter(createScreen(getApplication()))
+    override var preferencesAdapter: PreferencesAdapter? = PreferencesAdapter(createScreen(getApplication()))
 
     private fun createScreen(context: Context) = screen(context) {
         title = context.getString(R.string.monet_title)

@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import com.dot.customizations.R
+import com.dot.customizations.model.CustomizationSectionController
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
-open class CollapsingToolbarFragment : AppbarFragment() {
+open class CollapsingToolbarFragment : AppbarFragment(),
+    CustomizationSectionController.CustomizationSectionNavigationController {
 
-    private var collapsingToolbar: CollapsingToolbarLayout? = null
+    protected var collapsingToolbar: CollapsingToolbarLayout? = null
     protected open var layoutRes: Int? = null
 
     override fun onCreateView(
@@ -49,5 +54,17 @@ open class CollapsingToolbarFragment : AppbarFragment() {
         collapsingToolbar?.title = title
         super.setTitle(title)
     }
+
+    override fun navigateTo(fragment: Fragment?) {
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment!!)
+            .addToBackStack(null)
+            .commit()
+        fragmentManager.executePendingTransactions()
+    }
+
+    override fun getRootFragment(): FragmentActivity = requireActivity()
 
 }
