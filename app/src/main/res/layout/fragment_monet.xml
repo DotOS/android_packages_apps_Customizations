@@ -12,13 +12,15 @@
         android:fontFamily="@font/clock"
         android:paddingHorizontal="@dimen/grid_options_container_horizontal_margin"
         android:paddingVertical="@dimen/grid_options_container_horizontal_margin"
-        android:text="Custom colors" />
+        android:text="Custom colors"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/monetColorRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/bottom_actions_bottom_padding" />
+        android:paddingBottom="@dimen/bottom_actions_bottom_padding"
+        android:visibility="gone" />
 
     <View
         android:layout_width="match_parent"
