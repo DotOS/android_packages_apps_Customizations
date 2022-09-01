@@ -1216,4 +1216,9 @@
     <string name="status_bar_brightness_control_summary">Adjust brightness by sliding across the status bar</string>
 
     <string name="gestures_double_tap_summary">Double tap gestures</string>
+
+    <!-- Lock screen battery info indicator  -->
+    <string name="lockscreen_battery_info_title">Lock screen charging info</string>
+    <string name="lockscreen_battery_info_summary">Display negotiated charger max current and voltage, and battery temperature on lock screen while charging</string>
+
 </resources>

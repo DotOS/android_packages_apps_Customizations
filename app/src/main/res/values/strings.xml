@@ -545,5 +545,10 @@
     <string name="icon_pack_title">System Icon Packs</string>
     <string name="icon_preview_card_content_description">Icon Preview</string>
     <string name="color_palette_title">More styles</string>
+    <string name="tile_morph_title">Animate tile state change</string>
+    <string name="tile_morph_summary">Tiles will keep their shape on all states</string>
+    <string name="tile_morph_summaryOn">"Tiles will change their shapes :\n[Active] - Circle\n[Inactive/Disabled] - Rounded Rectangle\n[Change theme to apply changes or restart SystemUI]"</string>
+    <string name="qs_header_category">Quick Settings Header</string>
+    <string name="traffic_switch_title">Enable Traffic Indicators</string>
 
 </resources>
