@@ -50,12 +50,18 @@
         <item name="android:colorBackground">@color/settingslib_dialog_background</item>
         <item name="colorSurface">@color/settingslib_dialog_background</item>
         <item name="textAllCaps">false</item>
+        <item name="buttonBarButtonStyle">@style/Theme.AlertDialog.SettingsLib.Button</item>
 
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:clipToPadding">true</item>
         <item name="android:clipChildren">true</item>
 
         <item name="android:dialogCornerRadius">@dimen/settingslib_dialogCornerRadius</item>
+    </style>
+
+    <style name="Theme.AlertDialog.SettingsLib.Button" parent="Widget.AppCompat.ButtonBar.AlertDialog">
+        <item name="android:textColor">?android:colorAccent</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="Theme.CollapsingToolbar.Settings" parent="@style/Theme.MaterialComponents.DayNight">
